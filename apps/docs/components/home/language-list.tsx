@@ -1,8 +1,9 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
+import Link from 'next/link';
 import NumberFlow from '@number-flow/react';
-import { Search } from 'lucide-react';
+import { ArrowRight, Search } from 'lucide-react';
 import { FamilyPicker } from '@/components/ui/controls';
 import { toast } from '@/components/ui/toast';
 import { fontStack } from '@/lib/families';
@@ -11,11 +12,16 @@ import { loadFamily, loadLanguages, sendToTester, useAsync } from '@/lib/client-
 import type { FamilyMeta, Language } from '@/lib/types';
 import { coverageHighlights } from '@/lib/coverage';
 
-const LIMIT = 48;
+/** Cards on the home page: two rows on desktop. The full lists live on /docs/language-support. */
+const SHOW = 10;
+
+type Row = Language & { script: string };
+const bySpeakers = (a: Row, b: Row) => (b.speakers || 0) - (a.speakers || 0) || a.name.localeCompare(b.name);
 
 /**
- * Hyperglot language coverage for the whole collection (each language shown in the family that
- * covers it) or for one family: search, filter by script, click to try in the tester.
+ * A one-screen sample of the Hyperglot language coverage, for the whole collection (each language
+ * shown in the family that covers it) or one family: search, filter by script, click to try in the
+ * tester, and a link to every language in the docs.
  */
 export function LanguageList({ families }: { families: FamilyMeta[] }) {
   const [familyId, setFamilyId] = useState('all');
@@ -25,19 +31,32 @@ export function LanguageList({ families }: { families: FamilyMeta[] }) {
   const [query, setQuery] = useState('');
   const [debounced, setDebounced] = useState('');
   const [script, setScript] = useState('');
-  const [expanded, setExpanded] = useState<Set<string>>(new Set());
   const [pressed, setPressed] = useState<string | null>(null);
   useEffect(() => { const t = window.setTimeout(() => setDebounced(query.trim().toLowerCase()), 120); return () => window.clearTimeout(t); }, [query]);
-  useEffect(() => { setScript(''); setExpanded(new Set()); }, [familyId]);
+  useEffect(() => { setScript(''); }, [familyId]);
 
   const byId = useMemo(() => new Map(families.map((f) => [f.id, f])), [families]);
   const familyOf = (l: Language) => byId.get(all ? l.family ?? 'sans' : familyId);
   const shortName = (f?: FamilyMeta) => f?.name.replace(/^Bloxwap /, '') ?? '';
   const highlights = meta ? coverageHighlights(meta) : [];
-  const groups = useMemo(() => (langs?.scripts ?? []).filter((s) => !script || s.script === script).map((s) => ({
-    script: s.script,
-    rows: s.languages.filter((l) => !debounced || l.name.toLowerCase().includes(debounced) || (l.autonym || '').toLowerCase().includes(debounced) || l.iso.includes(debounced)),
-  })).filter((g) => g.rows.length), [langs, script, debounced]);
+  // Every match, flattened across scripts.
+  const rows = useMemo<Row[]>(() => (langs?.scripts ?? []).filter((s) => !script || s.script === script).flatMap((s) =>
+    s.languages.filter((l) => !debounced || l.name.toLowerCase().includes(debounced) || (l.autonym || '').toLowerCase().includes(debounced) || l.iso.includes(debounced))
+      .map((l) => ({ ...l, script: s.script }))), [langs, script, debounced]);
+  // Unique languages (a language written in two scripts appears in both lists but counts once).
+  const total = useMemo(() => new Set(rows.map((l) => l.iso)).size, [rows]);
+  // The sample: unfiltered, the most-spoken language of every script first (so each script shows),
+  // then the rest by speakers; filtered or searching, simply the most-spoken matches.
+  const picked = useMemo<Row[]>(() => {
+    const sorted = [...rows].sort(bySpeakers);
+    if (debounced || script) return sorted.slice(0, SHOW);
+    const out: Row[] = [];
+    const seen = new Set<string>();
+    const add = (l: Row) => { const k = `${l.script}:${l.iso}`; if (!seen.has(k) && out.length < SHOW) { seen.add(k); out.push(l); } };
+    for (const s of langs?.scripts ?? []) { const first = rows.find((l) => l.script === s.script); if (first) add(first); }
+    for (const l of sorted) add(l);
+    return out.sort(bySpeakers);
+  }, [rows, langs, debounced, script]);
 
   const name = meta?.name ?? 'This family';
   const count = langs?.count ?? 0;
@@ -72,27 +91,25 @@ export function LanguageList({ families }: { families: FamilyMeta[] }) {
       {langs === undefined ? <div className="empty-state">Loading languages…</div>
         : !langs || !langs.scripts.length ? <div className="empty-state"><strong>No languages to show yet</strong>
           {!langs ? `Data for ${all ? 'the collection' : name} isn’t available yet.` : langs?.skipped ? 'Language detection was skipped for this build.' : `Hyperglot doesn’t list a complete language for ${name} yet. This list fills in automatically as coverage grows.`}</div>
-          : !groups.length ? <div className="empty-state"><strong>No matches</strong>Try another name or ISO 639-3 code.</div>
-            : groups.map((g) => {
-              const show = debounced || expanded.has(g.script) ? g.rows : g.rows.slice(0, LIMIT);
-              return <section className="l-script" key={g.script} aria-label={g.script}>
-                <h3>{g.script} <small>{fmtNum(g.rows.length)}</small></h3>
-                <div className="l-grid">{show.map((l) => {
-                  const key = `${g.script}:${l.iso}`;
-                  const fam = familyOf(l);
-                  const also = all && l.families && l.families.length > 1 ? ` · Supported by ${l.families.map((id) => shortName(byId.get(id))).join(', ')}` : '';
-                  return <button key={l.iso} type="button" className="l-card" aria-pressed={pressed === key} title={`Try ${l.name} in ${fam?.name ?? 'the tester'}${also}`}
-                    onClick={() => { setPressed(key); sendToTester({ family: fam?.id ?? familyId, text: l.sample || l.alphabet || l.name, lang: l.iso }); toast(`${l.name} loaded into the tester`); }}>
-                    <span className="l-top"><span className="l-name">{l.name}</span><span className="l-iso">{l.iso}</span></span>
-                    {l.autonym && l.autonym !== l.name && <span className="l-auto">{l.autonym}</span>}
-                    <span className="l-sample" lang={l.iso} style={{ fontFamily: fontStack(fam?.name ?? 'Bloxwap Sans', fam?.style ?? 'sans') }}>{l.sample || l.alphabet}</span>
-                    {all && fam && fam.id !== 'sans' && <span className="l-fam">{shortName(fam)}</span>}
-                  </button>;
-                })}</div>
-                {g.rows.length > show.length && <button type="button" className="btn btn--secondary btn--sm l-more"
-                  onClick={() => setExpanded((e) => new Set(e).add(g.script))}>Show all {fmtNum(g.rows.length)} {g.script} languages</button>}
-              </section>;
-            })}
+          : !picked.length ? <div className="empty-state"><strong>No matches</strong>Try another name or ISO 639-3 code.</div>
+            : <>
+              <div className="l-grid">{picked.map((l) => {
+                const key = `${l.script}:${l.iso}`;
+                const fam = familyOf(l);
+                const also = all && l.families && l.families.length > 1 ? ` · Supported by ${l.families.map((id) => shortName(byId.get(id))).join(', ')}` : '';
+                return <button key={key} type="button" className="l-card" aria-pressed={pressed === key} title={`Try ${l.name} in ${fam?.name ?? 'the tester'}${also}`}
+                  onClick={() => { setPressed(key); sendToTester({ family: fam?.id ?? familyId, text: l.sample || l.alphabet || l.name, lang: l.iso }); toast(`${l.name} loaded into the tester`); }}>
+                  <span className="l-top"><span className="l-name">{l.name}</span><span className="l-iso">{l.script} · {l.iso}</span></span>
+                  {l.autonym && l.autonym !== l.name && <span className="l-auto">{l.autonym}</span>}
+                  <span className="l-sample" lang={l.iso} style={{ fontFamily: fontStack(fam?.name ?? 'Bloxwap Sans', fam?.style ?? 'sans') }}>{l.sample || l.alphabet}</span>
+                  {all && fam && fam.id !== 'sans' && <span className="l-fam">{shortName(fam)}</span>}
+                </button>;
+              })}</div>
+              <p className="l-foot">
+                <span>Showing {fmtNum(picked.length)} of {fmtNum(total)} {debounced ? (total === 1 ? 'match' : 'matches') : 'languages'}{script ? ` in ${script}` : ''}</span>
+                <Link href="/docs/language-support" className="l-all">See every language <ArrowRight aria-hidden="true" /></Link>
+              </p>
+            </>}
     </div>
   </>;
 }
