@@ -35,7 +35,7 @@
     },
     "packages/npm": {
       "name": "@bloxwap/font",
-      "version": "1.0.0",
+      "version": "0.1.1",
       "peerDependencies": {
         "next": ">=13.2.0",
       },

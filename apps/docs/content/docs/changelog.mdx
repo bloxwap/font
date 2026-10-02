@@ -3,6 +3,13 @@ title: Changelog
 description: Release history of Bloxwap Font.
 ---
 
+## 0.1.1
+
+- **Distinct capital I.** Sans uses rounded horizontal bars on capital `I` by default to distinguish it from lowercase `l`. All eight Sans families, including accented forms and script aliases, have been rebuilt. The wider advance can slightly change text layout.
+- **Unicode identities.** The glyph browser names characters and preserves their exact Unicode values or original ligature input when copying or using the tester. Characters that share an outline, such as Greek `μ` and micro sign `µ`, are separate choices.
+- **Accessible specimens and controls.** Labels, language samples and controls reflow under increased text spacing and replacement fonts. Decorative samples are hidden from screen readers, and the large price specimen supports keyboard scrolling.
+- **Validation and guidance.** Added Unicode release QA, static and variable readability previews, multilingual script samples, and browser regression checks. See [Accessibility](/docs/usage#accessibility) for font usage and testing guidance.
+
 ## In development
 
 - **Smoother, rounder letterforms**, in the spirit of Nunito (clean-room: nothing traced or measured). Curves are close to circular; bowls (`b d p q g a`) are closed rounds that the stem overlaps, and arches (`n h m u r`) ride the stem before peeling away, so counters have no lumps or dents. Joints inside curves are exactly smooth, and the variable fonts set the TrueType overlap flags so joins render cleanly on macOS and iOS.
