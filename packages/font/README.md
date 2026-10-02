@@ -1,4 +1,4 @@
-# @bloxwap/font
+# @bloxwap/font-source
 
 The type design and build for Bloxwap Sans, Mono and Pixel and their Arabic,
 Armenian, Georgian, Hebrew, Japanese (JP), Korean (KR) and Simplified Chinese (SC) companions.

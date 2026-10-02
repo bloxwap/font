@@ -1,6 +1,6 @@
 ---
 title: Installation
-description: Download Bloxwap Font for desktop apps, self-host it with @font-face, or use it with Next.js, Tailwind CSS and CSS custom properties.
+description: Download Bloxwap Font for desktop apps, install it from npm, self-host it with @font-face, or use it with Next.js, Tailwind CSS and CSS custom properties.
 ---
 
 ## Download
@@ -32,6 +32,20 @@ Use the **OTF** files for desktop apps (design tools, word processors). The vari
 </Tabs>
 
 ## Use on the web
+
+### Install from npm
+
+`@bloxwap/font` has every family's variable WOFF2, the stylesheet and `next/font` exports:
+
+```sh
+npm install @bloxwap/font
+```
+
+Import the stylesheet once (any bundler), then use the family names as with the hosted stylesheet below:
+
+```js
+import '@bloxwap/font/css';
+```
 
 ### Link the hosted stylesheet
 
@@ -127,6 +141,25 @@ Preload the upright Sans file so text renders in Bloxwap Sans on first paint. Th
 ```
 
 ## Next.js
+
+With the npm package, import a family and add its class names. Each export comes from `next/font/local`, so Next.js self-hosts and preloads it; Sans and Mono include the script companions, downloaded only for text in those scripts:
+
+```tsx title="app/layout.tsx"
+import { BloxwapSans } from '@bloxwap/font/sans';
+import { BloxwapMono } from '@bloxwap/font/mono';
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en" className={`${BloxwapSans.variable} ${BloxwapMono.variable}`}>
+      <body className={BloxwapSans.className}>{children}</body>
+    </html>
+  );
+}
+```
+
+The `variable` class names define `--font-bloxwap-sans` and `--font-bloxwap-mono` (and `--font-bloxwap-pixel` from `@bloxwap/font/pixel`).
+
+### Without the package
 
 Put the variable WOFF2 files next to your layout (for example in `app/fonts/`) and load them with `next/font/local`. Next.js self-hosts them, adds preload tags and generates a size-adjusted fallback:
 

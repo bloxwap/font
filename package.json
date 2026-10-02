@@ -20,6 +20,7 @@
     "docs:preview": "cd apps/docs && bun run preview",
     "docs:check": "cd apps/docs && bun run check",
     "docs:data": "cd apps/docs && bun run data",
-    "docs:smoke": "cd apps/docs && bun run smoke"
+    "docs:smoke": "cd apps/docs && bun run smoke",
+    "npm:pack": "cd packages/npm && npm pack --dry-run"
   }
 }

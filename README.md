@@ -6,6 +6,7 @@
 </p>
 
 <p align="center">
+  <a href="https://www.npmjs.com/package/@bloxwap/font"><img alt="npm version" src="https://img.shields.io/npm/v/@bloxwap/font?color=blue&style=flat-square"></a>
   <a href="https://github.com/bloxwap/font/releases/latest"><img alt="Latest release" src="https://img.shields.io/github/v/release/bloxwap/font?color=blue&style=flat-square"></a>
   <a href="https://github.com/bloxwap/font/releases"><img alt="Release downloads" src="https://img.shields.io/github/downloads/bloxwap/font/total?style=flat-square"></a>
   <a href="https://github.com/bloxwap/font/actions/workflows/docs.yml"><img alt="Docs build" src="https://img.shields.io/github/actions/workflow/status/bloxwap/font/docs.yml?branch=main&amp;label=docs&amp;style=flat-square"></a>
@@ -29,6 +30,17 @@
 (OTF, TTF, WOFF2, WOFF) · OFL-1.1.
 
 ## Use
+
+```sh
+npm install @bloxwap/font
+```
+
+```tsx
+import { BloxwapSans } from '@bloxwap/font/sans';   // next/font: .className, .variable (--font-bloxwap-sans)
+import '@bloxwap/font/css';                         // or plain CSS: "Bloxwap Sans", "Bloxwap Mono", "Bloxwap Pixel"
+```
+
+Or link the hosted stylesheet:
 
 ```css
 @import url("https://bloxwap.github.io/font/bloxwap-font.css");
@@ -55,6 +67,7 @@ bun run fonts:build     # build every family into packages/font/fonts and the we
 |---|---|
 | [`apps/docs`](apps/docs) | The website (Fumadocs + Next.js, static export) |
 | [`packages/font`](packages/font) | The type design: skeleton glyph source and build tools |
+| [`packages/npm`](packages/npm) | The `@bloxwap/font` npm package (web fonts, `next/font` exports, CSS) |
 
 ## License
 

@@ -1,0 +1,85 @@
+{
+  "name": "@bloxwap/font",
+  "version": "1.0.0",
+  "description": "Bloxwap Sans, Mono and Pixel: rounded variable web fonts with Arabic, Hebrew, Armenian, Georgian, Japanese, Korean and Chinese companions. next/font exports and a plain CSS stylesheet.",
+  "type": "module",
+  "license": "OFL-1.1",
+  "author": "Bloxwap",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bloxwap/font.git",
+    "directory": "packages/npm"
+  },
+  "homepage": "https://bloxwap.github.io/font/",
+  "bugs": {
+    "url": "https://github.com/bloxwap/font/issues"
+  },
+  "keywords": [
+    "font",
+    "fonts",
+    "typeface",
+    "variable-font",
+    "woff2",
+    "next-font",
+    "nextjs",
+    "monospace",
+    "pixel-font",
+    "cjk",
+    "arabic",
+    "hebrew"
+  ],
+  "sideEffects": [
+    "*.css",
+    "./src/*.js"
+  ],
+  "style": "./bloxwap-font.css",
+  "exports": {
+    ".": {
+      "types": "./src/css.d.ts",
+      "default": "./bloxwap-font.css"
+    },
+    "./css": {
+      "types": "./src/css.d.ts",
+      "default": "./bloxwap-font.css"
+    },
+    "./bloxwap-font.css": "./bloxwap-font.css",
+    "./sans": {
+      "types": "./src/sans.d.ts",
+      "default": "./src/sans.js"
+    },
+    "./mono": {
+      "types": "./src/mono.d.ts",
+      "default": "./src/mono.js"
+    },
+    "./pixel": {
+      "types": "./src/pixel.d.ts",
+      "default": "./src/pixel.js"
+    },
+    "./fonts/*": "./fonts/*",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "src",
+    "fonts",
+    "bloxwap-font.css",
+    "sans-scripts.css",
+    "mono-scripts.css",
+    "LICENSE",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "prepack": "node scripts/build.mjs"
+  },
+  "peerDependencies": {
+    "next": ">=13.2.0"
+  },
+  "peerDependenciesMeta": {
+    "next": {
+      "optional": true
+    }
+  }
+}
