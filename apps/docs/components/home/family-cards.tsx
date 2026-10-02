@@ -27,7 +27,7 @@ export function FamilyCards({ families, catalog }: { families: FamilyMeta[]; cat
         const meta = byId.get(id);
         const name = meta?.name ?? `Bloxwap ${id[0]!.toUpperCase()}${id.slice(1)}`;
         return <a key={id} className="fam-card" href={`#${id}`}>
-          <span className="fam-aa" style={{ fontFamily: fontStack(name, id) }}>Aa</span>
+          <span className="fam-aa" aria-hidden="true" style={{ fontFamily: fontStack(name, id) }}>Aa</span>
           <span className="fam-meta"><strong>{name}</strong><span>{PRIMARY_COPY[id]}</span></span>
           <span className="fam-status">{meta ? `${fmtNum(meta.counts.glyphs)} glyphs` : 'In progress'}</span>
         </a>;
@@ -40,7 +40,7 @@ export function FamilyCards({ families, catalog }: { families: FamilyMeta[]; cat
         const sample = entry.packs.map((p) => PACK_SAMPLE[p]).find(Boolean) ?? 'Aa';
         const highlight = meta ? coverageHighlights(meta)[0] : undefined;
         return <Link key={entry.id} className={`fam-card fam-card--small${meta ? '' : ' fam-card--wip'}`} href={`/docs/families/${entry.id.replace(/^mono-/, 'sans-')}`}>
-          <span className="fam-aa" style={{ fontFamily: meta ? fontStack(entry.name, entry.style) : undefined }}>{sample}</span>
+          <span className="fam-aa" aria-hidden="true" style={{ fontFamily: meta ? fontStack(entry.name, entry.style) : undefined }}>{sample}</span>
           <span className="fam-meta">
             <strong>{shortName(entry.name)}</strong>
             <span>{meta && highlight ? `${highlight.value} ${highlight.label}` : script}</span>

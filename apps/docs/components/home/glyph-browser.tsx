@@ -7,6 +7,7 @@ import { FamilyPicker, Range } from '@/components/ui/controls';
 import { copyText, toast } from '@/components/ui/toast';
 import { fontStack, instanceName } from '@/lib/families';
 import { fmtNum, hex } from '@/lib/format';
+import { glyphKey, glyphLabel, glyphText, glyphVariants } from '@/lib/glyph-text';
 import { loadGlyphs, sendToTester, useAsync } from '@/lib/client-data';
 import type { FamilyMeta, Glyph } from '@/lib/types';
 
@@ -32,6 +33,7 @@ function matches(g: Glyph, q: string): boolean {
     return ch === q || ch.normalize('NFD')[0] === q || g.n === q || g.n.startsWith(`${q}.`);
   }
   if (g.n.toLowerCase().includes(ql)) return true;
+  if (g.d?.toLowerCase().includes(ql)) return true;
   if (g.u != null) {
     const m = ql.match(/^(?:u\+|0x|\\u)?([0-9a-f]{2,6})$/);
     if (m && parseInt(m[1]!, 16) === g.u) return true;
@@ -46,13 +48,14 @@ export function GlyphBrowser({ families, initial = 'sans', eyebrow = '05 — Gly
   const [familyId, setFamilyId] = useState(byId.has(initial) ? initial : families[0]?.id ?? 'sans');
   const meta = byId.get(familyId);
   const glyphs = useAsync(() => loadGlyphs(familyId), familyId);
+  const variants = useMemo(() => glyphVariants(glyphs ?? []), [glyphs]);
   const [query, setQuery] = useState('');
   const [debounced, setDebounced] = useState('');
   const [category, setCategory] = useState('');
   const [script, setScript] = useState('');
   const [wght, setWght] = useState(400);
   const [limit, setLimit] = useState(PAGE);
-  const [selName, setSelName] = useState<string | null>(null);
+  const [selKey, setSelKey] = useState<string | null>(null);
   const gridRef = useRef<HTMLDivElement>(null);
   const sentinelRef = useRef<HTMLDivElement>(null);
 
@@ -61,24 +64,24 @@ export function GlyphBrowser({ families, initial = 'sans', eyebrow = '05 — Gly
 
   const categories = useMemo(() => {
     const counts = new Map<string, number>();
-    for (const g of glyphs ?? []) counts.set(g.c, (counts.get(g.c) ?? 0) + 1);
+    for (const g of variants) counts.set(g.c, (counts.get(g.c) ?? 0) + 1);
     return [...counts.entries()].sort((a, b) => b[1] - a[1]);
-  }, [glyphs]);
+  }, [variants]);
   const scripts = useMemo(() => {
     const counts = new Map<string, number>();
-    for (const g of glyphs ?? []) counts.set(g.s, (counts.get(g.s) ?? 0) + 1);
+    for (const g of variants) counts.set(g.s, (counts.get(g.s) ?? 0) + 1);
     return [...counts.entries()].sort((a, b) => b[1] - a[1]);
-  }, [glyphs]);
+  }, [variants]);
   useEffect(() => {
     if (category && !categories.some(([c]) => c === category)) setCategory('');
     if (script && !scripts.some(([s]) => s === script)) setScript('');
   }, [categories, scripts, category, script]);
 
-  const list = useMemo(() => (glyphs ?? []).filter((g) => (!category || g.c === category) && (!script || g.s === script) && matches(g, debounced)), [glyphs, category, script, debounced]);
+  const list = useMemo(() => variants.filter((g) => (!category || g.c === category) && (!script || g.s === script) && matches(g, debounced)), [variants, category, script, debounced]);
   const selIndex = useMemo(() => {
-    const i = selName ? list.findIndex((g) => g.n === selName) : -1;
+    const i = selKey ? list.findIndex((g) => glyphKey(g) === selKey) : -1;
     return i >= 0 ? i : Math.max(0, list.findIndex((g) => g.u != null && /Lowercase|Uppercase|Letters|Hangul|Ideographs/.test(g.c)));
-  }, [list, selName]);
+  }, [list, selKey]);
   const selected = list[selIndex];
   const stack = fontStack(meta?.name ?? 'Bloxwap Sans', meta?.style ?? 'sans');
   const wa = meta?.axes.find((a) => a.tag === 'wght');
@@ -95,7 +98,7 @@ export function GlyphBrowser({ families, initial = 'sans', eyebrow = '05 — Gly
 
   const copy = useCallback(async (g: Glyph | undefined) => {
     if (!g) return;
-    const text = g.u != null ? String.fromCodePoint(g.u) : g.t;
+    const text = glyphText(g);
     if (!text) { toast('This glyph has no character to copy'); return; }
     toast(await copyText(text) ? `Copied “${text}” ${g.u != null ? hex(g.u) : ''}` : 'Copy failed');
   }, []);
@@ -103,7 +106,7 @@ export function GlyphBrowser({ families, initial = 'sans', eyebrow = '05 — Gly
   function select(i: number, scroll = true) {
     const g = list[i];
     if (!g) return;
-    setSelName(g.n);
+    setSelKey(glyphKey(g));
     if (i >= limit) setLimit(Math.ceil((i + 1) / PAGE) * PAGE);
     if (scroll) requestAnimationFrame(() => gridRef.current?.querySelector(`[data-i="${i}"]`)?.scrollIntoView({ block: 'nearest' }));
   }
@@ -128,12 +131,12 @@ export function GlyphBrowser({ families, initial = 'sans', eyebrow = '05 — Gly
         {eyebrow && <p className="eyebrow">{eyebrow}</p>}
         <h2 id={eyebrow ? 'glyphs-title' : undefined}>{meta ? <NumberFlow value={meta.counts.glyphs} locales="en-US" /> : 'All'} glyphs</h2>
       </div>
-      <FamilyPicker label="Glyph browser typeface" families={families} value={familyId} onChange={(id) => { setFamilyId(id); setSelName(null); }} />
+      <FamilyPicker label="Glyph browser typeface" families={families} value={familyId} onChange={(id) => { setFamilyId(id); setSelKey(null); }} />
     </header>
     <div className="g-toolbar">
       <label className="search-field"><span className="sr-only">Search glyphs</span>
         <Search aria-hidden="true" />
-        <input type="search" value={query} onChange={(e) => { setQuery(e.target.value); setSelName(null); }} placeholder="Search: a, Aacute, U+00E9, 233" autoComplete="off" />
+        <input type="search" value={query} onChange={(e) => { setQuery(e.target.value); setSelKey(null); }} placeholder="Search: a, Aacute, U+00E9, 233" autoComplete="off" />
       </label>
       <label className="sel"><span className="sr-only">Category</span>
         <select value={category} onChange={(e) => setCategory(e.target.value)}>
@@ -154,8 +157,8 @@ export function GlyphBrowser({ families, initial = 'sans', eyebrow = '05 — Gly
         style={{ fontFamily: stack, fontWeight: wght, fontVariationSettings: pixel ? '"ROND" 50' : undefined }}>
         {empty ? <div className="g-empty">{empty}</div> : list.slice(0, limit).map((g, i) => {
           const p = preview(g);
-          const label = `${g.n}${g.u != null ? ` ${hex(g.u)}` : ''}`;
-          return <button key={g.n} id={`glyph-${familyId}-${i}`} type="button" className="g-cell" role="option" tabIndex={-1}
+          const label = glyphLabel(g);
+          return <button key={glyphKey(g)} id={`glyph-${familyId}-${i}`} type="button" className="g-cell" role="option" tabIndex={-1}
             aria-selected={i === selIndex} data-i={i} title={label} aria-label={label}
             style={g.f ? { fontFeatureSettings: `"${g.f}" 1` } : undefined}
             onClick={() => { select(i, false); void copy(g); }}>
@@ -170,7 +173,8 @@ export function GlyphBrowser({ families, initial = 'sans', eyebrow = '05 — Gly
       <Inspector meta={meta} glyph={empty ? undefined : selected} wght={wght} stack={stack} pixel={!!pixel} onCopy={() => void copy(selected)}
         onTry={() => {
           if (!selected) return;
-          const ch = selected.u != null ? String.fromCodePoint(selected.u) : selected.t ?? '';
+          const ch = glyphText(selected);
+          if (!ch) return;
           const upper = ch.toUpperCase() !== ch ? ` ${ch.toUpperCase()}` : '';
           sendToTester({ family: familyId, text: `${ch}${ch}${ch}${upper}`, feature: selected.f });
         }}
@@ -204,9 +208,9 @@ function Inspector({ meta, glyph, wght, stack, pixel, onCopy, onTry, weightContr
   }
   const y = (v: number) => (m ? ((m.ascender - v) / m.upm) * size : 0);
   const lineHeight = m ? (m.ascender - m.descender) / m.upm : 1.2;
-  const unicode = glyph ? (glyph.u != null ? `${hex(glyph.u)}${glyph.alt ? ` +${glyph.alt.length}` : ''}` : glyph.f ? `via ${glyph.f}` : '—') : '—';
+  const unicode = glyph ? (glyph.u != null ? hex(glyph.u) : glyph.f ? `via ${glyph.f}` : '—') : '—';
   return <aside className="g-inspect card" aria-live="polite" aria-label="Glyph details">
-    <button type="button" className="gi-stage" title="Click to copy" onClick={onCopy} aria-label={glyph ? `Copy ${glyph.n}` : 'No glyph selected'}>
+    <button type="button" className="gi-stage" title="Click to copy" onClick={onCopy} disabled={!glyph || !glyphText(glyph)} aria-label={glyph ? `Copy ${glyphLabel(glyph)}` : 'No glyph selected'}>
       <span className="gi-box">
         <span className="gi-lines" aria-hidden="true">{guides.map(([name, v]) => <span key={name} className={`gi-line${name === 'baseline' ? ' base' : ''}`} style={{ top: `${y(v).toFixed(1)}px` }}><span>{name}</span></span>)}</span>
         <span ref={glyphRef} className={`gi-glyph${p == null ? ' no-preview' : ''}`}
@@ -217,6 +221,7 @@ function Inspector({ meta, glyph, wght, stack, pixel, onCopy, onTry, weightContr
     </button>
     <div className="gi-meta">
       <h3>{glyph?.n ?? '—'}</h3>
+      {glyph?.d && <p>{glyph.d}</p>}
       <dl>
         <div><dt>Unicode</dt><dd>{unicode}</dd></div>
         <div><dt>Category</dt><dd>{glyph?.c ?? '—'}</dd></div>
@@ -225,8 +230,8 @@ function Inspector({ meta, glyph, wght, stack, pixel, onCopy, onTry, weightContr
       </dl>
       {weightControl}
       <div className="gi-actions">
-        <button type="button" className="btn btn--secondary btn--sm" onClick={onCopy} disabled={!glyph}>Copy character</button>
-        <button type="button" className="btn btn--secondary btn--sm" onClick={onTry} disabled={!glyph}>Use in tester</button>
+        <button type="button" className="btn btn--secondary btn--sm" onClick={onCopy} disabled={!glyph || !glyphText(glyph)}>Copy character</button>
+        <button type="button" className="btn btn--secondary btn--sm" onClick={onTry} disabled={!glyph || !glyphText(glyph)}>Use in tester</button>
       </div>
     </div>
   </aside>;

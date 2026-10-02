@@ -21,6 +21,7 @@
     "docs:check": "cd apps/docs && bun run check",
     "docs:data": "cd apps/docs && bun run data",
     "docs:smoke": "cd apps/docs && bun run smoke",
+    "docs:accessibility": "cd apps/docs && bun run test:accessibility",
     "npm:pack": "cd packages/npm && npm pack --dry-run"
   }
 }

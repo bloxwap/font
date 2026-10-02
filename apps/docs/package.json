@@ -9,7 +9,8 @@
     "preview": "bun run scripts/preview.ts",
     "check": "fumadocs-mdx && next typegen && tsc --noEmit",
     "data": "cd ../../packages/font && .venv/bin/python tools/site_data.py",
-    "smoke": "playwright test"
+    "smoke": "playwright test",
+    "test:accessibility": "bun test lib/glyph-text.test.ts && playwright test accessibility.spec.ts unicode.spec.ts"
   },
   "dependencies": {
     "@number-flow/react": "0.6.2",

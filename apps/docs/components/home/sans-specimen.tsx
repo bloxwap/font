@@ -87,7 +87,7 @@ export function SansSpecimen() {
 
     <article className="card card-price span-7" aria-label="Figures specimen">
       <p className="mono-label">BTC · Bitcoin</p>
-      <p className="big-price"><NumberFlow value={btc.px} locales="en-US" format={fixed()} prefix="$" /></p>
+      <p className="big-price" role="region" tabIndex={0} aria-label="Bitcoin price specimen, horizontally scrollable"><NumberFlow value={btc.px} locales="en-US" format={fixed()} prefix="$" /></p>
       <NumberFlowGroup>
         <p className={`price-change ${delta >= 0 ? 'up' : 'dn'}`}>
           <NumberFlow value={Math.abs(delta)} locales="en-US" format={fixed()} prefix={sign(delta)} />{' ('}
