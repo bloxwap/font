@@ -58,6 +58,11 @@ jobs:
         if: steps.exists.outputs.published != 'true'
         run: npm pack --dry-run
 
+      # --force permits checking an existing version; --dry-run prevents publishing.
+      - name: Verify npm publish for an existing version
+        if: steps.exists.outputs.published == 'true'
+        run: npm publish --dry-run --force --loglevel verbose
+
       # prepack builds the package; publishConfig.access is public; trusted publishing attaches provenance.
       - name: Publish @bloxwap/font@${{ steps.version.outputs.value }}
         if: steps.exists.outputs.published != 'true'
