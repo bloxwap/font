@@ -1,6 +1,6 @@
 {
   "name": "@bloxwap/font",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Bloxwap Sans, Mono and Pixel: rounded variable web fonts with Arabic, Hebrew, Armenian, Georgian, Japanese, Korean and Chinese companions. next/font exports and a plain CSS stylesheet.",
   "type": "module",
   "license": "OFL-1.1",
