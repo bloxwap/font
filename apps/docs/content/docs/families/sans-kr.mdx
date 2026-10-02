@@ -1,0 +1,41 @@
+---
+title: Sans KR
+description: Bloxwap Sans KR and Bloxwap Mono KR extend the Bloxwap design to Korean Hangul.
+---
+
+Bloxwap Sans KR and Bloxwap Mono KR are companion families that add Korean Hangul to Bloxwap Sans and Bloxwap Mono. The Hangul set targets the complete block of 11,172 modern precomposed syllables, plus jamo and CJK punctuation. Each font also contains the Latin, Greek and Cyrillic of its parent, so mixed Korean and Latin text stays in one design.
+
+## Bloxwap Sans KR
+
+<FamilyFacts id="sans-kr" />
+
+<FamilySpecimen id="sans-kr" />
+
+<ScriptCoverage id="sans-kr" />
+
+## Bloxwap Mono KR
+
+Hangul on a fixed grid: each syllable spans two Latin cells, so Korean and Latin columns line up in code and terminals.
+
+<FamilyFacts id="mono-kr" />
+
+## Using it
+
+With the [combined stylesheet](/docs/multi-script), `font-family: "Bloxwap Sans"` renders Hangul from Sans KR, and only pages that contain Hangul download the file. Mark Korean content with `lang="ko"`:
+
+```html
+<p lang="ko">다람쥐 헌 쳇바퀴에 타고파</p>
+```
+
+```css
+:lang(ko) {
+  word-break: keep-all; /* break between words, not inside them */
+  line-height: 1.6;
+}
+/* the complete Korean font under its own name */
+.korean { font-family: "Bloxwap Sans KR", "Bloxwap Sans", sans-serif; }
+```
+
+- **Line breaking.** Browsers may break Korean between any two syllables. `word-break: keep-all` keeps words whole, as most Korean typography expects.
+- **No italics.** Italic text uses the upright Hangul.
+- **Metrics.** The CJK fonts use an ascender of 1000 and a descender of −300 (Latin: 960 / −240). Set an explicit `line-height` when mixing scripts.

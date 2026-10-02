@@ -1,0 +1,66 @@
+name: Documentation
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "README.md"
+      - "apps/docs/**"
+      - "packages/font/README.md"
+      - ".github/workflows/docs.yml"
+      - "package.json"
+      - "bun.lock"
+      - "bunfig.toml"
+  pull_request:
+    paths:
+      - "README.md"
+      - "apps/docs/**"
+      - "packages/font/README.md"
+      - ".github/workflows/docs.yml"
+      - "package.json"
+      - "bun.lock"
+      - "bunfig.toml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: docs-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      # Served from https://bloxwap.github.io/font/. The web fonts and data in apps/docs/public
+      # are produced by `bun run fonts:build` and committed with it; the download zips are
+      # GitHub Release assets (`bun run fonts:release`).
+      NEXT_PUBLIC_BASE_PATH: /font
+      NEXT_TELEMETRY_DISABLED: "1"
+    steps:
+      - uses: actions/checkout@v7
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install --frozen-lockfile
+      - run: bun run docs:check
+      - run: bun run docs:build
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: apps/docs/out
+
+  deploy:
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/configure-pages@v6
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5

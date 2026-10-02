@@ -1,0 +1,14 @@
+{
+  "name": "@bloxwap/font",
+  "version": "1.0.0",
+  "private": true,
+  "license": "OFL-1.1",
+  "description": "Bloxwap Sans, Mono and Pixel with Arabic, Armenian, Georgian, Hebrew, Japanese, Korean and Chinese companions: original skeletons and OTF, TTF, WOFF2, WOFF and variable font builds.",
+  "scripts": {
+    "setup": "uv venv .venv --python 3.12 --allow-existing && uv pip install --python .venv/bin/python -r requirements.txt",
+    "build": "tools/build_all.sh",
+    "web": ".venv/bin/python tools/postprocess.py",
+    "check": ".venv/bin/python tools/check_glyphs.py --pack core,arabic,hebrew,armenian,georgian && .venv/bin/python tools/check_cusps.py",
+    "qa": ".venv/bin/python tools/qa.py && .venv/bin/python tools/check_scripts.py"
+  }
+}

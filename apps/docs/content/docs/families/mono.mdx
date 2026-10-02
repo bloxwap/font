@@ -1,0 +1,52 @@
+---
+title: Bloxwap Mono
+description: Bloxwap Sans on a fixed 600-unit cell, with rounded slabs, unmistakable 0O and 1lI, box drawing and code ligatures that keep the grid.
+---
+
+<FamilySpecimen id="mono" text="if (a !== b && c >= 0) return x ?? 0; // -> |>" small="0O 1lI {[()]} rn m => != <= >= :: ===" />
+
+<FamilyFacts id="mono" />
+
+## Design
+
+Bloxwap Mono uses the same skeletons as Bloxwap Sans, fitted to a 600-unit cell. Narrow letters (`i l r j`) get rounded slabs so they fill the cell; wide letters (`M W m w`) are condensed with slightly lighter strokes so they do not look darker than the rest of a line.
+
+Characters that are easy to confuse in code are distinct: `0` and `O`, `1`, `l` and `I`, and `rn` and `m`.
+
+## Code ligatures
+
+Contextual alternates (`calt`) join common operator sequences into single shapes. Every ligature is exactly as wide as the characters it replaces, so alignment, cursor movement and column counts are unchanged.
+
+| Sequences |
+| --- |
+| `!=` `!==` `==` `===` `<=` `>=` `<=>` |
+| `->` `<-` `<->` `-->` `<--` `=>` |
+| `::` `<>` `<\|` `\|>` `\|\|` |
+
+Ligatures are on by default. Turn them off with `font-variant-ligatures: none` (or `font-feature-settings: "calt" 0`). The [OpenType features](/docs/opentype-features) page shows each one live.
+
+## Box drawing and blocks
+
+Mono includes the box-drawing and block-element ranges for terminal UIs and text tables. Set a tight line height (around 1.2) so vertical lines connect:
+
+```text
+┌──────────┬─────────┐
+│ PRICE    │ SIZE    │
+├──────────┼─────────┤
+│ 67423.50 │  0.4210 │
+└──────────┴─────────┘
+```
+
+## Weights and italics
+
+<AxesTable id="mono" />
+
+## CSS
+
+```css
+code, kbd, pre {
+  font-family: "Bloxwap Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  font-weight: 450;
+}
+pre.no-ligatures { font-variant-ligatures: none; }
+```

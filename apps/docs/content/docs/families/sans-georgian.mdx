@@ -1,0 +1,39 @@
+---
+title: Sans Georgian
+description: "Bloxwap Sans Georgian and Bloxwap Mono Georgian: modern Georgian, Mkhedruli and Mtavruli uppercase forms."
+---
+
+Bloxwap Sans Georgian and Bloxwap Mono Georgian are companion families that add Georgian to Bloxwap Sans and Bloxwap Mono. They **support modern Georgian, Mkhedruli, and Mtavruli uppercase forms**: the Mkhedruli letters (with their ascenders and descenders on the Latin x-height) for running text, and Mtavruli — the cap-height forms used for all-caps and titles. Both families include italics and the archaic Mkhedruli letters.
+
+## Bloxwap Sans Georgian
+
+<FamilyFacts id="sans-georgian" />
+
+<FamilySpecimen id="sans-georgian" />
+
+<ScriptCoverage id="sans-georgian" />
+
+## Bloxwap Mono Georgian
+
+<FamilyFacts id="mono-georgian" />
+
+<FamilySpecimen id="mono-georgian" />
+
+## Using it
+
+With the [combined stylesheet](/docs/multi-script), `font-family: "Bloxwap Sans"` renders Georgian from Bloxwap Sans Georgian, and only pages that contain Georgian download the file. Mark content with `lang="ka"`:
+
+```html
+<p lang="ka">ქართული ენა</p>
+```
+
+```css
+:lang(ka) {
+  font-family: "Bloxwap Sans Georgian", "Bloxwap Sans", sans-serif;
+}
+/* all-caps Georgian uses the Mtavruli forms */
+.caps:lang(ka) { text-transform: uppercase; }
+```
+
+- **All caps.** `text-transform: uppercase` maps Mkhedruli to Mtavruli in current browsers, using the cap-height forms in the font.
+- **Italics.** Both upright and italic are included, from Thin to Black.

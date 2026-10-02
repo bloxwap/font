@@ -1,0 +1,39 @@
+---
+title: Sans Hebrew
+description: Bloxwap Sans Hebrew and Bloxwap Mono Hebrew, with full support of the Niqqud diacritical marks.
+---
+
+Bloxwap Sans Hebrew and Bloxwap Mono Hebrew are companion families that add Hebrew to Bloxwap Sans and Bloxwap Mono, **with full support of the Niqqud diacritical marks**: every vowel point, dagesh and mappiq inside each letter, shin and sin dots, meteg and rafe, positioned by mark attachment so any combination stacks correctly. Final forms, Yiddish ligatures, Hebrew punctuation and the legacy presentation forms are included, and each font also carries the Latin, Greek and Cyrillic of its parent.
+
+## Bloxwap Sans Hebrew
+
+<FamilyFacts id="sans-hebrew" />
+
+<FamilySpecimen id="sans-hebrew" />
+
+<ScriptCoverage id="sans-hebrew" />
+
+## Bloxwap Mono Hebrew
+
+<FamilyFacts id="mono-hebrew" />
+
+<FamilySpecimen id="mono-hebrew" />
+
+## Using it
+
+With the [combined stylesheet](/docs/multi-script), `font-family: "Bloxwap Sans"` renders Hebrew from Bloxwap Sans Hebrew, and only pages that contain Hebrew download the file. Mark content with `lang="he"`:
+
+```html
+<p lang="he" dir="rtl">שָׁלוֹם עוֹלָם</p>
+```
+
+```css
+:lang(he) {
+  font-family: "Bloxwap Sans Hebrew", "Bloxwap Sans", sans-serif;
+  line-height: 1.7; /* room for niqqud above and below */
+}
+```
+
+- **Direction.** Set `dir="rtl"` on Hebrew content; the font is shaped right-to-left by the browser.
+- **No italics.** Italic text uses the upright Hebrew.
+- **Metrics.** Ascender 980 and descender −560 leave room for multi-row niqqud at heavy weights. The Windows clipping extent reaches −800 for points attached to descending letters.

@@ -1,0 +1,38 @@
+---
+title: Sans Arabic
+description: Bloxwap Sans Arabic and Bloxwap Mono Arabic — a contemporary interpretation of the Naskh style with a rational and flexible design.
+---
+
+Bloxwap Sans Arabic and Bloxwap Mono Arabic are companion families that add Arabic script to Bloxwap Sans and Bloxwap Mono: **a contemporary interpretation of the Naskh style with a rational and flexible design**, built from the same rounded strokes as the Latin and joined on a shared baseline. Each is a complete font: it also contains the Latin, Greek and Cyrillic of its parent, so mixed text such as prices and tickers stays in one design.
+
+## Bloxwap Sans Arabic
+
+<FamilyFacts id="sans-arabic" />
+
+<FamilySpecimen id="sans-arabic" />
+
+<ScriptCoverage id="sans-arabic" />
+
+## Bloxwap Mono Arabic
+
+The same Arabic design fitted to Mono's fixed cell, for code editors and terminals that show Arabic strings.
+
+<FamilyFacts id="mono-arabic" />
+
+## Using it
+
+The easiest way is the [combined stylesheet](/docs/multi-script): `font-family: "Bloxwap Sans"` then renders Arabic from Sans Arabic automatically, and the Arabic file is only downloaded by pages that contain Arabic. Mark up Arabic content with its language and direction:
+
+```html
+<p lang="ar" dir="rtl">الرصيد المتاح</p>
+```
+
+```css
+/* the complete Arabic font under its own name */
+.arabic { font-family: "Bloxwap Sans Arabic", "Bloxwap Sans", sans-serif; }
+```
+
+- **Joining is automatic.** Initial, medial, final and isolated forms (`init`, `medi`, `fina`, `isol`) and required ligatures such as lam-alef are applied by the browser's text shaper. Do not toggle them in CSS.
+- **No italics.** Arabic has no italic tradition; italic text uses the upright design.
+- **Taller metrics.** The Arabic fonts use an ascender of 1060 and a descender of −440 (Latin: 960 / −240) to make room for marks above and below. Set an explicit `line-height` when mixing scripts.
+- **Variable weight.** Like the parent families, the Arabic companions are variable from 100 to 900.

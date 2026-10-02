@@ -1,0 +1,24 @@
+---
+title: Changelog
+description: Release history of Bloxwap Font.
+---
+
+## In development
+
+- **Smoother, rounder letterforms**, in the spirit of Nunito (clean-room: nothing traced or measured). Curves are close to circular; bowls (`b d p q g a`) are closed rounds that the stem overlaps, and arches (`n h m u r`) ride the stem before peeling away, so counters have no lumps or dents. Joints inside curves are exactly smooth, and the variable fonts set the TrueType overlap flags so joins render cleanly on macOS and iOS.
+- **New figures and `$`.** Rounder `0 2 3 5 8`, a footed `1`, and `6`/`9` built as a round bowl with an arching stem; the dollar is a rounder S with short stubs.
+- **Simpler shapes.** The `y` descender is a straight diagonal (the curled one moved to `ss04`); Cyrillic `У` follows; capital `J` has a lower, open hook; `¢` is a lowercase-height c.
+- **Companion families** for Arabic, Armenian, Georgian, Hebrew, Japanese, Korean and Simplified Chinese. Armenian and Georgian include italics; Georgian includes Mkhedruli and Mtavruli, and Hebrew includes the complete Niqqud repertoire with mark attachment. Every built companion appears in the downloads, stylesheet and specimen pages.
+- **Combined stylesheet** (`bloxwap-font.css`): one `font-family` name per style, with the companion scripts merged in through `unicode-range`. See [One family for every script](/docs/multi-script).
+- **Website** rebuilt on Fumadocs, with documentation generated from the font data, a type tester, a glyph browser and live OpenType previews.
+
+## 1.000 (2026)
+
+Initial release.
+
+- **Three families.** Bloxwap Sans, a rounded neo-grotesk; Bloxwap Mono, the same design on a 600-unit cell; and Bloxwap Pixel, a rounded-pixel display face. 18 static styles each (Thin to Black, with italics).
+- **Variable fonts.** `wght` 100–900 for all three, plus `ROND` 0–100 for Pixel, upright and italic.
+- **Formats.** OTF (CFF), hinted TTF, WOFF2, WOFF, and variable TTF and WOFF2.
+- **Coverage.** Latin (including Vietnamese, Pan-African Latin and IPA), Greek, Cyrillic (including Central Asian and Caucasian), currency, math, arrows, box drawing, block elements and interface symbols. See [Language support](/docs/language-support).
+- **OpenType.** Kerning, mark positioning, composition, localized forms (Romanian, Moldovan, Catalan, Serbian, Macedonian, Bulgarian), case-sensitive forms, small caps, proportional figures (tabular by default), slashed zero, fractions, superiors and inferiors, ordinals, stylistic sets, arrow ligatures (`dlig`) and code ligatures (`calt`, Mono).
+- **License.** SIL Open Font License 1.1.

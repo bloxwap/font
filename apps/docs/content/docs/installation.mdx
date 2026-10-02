@@ -1,0 +1,209 @@
+---
+title: Installation
+description: Download Bloxwap Font for desktop apps, self-host it with @font-face, or use it with Next.js, Tailwind CSS and CSS custom properties.
+---
+
+## Download
+
+Each zip contains every format for its family (OTF, hinted TTF, WOFF2, WOFF and variable TTF/WOFF2) plus `OFL.txt`.
+
+<DownloadTable />
+
+## Install on your computer
+
+Use the **OTF** files for desktop apps (design tools, word processors). The variable TTF also works in apps that support variable fonts and gives you every weight in one file. Install one or the other, not both, or your apps will list duplicate styles.
+
+<Tabs items={['macOS', 'Windows', 'Linux']}>
+  <Tab value="macOS">
+    Unzip the download, open the `otf` folder, select all files and double-click them. Click **Install** in Font Book. To install for all users, drag them to `/Library/Fonts`.
+  </Tab>
+  <Tab value="Windows">
+    Unzip the download, open the `otf` folder, select all files, right-click and choose **Install for all users** (or **Install**). Restart apps that were already open.
+  </Tab>
+  <Tab value="Linux">
+    Copy the files to `~/.local/share/fonts` (or `/usr/local/share/fonts` for everyone) and refresh the cache:
+
+    ```sh
+    mkdir -p ~/.local/share/fonts/BloxwapSans
+    cp BloxwapSans/otf/*.otf ~/.local/share/fonts/BloxwapSans/
+    fc-cache -f
+    ```
+  </Tab>
+</Tabs>
+
+## Use on the web
+
+### Link the hosted stylesheet
+
+The quickest option. One stylesheet defines `Bloxwap Sans`, `Bloxwap Mono` and `Bloxwap Pixel` with variable fonts, and merges the [companion scripts](/docs/multi-script) into the same family names:
+
+```html
+<link rel="stylesheet" href="https://bloxwap.github.io/font/bloxwap-font.css">
+```
+
+```css
+body { font-family: "Bloxwap Sans", system-ui, sans-serif; }
+code, pre { font-family: "Bloxwap Mono", ui-monospace, monospace; }
+```
+
+Fonts download only when text uses them. For production we recommend self-hosting, so your site does not depend on another origin.
+
+### Self-host with @font-face
+
+<Steps>
+<Step>
+
+**Copy the web fonts.** From the zip, copy the files in `variable/` ending in `.woff2` to your site, for example to `/fonts`. For Bloxwap Sans:
+
+<WebFiles id="sans" />
+
+</Step>
+<Step>
+
+**Declare the families.** One rule per file; the weight range tells the browser that a single file covers every weight:
+
+<FontFaceSnippet id="sans" />
+
+</Step>
+<Step>
+
+**Use them.**
+
+```css
+body {
+  font-family: "Bloxwap Sans", system-ui, sans-serif;
+  font-weight: 400; /* any value from 100 to 900 */
+}
+```
+
+</Step>
+</Steps>
+
+#### Static fallbacks
+
+Every current browser supports variable fonts. If you must support one that does not, add static WOFF2 files (from the zip's `woff2/` folder) inside a feature query, so modern browsers never download them:
+
+```css
+@supports not (font-variation-settings: normal) {
+  @font-face {
+    font-family: "Bloxwap Sans";
+    src: url("/fonts/BloxwapSans-Regular.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Bloxwap Sans";
+    src: url("/fonts/BloxwapSans-Italic.woff2") format("woff2");
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Bloxwap Sans";
+    src: url("/fonts/BloxwapSans-SemiBold.woff2") format("woff2");
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Bloxwap Sans";
+    src: url("/fonts/BloxwapSans-Bold.woff2") format("woff2");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+}
+```
+
+Static files are named `<Family>-<Style>.woff2`: `Thin`, `ExtraLight`, `Light`, `Regular`, `Medium`, `SemiBold`, `Bold`, `ExtraBold`, `Black`, and the same with `Italic` appended (the regular italic is just `Italic`).
+
+### Preload the main file
+
+Preload the upright Sans file so text renders in Bloxwap Sans on first paint. The `crossorigin` attribute is required, even for same-origin fonts:
+
+```html
+<link rel="preload" href="/fonts/BloxwapSans[wght].woff2" as="font" type="font/woff2" crossorigin>
+```
+
+## Next.js
+
+Put the variable WOFF2 files next to your layout (for example in `app/fonts/`) and load them with `next/font/local`. Next.js self-hosts them, adds preload tags and generates a size-adjusted fallback:
+
+```tsx title="app/layout.tsx"
+import localFont from 'next/font/local';
+
+const sans = localFont({
+  src: [
+    { path: './fonts/BloxwapSans[wght].woff2', weight: '100 900', style: 'normal' },
+    { path: './fonts/BloxwapSans-Italic[wght].woff2', weight: '100 900', style: 'italic' },
+  ],
+  variable: '--font-bloxwap-sans',
+  display: 'swap',
+});
+
+const mono = localFont({
+  src: [
+    { path: './fonts/BloxwapMono[wght].woff2', weight: '100 900', style: 'normal' },
+    { path: './fonts/BloxwapMono-Italic[wght].woff2', weight: '100 900', style: 'italic' },
+  ],
+  variable: '--font-bloxwap-mono',
+  display: 'swap',
+});
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en" className={`${sans.variable} ${mono.variable}`}>
+      <body>{children}</body>
+    </html>
+  );
+}
+```
+
+```css title="app/globals.css"
+body { font-family: var(--font-bloxwap-sans), system-ui, sans-serif; }
+code, pre { font-family: var(--font-bloxwap-mono), ui-monospace, monospace; }
+```
+
+For Bloxwap Pixel, load `BloxwapPixel[ROND,wght].woff2` the same way and set `ROND` with `font-variation-settings`.
+
+## Tailwind CSS v4
+
+Declare the families with `@font-face` (or the hosted stylesheet), then map them to theme variables in your CSS entry file:
+
+```css title="app.css"
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Bloxwap Sans", ui-rounded, system-ui, sans-serif;
+  --font-mono: "Bloxwap Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --font-pixel: "Bloxwap Pixel", "Bloxwap Mono", ui-monospace, monospace;
+}
+```
+
+`font-sans` and `font-mono` now use Bloxwap Font, and the new `font-pixel` utility is available. Weights are ordinary utilities, and arbitrary values reach any point on the axis:
+
+```html
+<h1 class="font-sans font-semibold tracking-tight">Portfolio</h1>
+<span class="font-sans font-[450] tabular-nums">$67,421.08</span>
+<code class="font-mono">a !== b</code>
+<div class="font-pixel text-6xl font-bold [font-variation-settings:'ROND'_60]">SCORE 9001</div>
+```
+
+With `next/font/local`, use `--font-sans: var(--font-bloxwap-sans), …` instead.
+
+## CSS custom properties
+
+Without a framework, keep the stacks in custom properties so every component uses the same fallbacks:
+
+```css
+:root {
+  --font-ui: "Bloxwap Sans", ui-rounded, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-code: "Bloxwap Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --font-display: "Bloxwap Pixel", "Bloxwap Mono", ui-monospace, monospace;
+}
+
+body { font-family: var(--font-ui); }
+code, kbd, pre { font-family: var(--font-code); }
+.scoreboard { font-family: var(--font-display); }
+```

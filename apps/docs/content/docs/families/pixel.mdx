@@ -1,0 +1,53 @@
+---
+title: Bloxwap Pixel
+description: A bitmap-grid display face with two axes, weight and roundness, for scoreboards, tickers and game-like moments.
+---
+
+<FamilySpecimen id="pixel" text="BUY LOW · SELL HIGH" small="SCORE 009001  ▲ +12.4%  HI 67,421" />
+
+<FamilyFacts id="pixel" />
+
+## Two axes
+
+Every glyph is drawn on a pixel grid, and each pixel is a shape the axes control:
+
+- **Weight** (`wght`, 100–900) fattens every pixel, from hairline dots to pixels that merge into solid strokes.
+- **Roundness** (`ROND`, 0–100) morphs every pixel from a crisp square at 0 to a round dot at 100.
+
+<AxesTable id="pixel" />
+
+## CSS
+
+Set weight with `font-weight` and roundness with `font-variation-settings`:
+
+```css
+.scoreboard {
+  font-family: "Bloxwap Pixel", "Bloxwap Mono", monospace;
+  font-weight: 700;
+  font-variation-settings: "ROND" 60;
+}
+```
+
+Every Pixel glyph sits on the same 600-unit cell at every weight and roundness, so both axes animate without moving neighboring text:
+
+```css
+.ticker-cell {
+  font-family: "Bloxwap Pixel", monospace;
+  font-weight: 400;
+  font-variation-settings: "ROND" 0;
+  transition: font-weight 300ms ease, font-variation-settings 300ms ease;
+}
+.ticker-cell.is-up {
+  font-weight: 800;
+  font-variation-settings: "ROND" 100;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ticker-cell { transition: none; }
+}
+```
+
+## Where to use it
+
+Pixel is a display face. Use it at 20 px and above for scoreboards, price tickers, countdowns, achievements, loading screens and other game-like moments, and pair it with Bloxwap Sans or Mono for body text.
+
+It covers Latin, Greek and Cyrillic, box drawing and block elements, and has true italics. See its full list on [Language support](/docs/language-support#pixel).

@@ -1,0 +1,42 @@
+---
+title: Sans JP
+description: Bloxwap Sans JP and Bloxwap Mono JP extend the Bloxwap design to Japanese kana and kanji.
+---
+
+Bloxwap Sans JP and Bloxwap Mono JP are companion families that add Japanese to Bloxwap Sans and Bloxwap Mono: the full hiragana and katakana sets (with small kana, voiced forms and half-width katakana) and the 2,136 Jōyō kanji in Japanese (shinjitai) forms. Each font also contains the Latin, Greek and Cyrillic of its parent, so mixed Japanese and Latin text stays in one design.
+
+The kanji are built by the same engine as [Sans SC](/docs/families/sans-sc), through a Japanese layer: characters that differ from Simplified Chinese (説 図 円 間 東 …) use their own decompositions and full-form radicals (言 糸 金 門 貝 車 馬 …).
+
+## Bloxwap Sans JP
+
+<FamilyFacts id="sans-jp" />
+
+<FamilySpecimen id="sans-jp" />
+
+<ScriptCoverage id="sans-jp" />
+
+## Bloxwap Mono JP
+
+Kana and kanji on a fixed grid: each character spans two Latin cells, so Japanese and Latin columns line up in code and terminals; half-width katakana take one cell.
+
+<FamilyFacts id="mono-jp" />
+
+## Using it
+
+With the [combined stylesheet](/docs/multi-script), `font-family: "Bloxwap Sans"` renders kana from Sans JP. Kanji shared with Chinese are served by Sans SC in the combined stack, so for Japanese text use the complete Japanese font by name and mark the content with `lang="ja"`:
+
+```html
+<p lang="ja">日本語のテキスト、カタカナとひらがな。</p>
+```
+
+```css
+:lang(ja) {
+  font-family: "Bloxwap Sans JP", "Bloxwap Sans", sans-serif;
+  line-break: strict;
+  line-height: 1.7;
+}
+```
+
+- **Glyph forms.** Use Sans JP (not the combined stack) for Japanese so every kanji uses the Japanese form.
+- **No italics.** Italic text uses the upright kana and kanji.
+- **Metrics.** The CJK fonts use an ascender of 1000 and a descender of −300 (Latin: 960 / −240).

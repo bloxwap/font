@@ -1,0 +1,38 @@
+---
+title: Sans SC
+description: Bloxwap Sans SC and Bloxwap Mono SC extend the Bloxwap design to Simplified Chinese hanzi.
+---
+
+Bloxwap Sans SC and Bloxwap Mono SC are companion families that add Simplified Chinese hanzi to Bloxwap Sans and Bloxwap Mono, with the same rounded strokes. They also include CJK punctuation and full-width forms, and the Latin, Greek and Cyrillic of their parent, so prices and product names inside Chinese text stay in one design.
+
+## Bloxwap Sans SC
+
+<FamilyFacts id="sans-sc" />
+
+<FamilySpecimen id="sans-sc" />
+
+<ScriptCoverage id="sans-sc" />
+
+## Bloxwap Mono SC
+
+Hanzi on a fixed grid: each character spans two Latin cells, so Chinese and Latin columns line up in code and terminals.
+
+<FamilyFacts id="mono-sc" />
+
+## Using it
+
+With the [combined stylesheet](/docs/multi-script), `font-family: "Bloxwap Sans"` renders hanzi and CJK punctuation from Sans SC, and only pages that contain them download the file. Mark Chinese content with `lang="zh-Hans"`:
+
+```html
+<p lang="zh-Hans">我能吞下玻璃而不伤身体。</p>
+```
+
+```css
+:lang(zh) { line-height: 1.7; }
+/* the complete Chinese font under its own name */
+.chinese { font-family: "Bloxwap Sans SC", "Bloxwap Sans", sans-serif; }
+```
+
+- **Characters not in the font** fall back to the next font in your stack. Keep a system CJK font in the stack (`"PingFang SC", "Noto Sans SC", sans-serif`) for rare characters.
+- **Line height.** Chinese reads best with more leading than Latin; 1.6–1.8 is typical. The CJK fonts use an ascender of 1000 and a descender of −300.
+- **No italics.** Italic text uses the upright design.

@@ -1,0 +1,45 @@
+---
+title: Bloxwap Sans
+description: A rounded neo-grotesk for interfaces, editorial text and numbers, with nine weights, true italics and tabular figures by default.
+---
+
+<FamilySpecimen id="sans" small="Open apertures and a tall x-height keep small text crisp; nine weights and true italics give interfaces a clear hierarchy, from a 10 px timestamp to a 200 px headline." />
+
+<FamilyFacts id="sans" />
+
+## Design
+
+Bloxwap Sans is a neo-grotesk with every terminal rounded. Curves are smooth and nearly circular, bowls close cleanly into their stems, apertures are open (the ends of `c`, `e`, `s` and `a` stop well short of closing), and the x-height is tall: 540 units against a 720-unit cap height, on a 1000-unit em. That keeps text legible at 11 px and calm in dense screens.
+
+It is built for numbers that move. Figures are **tabular by default**: every digit has the same width, so prices, balances and table columns stay aligned while they update. Proportional figures are one feature away for running text.
+
+| Metric | Value |
+| --- | --- |
+| Units per em | 1000 |
+| x-height | 540 |
+| Cap height | 720 |
+| Ascender / descender | 760 / −210 |
+| Regular stem | 84 |
+
+## Weights and italics
+
+<AxesTable id="sans" />
+
+Italics are true italics: the skeletons are slanted 9° before stroking, so italic strokes keep the same weight as upright ones.
+
+## Stylistic sets and features
+
+Stylistic sets swap in alternates without changing the text: a single-storey `a` (`ss01`), open `4 6 9` (`ss02`), a `y` with a curved tail (`ss04`), simplified `G Q R` (`ss05`), a flat-top `3` and plain `1` (`ss06`), and a disambiguated `I l` (`ss08`). Bloxwap Sans also has small capitals, case-sensitive punctuation, fractions, superiors and inferiors, ordinals, slashed zero, arrow ligatures (`dlig`) and localized forms for Romanian, Catalan, Serbian, Macedonian and Bulgarian. See the full table with live previews in [OpenType features](/docs/opentype-features).
+
+## CSS
+
+```css
+body {
+  font-family: "Bloxwap Sans", ui-rounded, system-ui, sans-serif;
+  font-weight: 400;
+}
+.prose { font-variant-numeric: proportional-nums; }
+.price { font-variant-numeric: tabular-nums slashed-zero; font-weight: 560; }
+```
+
+Set up the files with [Installation](/docs/installation).

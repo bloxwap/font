@@ -1,0 +1,34 @@
+{
+  "name": "@bloxwap/font-docs",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "bun run scripts/check-data.ts && fumadocs-mdx && next dev --port 3904",
+    "build": "bun run scripts/check-data.ts && fumadocs-mdx && next build && bun run scripts/check-export.ts",
+    "preview": "bun run scripts/preview.ts",
+    "check": "fumadocs-mdx && next typegen && tsc --noEmit",
+    "data": "cd ../../packages/font && .venv/bin/python tools/site_data.py",
+    "smoke": "playwright test"
+  },
+  "dependencies": {
+    "@number-flow/react": "0.6.2",
+    "fumadocs-core": "16.15.17",
+    "fumadocs-mdx": "15.4.5",
+    "fumadocs-ui": "16.15.17",
+    "lucide-react": "1.48.0",
+    "next": "16.3.6",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.63.0",
+    "@tailwindcss/postcss": "^4.2.0",
+    "@types/mdx": "^2.0.13",
+    "@types/node": "^26.6.3",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "tailwindcss": "^4.2.0",
+    "typescript": "^7.0.2"
+  }
+}

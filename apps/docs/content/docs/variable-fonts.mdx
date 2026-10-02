@@ -1,0 +1,67 @@
+---
+title: Variable fonts and axes
+description: Bloxwap Font ships as variable fonts with a weight axis, plus a roundness axis in Bloxwap Pixel, and how to use them in CSS.
+---
+
+A variable font contains a continuous design space instead of fixed styles. One Bloxwap Sans file covers every weight from 100 to 900, including in-between values such as 450; the nine named weights are points on that axis. The web files are variable WOFF2; the zips also have variable TTFs and static OTF/TTF/WOFF2/WOFF instances.
+
+<FamilySpecimen id="pixel" />
+
+## Axes
+
+### Bloxwap Sans
+
+<AxesTable id="sans" />
+
+### Bloxwap Mono
+
+<AxesTable id="mono" />
+
+### Bloxwap Pixel
+
+<AxesTable id="pixel" />
+
+Italics are separate files, selected with `font-style: italic`. All companions have the weight axis; Armenian and Georgian also include variable italic files. Arabic, Hebrew and CJK companions use the upright face in italic text.
+
+## CSS
+
+Declare the axis range in `@font-face`, then use the standard properties:
+
+```css
+@font-face {
+  font-family: "Bloxwap Pixel";
+  src: url("/fonts/BloxwapPixel[ROND,wght].woff2") format("woff2");
+  font-weight: 100 900;   /* the wght range */
+  font-style: normal;
+  font-display: swap;
+}
+
+.hud {
+  font-family: "Bloxwap Pixel", monospace;
+  font-weight: 640;                     /* wght: use font-weight */
+  font-variation-settings: "ROND" 40;   /* other axes: font-variation-settings */
+}
+```
+
+Use `font-weight` for `wght` rather than `font-variation-settings: "wght" …`: it inherits, works with `bolder`, and does not override the axis for every descendant. Axis tags in `font-variation-settings` are case-sensitive: registered axes are lowercase (`wght`), custom axes uppercase (`ROND`).
+
+## Animation
+
+Both `font-weight` and `font-variation-settings` are animatable. Changing weight changes text width in Sans, which reflows the layout; in Mono and Pixel the advance width does not change, so weight animations never move neighboring text.
+
+```css
+.tab { font-weight: 450; transition: font-weight 200ms ease; }
+.tab[aria-selected="true"] { font-weight: 700; }
+
+@keyframes pulse { 50% { font-variation-settings: "ROND" 100; } }
+.live { animation: pulse 1.6s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .tab { transition: none; }
+  .live { animation: none; }
+}
+```
+
+## Browser support
+
+Variable fonts work in every current browser: Chrome and Edge 66+, Firefox 62+ and Safari 11+. For older browsers, add the static WOFF2 files inside `@supports not (font-variation-settings: normal)`; see [Installation](/docs/installation#static-fallbacks).

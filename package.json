@@ -1,0 +1,25 @@
+{
+  "name": "@bloxwap/font-workspace",
+  "private": true,
+  "license": "OFL-1.1",
+  "type": "module",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "bun run docs:dev",
+    "fonts:setup": "cd packages/font && bun run setup",
+    "fonts:build": "cd packages/font && bun run build",
+    "fonts:web": "cd packages/font && bun run web",
+    "fonts:check": "cd packages/font && bun run check",
+    "fonts:qa": "cd packages/font && bun run qa",
+    "fonts:release": "packages/font/tools/release.sh",
+    "docs:dev": "cd apps/docs && bun run dev",
+    "docs:build": "cd apps/docs && bun run build",
+    "docs:preview": "cd apps/docs && bun run preview",
+    "docs:check": "cd apps/docs && bun run check",
+    "docs:data": "cd apps/docs && bun run data",
+    "docs:smoke": "cd apps/docs && bun run smoke"
+  }
+}

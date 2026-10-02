@@ -1,0 +1,9 @@
+{
+  "title": "Bloxwap Font",
+  "pages": [
+    "---Get started---", "index", "installation", "usage", "multi-script",
+    "---Families---", "...families",
+    "---Reference---", "opentype-features", "variable-fonts", "language-support", "character-set",
+    "---Project---", "design", "building", "license", "changelog"
+  ]
+}

@@ -1,0 +1,43 @@
+---
+title: Character set
+description: Glyph counts by category for every Bloxwap Font family, Unicode coverage, and a searchable glyph browser.
+---
+
+| Family | Glyphs | Characters |
+| --- | --- | --- |
+| Bloxwap Sans | <Stat id="sans" stat="glyphs" /> | <Stat id="sans" stat="encoded" /> |
+| Bloxwap Mono | <Stat id="mono" stat="glyphs" /> | <Stat id="mono" stat="encoded" /> |
+| Bloxwap Pixel | <Stat id="pixel" stat="glyphs" /> | <Stat id="pixel" stat="encoded" /> |
+
+Glyphs include alternates, ligatures, small caps and other forms reached through [OpenType features](/docs/opentype-features); characters are the Unicode code points the font maps.
+
+## What is covered
+
+- **Latin**: Western and Central European, Baltic, Turkish, Vietnamese, Pan-African Latin and IPA.
+- **Greek**: monotonic Greek.
+- **Cyrillic**: Russian, Ukrainian, Belarusian, Bulgarian, Serbian, Macedonian, plus Central Asian and Caucasian letters.
+- **Figures and currency**: tabular and proportional figures, superiors, inferiors, fractions, and currency signs including ₿ € ₹ ₽.
+- **Symbols**: math, arrows, box drawing, block elements and interface symbols.
+
+Arabic, Armenian, Georgian, Hebrew, Japanese kana and kanji, Hangul and hanzi are in the [companion families](/docs/multi-script).
+
+## By category
+
+<CharacterSets />
+
+## By Unicode block
+
+Characters in Bloxwap Sans per Unicode block, against the number of assigned characters in the block:
+
+<ScriptCoverage id="sans" />
+
+## Glyph browser
+
+Every glyph in the font, rendered by the font. Choose a family, filter by category or script, or search by character (`é`), glyph name (`Aacute`), code point (`U+00E9`, `0xE9`) or decimal (`233`).
+
+- Click a glyph, or press **Enter**, to copy it.
+- Move through the grid with the **arrow keys**; **Home** and **End** jump to the first and last glyph.
+- Glyphs marked with a dot are reached through an OpenType feature; the inspector names it.
+- **Use in tester** opens the glyph in the type tester on the home page.
+
+<GlyphBrowserEmbed />

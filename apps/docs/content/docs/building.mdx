@@ -1,0 +1,80 @@
+---
+title: Building from source
+description: Build Bloxwap Font from its skeleton source with Python and fontmake, and work on this website.
+---
+
+## Repository layout
+
+```text
+apps/docs/         this website (Fumadocs + Next.js, static export)
+packages/font/     the type design: glyph skeleton code (tools/bwfont/), build tools (tools/),
+                   generated sources/ and build/, and the distributable fonts/
+```
+
+The repository is a [Bun](https://bun.sh) workspace. Everything runs from the root with `bun run`:
+
+| Command | What it does |
+| --- | --- |
+| `bun install` | Install the website's dependencies |
+| `bun run fonts:setup` | Create `packages/font/.venv` (Python 3.12, via [uv](https://docs.astral.sh/uv/)) with the font toolchain |
+| `bun run fonts:build` | Build every family; `bun run fonts:build sans mono` builds selected ones |
+| `bun run fonts:web` | Re-package existing builds for the website (web fonts, zips, stylesheet, data) |
+| `bun run fonts:check` | Glyph checks: master compatibility and folded strokes |
+| `bun run fonts:qa` | OpenType Sanitizer on every file, glyph counts, Hyperglot languages |
+| `bun run docs:dev` | Website development server on [localhost:3904](http://localhost:3904) |
+| `bun run docs:build` | Static export to `apps/docs/out` |
+| `bun run docs:preview` | Serve the export the way GitHub Pages will |
+| `bun run docs:data` | Regenerate the website data from the built fonts |
+| `bun run docs:check` | Type-check the website |
+
+## Building the fonts
+
+```sh
+bun run fonts:setup
+bun run fonts:build                 # every family in the catalog
+bun run fonts:build sans            # one family
+bun run fonts:build sans-kr mono-kr
+bun run fonts:build sans-hebrew mono-hebrew sans-armenian mono-armenian sans-georgian mono-georgian
+```
+
+Families are defined in `packages/font/tools/bwfont/families.py`.
+
+## Pipeline
+
+**Generate sources.** `tools/generate.py` runs the glyph skeleton code in `tools/bwfont/` and writes UFO masters and designspaces to `sources/<id>/` (paths relative to `packages/font`).
+
+**Compile.** fontmake builds the variable fonts, then `tools/make_instances.py` and fontmake build the static instances (OTF and TTF) in parallel, into `build/<id>/`.
+
+**Post-process.** `tools/postprocess.py` hints the static TTFs, converts to WOFF2 and WOFF, and writes the distribution to `fonts/<PS>/{variable,otf,ttf,woff2,woff}/`. It then packages the website copies into `apps/docs/public/`: zips in `downloads/` (one per family plus `Bloxwap-Fonts.zip` with the core Sans, Mono and Pixel families), WOFF2 web fonts in `fonts/<PS>/{variable,woff2}/`, `OFL.txt`, and the [combined stylesheet](/docs/multi-script) `bloxwap-font.css` plus `apps/docs/lib/font-version.ts` (a content hash used for cache-busting), via `tools/webfonts.py`.
+
+**Release.** The distribution (`fonts/`) and the zips (`apps/docs/public/downloads/`) are build output and are not committed. `bun run fonts:release` uploads the zips to a GitHub Release tagged with the font version (for example `v1.000`), and the website's Download buttons link to `releases/latest/download/<name>.zip`. The web fonts, stylesheet and site data in `apps/docs/public/` are committed, because the website build uses them as they are.
+
+**Site data.** `tools/site_data.py` reads the fonts and writes `apps/docs/public/data/<id>.json` (axes, instances, features, Hyperglot languages, script coverage) and `<id>.glyphs.json` for every built family, plus `index.json`. The website reads these at build time, so every number on it comes from the fonts.
+
+## Design tools
+
+Run these in `packages/font`:
+
+```sh
+.venv/bin/python tools/check_glyphs.py [module]          # master compatibility; must report 0 problems
+.venv/bin/python tools/check_cusps.py [module]           # folded / flipping strokes; must report 0
+.venv/bin/python tools/dev_preview.py out.png "Hamburg" --stems 22,84,180
+.venv/bin/python tools/dev_preview.py out.png --outline A --stems 84   # big view with points
+.venv/bin/python tools/han_check.py --sheet out.png --chars 明想林河   # Chinese components
+.venv/bin/python tools/render.py "fonts/BloxwapSans/variable/BloxwapSans[wght].ttf" out.png "Text" --wghts 100,400,900
+```
+
+Look at every preview and iterate until the shapes are right. See [Design](/docs/design) for the rules.
+
+## Working on this website
+
+The website is a [Fumadocs](https://fumadocs.dev) app (Next.js, static export) in `apps/docs/`. It needs the generated files above (they are produced by the font build).
+
+The site is published at `https://bloxwap.github.io/font/`. Build and preview it under that base path with:
+
+```sh
+NEXT_PUBLIC_BASE_PATH=/font bun run docs:build
+NEXT_PUBLIC_BASE_PATH=/font bun run docs:preview   # http://localhost:3904/font/
+```
+
+Docs pages are MDX in `apps/docs/content/docs/`. Tables of features, languages, axes and coverage are components that read `apps/docs/public/data/` at build time; use them instead of typing numbers.

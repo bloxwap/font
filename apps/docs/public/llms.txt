@@ -1,0 +1,40 @@
+# Bloxwap Font
+
+> Free, open-source type system from Bloxwap, Inc. (SIL Open Font License 1.1): Bloxwap Sans, a rounded neo-grotesk with 9 weights, italics and tabular figures by default; Bloxwap Mono, the same design on a 600-unit cell with code ligatures; and Bloxwap Pixel, a pixel display face with weight and roundness (ROND) axes. Companion families add Arabic, Korean (KR) and Simplified Chinese (SC).
+
+Use on the web: `<link rel="stylesheet" href="https://bloxwap.github.io/font/bloxwap-font.css">` then `font-family: "Bloxwap Sans"`, `"Bloxwap Mono"` or `"Bloxwap Pixel"`.
+
+Download: [Bloxwap-Fonts.zip](https://github.com/bloxwap/font/releases/latest/download/Bloxwap-Fonts.zip) (all families and formats).
+
+## Docs
+
+- [Overview](https://bloxwap.github.io/font/docs/): the three families, companions and principles
+- [Installation](https://bloxwap.github.io/font/docs/installation/): downloads, desktop install, @font-face self-hosting with static fallbacks, Next.js next/font/local, Tailwind CSS v4, CSS custom properties
+- [Usage](https://bloxwap.github.io/font/docs/usage/): weights, italics, variable axes, OpenType features and localized forms in CSS
+- [One family for every script](https://bloxwap.github.io/font/docs/multi-script/): the combined stylesheet that merges Arabic, Hangul and hanzi into one family name with unicode-range
+- [Bloxwap Sans](https://bloxwap.github.io/font/docs/families/sans/)
+- [Bloxwap Mono](https://bloxwap.github.io/font/docs/families/mono/): code ligatures, box drawing
+- [Bloxwap Pixel](https://bloxwap.github.io/font/docs/families/pixel/): wght and ROND axes
+- [Sans Arabic](https://bloxwap.github.io/font/docs/families/sans-arabic/): Bloxwap Sans Arabic and Mono Arabic
+- [Sans KR](https://bloxwap.github.io/font/docs/families/sans-kr/): Bloxwap Sans KR and Mono KR (Hangul)
+- [Sans SC](https://bloxwap.github.io/font/docs/families/sans-sc/): Bloxwap Sans SC and Mono SC (Simplified Chinese)
+- [OpenType features](https://bloxwap.github.io/font/docs/opentype-features/): every feature in each font
+- [Variable fonts and axes](https://bloxwap.github.io/font/docs/variable-fonts/)
+- [Language support](https://bloxwap.github.io/font/docs/language-support/): Hyperglot language lists and script coverage
+- [Character set](https://bloxwap.github.io/font/docs/character-set/): glyph counts and a glyph browser
+- [Design](https://bloxwap.github.io/font/docs/design/): skeleton stroking, metrics, style rules, clean-room policy
+- [Building from source](https://bloxwap.github.io/font/docs/building/): the font build pipeline and this website
+- [License](https://bloxwap.github.io/font/docs/license/): SIL Open Font License 1.1
+- [Changelog](https://bloxwap.github.io/font/docs/changelog/)
+
+## Data
+
+- [Family index](https://bloxwap.github.io/font/data/index.json): every family, whether it is built, counts and coverage
+- Per family: `https://bloxwap.github.io/font/data/<id>.json` (axes, instances, features, languages, coverage) and `https://bloxwap.github.io/font/data/<id>.glyphs.json` (glyph list); ids: sans, mono, pixel, sans-arabic, mono-arabic, sans-kr, mono-kr, sans-sc, mono-sc
+
+## Indexes
+
+- [Sitemap](https://bloxwap.github.io/font/sitemap.xml)
+- [Search index](https://bloxwap.github.io/font/search.json)
+- [License text](https://bloxwap.github.io/font/OFL.txt)
+- [Source](https://github.com/bloxwap/font)

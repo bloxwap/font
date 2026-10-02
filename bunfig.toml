@@ -1,0 +1,3 @@
+[install]
+# Keep each workspace's declared dependencies (the docs app's Tailwind sources resolve locally).
+linker = "isolated"

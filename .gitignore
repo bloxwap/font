@@ -1,0 +1,25 @@
+node_modules/
+.DS_Store
+*.tsbuildinfo
+*.log
+.env
+.env.*
+
+# font build (packages/font)
+packages/font/.venv/
+packages/font/build/
+packages/font/sources/
+# the distribution and download zips are build output; the zips ship as GitHub Release assets (bun run fonts:release)
+packages/font/fonts/
+apps/docs/public/downloads/
+__pycache__/
+*.pyc
+.hyperglot-cache
+
+# website (apps/docs)
+apps/docs/.next/
+apps/docs/.source/
+apps/docs/out/
+apps/docs/next-env.d.ts
+test-results/
+playwright-report/

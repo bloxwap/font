@@ -1,0 +1,3578 @@
+{
+ "generated": "2026-10-02T15:51:18+00:00",
+ "catalog": [
+  {
+   "id": "sans",
+   "name": "Bloxwap Sans",
+   "ps": "BloxwapSans",
+   "style": "sans",
+   "italic": true,
+   "packs": [
+    "core"
+   ],
+   "built": true,
+   "web": true
+  },
+  {
+   "id": "mono",
+   "name": "Bloxwap Mono",
+   "ps": "BloxwapMono",
+   "style": "mono",
+   "italic": true,
+   "packs": [
+    "core"
+   ],
+   "built": true,
+   "web": true
+  },
+  {
+   "id": "sans-arabic",
+   "name": "Bloxwap Sans Arabic",
+   "ps": "BloxwapSansArabic",
+   "style": "sans",
+   "italic": false,
+   "packs": [
+    "core",
+    "arabic"
+   ],
+   "built": true,
+   "web": true
+  },
+  {
+   "id": "mono-arabic",
+   "name": "Bloxwap Mono Arabic",
+   "ps": "BloxwapMonoArabic",
+   "style": "mono",
+   "italic": false,
+   "packs": [
+    "core",
+    "arabic"
+   ],
+   "built": true,
+   "web": true
+  },
+  {
+   "id": "sans-kr",
+   "name": "Bloxwap Sans KR",
+   "ps": "BloxwapSansKR",
+   "style": "sans",
+   "italic": false,
+   "packs": [
+    "core",
+    "cjk",
+    "hangul"
+   ],
+   "built": true,
+   "web": true
+  },
+  {
+   "id": "mono-kr",
+   "name": "Bloxwap Mono KR",
+   "ps": "BloxwapMonoKR",
+   "style": "mono",
+   "italic": false,
+   "packs": [
+    "core",
+    "cjk",
+    "hangul"
+   ],
+   "built": true,
+   "web": true
+  },
+  {
+   "id": "sans-sc",
+   "name": "Bloxwap Sans SC",
+   "ps": "BloxwapSansSC",
+   "style": "sans",
+   "italic": false,
+   "packs": [
+    "core",
+    "cjk",
+    "han"
+   ],
+   "built": true,
+   "web": true
+  },
+  {
+   "id": "mono-sc",
+   "name": "Bloxwap Mono SC",
+   "ps": "BloxwapMonoSC",
+   "style": "mono",
+   "italic": false,
+   "packs": [
+    "core",
+    "cjk",
+    "han"
+   ],
+   "built": true,
+   "web": true
+  },
+  {
+   "id": "sans-jp",
+   "name": "Bloxwap Sans JP",
+   "ps": "BloxwapSansJP",
+   "style": "sans",
+   "italic": false,
+   "packs": [
+    "core",
+    "cjk",
+    "kana",
+    "han-jp"
+   ],
+   "built": true,
+   "web": true
+  },
+  {
+   "id": "mono-jp",
+   "name": "Bloxwap Mono JP",
+   "ps": "BloxwapMonoJP",
+   "style": "mono",
+   "italic": false,
+   "packs": [
+    "core",
+    "cjk",
+    "kana",
+    "han-jp"
+   ],
+   "built": true,
+   "web": true
+  },
+  {
+   "id": "sans-hebrew",
+   "name": "Bloxwap Sans Hebrew",
+   "ps": "BloxwapSansHebrew",
+   "style": "sans",
+   "italic": false,
+   "packs": [
+    "core",
+    "hebrew"
+   ],
+   "built": true,
+   "web": true
+  },
+  {
+   "id": "mono-hebrew",
+   "name": "Bloxwap Mono Hebrew",
+   "ps": "BloxwapMonoHebrew",
+   "style": "mono",
+   "italic": false,
+   "packs": [
+    "core",
+    "hebrew"
+   ],
+   "built": true,
+   "web": true
+  },
+  {
+   "id": "sans-armenian",
+   "name": "Bloxwap Sans Armenian",
+   "ps": "BloxwapSansArmenian",
+   "style": "sans",
+   "italic": true,
+   "packs": [
+    "core",
+    "armenian"
+   ],
+   "built": true,
+   "web": true
+  },
+  {
+   "id": "mono-armenian",
+   "name": "Bloxwap Mono Armenian",
+   "ps": "BloxwapMonoArmenian",
+   "style": "mono",
+   "italic": true,
+   "packs": [
+    "core",
+    "armenian"
+   ],
+   "built": true,
+   "web": true
+  },
+  {
+   "id": "sans-georgian",
+   "name": "Bloxwap Sans Georgian",
+   "ps": "BloxwapSansGeorgian",
+   "style": "sans",
+   "italic": true,
+   "packs": [
+    "core",
+    "georgian"
+   ],
+   "built": true,
+   "web": true
+  },
+  {
+   "id": "mono-georgian",
+   "name": "Bloxwap Mono Georgian",
+   "ps": "BloxwapMonoGeorgian",
+   "style": "mono",
+   "italic": true,
+   "packs": [
+    "core",
+    "georgian"
+   ],
+   "built": true,
+   "web": true
+  },
+  {
+   "id": "pixel",
+   "name": "Bloxwap Pixel",
+   "ps": "BloxwapPixel",
+   "style": "pixel",
+   "italic": true,
+   "packs": [
+    "core"
+   ],
+   "built": true,
+   "web": true
+  }
+ ],
+ "families": [
+  {
+   "id": "sans",
+   "family": "Bloxwap Sans",
+   "cssFamily": "Bloxwap Sans",
+   "fileStem": "BloxwapSans",
+   "style": "sans",
+   "version": "1.000",
+   "web": true,
+   "counts": {
+    "glyphs": 2617,
+    "encoded": 1983,
+    "features": 20,
+    "languages": 590,
+    "scripts": 3,
+    "instances": 9
+   },
+   "axes": [
+    {
+     "tag": "wght",
+     "name": "Weight",
+     "min": 100.0,
+     "default": 400.0,
+     "max": 900.0
+    }
+   ],
+   "hasItalic": true,
+   "scripts": [
+    {
+     "script": "Latin",
+     "count": 839
+    },
+    {
+     "script": "Common",
+     "count": 609
+    },
+    {
+     "script": "Greek",
+     "count": 317
+    },
+    {
+     "script": "Cyrillic",
+     "count": 218
+    }
+   ],
+   "blocks": [
+    {
+     "name": "Basic Latin",
+     "start": 0,
+     "end": 127,
+     "count": 95,
+     "assigned": 128
+    },
+    {
+     "name": "Latin-1 Supplement",
+     "start": 128,
+     "end": 255,
+     "count": 96,
+     "assigned": 128
+    },
+    {
+     "name": "Latin Extended-A",
+     "start": 256,
+     "end": 383,
+     "count": 128,
+     "assigned": 128
+    },
+    {
+     "name": "Latin Extended-B",
+     "start": 384,
+     "end": 591,
+     "count": 162,
+     "assigned": 208
+    },
+    {
+     "name": "IPA Extensions",
+     "start": 592,
+     "end": 687,
+     "count": 75,
+     "assigned": 96
+    },
+    {
+     "name": "Spacing Modifier Letters",
+     "start": 688,
+     "end": 767,
+     "count": 33,
+     "assigned": 80
+    },
+    {
+     "name": "Combining Diacritical Marks",
+     "start": 768,
+     "end": 879,
+     "count": 37,
+     "assigned": 112
+    },
+    {
+     "name": "Greek and Coptic",
+     "start": 880,
+     "end": 1023,
+     "count": 88,
+     "assigned": 135
+    },
+    {
+     "name": "Cyrillic",
+     "start": 1024,
+     "end": 1279,
+     "count": 204,
+     "assigned": 256
+    },
+    {
+     "name": "Phonetic Extensions",
+     "start": 7424,
+     "end": 7551,
+     "count": 38,
+     "assigned": 128
+    },
+    {
+     "name": "Latin Extended Additional",
+     "start": 7680,
+     "end": 7935,
+     "count": 246,
+     "assigned": 256
+    },
+    {
+     "name": "Greek Extended",
+     "start": 7936,
+     "end": 8191,
+     "count": 232,
+     "assigned": 233
+    },
+    {
+     "name": "General Punctuation",
+     "start": 8192,
+     "end": 8303,
+     "count": 52,
+     "assigned": 111
+    },
+    {
+     "name": "Arrows",
+     "start": 8592,
+     "end": 8703,
+     "count": 35,
+     "assigned": 112
+    },
+    {
+     "name": "Mathematical Operators",
+     "start": 8704,
+     "end": 8959,
+     "count": 59,
+     "assigned": 256
+    },
+    {
+     "name": "Box Drawing",
+     "start": 9472,
+     "end": 9599,
+     "count": 128,
+     "assigned": 128
+    },
+    {
+     "name": "Block Elements",
+     "start": 9600,
+     "end": 9631,
+     "count": 32,
+     "assigned": 32
+    }
+   ],
+   "zip": {
+    "path": "downloads/BloxwapSans.zip",
+    "bytes": 16687280
+   }
+  },
+  {
+   "id": "mono",
+   "family": "Bloxwap Mono",
+   "cssFamily": "Bloxwap Mono",
+   "fileStem": "BloxwapMono",
+   "style": "mono",
+   "version": "1.000",
+   "web": true,
+   "counts": {
+    "glyphs": 2611,
+    "encoded": 1959,
+    "features": 19,
+    "languages": 590,
+    "scripts": 3,
+    "instances": 9
+   },
+   "axes": [
+    {
+     "tag": "wght",
+     "name": "Weight",
+     "min": 100.0,
+     "default": 400.0,
+     "max": 900.0
+    }
+   ],
+   "hasItalic": true,
+   "scripts": [
+    {
+     "script": "Latin",
+     "count": 820
+    },
+    {
+     "script": "Common",
+     "count": 604
+    },
+    {
+     "script": "Greek",
+     "count": 317
+    },
+    {
+     "script": "Cyrillic",
+     "count": 218
+    }
+   ],
+   "blocks": [
+    {
+     "name": "Basic Latin",
+     "start": 0,
+     "end": 127,
+     "count": 95,
+     "assigned": 128
+    },
+    {
+     "name": "Latin-1 Supplement",
+     "start": 128,
+     "end": 255,
+     "count": 96,
+     "assigned": 128
+    },
+    {
+     "name": "Latin Extended-A",
+     "start": 256,
+     "end": 383,
+     "count": 128,
+     "assigned": 128
+    },
+    {
+     "name": "Latin Extended-B",
+     "start": 384,
+     "end": 591,
+     "count": 150,
+     "assigned": 208
+    },
+    {
+     "name": "IPA Extensions",
+     "start": 592,
+     "end": 687,
+     "count": 75,
+     "assigned": 96
+    },
+    {
+     "name": "Spacing Modifier Letters",
+     "start": 688,
+     "end": 767,
+     "count": 33,
+     "assigned": 80
+    },
+    {
+     "name": "Combining Diacritical Marks",
+     "start": 768,
+     "end": 879,
+     "count": 37,
+     "assigned": 112
+    },
+    {
+     "name": "Greek and Coptic",
+     "start": 880,
+     "end": 1023,
+     "count": 88,
+     "assigned": 135
+    },
+    {
+     "name": "Cyrillic",
+     "start": 1024,
+     "end": 1279,
+     "count": 204,
+     "assigned": 256
+    },
+    {
+     "name": "Phonetic Extensions",
+     "start": 7424,
+     "end": 7551,
+     "count": 38,
+     "assigned": 128
+    },
+    {
+     "name": "Latin Extended Additional",
+     "start": 7680,
+     "end": 7935,
+     "count": 246,
+     "assigned": 256
+    },
+    {
+     "name": "Greek Extended",
+     "start": 7936,
+     "end": 8191,
+     "count": 232,
+     "assigned": 233
+    },
+    {
+     "name": "General Punctuation",
+     "start": 8192,
+     "end": 8303,
+     "count": 47,
+     "assigned": 111
+    },
+    {
+     "name": "Arrows",
+     "start": 8592,
+     "end": 8703,
+     "count": 35,
+     "assigned": 112
+    },
+    {
+     "name": "Mathematical Operators",
+     "start": 8704,
+     "end": 8959,
+     "count": 59,
+     "assigned": 256
+    },
+    {
+     "name": "Box Drawing",
+     "start": 9472,
+     "end": 9599,
+     "count": 128,
+     "assigned": 128
+    },
+    {
+     "name": "Block Elements",
+     "start": 9600,
+     "end": 9631,
+     "count": 32,
+     "assigned": 32
+    }
+   ],
+   "zip": {
+    "path": "downloads/BloxwapMono.zip",
+    "bytes": 15724373
+   }
+  },
+  {
+   "id": "sans-arabic",
+   "family": "Bloxwap Sans Arabic",
+   "cssFamily": "Bloxwap Sans Arabic",
+   "fileStem": "BloxwapSansArabic",
+   "style": "sans",
+   "version": "1.000",
+   "web": true,
+   "counts": {
+    "glyphs": 3480,
+    "encoded": 2512,
+    "features": 20,
+    "languages": 634,
+    "scripts": 4,
+    "instances": 9
+   },
+   "axes": [
+    {
+     "tag": "wght",
+     "name": "Weight",
+     "min": 100.0,
+     "default": 400.0,
+     "max": 900.0
+    }
+   ],
+   "hasItalic": false,
+   "scripts": [
+    {
+     "script": "Latin",
+     "count": 839
+    },
+    {
+     "script": "Common",
+     "count": 627
+    },
+    {
+     "script": "Arabic",
+     "count": 511
+    },
+    {
+     "script": "Greek",
+     "count": 317
+    },
+    {
+     "script": "Cyrillic",
+     "count": 218
+    }
+   ],
+   "blocks": [
+    {
+     "name": "Basic Latin",
+     "start": 0,
+     "end": 127,
+     "count": 95,
+     "assigned": 128
+    },
+    {
+     "name": "Latin-1 Supplement",
+     "start": 128,
+     "end": 255,
+     "count": 96,
+     "assigned": 128
+    },
+    {
+     "name": "Latin Extended-A",
+     "start": 256,
+     "end": 383,
+     "count": 128,
+     "assigned": 128
+    },
+    {
+     "name": "Latin Extended-B",
+     "start": 384,
+     "end": 591,
+     "count": 162,
+     "assigned": 208
+    },
+    {
+     "name": "IPA Extensions",
+     "start": 592,
+     "end": 687,
+     "count": 75,
+     "assigned": 96
+    },
+    {
+     "name": "Spacing Modifier Letters",
+     "start": 688,
+     "end": 767,
+     "count": 33,
+     "assigned": 80
+    },
+    {
+     "name": "Combining Diacritical Marks",
+     "start": 768,
+     "end": 879,
+     "count": 37,
+     "assigned": 112
+    },
+    {
+     "name": "Greek and Coptic",
+     "start": 880,
+     "end": 1023,
+     "count": 88,
+     "assigned": 135
+    },
+    {
+     "name": "Cyrillic",
+     "start": 1024,
+     "end": 1279,
+     "count": 204,
+     "assigned": 256
+    },
+    {
+     "name": "Arabic",
+     "start": 1536,
+     "end": 1791,
+     "count": 219,
+     "assigned": 256
+    },
+    {
+     "name": "Arabic Supplement",
+     "start": 1872,
+     "end": 1919,
+     "count": 35,
+     "assigned": 48
+    },
+    {
+     "name": "Phonetic Extensions",
+     "start": 7424,
+     "end": 7551,
+     "count": 38,
+     "assigned": 128
+    },
+    {
+     "name": "Latin Extended Additional",
+     "start": 7680,
+     "end": 7935,
+     "count": 246,
+     "assigned": 256
+    },
+    {
+     "name": "Greek Extended",
+     "start": 7936,
+     "end": 8191,
+     "count": 232,
+     "assigned": 233
+    },
+    {
+     "name": "General Punctuation",
+     "start": 8192,
+     "end": 8303,
+     "count": 52,
+     "assigned": 111
+    },
+    {
+     "name": "Arrows",
+     "start": 8592,
+     "end": 8703,
+     "count": 35,
+     "assigned": 112
+    },
+    {
+     "name": "Mathematical Operators",
+     "start": 8704,
+     "end": 8959,
+     "count": 59,
+     "assigned": 256
+    },
+    {
+     "name": "Box Drawing",
+     "start": 9472,
+     "end": 9599,
+     "count": 128,
+     "assigned": 128
+    },
+    {
+     "name": "Block Elements",
+     "start": 9600,
+     "end": 9631,
+     "count": 32,
+     "assigned": 32
+    },
+    {
+     "name": "Arabic Presentation Forms-A",
+     "start": 64336,
+     "end": 65023,
+     "count": 127,
+     "assigned": 656
+    },
+    {
+     "name": "Arabic Presentation Forms-B",
+     "start": 65136,
+     "end": 65279,
+     "count": 126,
+     "assigned": 141
+    }
+   ],
+   "zip": {
+    "path": "downloads/BloxwapSansArabic.zip",
+    "bytes": 11022690
+   }
+  },
+  {
+   "id": "mono-arabic",
+   "family": "Bloxwap Mono Arabic",
+   "cssFamily": "Bloxwap Mono Arabic",
+   "fileStem": "BloxwapMonoArabic",
+   "style": "mono",
+   "version": "1.000",
+   "web": true,
+   "counts": {
+    "glyphs": 3474,
+    "encoded": 2488,
+    "features": 19,
+    "languages": 634,
+    "scripts": 4,
+    "instances": 9
+   },
+   "axes": [
+    {
+     "tag": "wght",
+     "name": "Weight",
+     "min": 100.0,
+     "default": 400.0,
+     "max": 900.0
+    }
+   ],
+   "hasItalic": false,
+   "scripts": [
+    {
+     "script": "Latin",
+     "count": 820
+    },
+    {
+     "script": "Common",
+     "count": 622
+    },
+    {
+     "script": "Arabic",
+     "count": 511
+    },
+    {
+     "script": "Greek",
+     "count": 317
+    },
+    {
+     "script": "Cyrillic",
+     "count": 218
+    }
+   ],
+   "blocks": [
+    {
+     "name": "Basic Latin",
+     "start": 0,
+     "end": 127,
+     "count": 95,
+     "assigned": 128
+    },
+    {
+     "name": "Latin-1 Supplement",
+     "start": 128,
+     "end": 255,
+     "count": 96,
+     "assigned": 128
+    },
+    {
+     "name": "Latin Extended-A",
+     "start": 256,
+     "end": 383,
+     "count": 128,
+     "assigned": 128
+    },
+    {
+     "name": "Latin Extended-B",
+     "start": 384,
+     "end": 591,
+     "count": 150,
+     "assigned": 208
+    },
+    {
+     "name": "IPA Extensions",
+     "start": 592,
+     "end": 687,
+     "count": 75,
+     "assigned": 96
+    },
+    {
+     "name": "Spacing Modifier Letters",
+     "start": 688,
+     "end": 767,
+     "count": 33,
+     "assigned": 80
+    },
+    {
+     "name": "Combining Diacritical Marks",
+     "start": 768,
+     "end": 879,
+     "count": 37,
+     "assigned": 112
+    },
+    {
+     "name": "Greek and Coptic",
+     "start": 880,
+     "end": 1023,
+     "count": 88,
+     "assigned": 135
+    },
+    {
+     "name": "Cyrillic",
+     "start": 1024,
+     "end": 1279,
+     "count": 204,
+     "assigned": 256
+    },
+    {
+     "name": "Arabic",
+     "start": 1536,
+     "end": 1791,
+     "count": 219,
+     "assigned": 256
+    },
+    {
+     "name": "Arabic Supplement",
+     "start": 1872,
+     "end": 1919,
+     "count": 35,
+     "assigned": 48
+    },
+    {
+     "name": "Phonetic Extensions",
+     "start": 7424,
+     "end": 7551,
+     "count": 38,
+     "assigned": 128
+    },
+    {
+     "name": "Latin Extended Additional",
+     "start": 7680,
+     "end": 7935,
+     "count": 246,
+     "assigned": 256
+    },
+    {
+     "name": "Greek Extended",
+     "start": 7936,
+     "end": 8191,
+     "count": 232,
+     "assigned": 233
+    },
+    {
+     "name": "General Punctuation",
+     "start": 8192,
+     "end": 8303,
+     "count": 47,
+     "assigned": 111
+    },
+    {
+     "name": "Arrows",
+     "start": 8592,
+     "end": 8703,
+     "count": 35,
+     "assigned": 112
+    },
+    {
+     "name": "Mathematical Operators",
+     "start": 8704,
+     "end": 8959,
+     "count": 59,
+     "assigned": 256
+    },
+    {
+     "name": "Box Drawing",
+     "start": 9472,
+     "end": 9599,
+     "count": 128,
+     "assigned": 128
+    },
+    {
+     "name": "Block Elements",
+     "start": 9600,
+     "end": 9631,
+     "count": 32,
+     "assigned": 32
+    },
+    {
+     "name": "Arabic Presentation Forms-A",
+     "start": 64336,
+     "end": 65023,
+     "count": 127,
+     "assigned": 656
+    },
+    {
+     "name": "Arabic Presentation Forms-B",
+     "start": 65136,
+     "end": 65279,
+     "count": 126,
+     "assigned": 141
+    }
+   ],
+   "zip": {
+    "path": "downloads/BloxwapMonoArabic.zip",
+    "bytes": 10521446
+   }
+  },
+  {
+   "id": "sans-kr",
+   "family": "Bloxwap Sans KR",
+   "cssFamily": "Bloxwap Sans KR",
+   "fileStem": "BloxwapSansKR",
+   "style": "sans",
+   "version": "1.000",
+   "web": true,
+   "counts": {
+    "glyphs": 14950,
+    "encoded": 13515,
+    "features": 20,
+    "languages": 591,
+    "scripts": 4,
+    "instances": 9
+   },
+   "axes": [
+    {
+     "tag": "wght",
+     "name": "Weight",
+     "min": 100.0,
+     "default": 400.0,
+     "max": 900.0
+    }
+   ],
+   "hasItalic": false,
+   "scripts": [
+    {
+     "script": "Hangul",
+     "count": 11390
+    },
+    {
+     "script": "Latin",
+     "count": 891
+    },
+    {
+     "script": "Common",
+     "count": 691
+    },
+    {
+     "script": "Greek",
+     "count": 317
+    },
+    {
+     "script": "Cyrillic",
+     "count": 218
+    },
+    {
+     "script": "Han",
+     "count": 8
+    }
+   ],
+   "blocks": [
+    {
+     "name": "Basic Latin",
+     "start": 0,
+     "end": 127,
+     "count": 95,
+     "assigned": 128
+    },
+    {
+     "name": "Latin-1 Supplement",
+     "start": 128,
+     "end": 255,
+     "count": 96,
+     "assigned": 128
+    },
+    {
+     "name": "Latin Extended-A",
+     "start": 256,
+     "end": 383,
+     "count": 128,
+     "assigned": 128
+    },
+    {
+     "name": "Latin Extended-B",
+     "start": 384,
+     "end": 591,
+     "count": 162,
+     "assigned": 208
+    },
+    {
+     "name": "IPA Extensions",
+     "start": 592,
+     "end": 687,
+     "count": 75,
+     "assigned": 96
+    },
+    {
+     "name": "Spacing Modifier Letters",
+     "start": 688,
+     "end": 767,
+     "count": 33,
+     "assigned": 80
+    },
+    {
+     "name": "Combining Diacritical Marks",
+     "start": 768,
+     "end": 879,
+     "count": 37,
+     "assigned": 112
+    },
+    {
+     "name": "Greek and Coptic",
+     "start": 880,
+     "end": 1023,
+     "count": 88,
+     "assigned": 135
+    },
+    {
+     "name": "Cyrillic",
+     "start": 1024,
+     "end": 1279,
+     "count": 204,
+     "assigned": 256
+    },
+    {
+     "name": "Hangul Jamo",
+     "start": 4352,
+     "end": 4607,
+     "count": 67,
+     "assigned": 256
+    },
+    {
+     "name": "Phonetic Extensions",
+     "start": 7424,
+     "end": 7551,
+     "count": 38,
+     "assigned": 128
+    },
+    {
+     "name": "Latin Extended Additional",
+     "start": 7680,
+     "end": 7935,
+     "count": 246,
+     "assigned": 256
+    },
+    {
+     "name": "Greek Extended",
+     "start": 7936,
+     "end": 8191,
+     "count": 232,
+     "assigned": 233
+    },
+    {
+     "name": "General Punctuation",
+     "start": 8192,
+     "end": 8303,
+     "count": 52,
+     "assigned": 111
+    },
+    {
+     "name": "Arrows",
+     "start": 8592,
+     "end": 8703,
+     "count": 35,
+     "assigned": 112
+    },
+    {
+     "name": "Mathematical Operators",
+     "start": 8704,
+     "end": 8959,
+     "count": 59,
+     "assigned": 256
+    },
+    {
+     "name": "Box Drawing",
+     "start": 9472,
+     "end": 9599,
+     "count": 128,
+     "assigned": 128
+    },
+    {
+     "name": "Block Elements",
+     "start": 9600,
+     "end": 9631,
+     "count": 32,
+     "assigned": 32
+    },
+    {
+     "name": "CJK Symbols and Punctuation",
+     "start": 12288,
+     "end": 12351,
+     "count": 38,
+     "assigned": 64
+    },
+    {
+     "name": "Hangul Compatibility Jamo",
+     "start": 12592,
+     "end": 12687,
+     "count": 94,
+     "assigned": 94
+    },
+    {
+     "name": "Enclosed CJK Letters and Months",
+     "start": 12800,
+     "end": 13055,
+     "count": 57,
+     "assigned": 255
+    },
+    {
+     "name": "Hangul Syllables",
+     "start": 44032,
+     "end": 55215,
+     "count": 11172,
+     "assigned": 11172
+    },
+    {
+     "name": "Halfwidth and Fullwidth Forms",
+     "start": 65280,
+     "end": 65519,
+     "count": 103,
+     "assigned": 225
+    }
+   ],
+   "zip": {
+    "path": "downloads/BloxwapSansKR.zip",
+    "bytes": 31130620
+   }
+  },
+  {
+   "id": "mono-kr",
+   "family": "Bloxwap Mono KR",
+   "cssFamily": "Bloxwap Mono KR",
+   "fileStem": "BloxwapMonoKR",
+   "style": "mono",
+   "version": "1.000",
+   "web": true,
+   "counts": {
+    "glyphs": 14944,
+    "encoded": 13491,
+    "features": 19,
+    "languages": 591,
+    "scripts": 4,
+    "instances": 9
+   },
+   "axes": [
+    {
+     "tag": "wght",
+     "name": "Weight",
+     "min": 100.0,
+     "default": 400.0,
+     "max": 900.0
+    }
+   ],
+   "hasItalic": false,
+   "scripts": [
+    {
+     "script": "Hangul",
+     "count": 11390
+    },
+    {
+     "script": "Latin",
+     "count": 872
+    },
+    {
+     "script": "Common",
+     "count": 686
+    },
+    {
+     "script": "Greek",
+     "count": 317
+    },
+    {
+     "script": "Cyrillic",
+     "count": 218
+    },
+    {
+     "script": "Han",
+     "count": 8
+    }
+   ],
+   "blocks": [
+    {
+     "name": "Basic Latin",
+     "start": 0,
+     "end": 127,
+     "count": 95,
+     "assigned": 128
+    },
+    {
+     "name": "Latin-1 Supplement",
+     "start": 128,
+     "end": 255,
+     "count": 96,
+     "assigned": 128
+    },
+    {
+     "name": "Latin Extended-A",
+     "start": 256,
+     "end": 383,
+     "count": 128,
+     "assigned": 128
+    },
+    {
+     "name": "Latin Extended-B",
+     "start": 384,
+     "end": 591,
+     "count": 150,
+     "assigned": 208
+    },
+    {
+     "name": "IPA Extensions",
+     "start": 592,
+     "end": 687,
+     "count": 75,
+     "assigned": 96
+    },
+    {
+     "name": "Spacing Modifier Letters",
+     "start": 688,
+     "end": 767,
+     "count": 33,
+     "assigned": 80
+    },
+    {
+     "name": "Combining Diacritical Marks",
+     "start": 768,
+     "end": 879,
+     "count": 37,
+     "assigned": 112
+    },
+    {
+     "name": "Greek and Coptic",
+     "start": 880,
+     "end": 1023,
+     "count": 88,
+     "assigned": 135
+    },
+    {
+     "name": "Cyrillic",
+     "start": 1024,
+     "end": 1279,
+     "count": 204,
+     "assigned": 256
+    },
+    {
+     "name": "Hangul Jamo",
+     "start": 4352,
+     "end": 4607,
+     "count": 67,
+     "assigned": 256
+    },
+    {
+     "name": "Phonetic Extensions",
+     "start": 7424,
+     "end": 7551,
+     "count": 38,
+     "assigned": 128
+    },
+    {
+     "name": "Latin Extended Additional",
+     "start": 7680,
+     "end": 7935,
+     "count": 246,
+     "assigned": 256
+    },
+    {
+     "name": "Greek Extended",
+     "start": 7936,
+     "end": 8191,
+     "count": 232,
+     "assigned": 233
+    },
+    {
+     "name": "General Punctuation",
+     "start": 8192,
+     "end": 8303,
+     "count": 47,
+     "assigned": 111
+    },
+    {
+     "name": "Arrows",
+     "start": 8592,
+     "end": 8703,
+     "count": 35,
+     "assigned": 112
+    },
+    {
+     "name": "Mathematical Operators",
+     "start": 8704,
+     "end": 8959,
+     "count": 59,
+     "assigned": 256
+    },
+    {
+     "name": "Box Drawing",
+     "start": 9472,
+     "end": 9599,
+     "count": 128,
+     "assigned": 128
+    },
+    {
+     "name": "Block Elements",
+     "start": 9600,
+     "end": 9631,
+     "count": 32,
+     "assigned": 32
+    },
+    {
+     "name": "CJK Symbols and Punctuation",
+     "start": 12288,
+     "end": 12351,
+     "count": 38,
+     "assigned": 64
+    },
+    {
+     "name": "Hangul Compatibility Jamo",
+     "start": 12592,
+     "end": 12687,
+     "count": 94,
+     "assigned": 94
+    },
+    {
+     "name": "Enclosed CJK Letters and Months",
+     "start": 12800,
+     "end": 13055,
+     "count": 57,
+     "assigned": 255
+    },
+    {
+     "name": "Hangul Syllables",
+     "start": 44032,
+     "end": 55215,
+     "count": 11172,
+     "assigned": 11172
+    },
+    {
+     "name": "Halfwidth and Fullwidth Forms",
+     "start": 65280,
+     "end": 65519,
+     "count": 103,
+     "assigned": 225
+    }
+   ],
+   "zip": {
+    "path": "downloads/BloxwapMonoKR.zip",
+    "bytes": 30787235
+   }
+  },
+  {
+   "id": "sans-sc",
+   "family": "Bloxwap Sans SC",
+   "cssFamily": "Bloxwap Sans SC",
+   "fileStem": "BloxwapSansSC",
+   "style": "sans",
+   "version": "1.000",
+   "web": true,
+   "counts": {
+    "glyphs": 6259,
+    "encoded": 5625,
+    "features": 20,
+    "languages": 590,
+    "scripts": 3,
+    "instances": 9
+   },
+   "axes": [
+    {
+     "tag": "wght",
+     "name": "Weight",
+     "min": 100.0,
+     "default": 400.0,
+     "max": 900.0
+    }
+   ],
+   "hasItalic": false,
+   "scripts": [
+    {
+     "script": "Han",
+     "count": 3508
+    },
+    {
+     "script": "Latin",
+     "count": 891
+    },
+    {
+     "script": "Common",
+     "count": 691
+    },
+    {
+     "script": "Greek",
+     "count": 317
+    },
+    {
+     "script": "Cyrillic",
+     "count": 218
+    }
+   ],
+   "blocks": [
+    {
+     "name": "Basic Latin",
+     "start": 0,
+     "end": 127,
+     "count": 95,
+     "assigned": 128
+    },
+    {
+     "name": "Latin-1 Supplement",
+     "start": 128,
+     "end": 255,
+     "count": 96,
+     "assigned": 128
+    },
+    {
+     "name": "Latin Extended-A",
+     "start": 256,
+     "end": 383,
+     "count": 128,
+     "assigned": 128
+    },
+    {
+     "name": "Latin Extended-B",
+     "start": 384,
+     "end": 591,
+     "count": 162,
+     "assigned": 208
+    },
+    {
+     "name": "IPA Extensions",
+     "start": 592,
+     "end": 687,
+     "count": 75,
+     "assigned": 96
+    },
+    {
+     "name": "Spacing Modifier Letters",
+     "start": 688,
+     "end": 767,
+     "count": 33,
+     "assigned": 80
+    },
+    {
+     "name": "Combining Diacritical Marks",
+     "start": 768,
+     "end": 879,
+     "count": 37,
+     "assigned": 112
+    },
+    {
+     "name": "Greek and Coptic",
+     "start": 880,
+     "end": 1023,
+     "count": 88,
+     "assigned": 135
+    },
+    {
+     "name": "Cyrillic",
+     "start": 1024,
+     "end": 1279,
+     "count": 204,
+     "assigned": 256
+    },
+    {
+     "name": "Phonetic Extensions",
+     "start": 7424,
+     "end": 7551,
+     "count": 38,
+     "assigned": 128
+    },
+    {
+     "name": "Latin Extended Additional",
+     "start": 7680,
+     "end": 7935,
+     "count": 246,
+     "assigned": 256
+    },
+    {
+     "name": "Greek Extended",
+     "start": 7936,
+     "end": 8191,
+     "count": 232,
+     "assigned": 233
+    },
+    {
+     "name": "General Punctuation",
+     "start": 8192,
+     "end": 8303,
+     "count": 52,
+     "assigned": 111
+    },
+    {
+     "name": "Arrows",
+     "start": 8592,
+     "end": 8703,
+     "count": 35,
+     "assigned": 112
+    },
+    {
+     "name": "Mathematical Operators",
+     "start": 8704,
+     "end": 8959,
+     "count": 59,
+     "assigned": 256
+    },
+    {
+     "name": "Box Drawing",
+     "start": 9472,
+     "end": 9599,
+     "count": 128,
+     "assigned": 128
+    },
+    {
+     "name": "Block Elements",
+     "start": 9600,
+     "end": 9631,
+     "count": 32,
+     "assigned": 32
+    },
+    {
+     "name": "CJK Symbols and Punctuation",
+     "start": 12288,
+     "end": 12351,
+     "count": 38,
+     "assigned": 64
+    },
+    {
+     "name": "CJK Unified Ideographs",
+     "start": 19968,
+     "end": 40959,
+     "count": 3500,
+     "assigned": 20992
+    },
+    {
+     "name": "Halfwidth and Fullwidth Forms",
+     "start": 65280,
+     "end": 65519,
+     "count": 103,
+     "assigned": 225
+    }
+   ],
+   "zip": {
+    "path": "downloads/BloxwapSansSC.zip",
+    "bytes": 48360412
+   }
+  },
+  {
+   "id": "mono-sc",
+   "family": "Bloxwap Mono SC",
+   "cssFamily": "Bloxwap Mono SC",
+   "fileStem": "BloxwapMonoSC",
+   "style": "mono",
+   "version": "1.000",
+   "web": true,
+   "counts": {
+    "glyphs": 6253,
+    "encoded": 5601,
+    "features": 19,
+    "languages": 590,
+    "scripts": 3,
+    "instances": 9
+   },
+   "axes": [
+    {
+     "tag": "wght",
+     "name": "Weight",
+     "min": 100.0,
+     "default": 400.0,
+     "max": 900.0
+    }
+   ],
+   "hasItalic": false,
+   "scripts": [
+    {
+     "script": "Han",
+     "count": 3508
+    },
+    {
+     "script": "Latin",
+     "count": 872
+    },
+    {
+     "script": "Common",
+     "count": 686
+    },
+    {
+     "script": "Greek",
+     "count": 317
+    },
+    {
+     "script": "Cyrillic",
+     "count": 218
+    }
+   ],
+   "blocks": [
+    {
+     "name": "Basic Latin",
+     "start": 0,
+     "end": 127,
+     "count": 95,
+     "assigned": 128
+    },
+    {
+     "name": "Latin-1 Supplement",
+     "start": 128,
+     "end": 255,
+     "count": 96,
+     "assigned": 128
+    },
+    {
+     "name": "Latin Extended-A",
+     "start": 256,
+     "end": 383,
+     "count": 128,
+     "assigned": 128
+    },
+    {
+     "name": "Latin Extended-B",
+     "start": 384,
+     "end": 591,
+     "count": 150,
+     "assigned": 208
+    },
+    {
+     "name": "IPA Extensions",
+     "start": 592,
+     "end": 687,
+     "count": 75,
+     "assigned": 96
+    },
+    {
+     "name": "Spacing Modifier Letters",
+     "start": 688,
+     "end": 767,
+     "count": 33,
+     "assigned": 80
+    },
+    {
+     "name": "Combining Diacritical Marks",
+     "start": 768,
+     "end": 879,
+     "count": 37,
+     "assigned": 112
+    },
+    {
+     "name": "Greek and Coptic",
+     "start": 880,
+     "end": 1023,
+     "count": 88,
+     "assigned": 135
+    },
+    {
+     "name": "Cyrillic",
+     "start": 1024,
+     "end": 1279,
+     "count": 204,
+     "assigned": 256
+    },
+    {
+     "name": "Phonetic Extensions",
+     "start": 7424,
+     "end": 7551,
+     "count": 38,
+     "assigned": 128
+    },
+    {
+     "name": "Latin Extended Additional",
+     "start": 7680,
+     "end": 7935,
+     "count": 246,
+     "assigned": 256
+    },
+    {
+     "name": "Greek Extended",
+     "start": 7936,
+     "end": 8191,
+     "count": 232,
+     "assigned": 233
+    },
+    {
+     "name": "General Punctuation",
+     "start": 8192,
+     "end": 8303,
+     "count": 47,
+     "assigned": 111
+    },
+    {
+     "name": "Arrows",
+     "start": 8592,
+     "end": 8703,
+     "count": 35,
+     "assigned": 112
+    },
+    {
+     "name": "Mathematical Operators",
+     "start": 8704,
+     "end": 8959,
+     "count": 59,
+     "assigned": 256
+    },
+    {
+     "name": "Box Drawing",
+     "start": 9472,
+     "end": 9599,
+     "count": 128,
+     "assigned": 128
+    },
+    {
+     "name": "Block Elements",
+     "start": 9600,
+     "end": 9631,
+     "count": 32,
+     "assigned": 32
+    },
+    {
+     "name": "CJK Symbols and Punctuation",
+     "start": 12288,
+     "end": 12351,
+     "count": 38,
+     "assigned": 64
+    },
+    {
+     "name": "CJK Unified Ideographs",
+     "start": 19968,
+     "end": 40959,
+     "count": 3500,
+     "assigned": 20992
+    },
+    {
+     "name": "Halfwidth and Fullwidth Forms",
+     "start": 65280,
+     "end": 65519,
+     "count": 103,
+     "assigned": 225
+    }
+   ],
+   "zip": {
+    "path": "downloads/BloxwapMonoSC.zip",
+    "bytes": 47863803
+   }
+  },
+  {
+   "id": "sans-jp",
+   "family": "Bloxwap Sans JP",
+   "cssFamily": "Bloxwap Sans JP",
+   "fileStem": "BloxwapSansJP",
+   "style": "sans",
+   "version": "1.000",
+   "web": true,
+   "counts": {
+    "glyphs": 5157,
+    "encoded": 4523,
+    "features": 20,
+    "languages": 590,
+    "scripts": 3,
+    "instances": 9
+   },
+   "axes": [
+    {
+     "tag": "wght",
+     "name": "Weight",
+     "min": 100.0,
+     "default": 400.0,
+     "max": 900.0
+    }
+   ],
+   "hasItalic": false,
+   "scripts": [
+    {
+     "script": "Han",
+     "count": 2144
+    },
+    {
+     "script": "Latin",
+     "count": 891
+    },
+    {
+     "script": "Common",
+     "count": 700
+    },
+    {
+     "script": "Greek",
+     "count": 317
+    },
+    {
+     "script": "Cyrillic",
+     "count": 218
+    },
+    {
+     "script": "Katakana",
+     "count": 164
+    },
+    {
+     "script": "Hiragana",
+     "count": 89
+    }
+   ],
+   "blocks": [
+    {
+     "name": "Basic Latin",
+     "start": 0,
+     "end": 127,
+     "count": 95,
+     "assigned": 128
+    },
+    {
+     "name": "Latin-1 Supplement",
+     "start": 128,
+     "end": 255,
+     "count": 96,
+     "assigned": 128
+    },
+    {
+     "name": "Latin Extended-A",
+     "start": 256,
+     "end": 383,
+     "count": 128,
+     "assigned": 128
+    },
+    {
+     "name": "Latin Extended-B",
+     "start": 384,
+     "end": 591,
+     "count": 162,
+     "assigned": 208
+    },
+    {
+     "name": "IPA Extensions",
+     "start": 592,
+     "end": 687,
+     "count": 75,
+     "assigned": 96
+    },
+    {
+     "name": "Spacing Modifier Letters",
+     "start": 688,
+     "end": 767,
+     "count": 33,
+     "assigned": 80
+    },
+    {
+     "name": "Combining Diacritical Marks",
+     "start": 768,
+     "end": 879,
+     "count": 37,
+     "assigned": 112
+    },
+    {
+     "name": "Greek and Coptic",
+     "start": 880,
+     "end": 1023,
+     "count": 88,
+     "assigned": 135
+    },
+    {
+     "name": "Cyrillic",
+     "start": 1024,
+     "end": 1279,
+     "count": 204,
+     "assigned": 256
+    },
+    {
+     "name": "Phonetic Extensions",
+     "start": 7424,
+     "end": 7551,
+     "count": 38,
+     "assigned": 128
+    },
+    {
+     "name": "Latin Extended Additional",
+     "start": 7680,
+     "end": 7935,
+     "count": 246,
+     "assigned": 256
+    },
+    {
+     "name": "Greek Extended",
+     "start": 7936,
+     "end": 8191,
+     "count": 232,
+     "assigned": 233
+    },
+    {
+     "name": "General Punctuation",
+     "start": 8192,
+     "end": 8303,
+     "count": 52,
+     "assigned": 111
+    },
+    {
+     "name": "Arrows",
+     "start": 8592,
+     "end": 8703,
+     "count": 35,
+     "assigned": 112
+    },
+    {
+     "name": "Mathematical Operators",
+     "start": 8704,
+     "end": 8959,
+     "count": 59,
+     "assigned": 256
+    },
+    {
+     "name": "Box Drawing",
+     "start": 9472,
+     "end": 9599,
+     "count": 128,
+     "assigned": 128
+    },
+    {
+     "name": "Block Elements",
+     "start": 9600,
+     "end": 9631,
+     "count": 32,
+     "assigned": 32
+    },
+    {
+     "name": "CJK Symbols and Punctuation",
+     "start": 12288,
+     "end": 12351,
+     "count": 38,
+     "assigned": 64
+    },
+    {
+     "name": "Hiragana",
+     "start": 12352,
+     "end": 12447,
+     "count": 93,
+     "assigned": 93
+    },
+    {
+     "name": "Katakana",
+     "start": 12448,
+     "end": 12543,
+     "count": 95,
+     "assigned": 96
+    },
+    {
+     "name": "CJK Unified Ideographs",
+     "start": 19968,
+     "end": 40959,
+     "count": 2135,
+     "assigned": 20992
+    },
+    {
+     "name": "Halfwidth and Fullwidth Forms",
+     "start": 65280,
+     "end": 65519,
+     "count": 162,
+     "assigned": 225
+    }
+   ],
+   "zip": {
+    "path": "downloads/BloxwapSansJP.zip",
+    "bytes": 36206120
+   }
+  },
+  {
+   "id": "mono-jp",
+   "family": "Bloxwap Mono JP",
+   "cssFamily": "Bloxwap Mono JP",
+   "fileStem": "BloxwapMonoJP",
+   "style": "mono",
+   "version": "1.000",
+   "web": true,
+   "counts": {
+    "glyphs": 5151,
+    "encoded": 4499,
+    "features": 19,
+    "languages": 590,
+    "scripts": 3,
+    "instances": 9
+   },
+   "axes": [
+    {
+     "tag": "wght",
+     "name": "Weight",
+     "min": 100.0,
+     "default": 400.0,
+     "max": 900.0
+    }
+   ],
+   "hasItalic": false,
+   "scripts": [
+    {
+     "script": "Han",
+     "count": 2144
+    },
+    {
+     "script": "Latin",
+     "count": 872
+    },
+    {
+     "script": "Common",
+     "count": 695
+    },
+    {
+     "script": "Greek",
+     "count": 317
+    },
+    {
+     "script": "Cyrillic",
+     "count": 218
+    },
+    {
+     "script": "Katakana",
+     "count": 164
+    },
+    {
+     "script": "Hiragana",
+     "count": 89
+    }
+   ],
+   "blocks": [
+    {
+     "name": "Basic Latin",
+     "start": 0,
+     "end": 127,
+     "count": 95,
+     "assigned": 128
+    },
+    {
+     "name": "Latin-1 Supplement",
+     "start": 128,
+     "end": 255,
+     "count": 96,
+     "assigned": 128
+    },
+    {
+     "name": "Latin Extended-A",
+     "start": 256,
+     "end": 383,
+     "count": 128,
+     "assigned": 128
+    },
+    {
+     "name": "Latin Extended-B",
+     "start": 384,
+     "end": 591,
+     "count": 150,
+     "assigned": 208
+    },
+    {
+     "name": "IPA Extensions",
+     "start": 592,
+     "end": 687,
+     "count": 75,
+     "assigned": 96
+    },
+    {
+     "name": "Spacing Modifier Letters",
+     "start": 688,
+     "end": 767,
+     "count": 33,
+     "assigned": 80
+    },
+    {
+     "name": "Combining Diacritical Marks",
+     "start": 768,
+     "end": 879,
+     "count": 37,
+     "assigned": 112
+    },
+    {
+     "name": "Greek and Coptic",
+     "start": 880,
+     "end": 1023,
+     "count": 88,
+     "assigned": 135
+    },
+    {
+     "name": "Cyrillic",
+     "start": 1024,
+     "end": 1279,
+     "count": 204,
+     "assigned": 256
+    },
+    {
+     "name": "Phonetic Extensions",
+     "start": 7424,
+     "end": 7551,
+     "count": 38,
+     "assigned": 128
+    },
+    {
+     "name": "Latin Extended Additional",
+     "start": 7680,
+     "end": 7935,
+     "count": 246,
+     "assigned": 256
+    },
+    {
+     "name": "Greek Extended",
+     "start": 7936,
+     "end": 8191,
+     "count": 232,
+     "assigned": 233
+    },
+    {
+     "name": "General Punctuation",
+     "start": 8192,
+     "end": 8303,
+     "count": 47,
+     "assigned": 111
+    },
+    {
+     "name": "Arrows",
+     "start": 8592,
+     "end": 8703,
+     "count": 35,
+     "assigned": 112
+    },
+    {
+     "name": "Mathematical Operators",
+     "start": 8704,
+     "end": 8959,
+     "count": 59,
+     "assigned": 256
+    },
+    {
+     "name": "Box Drawing",
+     "start": 9472,
+     "end": 9599,
+     "count": 128,
+     "assigned": 128
+    },
+    {
+     "name": "Block Elements",
+     "start": 9600,
+     "end": 9631,
+     "count": 32,
+     "assigned": 32
+    },
+    {
+     "name": "CJK Symbols and Punctuation",
+     "start": 12288,
+     "end": 12351,
+     "count": 38,
+     "assigned": 64
+    },
+    {
+     "name": "Hiragana",
+     "start": 12352,
+     "end": 12447,
+     "count": 93,
+     "assigned": 93
+    },
+    {
+     "name": "Katakana",
+     "start": 12448,
+     "end": 12543,
+     "count": 95,
+     "assigned": 96
+    },
+    {
+     "name": "CJK Unified Ideographs",
+     "start": 19968,
+     "end": 40959,
+     "count": 2135,
+     "assigned": 20992
+    },
+    {
+     "name": "Halfwidth and Fullwidth Forms",
+     "start": 65280,
+     "end": 65519,
+     "count": 162,
+     "assigned": 225
+    }
+   ],
+   "zip": {
+    "path": "downloads/BloxwapMonoJP.zip",
+    "bytes": 35673184
+   }
+  },
+  {
+   "id": "sans-hebrew",
+   "family": "Bloxwap Sans Hebrew",
+   "cssFamily": "Bloxwap Sans Hebrew",
+   "fileStem": "BloxwapSansHebrew",
+   "style": "sans",
+   "version": "1.000",
+   "web": true,
+   "counts": {
+    "glyphs": 2720,
+    "encoded": 2086,
+    "features": 20,
+    "languages": 595,
+    "scripts": 4,
+    "instances": 9
+   },
+   "axes": [
+    {
+     "tag": "wght",
+     "name": "Weight",
+     "min": 100.0,
+     "default": 400.0,
+     "max": 900.0
+    }
+   ],
+   "hasItalic": false,
+   "scripts": [
+    {
+     "script": "Latin",
+     "count": 839
+    },
+    {
+     "script": "Common",
+     "count": 609
+    },
+    {
+     "script": "Greek",
+     "count": 317
+    },
+    {
+     "script": "Cyrillic",
+     "count": 218
+    },
+    {
+     "script": "Hebrew",
+     "count": 103
+    }
+   ],
+   "blocks": [
+    {
+     "name": "Basic Latin",
+     "start": 0,
+     "end": 127,
+     "count": 95,
+     "assigned": 128
+    },
+    {
+     "name": "Latin-1 Supplement",
+     "start": 128,
+     "end": 255,
+     "count": 96,
+     "assigned": 128
+    },
+    {
+     "name": "Latin Extended-A",
+     "start": 256,
+     "end": 383,
+     "count": 128,
+     "assigned": 128
+    },
+    {
+     "name": "Latin Extended-B",
+     "start": 384,
+     "end": 591,
+     "count": 162,
+     "assigned": 208
+    },
+    {
+     "name": "IPA Extensions",
+     "start": 592,
+     "end": 687,
+     "count": 75,
+     "assigned": 96
+    },
+    {
+     "name": "Spacing Modifier Letters",
+     "start": 688,
+     "end": 767,
+     "count": 33,
+     "assigned": 80
+    },
+    {
+     "name": "Combining Diacritical Marks",
+     "start": 768,
+     "end": 879,
+     "count": 37,
+     "assigned": 112
+    },
+    {
+     "name": "Greek and Coptic",
+     "start": 880,
+     "end": 1023,
+     "count": 88,
+     "assigned": 135
+    },
+    {
+     "name": "Cyrillic",
+     "start": 1024,
+     "end": 1279,
+     "count": 204,
+     "assigned": 256
+    },
+    {
+     "name": "Hebrew",
+     "start": 1424,
+     "end": 1535,
+     "count": 57,
+     "assigned": 90
+    },
+    {
+     "name": "Phonetic Extensions",
+     "start": 7424,
+     "end": 7551,
+     "count": 38,
+     "assigned": 128
+    },
+    {
+     "name": "Latin Extended Additional",
+     "start": 7680,
+     "end": 7935,
+     "count": 246,
+     "assigned": 256
+    },
+    {
+     "name": "Greek Extended",
+     "start": 7936,
+     "end": 8191,
+     "count": 232,
+     "assigned": 233
+    },
+    {
+     "name": "General Punctuation",
+     "start": 8192,
+     "end": 8303,
+     "count": 52,
+     "assigned": 111
+    },
+    {
+     "name": "Arrows",
+     "start": 8592,
+     "end": 8703,
+     "count": 35,
+     "assigned": 112
+    },
+    {
+     "name": "Mathematical Operators",
+     "start": 8704,
+     "end": 8959,
+     "count": 59,
+     "assigned": 256
+    },
+    {
+     "name": "Box Drawing",
+     "start": 9472,
+     "end": 9599,
+     "count": 128,
+     "assigned": 128
+    },
+    {
+     "name": "Block Elements",
+     "start": 9600,
+     "end": 9631,
+     "count": 32,
+     "assigned": 32
+    },
+    {
+     "name": "Alphabetic Presentation Forms",
+     "start": 64256,
+     "end": 64335,
+     "count": 53,
+     "assigned": 58
+    }
+   ],
+   "zip": {
+    "path": "downloads/BloxwapSansHebrew.zip",
+    "bytes": 8505117
+   }
+  },
+  {
+   "id": "mono-hebrew",
+   "family": "Bloxwap Mono Hebrew",
+   "cssFamily": "Bloxwap Mono Hebrew",
+   "fileStem": "BloxwapMonoHebrew",
+   "style": "mono",
+   "version": "1.000",
+   "web": true,
+   "counts": {
+    "glyphs": 2714,
+    "encoded": 2062,
+    "features": 19,
+    "languages": 595,
+    "scripts": 4,
+    "instances": 9
+   },
+   "axes": [
+    {
+     "tag": "wght",
+     "name": "Weight",
+     "min": 100.0,
+     "default": 400.0,
+     "max": 900.0
+    }
+   ],
+   "hasItalic": false,
+   "scripts": [
+    {
+     "script": "Latin",
+     "count": 820
+    },
+    {
+     "script": "Common",
+     "count": 604
+    },
+    {
+     "script": "Greek",
+     "count": 317
+    },
+    {
+     "script": "Cyrillic",
+     "count": 218
+    },
+    {
+     "script": "Hebrew",
+     "count": 103
+    }
+   ],
+   "blocks": [
+    {
+     "name": "Basic Latin",
+     "start": 0,
+     "end": 127,
+     "count": 95,
+     "assigned": 128
+    },
+    {
+     "name": "Latin-1 Supplement",
+     "start": 128,
+     "end": 255,
+     "count": 96,
+     "assigned": 128
+    },
+    {
+     "name": "Latin Extended-A",
+     "start": 256,
+     "end": 383,
+     "count": 128,
+     "assigned": 128
+    },
+    {
+     "name": "Latin Extended-B",
+     "start": 384,
+     "end": 591,
+     "count": 150,
+     "assigned": 208
+    },
+    {
+     "name": "IPA Extensions",
+     "start": 592,
+     "end": 687,
+     "count": 75,
+     "assigned": 96
+    },
+    {
+     "name": "Spacing Modifier Letters",
+     "start": 688,
+     "end": 767,
+     "count": 33,
+     "assigned": 80
+    },
+    {
+     "name": "Combining Diacritical Marks",
+     "start": 768,
+     "end": 879,
+     "count": 37,
+     "assigned": 112
+    },
+    {
+     "name": "Greek and Coptic",
+     "start": 880,
+     "end": 1023,
+     "count": 88,
+     "assigned": 135
+    },
+    {
+     "name": "Cyrillic",
+     "start": 1024,
+     "end": 1279,
+     "count": 204,
+     "assigned": 256
+    },
+    {
+     "name": "Hebrew",
+     "start": 1424,
+     "end": 1535,
+     "count": 57,
+     "assigned": 90
+    },
+    {
+     "name": "Phonetic Extensions",
+     "start": 7424,
+     "end": 7551,
+     "count": 38,
+     "assigned": 128
+    },
+    {
+     "name": "Latin Extended Additional",
+     "start": 7680,
+     "end": 7935,
+     "count": 246,
+     "assigned": 256
+    },
+    {
+     "name": "Greek Extended",
+     "start": 7936,
+     "end": 8191,
+     "count": 232,
+     "assigned": 233
+    },
+    {
+     "name": "General Punctuation",
+     "start": 8192,
+     "end": 8303,
+     "count": 47,
+     "assigned": 111
+    },
+    {
+     "name": "Arrows",
+     "start": 8592,
+     "end": 8703,
+     "count": 35,
+     "assigned": 112
+    },
+    {
+     "name": "Mathematical Operators",
+     "start": 8704,
+     "end": 8959,
+     "count": 59,
+     "assigned": 256
+    },
+    {
+     "name": "Box Drawing",
+     "start": 9472,
+     "end": 9599,
+     "count": 128,
+     "assigned": 128
+    },
+    {
+     "name": "Block Elements",
+     "start": 9600,
+     "end": 9631,
+     "count": 32,
+     "assigned": 32
+    },
+    {
+     "name": "Alphabetic Presentation Forms",
+     "start": 64256,
+     "end": 64335,
+     "count": 46,
+     "assigned": 58
+    }
+   ],
+   "zip": {
+    "path": "downloads/BloxwapMonoHebrew.zip",
+    "bytes": 7861613
+   }
+  },
+  {
+   "id": "sans-armenian",
+   "family": "Bloxwap Sans Armenian",
+   "cssFamily": "Bloxwap Sans Armenian",
+   "fileStem": "BloxwapSansArmenian",
+   "style": "sans",
+   "version": "1.000",
+   "web": true,
+   "counts": {
+    "glyphs": 2716,
+    "encoded": 2082,
+    "features": 21,
+    "languages": 592,
+    "scripts": 4,
+    "instances": 9
+   },
+   "axes": [
+    {
+     "tag": "wght",
+     "name": "Weight",
+     "min": 100.0,
+     "default": 400.0,
+     "max": 900.0
+    }
+   ],
+   "hasItalic": true,
+   "scripts": [
+    {
+     "script": "Latin",
+     "count": 839
+    },
+    {
+     "script": "Common",
+     "count": 609
+    },
+    {
+     "script": "Greek",
+     "count": 317
+    },
+    {
+     "script": "Cyrillic",
+     "count": 218
+    },
+    {
+     "script": "Armenian",
+     "count": 99
+    }
+   ],
+   "blocks": [
+    {
+     "name": "Basic Latin",
+     "start": 0,
+     "end": 127,
+     "count": 95,
+     "assigned": 128
+    },
+    {
+     "name": "Latin-1 Supplement",
+     "start": 128,
+     "end": 255,
+     "count": 96,
+     "assigned": 128
+    },
+    {
+     "name": "Latin Extended-A",
+     "start": 256,
+     "end": 383,
+     "count": 128,
+     "assigned": 128
+    },
+    {
+     "name": "Latin Extended-B",
+     "start": 384,
+     "end": 591,
+     "count": 162,
+     "assigned": 208
+    },
+    {
+     "name": "IPA Extensions",
+     "start": 592,
+     "end": 687,
+     "count": 75,
+     "assigned": 96
+    },
+    {
+     "name": "Spacing Modifier Letters",
+     "start": 688,
+     "end": 767,
+     "count": 33,
+     "assigned": 80
+    },
+    {
+     "name": "Combining Diacritical Marks",
+     "start": 768,
+     "end": 879,
+     "count": 37,
+     "assigned": 112
+    },
+    {
+     "name": "Greek and Coptic",
+     "start": 880,
+     "end": 1023,
+     "count": 88,
+     "assigned": 135
+    },
+    {
+     "name": "Cyrillic",
+     "start": 1024,
+     "end": 1279,
+     "count": 204,
+     "assigned": 256
+    },
+    {
+     "name": "Armenian",
+     "start": 1328,
+     "end": 1423,
+     "count": 94,
+     "assigned": 94
+    },
+    {
+     "name": "Phonetic Extensions",
+     "start": 7424,
+     "end": 7551,
+     "count": 38,
+     "assigned": 128
+    },
+    {
+     "name": "Latin Extended Additional",
+     "start": 7680,
+     "end": 7935,
+     "count": 246,
+     "assigned": 256
+    },
+    {
+     "name": "Greek Extended",
+     "start": 7936,
+     "end": 8191,
+     "count": 232,
+     "assigned": 233
+    },
+    {
+     "name": "General Punctuation",
+     "start": 8192,
+     "end": 8303,
+     "count": 52,
+     "assigned": 111
+    },
+    {
+     "name": "Arrows",
+     "start": 8592,
+     "end": 8703,
+     "count": 35,
+     "assigned": 112
+    },
+    {
+     "name": "Mathematical Operators",
+     "start": 8704,
+     "end": 8959,
+     "count": 59,
+     "assigned": 256
+    },
+    {
+     "name": "Box Drawing",
+     "start": 9472,
+     "end": 9599,
+     "count": 128,
+     "assigned": 128
+    },
+    {
+     "name": "Block Elements",
+     "start": 9600,
+     "end": 9631,
+     "count": 32,
+     "assigned": 32
+    }
+   ],
+   "zip": {
+    "path": "downloads/BloxwapSansArmenian.zip",
+    "bytes": 17887796
+   }
+  },
+  {
+   "id": "mono-armenian",
+   "family": "Bloxwap Mono Armenian",
+   "cssFamily": "Bloxwap Mono Armenian",
+   "fileStem": "BloxwapMonoArmenian",
+   "style": "mono",
+   "version": "1.000",
+   "web": true,
+   "counts": {
+    "glyphs": 2710,
+    "encoded": 2058,
+    "features": 20,
+    "languages": 592,
+    "scripts": 4,
+    "instances": 9
+   },
+   "axes": [
+    {
+     "tag": "wght",
+     "name": "Weight",
+     "min": 100.0,
+     "default": 400.0,
+     "max": 900.0
+    }
+   ],
+   "hasItalic": true,
+   "scripts": [
+    {
+     "script": "Latin",
+     "count": 820
+    },
+    {
+     "script": "Common",
+     "count": 604
+    },
+    {
+     "script": "Greek",
+     "count": 317
+    },
+    {
+     "script": "Cyrillic",
+     "count": 218
+    },
+    {
+     "script": "Armenian",
+     "count": 99
+    }
+   ],
+   "blocks": [
+    {
+     "name": "Basic Latin",
+     "start": 0,
+     "end": 127,
+     "count": 95,
+     "assigned": 128
+    },
+    {
+     "name": "Latin-1 Supplement",
+     "start": 128,
+     "end": 255,
+     "count": 96,
+     "assigned": 128
+    },
+    {
+     "name": "Latin Extended-A",
+     "start": 256,
+     "end": 383,
+     "count": 128,
+     "assigned": 128
+    },
+    {
+     "name": "Latin Extended-B",
+     "start": 384,
+     "end": 591,
+     "count": 150,
+     "assigned": 208
+    },
+    {
+     "name": "IPA Extensions",
+     "start": 592,
+     "end": 687,
+     "count": 75,
+     "assigned": 96
+    },
+    {
+     "name": "Spacing Modifier Letters",
+     "start": 688,
+     "end": 767,
+     "count": 33,
+     "assigned": 80
+    },
+    {
+     "name": "Combining Diacritical Marks",
+     "start": 768,
+     "end": 879,
+     "count": 37,
+     "assigned": 112
+    },
+    {
+     "name": "Greek and Coptic",
+     "start": 880,
+     "end": 1023,
+     "count": 88,
+     "assigned": 135
+    },
+    {
+     "name": "Cyrillic",
+     "start": 1024,
+     "end": 1279,
+     "count": 204,
+     "assigned": 256
+    },
+    {
+     "name": "Armenian",
+     "start": 1328,
+     "end": 1423,
+     "count": 94,
+     "assigned": 94
+    },
+    {
+     "name": "Phonetic Extensions",
+     "start": 7424,
+     "end": 7551,
+     "count": 38,
+     "assigned": 128
+    },
+    {
+     "name": "Latin Extended Additional",
+     "start": 7680,
+     "end": 7935,
+     "count": 246,
+     "assigned": 256
+    },
+    {
+     "name": "Greek Extended",
+     "start": 7936,
+     "end": 8191,
+     "count": 232,
+     "assigned": 233
+    },
+    {
+     "name": "General Punctuation",
+     "start": 8192,
+     "end": 8303,
+     "count": 47,
+     "assigned": 111
+    },
+    {
+     "name": "Arrows",
+     "start": 8592,
+     "end": 8703,
+     "count": 35,
+     "assigned": 112
+    },
+    {
+     "name": "Mathematical Operators",
+     "start": 8704,
+     "end": 8959,
+     "count": 59,
+     "assigned": 256
+    },
+    {
+     "name": "Box Drawing",
+     "start": 9472,
+     "end": 9599,
+     "count": 128,
+     "assigned": 128
+    },
+    {
+     "name": "Block Elements",
+     "start": 9600,
+     "end": 9631,
+     "count": 32,
+     "assigned": 32
+    }
+   ],
+   "zip": {
+    "path": "downloads/BloxwapMonoArmenian.zip",
+    "bytes": 16900221
+   }
+  },
+  {
+   "id": "sans-georgian",
+   "family": "Bloxwap Sans Georgian",
+   "cssFamily": "Bloxwap Sans Georgian",
+   "fileStem": "BloxwapSansGeorgian",
+   "style": "sans",
+   "version": "1.000",
+   "web": true,
+   "counts": {
+    "glyphs": 2711,
+    "encoded": 2077,
+    "features": 20,
+    "languages": 594,
+    "scripts": 4,
+    "instances": 9
+   },
+   "axes": [
+    {
+     "tag": "wght",
+     "name": "Weight",
+     "min": 100.0,
+     "default": 400.0,
+     "max": 900.0
+    }
+   ],
+   "hasItalic": true,
+   "scripts": [
+    {
+     "script": "Latin",
+     "count": 839
+    },
+    {
+     "script": "Common",
+     "count": 610
+    },
+    {
+     "script": "Greek",
+     "count": 317
+    },
+    {
+     "script": "Cyrillic",
+     "count": 218
+    },
+    {
+     "script": "Georgian",
+     "count": 93
+    }
+   ],
+   "blocks": [
+    {
+     "name": "Basic Latin",
+     "start": 0,
+     "end": 127,
+     "count": 95,
+     "assigned": 128
+    },
+    {
+     "name": "Latin-1 Supplement",
+     "start": 128,
+     "end": 255,
+     "count": 96,
+     "assigned": 128
+    },
+    {
+     "name": "Latin Extended-A",
+     "start": 256,
+     "end": 383,
+     "count": 128,
+     "assigned": 128
+    },
+    {
+     "name": "Latin Extended-B",
+     "start": 384,
+     "end": 591,
+     "count": 162,
+     "assigned": 208
+    },
+    {
+     "name": "IPA Extensions",
+     "start": 592,
+     "end": 687,
+     "count": 75,
+     "assigned": 96
+    },
+    {
+     "name": "Spacing Modifier Letters",
+     "start": 688,
+     "end": 767,
+     "count": 33,
+     "assigned": 80
+    },
+    {
+     "name": "Combining Diacritical Marks",
+     "start": 768,
+     "end": 879,
+     "count": 37,
+     "assigned": 112
+    },
+    {
+     "name": "Greek and Coptic",
+     "start": 880,
+     "end": 1023,
+     "count": 88,
+     "assigned": 135
+    },
+    {
+     "name": "Cyrillic",
+     "start": 1024,
+     "end": 1279,
+     "count": 204,
+     "assigned": 256
+    },
+    {
+     "name": "Georgian",
+     "start": 4256,
+     "end": 4351,
+     "count": 48,
+     "assigned": 88
+    },
+    {
+     "name": "Georgian Extended",
+     "start": 7312,
+     "end": 7359,
+     "count": 46,
+     "assigned": 46
+    },
+    {
+     "name": "Phonetic Extensions",
+     "start": 7424,
+     "end": 7551,
+     "count": 38,
+     "assigned": 128
+    },
+    {
+     "name": "Latin Extended Additional",
+     "start": 7680,
+     "end": 7935,
+     "count": 246,
+     "assigned": 256
+    },
+    {
+     "name": "Greek Extended",
+     "start": 7936,
+     "end": 8191,
+     "count": 232,
+     "assigned": 233
+    },
+    {
+     "name": "General Punctuation",
+     "start": 8192,
+     "end": 8303,
+     "count": 52,
+     "assigned": 111
+    },
+    {
+     "name": "Arrows",
+     "start": 8592,
+     "end": 8703,
+     "count": 35,
+     "assigned": 112
+    },
+    {
+     "name": "Mathematical Operators",
+     "start": 8704,
+     "end": 8959,
+     "count": 59,
+     "assigned": 256
+    },
+    {
+     "name": "Box Drawing",
+     "start": 9472,
+     "end": 9599,
+     "count": 128,
+     "assigned": 128
+    },
+    {
+     "name": "Block Elements",
+     "start": 9600,
+     "end": 9631,
+     "count": 32,
+     "assigned": 32
+    }
+   ],
+   "zip": {
+    "path": "downloads/BloxwapSansGeorgian.zip",
+    "bytes": 18355177
+   }
+  },
+  {
+   "id": "mono-georgian",
+   "family": "Bloxwap Mono Georgian",
+   "cssFamily": "Bloxwap Mono Georgian",
+   "fileStem": "BloxwapMonoGeorgian",
+   "style": "mono",
+   "version": "1.000",
+   "web": true,
+   "counts": {
+    "glyphs": 2705,
+    "encoded": 2053,
+    "features": 19,
+    "languages": 594,
+    "scripts": 4,
+    "instances": 9
+   },
+   "axes": [
+    {
+     "tag": "wght",
+     "name": "Weight",
+     "min": 100.0,
+     "default": 400.0,
+     "max": 900.0
+    }
+   ],
+   "hasItalic": true,
+   "scripts": [
+    {
+     "script": "Latin",
+     "count": 820
+    },
+    {
+     "script": "Common",
+     "count": 605
+    },
+    {
+     "script": "Greek",
+     "count": 317
+    },
+    {
+     "script": "Cyrillic",
+     "count": 218
+    },
+    {
+     "script": "Georgian",
+     "count": 93
+    }
+   ],
+   "blocks": [
+    {
+     "name": "Basic Latin",
+     "start": 0,
+     "end": 127,
+     "count": 95,
+     "assigned": 128
+    },
+    {
+     "name": "Latin-1 Supplement",
+     "start": 128,
+     "end": 255,
+     "count": 96,
+     "assigned": 128
+    },
+    {
+     "name": "Latin Extended-A",
+     "start": 256,
+     "end": 383,
+     "count": 128,
+     "assigned": 128
+    },
+    {
+     "name": "Latin Extended-B",
+     "start": 384,
+     "end": 591,
+     "count": 150,
+     "assigned": 208
+    },
+    {
+     "name": "IPA Extensions",
+     "start": 592,
+     "end": 687,
+     "count": 75,
+     "assigned": 96
+    },
+    {
+     "name": "Spacing Modifier Letters",
+     "start": 688,
+     "end": 767,
+     "count": 33,
+     "assigned": 80
+    },
+    {
+     "name": "Combining Diacritical Marks",
+     "start": 768,
+     "end": 879,
+     "count": 37,
+     "assigned": 112
+    },
+    {
+     "name": "Greek and Coptic",
+     "start": 880,
+     "end": 1023,
+     "count": 88,
+     "assigned": 135
+    },
+    {
+     "name": "Cyrillic",
+     "start": 1024,
+     "end": 1279,
+     "count": 204,
+     "assigned": 256
+    },
+    {
+     "name": "Georgian",
+     "start": 4256,
+     "end": 4351,
+     "count": 48,
+     "assigned": 88
+    },
+    {
+     "name": "Georgian Extended",
+     "start": 7312,
+     "end": 7359,
+     "count": 46,
+     "assigned": 46
+    },
+    {
+     "name": "Phonetic Extensions",
+     "start": 7424,
+     "end": 7551,
+     "count": 38,
+     "assigned": 128
+    },
+    {
+     "name": "Latin Extended Additional",
+     "start": 7680,
+     "end": 7935,
+     "count": 246,
+     "assigned": 256
+    },
+    {
+     "name": "Greek Extended",
+     "start": 7936,
+     "end": 8191,
+     "count": 232,
+     "assigned": 233
+    },
+    {
+     "name": "General Punctuation",
+     "start": 8192,
+     "end": 8303,
+     "count": 47,
+     "assigned": 111
+    },
+    {
+     "name": "Arrows",
+     "start": 8592,
+     "end": 8703,
+     "count": 35,
+     "assigned": 112
+    },
+    {
+     "name": "Mathematical Operators",
+     "start": 8704,
+     "end": 8959,
+     "count": 59,
+     "assigned": 256
+    },
+    {
+     "name": "Box Drawing",
+     "start": 9472,
+     "end": 9599,
+     "count": 128,
+     "assigned": 128
+    },
+    {
+     "name": "Block Elements",
+     "start": 9600,
+     "end": 9631,
+     "count": 32,
+     "assigned": 32
+    }
+   ],
+   "zip": {
+    "path": "downloads/BloxwapMonoGeorgian.zip",
+    "bytes": 17284329
+   }
+  },
+  {
+   "id": "pixel",
+   "family": "Bloxwap Pixel",
+   "cssFamily": "Bloxwap Pixel",
+   "fileStem": "BloxwapPixel",
+   "style": "pixel",
+   "version": "1.000",
+   "web": true,
+   "counts": {
+    "glyphs": 2435,
+    "encoded": 2299,
+    "features": 9,
+    "languages": 595,
+    "scripts": 3,
+    "instances": 9
+   },
+   "axes": [
+    {
+     "tag": "wght",
+     "name": "Weight",
+     "min": 100.0,
+     "default": 400.0,
+     "max": 900.0
+    },
+    {
+     "tag": "ROND",
+     "name": "Roundness",
+     "min": 0.0,
+     "default": 50.0,
+     "max": 100.0
+    }
+   ],
+   "hasItalic": true,
+   "scripts": [
+    {
+     "script": "Common",
+     "count": 864
+    },
+    {
+     "script": "Latin",
+     "count": 855
+    },
+    {
+     "script": "Greek",
+     "count": 350
+    },
+    {
+     "script": "Cyrillic",
+     "count": 230
+    }
+   ],
+   "blocks": [
+    {
+     "name": "Basic Latin",
+     "start": 0,
+     "end": 127,
+     "count": 95,
+     "assigned": 128
+    },
+    {
+     "name": "Latin-1 Supplement",
+     "start": 128,
+     "end": 255,
+     "count": 96,
+     "assigned": 128
+    },
+    {
+     "name": "Latin Extended-A",
+     "start": 256,
+     "end": 383,
+     "count": 128,
+     "assigned": 128
+    },
+    {
+     "name": "Latin Extended-B",
+     "start": 384,
+     "end": 591,
+     "count": 171,
+     "assigned": 208
+    },
+    {
+     "name": "IPA Extensions",
+     "start": 592,
+     "end": 687,
+     "count": 64,
+     "assigned": 96
+    },
+    {
+     "name": "Spacing Modifier Letters",
+     "start": 688,
+     "end": 767,
+     "count": 42,
+     "assigned": 80
+    },
+    {
+     "name": "Combining Diacritical Marks",
+     "start": 768,
+     "end": 879,
+     "count": 77,
+     "assigned": 112
+    },
+    {
+     "name": "Greek and Coptic",
+     "start": 880,
+     "end": 1023,
+     "count": 116,
+     "assigned": 135
+    },
+    {
+     "name": "Cyrillic",
+     "start": 1024,
+     "end": 1279,
+     "count": 212,
+     "assigned": 256
+    },
+    {
+     "name": "Phonetic Extensions",
+     "start": 7424,
+     "end": 7551,
+     "count": 41,
+     "assigned": 128
+    },
+    {
+     "name": "Latin Extended Additional",
+     "start": 7680,
+     "end": 7935,
+     "count": 246,
+     "assigned": 256
+    },
+    {
+     "name": "Greek Extended",
+     "start": 7936,
+     "end": 8191,
+     "count": 233,
+     "assigned": 233
+    },
+    {
+     "name": "General Punctuation",
+     "start": 8192,
+     "end": 8303,
+     "count": 98,
+     "assigned": 111
+    },
+    {
+     "name": "Superscripts and Subscripts",
+     "start": 8304,
+     "end": 8351,
+     "count": 42,
+     "assigned": 46
+    },
+    {
+     "name": "Arrows",
+     "start": 8592,
+     "end": 8703,
+     "count": 49,
+     "assigned": 112
+    },
+    {
+     "name": "Mathematical Operators",
+     "start": 8704,
+     "end": 8959,
+     "count": 87,
+     "assigned": 256
+    },
+    {
+     "name": "Box Drawing",
+     "start": 9472,
+     "end": 9599,
+     "count": 128,
+     "assigned": 128
+    },
+    {
+     "name": "Block Elements",
+     "start": 9600,
+     "end": 9631,
+     "count": 32,
+     "assigned": 32
+    },
+    {
+     "name": "Geometric Shapes",
+     "start": 9632,
+     "end": 9727,
+     "count": 82,
+     "assigned": 96
+    },
+    {
+     "name": "Miscellaneous Symbols",
+     "start": 9728,
+     "end": 9983,
+     "count": 40,
+     "assigned": 256
+    }
+   ],
+   "zip": {
+    "path": "downloads/BloxwapPixel.zip",
+    "bytes": 7272548
+   }
+  }
+ ],
+ "totals": {
+  "families": 17,
+  "characters": 19311,
+  "languages": 656,
+  "languagesNote": "Hyperglot, unique languages; Chinese counted from character coverage; Japanese counted from character coverage",
+  "scripts": [
+   "Arabic",
+   "Armenian",
+   "Cyrillic",
+   "Georgian",
+   "Greek",
+   "Han",
+   "Hangul",
+   "Hebrew",
+   "Hiragana",
+   "Katakana",
+   "Latin"
+  ],
+  "staticFonts": 216,
+  "variableFonts": 24
+ },
+ "zip": {
+  "path": "downloads/Bloxwap-Fonts.zip",
+  "bytes": 39686461
+ }
+}

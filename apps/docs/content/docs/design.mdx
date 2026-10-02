@@ -1,0 +1,75 @@
+---
+title: Design
+description: "How Bloxwap Font is drawn: centre-line skeletons in code, stroked with an elliptical pen into round-capped outlines, from a clean-room source."
+---
+
+<Callout title="Clean-room">
+Every outline is generated from Bloxwap's own skeleton code. No one opens, traces, measures or copies outlines from an existing font (Inter, Geist, SF, Nunito, Maple or any other). Those faces are cited only as references for spirit. Contributions must follow the same rule.
+</Callout>
+
+## Skeletons and a pen
+
+Each glyph is a **skeleton**: centre-line strokes written as a small Python function. A stroker expands the skeleton with an **elliptical pen** into outlines with round caps. Because the pen is wider than it is tall, vertical strokes come out at the full stem width and horizontal strokes thinner, which gives the design its gentle contrast without drawing it by hand.
+
+```text
+glyph skeleton functions ──► stroker (elliptical pen, round caps) ──► outlines
+   ──► auto spacing ──► composites (accents, aliases) ──► UFO masters
+   ──► designspace (wght 100–900 + ital) ──► fontmake ──► OTF/TTF/WOFF2/VF
+```
+
+The same code produces every master: **Thin** (stem 22), **Regular** (84) and **Black** (180), each upright and italic. Italics shear the skeleton 9° before stroking, so italic strokes keep their weight. Because every master comes from the same strokes, they are always point-compatible, which is what lets them interpolate into a variable font.
+
+A lowercase `n` looks like this:
+
+```python
+@glyph("n", 0x6E, zone="lc")          # name, unicodes…, zone: lc|uc|fig|auto
+def n(g: G):
+    bw = g.wd(436, 456)               # body width: Sans value, Mono value; grows with weight
+    g.stem(0, 0, g.xh)                # stem with its left ink edge at x, from 0 to x-height
+    (g.pen(g.hw, 240, 0.84)           # start inside the stem, on its centre-line
+        .l(g.hw, 300)                 # ride up the stem for a short straight run
+        .v(240, g.xh - g.hh, w=1.0)   # quarter curve: leave vertically, arrive horizontally
+        .h(bw - g.hw, 250)            # quarter curve: leave horizontally, arrive vertically
+        .l(bw - g.hw, g.hh)           # straight line
+        .end())                       # round caps
+```
+
+(The real `n` calls the shared `arch()` helper, which does exactly this.)
+
+## Metrics
+
+All families use 1000 units per em.
+
+| Name | Value | | Name | Value |
+| --- | --- | --- | --- | --- |
+| x-height | 540 | | Cap height | 720 |
+| Ascender | 760 | | Descender | −210 |
+| Overshoot | 10 | | Mono advance | 600 |
+| Regular stem | 84 | | Stem range | 22–180 |
+
+Horizontal thickness is about 0.8 × the stem width + 3. Shapes widen with weight, so bold letters keep open counters.
+
+## Style rules
+
+1. **Rounded.** Every terminal is a round cap: no flat cuts, spurs or ink traps.
+2. **Corners are separate strokes.** A single pen path is always smooth; where strokes meet at an angle (the apex of `A`, the junction of `k`, the vertex of `v`), two strokes meet and their round caps form the rounded join.
+3. **Bowls and arches ride the stem.** A bowl (`b d p q g`, the `6` and `9`) is a complete closed round that the stem overlaps, so the counter stays one smooth round with a clean notch where the bowl leaves the stem. An arch or shoulder (`n h m u r`) first runs a short way up the stem's centre-line, then peels away tangentially. Nothing ends in a thin taper beside a stem, which used to leave small lumps and dents in counters.
+4. **Diagonals are slightly lighter** (about 92% width) so they do not look heavier than stems.
+5. **Curves are smooth and round**, close to circular quarters, with open apertures: the ends of `c e s a` stop about a fifth of the height from the extremes. Every joint inside a curve is exactly smooth (no tangent breaks between outline segments).
+6. **Overshoot.** Round tops and bottoms go 10 units past the baseline, x-height or cap height.
+7. **Weight-independent topology.** The code never branches on weight; the same strokes are drawn for every master, and positions may only depend on weight linearly.
+8. **Mono fits a 600-unit cell.** Narrow letters get rounded slabs; wide letters are condensed and may use lighter strokes.
+9. **Minimal flourish.** No decorative tails where a straight stroke reads: the `y` descender is a straight diagonal, and the `1` stands on a foot. Simple forms hold up at small sizes. (The earlier curled `y` is still available as stylistic set `ss04`.)
+
+## Derived glyphs
+
+Most of the character set is derived, not drawn:
+
+- **Accented letters** are built from Unicode decompositions: base letter plus marks, positioned with anchors.
+- **Look-alikes** across scripts (Greek Α, Cyrillic А and Latin A) are aliases of one drawing.
+- **Small capitals, superiors, inferiors and fraction figures** are skeleton transforms of the full-size glyphs. Because the pen is re-applied after scaling, they keep the same stroke weight as the text around them instead of looking thin.
+- **Features** are generated from glyph-name suffixes: `.ss01` becomes stylistic set 1, `.sc` small caps, `a_b` a ligature, `.code` a Mono code ligature, `.loclSRB` a Serbian form.
+
+Bloxwap Pixel is generated differently: hand-drawn bitmaps on a grid, rendered as pixels whose size and roundness are the two axes.
+
+See [Building from source](/docs/building) to run the pipeline, and `DESIGN.md` in the repository for the full drawing API.

@@ -1,0 +1,60 @@
+---
+title: Language support
+description: Languages supported by each Bloxwap Font family, computed from the font files with Hyperglot, plus script coverage for Arabic, Hebrew, Armenian, Georgian, Korean, Chinese and Japanese.
+---
+
+<LanguageSupport />
+
+## How it is measured
+
+Language support is computed from the shipped font files with [Hyperglot](https://hyperglot.rosettatype.com), Rosetta's database of orthographies. A language counts only when the font has **every** character of its base orthography, including marks that must combine correctly. The lists below are regenerated on every build, so they always match the fonts.
+
+Hyperglot's counts work well for alphabets. For Korean, Chinese and Japanese, a language needs thousands of characters, and partial sets (a font in development, or a font with the 3,500 most common hanzi rather than every ideograph) may not count as complete. For those scripts, the character coverage below says more.
+
+## Script coverage of the companion families
+
+### Bloxwap Sans Arabic [#sans-arabic]
+
+<ScriptCoverage id="sans-arabic" minimum={32} />
+
+### Bloxwap Sans Hebrew [#sans-hebrew]
+
+<ScriptCoverage id="sans-hebrew" minimum={32} />
+
+### Bloxwap Sans Armenian [#sans-armenian]
+
+<ScriptCoverage id="sans-armenian" minimum={32} />
+
+### Bloxwap Sans Georgian [#sans-georgian]
+
+<ScriptCoverage id="sans-georgian" minimum={32} />
+
+### Bloxwap Sans KR [#sans-kr]
+
+<ScriptCoverage id="sans-kr" minimum={32} />
+
+### Bloxwap Sans SC [#sans-sc]
+
+<ScriptCoverage id="sans-sc" minimum={32} />
+
+### Bloxwap Sans JP [#sans-jp]
+
+<ScriptCoverage id="sans-jp" minimum={32} />
+
+## Full lists
+
+Open a script to see every language. Names are Hyperglot's English names with ISO 639-3 codes, sorted by number of speakers.
+
+### Bloxwap Sans [#sans]
+
+<LanguageSupport id="sans" />
+
+### Bloxwap Mono [#mono]
+
+<LanguageSupport id="mono" />
+
+### Bloxwap Pixel [#pixel]
+
+<LanguageSupport id="pixel" />
+
+Click any language in the [Languages section](/#languages) of the home page to load its sample text into the type tester.

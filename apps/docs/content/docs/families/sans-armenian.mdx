@@ -1,0 +1,38 @@
+---
+title: Sans Armenian
+description: Bloxwap Sans Armenian and Bloxwap Mono Armenian, proportioned for balanced multilingual typesetting.
+---
+
+Bloxwap Sans Armenian and Bloxwap Mono Armenian are companion families that add Armenian to Bloxwap Sans and Bloxwap Mono. They are **designed with proportions that have been adjusted for a better visual balance in multilingual typesetting**: Armenian lowercase shares the Latin x-height, capitals share the cap height, and ascenders, descenders, stroke weight and spacing match, so Armenian and Latin mix evenly in one line. Both families include italics, the Armenian punctuation, the dram sign ֏ and the traditional ligatures.
+
+## Bloxwap Sans Armenian
+
+<FamilyFacts id="sans-armenian" />
+
+<FamilySpecimen id="sans-armenian" />
+
+<ScriptCoverage id="sans-armenian" />
+
+## Bloxwap Mono Armenian
+
+<FamilyFacts id="mono-armenian" />
+
+<FamilySpecimen id="mono-armenian" />
+
+## Using it
+
+With the [combined stylesheet](/docs/multi-script), `font-family: "Bloxwap Sans"` renders Armenian from Bloxwap Sans Armenian, and only pages that contain Armenian download the file. Mark content with `lang="hy"`:
+
+```html
+<p lang="hy">Հայաստան, Երևան</p>
+```
+
+```css
+:lang(hy) {
+  font-family: "Bloxwap Sans Armenian", "Bloxwap Sans", sans-serif;
+}
+```
+
+- **Ligatures.** և is part of the alphabet; the other ligatures (ﬓ ﬔ ﬕ ﬖ ﬗ) are optional.
+- **Mono spacing.** Historical two-letter ligatures occupy two 600-unit cells; the alphabetic և occupies one.
+- **Italics.** Both upright and italic are included, from Thin to Black.

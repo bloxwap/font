@@ -1,0 +1,42 @@
+---
+title: OpenType features
+description: Every OpenType feature in Bloxwap Sans, Mono and Pixel, read from the fonts, with a live before and after.
+---
+
+These tables are generated from each font's `GSUB` and `GPOS` tables when the site is built, so they list exactly what ships. The preview column sets the same text with the feature off and on, in the font itself.
+
+<Tabs items={['Sans', 'Mono', 'Pixel']}>
+  <Tab value="Sans">
+    <FeatureTable id="sans" />
+  </Tab>
+  <Tab value="Mono">
+    <FeatureTable id="mono" />
+  </Tab>
+  <Tab value="Pixel">
+    <FeatureTable id="pixel" />
+  </Tab>
+</Tabs>
+
+## Turning features on and off
+
+Features marked *on by default* (`liga`, `calt`, `kern`, `locl` and the mark-positioning features) are applied by every browser without any CSS; set them to `0` to turn them off. Everything else is off until you turn it on.
+
+```css
+/* High-level properties combine and inherit cleanly */
+.numbers   { font-variant-numeric: proportional-nums slashed-zero; }
+.acronym   { font-variant-caps: all-small-caps; }
+.footnote  { font-variant-position: super; }
+
+/* font-feature-settings for everything else, all in one declaration */
+.brand     { font-feature-settings: "ss01" 1, "ss02" 1; }
+.caps      { text-transform: uppercase; font-feature-settings: "case" 1; }
+.recipe    { font-feature-settings: "frac" 1; }
+.arrows    { font-feature-settings: "dlig" 1; }   /* -> becomes → */
+.code      { font-variant-ligatures: none; }      /* Mono: no code ligatures */
+```
+
+A later `font-feature-settings` declaration replaces the earlier one entirely, so list every feature an element needs in one place.
+
+Features applied automatically by the text shaper (composition, mark positioning, and in the companion fonts Arabic joining and Hangul jamo forms) appear in the table for completeness. You do not need to set them.
+
+You can toggle every feature interactively in the [type tester](/#tester).

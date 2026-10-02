@@ -1,0 +1,106 @@
+---
+title: Usage
+description: Use Bloxwap Font weights, italics, variable axes, OpenType features and localized forms in CSS.
+---
+
+<FamilySpecimen id="sans" />
+
+## Weights
+
+Every family is variable from 100 to 900, so `font-weight` accepts any value in that range, not just multiples of 100:
+
+```css
+.label { font-weight: 450; }      /* between Regular and Medium */
+.price { font-weight: 560; }
+h1     { font-weight: 720; }
+```
+
+| Weight | Name | | Weight | Name |
+| --- | --- | --- | --- | --- |
+| 100 | Thin | | 600 | SemiBold |
+| 200 | ExtraLight | | 700 | Bold |
+| 300 | Light | | 800 | ExtraBold |
+| 400 | Regular | | 900 | Black |
+| 500 | Medium | | | |
+
+The static files in the zips are these nine named instances.
+
+## Variable axes
+
+Prefer `font-weight` for the weight axis: it cascades, works with `bold`/`bolder`, and lets the browser pick the right face. Use `font-variation-settings` only for axes without a CSS property, such as Bloxwap Pixel's roundness:
+
+```css
+.scoreboard {
+  font-family: "Bloxwap Pixel", monospace;
+  font-weight: 700;
+  font-variation-settings: "ROND" 60; /* 0 = square pixels, 100 = dots */
+}
+```
+
+`font-variation-settings` does not inherit per axis: setting it on a child replaces the whole list. Keep it on the element that needs it. See [Variable fonts](/docs/variable-fonts).
+
+## Italics
+
+Sans, Mono and Pixel have true italics (drawn at 9°, with the stroke weight preserved), served from separate files. Use `font-style`:
+
+```css
+em, i { font-style: italic; }
+```
+
+Declare the italic `@font-face` (as in [Installation](/docs/installation#self-host-with-font-face)) or the browser will synthesize a slanted copy of the upright. To make sure that never happens, add `font-synthesis: none`.
+
+Armenian and Georgian companions include italics. Arabic, Hebrew, Japanese, Korean and Chinese use their upright design in italic text.
+
+## OpenType features
+
+Use the high-level `font-variant-*` properties where one exists. They combine with each other and inherit predictably. Fall back to `font-feature-settings` for stylistic sets and anything else.
+
+| Effect | High-level | Low-level |
+| --- | --- | --- |
+| Tabular figures (the default) | `font-variant-numeric: tabular-nums` | `"tnum" 1` |
+| Proportional figures for prose | `font-variant-numeric: proportional-nums` | `"pnum" 1` |
+| Slashed zero | `font-variant-numeric: slashed-zero` | `"zero" 1` |
+| Fractions | `font-variant-numeric: diagonal-fractions` | `"frac" 1` |
+| Ordinals | `font-variant-numeric: ordinal` | `"ordn" 1` |
+| Superscript / subscript | `font-variant-position: super` / `sub` | `"sups" 1` / `"subs" 1` |
+| Small caps | `font-variant-caps: small-caps` | `"smcp" 1` |
+| All small caps | `font-variant-caps: all-small-caps` | `"smcp" 1, "c2sc" 1` |
+| Case-sensitive punctuation | `font-variant-caps: titling-caps`* | `"case" 1` |
+| Stylistic set 1 | — | `"ss01" 1` |
+
+\* Browser support varies; `"case" 1` is the reliable way to raise brackets and dashes for all-caps text.
+
+Bloxwap Sans uses tabular figures by default so numbers align in tables and tickers. In running text, proportional figures read more evenly:
+
+```css
+.prose { font-variant-numeric: proportional-nums; }
+.price, td { font-variant-numeric: tabular-nums slashed-zero; }
+.label-caps { text-transform: uppercase; font-feature-settings: "case" 1; }
+.brand { font-feature-settings: "ss01" 1, "ss02" 1; } /* single-storey a, open digits */
+```
+
+Several settings combine in one declaration; a second `font-feature-settings` rule replaces the first rather than adding to it.
+
+### Code ligatures in Mono
+
+Bloxwap Mono turns sequences such as `=>`, `!==`, `<=`, `->` and `|>` into ligatures through contextual alternates (`calt`). Each ligature keeps the width of its characters, so columns stay aligned. They are on by default; to turn them off:
+
+```css
+code, pre { font-variant-ligatures: none; }
+/* or only the code ligatures */
+code, pre { font-feature-settings: "calt" 0; }
+```
+
+[OpenType features](/docs/opentype-features) lists every feature in each font with a live preview.
+
+## Localized forms
+
+Some languages use different letterforms for the same character: Romanian and Moldovan prefer a comma below on ș and ț, Catalan has its own form of the punt volat in l·l, and Serbian, Macedonian and Bulgarian Cyrillic have local shapes. The browser selects them from the `lang` attribute; there is nothing to configure:
+
+```html
+<p lang="ro">Știință și țară</p>
+<p lang="sr">Бб Гг Дд Пп Тт</p>
+<p lang="bg">джл фц</p>
+```
+
+Use the type tester's language menu on the [home page](/#tester) to compare.

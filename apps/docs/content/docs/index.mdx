@@ -1,0 +1,42 @@
+---
+title: Overview
+description: Bloxwap Font is a free, open-source type system of three rounded typefaces for interfaces, code and screens.
+---
+
+Bloxwap Font is the type system Bloxwap, Inc. uses across its products, released under the [SIL Open Font License 1.1](/docs/license). It has three families that share one design: round terminals, open apertures, calm curves and a tall x-height.
+
+| Family | What it is | Axes |
+| --- | --- | --- |
+| [Bloxwap Sans](/docs/families/sans) | A rounded neo-grotesk for interfaces, editorial text and numbers. Nine weights with true italics, and tabular figures by default so prices and balances stay aligned. | `wght` 100–900 |
+| [Bloxwap Mono](/docs/families/mono) | The same design on a fixed 600-unit cell, with rounded slabs on narrow letters and code ligatures (`calt`) that never break the grid. | `wght` 100–900 |
+| [Bloxwap Pixel](/docs/families/pixel) | A bitmap-grid display face. Weight fattens every pixel; roundness morphs the pixels from crisp squares to dots. | `wght` 100–900, `ROND` 0–100 |
+
+<FamilyFacts id="sans" />
+
+## Companion families
+
+Arabic, Armenian, Georgian, Hebrew, Japanese, Korean and Simplified Chinese companions extend Sans and Mono to more scripts. Each includes the Latin, Greek and Cyrillic of its parent and is merged into the main family names by the [combined stylesheet](/docs/multi-script), so `font-family: "Bloxwap Sans"` renders all of them.
+
+<FamilyCatalog />
+
+## Principles
+
+- **Rounded, not cute.** Every terminal is a round cap and every corner is the meeting of two round strokes, but proportions stay neo-grotesk, in the spirit of Inter and Geist.
+- **Built for numbers.** Figures are tabular by default, with proportional, slashed-zero, fraction and superior forms one feature away.
+- **One source, many styles.** Every glyph is a skeleton drawn in code and stroked with a pen, so weights, italics, Mono and derived forms come from the same drawing. See [Design](/docs/design).
+- **Open.** Free for any project, commercial or not, in desktop and web formats.
+
+<Callout title="Clean-room">
+Every outline is generated from Bloxwap's own skeleton code. No outlines were copied, traced, measured or derived from any other font; other typefaces are cited only as references for spirit.
+</Callout>
+
+## Start here
+
+<Cards>
+  <Card title="Installation" href="/docs/installation" description="Download the fonts, self-host them with @font-face, or use them with Next.js and Tailwind." />
+  <Card title="Usage" href="/docs/usage" description="Weights, italics, variable axes and OpenType features in CSS." />
+  <Card title="One family for every script" href="/docs/multi-script" description="A single stylesheet that merges the companion scripts into one family name." />
+  <Card title="OpenType features" href="/docs/opentype-features" description="Every feature in each font, with a live before and after." />
+  <Card title="Character set" href="/docs/character-set" description="Browse and search every glyph." />
+  <Card title="Building from source" href="/docs/building" description="Generate, compile and package the fonts yourself." />
+</Cards>
