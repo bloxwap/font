@@ -13,15 +13,15 @@ import uharfbuzz as hb
 from PIL import Image
 
 
-def shape(blob_face, font_path, text, size, wght, features, lang, script=None):
+def shape(blob_face, font_path, text, size, wght, features, lang, script=None, variations=None):
     face = hb.Face(blob_face)
     font = hb.Font(face)
     font.scale = (size * 64, size * 64)
+    settings = dict(variations or {})
     if wght is not None:
-        try:
-            font.set_variations({"wght": wght})
-        except Exception:
-            pass
+        settings["wght"] = wght
+    if settings:
+        font.set_variations(settings)
     buf = hb.Buffer()
     buf.add_str(text)
     buf.guess_segment_properties()
@@ -40,18 +40,28 @@ def shape(blob_face, font_path, text, size, wght, features, lang, script=None):
 
 
 def render_lines(font_path, lines, size=64, wght=None, features=(), lang=None, pad=24, fg=0, bg=255,
-                 line_gap=1.3):
+                 line_gap=1.3, variations=None):
     blob = hb.Blob.from_file_path(font_path)
     ft = freetype.Face(font_path)
     ft.set_char_size(size * 64)
+    settings = dict(variations or {})
     if wght is not None:
+        settings["wght"] = wght
+    if settings:
         try:
-            ft.set_var_design_coords([wght] + [c.default for c in ft.get_variation_info().axes[1:]])
-        except Exception:
-            pass
+            axes = ft.get_variation_info().axes
+        except freetype.FT_Exception:
+            if variations:
+                raise
+            axes = ()  # Preserve the existing static-font --wght behavior.
+        if axes:
+            unknown = settings.keys() - {axis.tag for axis in axes}
+            if unknown:
+                raise ValueError(f"unknown variation axes: {', '.join(sorted(unknown))}")
+            ft.set_var_design_coords([settings.get(axis.tag, axis.default) for axis in axes])
     rendered = []
     for line in lines:
-        infos, poss = shape(blob, font_path, line, size, wght, features, lang)
+        infos, poss = shape(blob, font_path, line, size, wght, features, lang, variations=variations)
         x = 0
         glyphs = []
         for info, pos in zip(infos, poss):

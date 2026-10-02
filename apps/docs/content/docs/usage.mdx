@@ -104,3 +104,58 @@ Some languages use different letterforms for the same character: Romanian and Mo
 ```
 
 Use the type tester's language menu on the [home page](/#tester) to compare.
+
+## Accessibility
+
+Keep text as ordinary Unicode characters in HTML. OpenType alternates and
+ligatures change the drawing while preserving the underlying text: `->` should
+remain those two characters even when a feature draws an arrow. Do not replace
+letters with similar-looking Greek, Cyrillic or mathematical characters for a
+visual effect. Use `lang` for the language of the text so browsers and assistive
+technology can select the appropriate forms and pronunciation.
+
+For codes and identifiers, compare `Il1`, `0O`, `rn/m` and `cl/d` at the actual
+size and weight your interface uses. The `ss08` disambiguation set and slashed
+zero can help. Sans already has bars on capital I by default; `ss08` adds a
+curved foot to lowercase l and retains its capital I alternate for compatibility.
+The `zero` feature separately distinguishes zero from capital O:
+
+```css
+.identifier {
+  font-family: "Bloxwap Sans", system-ui, sans-serif;
+  font-feature-settings: "ss08" 1;
+  font-variant-numeric: slashed-zero;
+}
+```
+
+Check punctuation, accents and open counters at small sizes, especially at the
+lightest and heaviest weights. Prefer Sans for body text and Mono for code.
+Regular or Medium around 16 px is a useful starting point for essential text.
+Reserve Pixel for display text, starting at 20 px and checking the selected
+weight and roundness on the target screen. These are starting points for
+testing, not a guarantee of readability for every reader.
+
+A symbol used as a control needs a name that describes its action. Hide a
+decorative symbol when the button already has a text label:
+
+```html
+<button type="button" aria-label="Next page">
+  <span aria-hidden="true">→</span>
+</button>
+<button type="button">
+  Download <span aria-hidden="true">↓</span>
+</button>
+```
+
+Prefer visible labels where possible. See the W3C guidance on
+[accessible names](https://www.w3.org/WAI/ARIA/apg/practices/names-and-descriptions/).
+
+Allow readers to replace the font, enlarge text and increase spacing. Avoid
+fixed-height containers for labels and body text; let controls wrap or grow.
+Test text at 200% enlargement and page reflow at 400% zoom, plus a system-font
+replacement. For scripts that use these spacing properties, also test line
+height of 1.5 times the font size, paragraph spacing of 2 times the font size,
+letter spacing of 0.12em and word spacing of 0.16em applied together. The page
+must keep its content and controls usable; these values are user overrides,
+not required default styles. See
+[W3C text spacing](https://www.w3.org/WAI/WCAG21/Understanding/text-spacing.html).

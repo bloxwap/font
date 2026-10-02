@@ -344,8 +344,9 @@ def I(g: G):
         g.anchor("ogonek", bw / 2 + 10, 0)
         g.anchor("top", bw / 2, g.cap)
         return
-    g.stem(0, 0, g.cap)
-    g.anchor("ogonek", g.hw + 6, 0)
+    # Rounded bars distinguish capital I from lowercase l at UI sizes without
+    # requiring users to enable an optional OpenType stylistic set.
+    I_ss08(g)
 
 
 @glyph("I.ss08", zone="uc")

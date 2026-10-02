@@ -440,9 +440,11 @@ def glyphs_of(font: TTFont, cmap: dict[int, str], reach: dict[str, tuple[str, st
         if cps:
             cp = cps[0]
             cat = category_of(cp)
-            entry = {"n": g, "u": cp, "c": cat, "s": script_of(cp), "a": adv}
+            entry = {"n": g, "u": cp, "d": unicode_description(chr(cp)), "c": cat, "s": script_of(cp), "a": adv}
             if len(cps) > 1:
                 entry["alt"] = cps[1:]
+                entry["v"] = [{"u": u, "d": unicode_description(chr(u)), "c": category_of(u), "s": script_of(u)}
+                              for u in cps[1:]]
             out.append(entry)
             continue
         if g in reach:
@@ -454,11 +456,19 @@ def glyphs_of(font: TTFont, cmap: dict[int, str], reach: dict[str, tuple[str, st
                 cat = "Marks"
             else:
                 cat = "Alternates"
-            out.append({"n": g, "u": None, "c": cat, "s": script_of(base_cp), "a": adv,
+            out.append({"n": g, "u": None, "d": unicode_description(txt), "c": cat, "s": script_of(base_cp), "a": adv,
                         "t": txt, "f": feat})
             continue
         out.append({"n": g, "u": None, "c": "Unencoded", "s": "Common", "a": adv})
     return out
+
+
+def unicode_description(text: str) -> str:
+    """Describe source Unicode characters, never infer identity from a glyph's shape."""
+    control_names = {0x00: "Null", 0x09: "Character tabulation", 0x0A: "Line feed",
+                     0x0D: "Carriage return", 0x7F: "Delete"}
+    return ", ".join(control_names.get(ord(ch)) or unicodedata.name(ch, f"Character U+{ord(ch):04X}").capitalize()
+                     for ch in text)
 
 
 # --------------------------------------------------------------------------- languages

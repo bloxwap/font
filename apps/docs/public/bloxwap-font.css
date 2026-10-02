@@ -10,7 +10,7 @@
 /* Bloxwap Sans (+ SC, JP, KR, Arabic, Hebrew, Armenian, Georgian via unicode-range) */
 @font-face {
   font-family: "Bloxwap Sans";
-  src: url("fonts/BloxwapSans/variable/BloxwapSans%5Bwght%5D.woff2?v=90bd9854d9") format("woff2");
+  src: url("fonts/BloxwapSans/variable/BloxwapSans%5Bwght%5D.woff2?v=388e7417ad") format("woff2");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
@@ -18,7 +18,7 @@
 }
 @font-face {
   font-family: "Bloxwap Sans";
-  src: url("fonts/BloxwapSans/variable/BloxwapSans-Italic%5Bwght%5D.woff2?v=90bd9854d9") format("woff2");
+  src: url("fonts/BloxwapSans/variable/BloxwapSans-Italic%5Bwght%5D.woff2?v=388e7417ad") format("woff2");
   font-weight: 100 900;
   font-style: italic;
   font-display: swap;
@@ -26,7 +26,7 @@
 }
 @font-face {
   font-family: "Bloxwap Sans";
-  src: url("fonts/BloxwapSansSC/variable/BloxwapSansSC%5Bwght%5D.woff2?v=90bd9854d9") format("woff2");
+  src: url("fonts/BloxwapSansSC/variable/BloxwapSansSC%5Bwght%5D.woff2?v=388e7417ad") format("woff2");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
@@ -34,7 +34,7 @@
 }
 @font-face {
   font-family: "Bloxwap Sans";
-  src: url("fonts/BloxwapSansSC/variable/BloxwapSansSC%5Bwght%5D.woff2?v=90bd9854d9") format("woff2");
+  src: url("fonts/BloxwapSansSC/variable/BloxwapSansSC%5Bwght%5D.woff2?v=388e7417ad") format("woff2");
   font-weight: 100 900;
   font-style: italic;
   font-display: swap;
@@ -42,7 +42,7 @@
 }
 @font-face {
   font-family: "Bloxwap Sans";
-  src: url("fonts/BloxwapSansJP/variable/BloxwapSansJP%5Bwght%5D.woff2?v=90bd9854d9") format("woff2");
+  src: url("fonts/BloxwapSansJP/variable/BloxwapSansJP%5Bwght%5D.woff2?v=388e7417ad") format("woff2");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
@@ -50,7 +50,7 @@
 }
 @font-face {
   font-family: "Bloxwap Sans";
-  src: url("fonts/BloxwapSansJP/variable/BloxwapSansJP%5Bwght%5D.woff2?v=90bd9854d9") format("woff2");
+  src: url("fonts/BloxwapSansJP/variable/BloxwapSansJP%5Bwght%5D.woff2?v=388e7417ad") format("woff2");
   font-weight: 100 900;
   font-style: italic;
   font-display: swap;
@@ -58,7 +58,7 @@
 }
 @font-face {
   font-family: "Bloxwap Sans";
-  src: url("fonts/BloxwapSansKR/variable/BloxwapSansKR%5Bwght%5D.woff2?v=90bd9854d9") format("woff2");
+  src: url("fonts/BloxwapSansKR/variable/BloxwapSansKR%5Bwght%5D.woff2?v=388e7417ad") format("woff2");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
@@ -66,7 +66,7 @@
 }
 @font-face {
   font-family: "Bloxwap Sans";
-  src: url("fonts/BloxwapSansKR/variable/BloxwapSansKR%5Bwght%5D.woff2?v=90bd9854d9") format("woff2");
+  src: url("fonts/BloxwapSansKR/variable/BloxwapSansKR%5Bwght%5D.woff2?v=388e7417ad") format("woff2");
   font-weight: 100 900;
   font-style: italic;
   font-display: swap;
@@ -74,7 +74,7 @@
 }
 @font-face {
   font-family: "Bloxwap Sans";
-  src: url("fonts/BloxwapSansArabic/variable/BloxwapSansArabic%5Bwght%5D.woff2?v=90bd9854d9") format("woff2");
+  src: url("fonts/BloxwapSansArabic/variable/BloxwapSansArabic%5Bwght%5D.woff2?v=388e7417ad") format("woff2");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
@@ -82,7 +82,7 @@
 }
 @font-face {
   font-family: "Bloxwap Sans";
-  src: url("fonts/BloxwapSansArabic/variable/BloxwapSansArabic%5Bwght%5D.woff2?v=90bd9854d9") format("woff2");
+  src: url("fonts/BloxwapSansArabic/variable/BloxwapSansArabic%5Bwght%5D.woff2?v=388e7417ad") format("woff2");
   font-weight: 100 900;
   font-style: italic;
   font-display: swap;
@@ -90,7 +90,7 @@
 }
 @font-face {
   font-family: "Bloxwap Sans";
-  src: url("fonts/BloxwapSansHebrew/variable/BloxwapSansHebrew%5Bwght%5D.woff2?v=90bd9854d9") format("woff2");
+  src: url("fonts/BloxwapSansHebrew/variable/BloxwapSansHebrew%5Bwght%5D.woff2?v=388e7417ad") format("woff2");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
@@ -98,7 +98,7 @@
 }
 @font-face {
   font-family: "Bloxwap Sans";
-  src: url("fonts/BloxwapSansHebrew/variable/BloxwapSansHebrew%5Bwght%5D.woff2?v=90bd9854d9") format("woff2");
+  src: url("fonts/BloxwapSansHebrew/variable/BloxwapSansHebrew%5Bwght%5D.woff2?v=388e7417ad") format("woff2");
   font-weight: 100 900;
   font-style: italic;
   font-display: swap;
@@ -106,7 +106,7 @@
 }
 @font-face {
   font-family: "Bloxwap Sans";
-  src: url("fonts/BloxwapSansArmenian/variable/BloxwapSansArmenian%5Bwght%5D.woff2?v=90bd9854d9") format("woff2");
+  src: url("fonts/BloxwapSansArmenian/variable/BloxwapSansArmenian%5Bwght%5D.woff2?v=388e7417ad") format("woff2");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
@@ -114,7 +114,7 @@
 }
 @font-face {
   font-family: "Bloxwap Sans";
-  src: url("fonts/BloxwapSansArmenian/variable/BloxwapSansArmenian-Italic%5Bwght%5D.woff2?v=90bd9854d9") format("woff2");
+  src: url("fonts/BloxwapSansArmenian/variable/BloxwapSansArmenian-Italic%5Bwght%5D.woff2?v=388e7417ad") format("woff2");
   font-weight: 100 900;
   font-style: italic;
   font-display: swap;
@@ -122,7 +122,7 @@
 }
 @font-face {
   font-family: "Bloxwap Sans";
-  src: url("fonts/BloxwapSansGeorgian/variable/BloxwapSansGeorgian%5Bwght%5D.woff2?v=90bd9854d9") format("woff2");
+  src: url("fonts/BloxwapSansGeorgian/variable/BloxwapSansGeorgian%5Bwght%5D.woff2?v=388e7417ad") format("woff2");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
@@ -130,7 +130,7 @@
 }
 @font-face {
   font-family: "Bloxwap Sans";
-  src: url("fonts/BloxwapSansGeorgian/variable/BloxwapSansGeorgian-Italic%5Bwght%5D.woff2?v=90bd9854d9") format("woff2");
+  src: url("fonts/BloxwapSansGeorgian/variable/BloxwapSansGeorgian-Italic%5Bwght%5D.woff2?v=388e7417ad") format("woff2");
   font-weight: 100 900;
   font-style: italic;
   font-display: swap;
@@ -140,7 +140,7 @@
 /* Bloxwap Mono (+ SC, JP, KR, Arabic, Hebrew, Armenian, Georgian via unicode-range) */
 @font-face {
   font-family: "Bloxwap Mono";
-  src: url("fonts/BloxwapMono/variable/BloxwapMono%5Bwght%5D.woff2?v=90bd9854d9") format("woff2");
+  src: url("fonts/BloxwapMono/variable/BloxwapMono%5Bwght%5D.woff2?v=388e7417ad") format("woff2");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
@@ -148,7 +148,7 @@
 }
 @font-face {
   font-family: "Bloxwap Mono";
-  src: url("fonts/BloxwapMono/variable/BloxwapMono-Italic%5Bwght%5D.woff2?v=90bd9854d9") format("woff2");
+  src: url("fonts/BloxwapMono/variable/BloxwapMono-Italic%5Bwght%5D.woff2?v=388e7417ad") format("woff2");
   font-weight: 100 900;
   font-style: italic;
   font-display: swap;
@@ -156,7 +156,7 @@
 }
 @font-face {
   font-family: "Bloxwap Mono";
-  src: url("fonts/BloxwapMonoSC/variable/BloxwapMonoSC%5Bwght%5D.woff2?v=90bd9854d9") format("woff2");
+  src: url("fonts/BloxwapMonoSC/variable/BloxwapMonoSC%5Bwght%5D.woff2?v=388e7417ad") format("woff2");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
@@ -164,7 +164,7 @@
 }
 @font-face {
   font-family: "Bloxwap Mono";
-  src: url("fonts/BloxwapMonoSC/variable/BloxwapMonoSC%5Bwght%5D.woff2?v=90bd9854d9") format("woff2");
+  src: url("fonts/BloxwapMonoSC/variable/BloxwapMonoSC%5Bwght%5D.woff2?v=388e7417ad") format("woff2");
   font-weight: 100 900;
   font-style: italic;
   font-display: swap;
@@ -172,7 +172,7 @@
 }
 @font-face {
   font-family: "Bloxwap Mono";
-  src: url("fonts/BloxwapMonoJP/variable/BloxwapMonoJP%5Bwght%5D.woff2?v=90bd9854d9") format("woff2");
+  src: url("fonts/BloxwapMonoJP/variable/BloxwapMonoJP%5Bwght%5D.woff2?v=388e7417ad") format("woff2");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
@@ -180,7 +180,7 @@
 }
 @font-face {
   font-family: "Bloxwap Mono";
-  src: url("fonts/BloxwapMonoJP/variable/BloxwapMonoJP%5Bwght%5D.woff2?v=90bd9854d9") format("woff2");
+  src: url("fonts/BloxwapMonoJP/variable/BloxwapMonoJP%5Bwght%5D.woff2?v=388e7417ad") format("woff2");
   font-weight: 100 900;
   font-style: italic;
   font-display: swap;
@@ -188,7 +188,7 @@
 }
 @font-face {
   font-family: "Bloxwap Mono";
-  src: url("fonts/BloxwapMonoKR/variable/BloxwapMonoKR%5Bwght%5D.woff2?v=90bd9854d9") format("woff2");
+  src: url("fonts/BloxwapMonoKR/variable/BloxwapMonoKR%5Bwght%5D.woff2?v=388e7417ad") format("woff2");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
@@ -196,7 +196,7 @@
 }
 @font-face {
   font-family: "Bloxwap Mono";
-  src: url("fonts/BloxwapMonoKR/variable/BloxwapMonoKR%5Bwght%5D.woff2?v=90bd9854d9") format("woff2");
+  src: url("fonts/BloxwapMonoKR/variable/BloxwapMonoKR%5Bwght%5D.woff2?v=388e7417ad") format("woff2");
   font-weight: 100 900;
   font-style: italic;
   font-display: swap;
@@ -204,7 +204,7 @@
 }
 @font-face {
   font-family: "Bloxwap Mono";
-  src: url("fonts/BloxwapMonoArabic/variable/BloxwapMonoArabic%5Bwght%5D.woff2?v=90bd9854d9") format("woff2");
+  src: url("fonts/BloxwapMonoArabic/variable/BloxwapMonoArabic%5Bwght%5D.woff2?v=388e7417ad") format("woff2");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
@@ -212,7 +212,7 @@
 }
 @font-face {
   font-family: "Bloxwap Mono";
-  src: url("fonts/BloxwapMonoArabic/variable/BloxwapMonoArabic%5Bwght%5D.woff2?v=90bd9854d9") format("woff2");
+  src: url("fonts/BloxwapMonoArabic/variable/BloxwapMonoArabic%5Bwght%5D.woff2?v=388e7417ad") format("woff2");
   font-weight: 100 900;
   font-style: italic;
   font-display: swap;
@@ -220,7 +220,7 @@
 }
 @font-face {
   font-family: "Bloxwap Mono";
-  src: url("fonts/BloxwapMonoHebrew/variable/BloxwapMonoHebrew%5Bwght%5D.woff2?v=90bd9854d9") format("woff2");
+  src: url("fonts/BloxwapMonoHebrew/variable/BloxwapMonoHebrew%5Bwght%5D.woff2?v=388e7417ad") format("woff2");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
@@ -228,7 +228,7 @@
 }
 @font-face {
   font-family: "Bloxwap Mono";
-  src: url("fonts/BloxwapMonoHebrew/variable/BloxwapMonoHebrew%5Bwght%5D.woff2?v=90bd9854d9") format("woff2");
+  src: url("fonts/BloxwapMonoHebrew/variable/BloxwapMonoHebrew%5Bwght%5D.woff2?v=388e7417ad") format("woff2");
   font-weight: 100 900;
   font-style: italic;
   font-display: swap;
@@ -236,7 +236,7 @@
 }
 @font-face {
   font-family: "Bloxwap Mono";
-  src: url("fonts/BloxwapMonoArmenian/variable/BloxwapMonoArmenian%5Bwght%5D.woff2?v=90bd9854d9") format("woff2");
+  src: url("fonts/BloxwapMonoArmenian/variable/BloxwapMonoArmenian%5Bwght%5D.woff2?v=388e7417ad") format("woff2");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
@@ -244,7 +244,7 @@
 }
 @font-face {
   font-family: "Bloxwap Mono";
-  src: url("fonts/BloxwapMonoArmenian/variable/BloxwapMonoArmenian-Italic%5Bwght%5D.woff2?v=90bd9854d9") format("woff2");
+  src: url("fonts/BloxwapMonoArmenian/variable/BloxwapMonoArmenian-Italic%5Bwght%5D.woff2?v=388e7417ad") format("woff2");
   font-weight: 100 900;
   font-style: italic;
   font-display: swap;
@@ -252,7 +252,7 @@
 }
 @font-face {
   font-family: "Bloxwap Mono";
-  src: url("fonts/BloxwapMonoGeorgian/variable/BloxwapMonoGeorgian%5Bwght%5D.woff2?v=90bd9854d9") format("woff2");
+  src: url("fonts/BloxwapMonoGeorgian/variable/BloxwapMonoGeorgian%5Bwght%5D.woff2?v=388e7417ad") format("woff2");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
@@ -260,7 +260,7 @@
 }
 @font-face {
   font-family: "Bloxwap Mono";
-  src: url("fonts/BloxwapMonoGeorgian/variable/BloxwapMonoGeorgian-Italic%5Bwght%5D.woff2?v=90bd9854d9") format("woff2");
+  src: url("fonts/BloxwapMonoGeorgian/variable/BloxwapMonoGeorgian-Italic%5Bwght%5D.woff2?v=388e7417ad") format("woff2");
   font-weight: 100 900;
   font-style: italic;
   font-display: swap;
@@ -270,14 +270,14 @@
 /* Bloxwap Pixel */
 @font-face {
   font-family: "Bloxwap Pixel";
-  src: url("fonts/BloxwapPixel/variable/BloxwapPixel%5BROND%2Cwght%5D.woff2?v=90bd9854d9") format("woff2");
+  src: url("fonts/BloxwapPixel/variable/BloxwapPixel%5BROND%2Cwght%5D.woff2?v=388e7417ad") format("woff2");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Bloxwap Pixel";
-  src: url("fonts/BloxwapPixel/variable/BloxwapPixel-Italic%5BROND%2Cwght%5D.woff2?v=90bd9854d9") format("woff2");
+  src: url("fonts/BloxwapPixel/variable/BloxwapPixel-Italic%5BROND%2Cwght%5D.woff2?v=388e7417ad") format("woff2");
   font-weight: 100 900;
   font-style: italic;
   font-display: swap;
@@ -286,126 +286,126 @@
 /* Companion families under their own names (complete fonts, including Latin). */
 @font-face {
   font-family: "Bloxwap Sans SC";
-  src: url("fonts/BloxwapSansSC/variable/BloxwapSansSC%5Bwght%5D.woff2?v=90bd9854d9") format("woff2");
+  src: url("fonts/BloxwapSansSC/variable/BloxwapSansSC%5Bwght%5D.woff2?v=388e7417ad") format("woff2");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Bloxwap Sans JP";
-  src: url("fonts/BloxwapSansJP/variable/BloxwapSansJP%5Bwght%5D.woff2?v=90bd9854d9") format("woff2");
+  src: url("fonts/BloxwapSansJP/variable/BloxwapSansJP%5Bwght%5D.woff2?v=388e7417ad") format("woff2");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Bloxwap Sans KR";
-  src: url("fonts/BloxwapSansKR/variable/BloxwapSansKR%5Bwght%5D.woff2?v=90bd9854d9") format("woff2");
+  src: url("fonts/BloxwapSansKR/variable/BloxwapSansKR%5Bwght%5D.woff2?v=388e7417ad") format("woff2");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Bloxwap Sans Arabic";
-  src: url("fonts/BloxwapSansArabic/variable/BloxwapSansArabic%5Bwght%5D.woff2?v=90bd9854d9") format("woff2");
+  src: url("fonts/BloxwapSansArabic/variable/BloxwapSansArabic%5Bwght%5D.woff2?v=388e7417ad") format("woff2");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Bloxwap Sans Hebrew";
-  src: url("fonts/BloxwapSansHebrew/variable/BloxwapSansHebrew%5Bwght%5D.woff2?v=90bd9854d9") format("woff2");
+  src: url("fonts/BloxwapSansHebrew/variable/BloxwapSansHebrew%5Bwght%5D.woff2?v=388e7417ad") format("woff2");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Bloxwap Sans Armenian";
-  src: url("fonts/BloxwapSansArmenian/variable/BloxwapSansArmenian%5Bwght%5D.woff2?v=90bd9854d9") format("woff2");
+  src: url("fonts/BloxwapSansArmenian/variable/BloxwapSansArmenian%5Bwght%5D.woff2?v=388e7417ad") format("woff2");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Bloxwap Sans Armenian";
-  src: url("fonts/BloxwapSansArmenian/variable/BloxwapSansArmenian-Italic%5Bwght%5D.woff2?v=90bd9854d9") format("woff2");
+  src: url("fonts/BloxwapSansArmenian/variable/BloxwapSansArmenian-Italic%5Bwght%5D.woff2?v=388e7417ad") format("woff2");
   font-weight: 100 900;
   font-style: italic;
   font-display: swap;
 }
 @font-face {
   font-family: "Bloxwap Sans Georgian";
-  src: url("fonts/BloxwapSansGeorgian/variable/BloxwapSansGeorgian%5Bwght%5D.woff2?v=90bd9854d9") format("woff2");
+  src: url("fonts/BloxwapSansGeorgian/variable/BloxwapSansGeorgian%5Bwght%5D.woff2?v=388e7417ad") format("woff2");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Bloxwap Sans Georgian";
-  src: url("fonts/BloxwapSansGeorgian/variable/BloxwapSansGeorgian-Italic%5Bwght%5D.woff2?v=90bd9854d9") format("woff2");
+  src: url("fonts/BloxwapSansGeorgian/variable/BloxwapSansGeorgian-Italic%5Bwght%5D.woff2?v=388e7417ad") format("woff2");
   font-weight: 100 900;
   font-style: italic;
   font-display: swap;
 }
 @font-face {
   font-family: "Bloxwap Mono SC";
-  src: url("fonts/BloxwapMonoSC/variable/BloxwapMonoSC%5Bwght%5D.woff2?v=90bd9854d9") format("woff2");
+  src: url("fonts/BloxwapMonoSC/variable/BloxwapMonoSC%5Bwght%5D.woff2?v=388e7417ad") format("woff2");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Bloxwap Mono JP";
-  src: url("fonts/BloxwapMonoJP/variable/BloxwapMonoJP%5Bwght%5D.woff2?v=90bd9854d9") format("woff2");
+  src: url("fonts/BloxwapMonoJP/variable/BloxwapMonoJP%5Bwght%5D.woff2?v=388e7417ad") format("woff2");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Bloxwap Mono KR";
-  src: url("fonts/BloxwapMonoKR/variable/BloxwapMonoKR%5Bwght%5D.woff2?v=90bd9854d9") format("woff2");
+  src: url("fonts/BloxwapMonoKR/variable/BloxwapMonoKR%5Bwght%5D.woff2?v=388e7417ad") format("woff2");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Bloxwap Mono Arabic";
-  src: url("fonts/BloxwapMonoArabic/variable/BloxwapMonoArabic%5Bwght%5D.woff2?v=90bd9854d9") format("woff2");
+  src: url("fonts/BloxwapMonoArabic/variable/BloxwapMonoArabic%5Bwght%5D.woff2?v=388e7417ad") format("woff2");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Bloxwap Mono Hebrew";
-  src: url("fonts/BloxwapMonoHebrew/variable/BloxwapMonoHebrew%5Bwght%5D.woff2?v=90bd9854d9") format("woff2");
+  src: url("fonts/BloxwapMonoHebrew/variable/BloxwapMonoHebrew%5Bwght%5D.woff2?v=388e7417ad") format("woff2");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Bloxwap Mono Armenian";
-  src: url("fonts/BloxwapMonoArmenian/variable/BloxwapMonoArmenian%5Bwght%5D.woff2?v=90bd9854d9") format("woff2");
+  src: url("fonts/BloxwapMonoArmenian/variable/BloxwapMonoArmenian%5Bwght%5D.woff2?v=388e7417ad") format("woff2");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Bloxwap Mono Armenian";
-  src: url("fonts/BloxwapMonoArmenian/variable/BloxwapMonoArmenian-Italic%5Bwght%5D.woff2?v=90bd9854d9") format("woff2");
+  src: url("fonts/BloxwapMonoArmenian/variable/BloxwapMonoArmenian-Italic%5Bwght%5D.woff2?v=388e7417ad") format("woff2");
   font-weight: 100 900;
   font-style: italic;
   font-display: swap;
 }
 @font-face {
   font-family: "Bloxwap Mono Georgian";
-  src: url("fonts/BloxwapMonoGeorgian/variable/BloxwapMonoGeorgian%5Bwght%5D.woff2?v=90bd9854d9") format("woff2");
+  src: url("fonts/BloxwapMonoGeorgian/variable/BloxwapMonoGeorgian%5Bwght%5D.woff2?v=388e7417ad") format("woff2");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Bloxwap Mono Georgian";
-  src: url("fonts/BloxwapMonoGeorgian/variable/BloxwapMonoGeorgian-Italic%5Bwght%5D.woff2?v=90bd9854d9") format("woff2");
+  src: url("fonts/BloxwapMonoGeorgian/variable/BloxwapMonoGeorgian-Italic%5Bwght%5D.woff2?v=388e7417ad") format("woff2");
   font-weight: 100 900;
   font-style: italic;
   font-display: swap;

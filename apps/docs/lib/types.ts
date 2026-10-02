@@ -43,10 +43,13 @@ export interface FamilyData {
 export interface Glyph {
   /** glyph name */ n: string;
   /** code point, or null when only reachable through a feature */ u: number | null;
+  /** Readable Unicode names of the source character(s). */ d?: string;
   /** category */ c: string;
   /** script */ s: string;
   /** advance width (font units) */ a: number;
   /** further code points mapped to the same glyph */ alt?: number[];
+  /** Source-specific metadata for further code points sharing this glyph. */
+  v?: { u: number; d: string; c: string; s: string }[];
   /** text that produces an unencoded glyph */ t?: string;
   /** the feature that produces it */ f?: string;
 }

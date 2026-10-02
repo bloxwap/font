@@ -137,3 +137,42 @@ Builder helpers (outer = *ink* coordinates, inset automatically):
 ```
 
 Look at every preview (they are PNGs) and iterate until the shapes are right.
+
+## Readability and text integrity
+
+Sans capital I uses rounded horizontal bars by default to distinguish it from
+lowercase l. Its wider advance also affects accented I and script aliases that
+reuse its skeleton; rebuild every Sans companion after changing this glyph.
+Keep optional disambiguation (`ss08`) and slashed zero (`zero`) available for
+identifiers. Mono retains its slabbed I and hooked l.
+
+After compiling, render the shipped fonts at actual UI sizes and every named
+weight, upright and italic:
+
+```bash
+.venv/bin/python tools/readability_preview.py --out /tmp/bloxwap-readability
+.venv/bin/python tools/readability_preview.py --out /tmp/bloxwap-readability --italic
+.venv/bin/python tools/readability_preview.py --out /tmp/bloxwap-readability/variable --variable-only
+.venv/bin/python tools/readability_preview.py --out /tmp/bloxwap-readability/scripts --scripts-only
+.venv/bin/python tools/check_unicode.py
+```
+
+Review `Il1`, `0O`, `rn/m`, `cl/d`, counters in `aceos`, punctuation, and accents
+at 12, 16, 20 and 24 px. Check that details remain visible and neighboring
+letters remain separate. Thin and Black are stress cases, not recommended body
+weights. Pixel is a display face: start at 20 px and verify the actual weight
+and roundness. FreeType previews are a review aid; also check target browsers
+and screens. They do not establish accessibility conformance or replace reader
+testing. Review the variable sheets too: the website uses variable fonts, whose
+rasterization can differ from the hinted static faces. Pixel's variable review
+includes roundness 0, 50 and 100 at weights 400 and 900.
+The script sheets sample all 17 families at 16 and 24 px with
+Thin, Regular and Black, including Arabic joining, Hebrew niqqud and CJK
+forms. Verify the relevant languages with native readers; sample coverage and
+successful shaping do not establish readability across the full repertoire.
+
+Preserve each character's Unicode identity even when script look-alikes share
+an outline. Keep stylistic glyphs unencoded and reach them through OpenType
+features. Ligatures must retain their original source sequences in the website
+tester and clipboard. Labels should describe Unicode names and code points,
+not guess a character from its appearance.
