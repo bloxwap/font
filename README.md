@@ -1,9 +1,16 @@
-# Bloxwap Font
+<h1 align="center">Bloxwap Font</h1>
 
-Rounded, clean, open-source typefaces from Bloxwap, Inc. — in the spirit of
-Inter and Geist, drawn from scratch.
+<p align="center">
+  <strong>Rounded, open-source typefaces for interfaces, code and screens.<br>Drawn from scratch, in the spirit of Inter and Geist.
+  <a href="https://bloxwap.github.io/font/">Try the type tester</a>.</strong>
+</p>
 
-**[bloxwap.github.io/font](https://bloxwap.github.io/font/)** — specimen, type tester, glyph browser and docs.
+<p align="center">
+  <a href="https://github.com/bloxwap/font/releases/latest"><img alt="Latest release" src="https://img.shields.io/github/v/release/bloxwap/font?color=blue&style=flat-square"></a>
+  <a href="https://github.com/bloxwap/font/releases"><img alt="Release downloads" src="https://img.shields.io/github/downloads/bloxwap/font/total?style=flat-square"></a>
+  <a href="https://github.com/bloxwap/font/actions/workflows/docs.yml"><img alt="Docs build" src="https://img.shields.io/github/actions/workflow/status/bloxwap/font/docs.yml?branch=main&amp;label=docs&amp;style=flat-square"></a>
+  <a href="LICENSE"><img alt="License: OFL-1.1" src="https://img.shields.io/badge/license-OFL--1.1-blue?style=flat-square"></a>
+</p>
 
 | Family | For | Axes |
 |---|---|---|
@@ -33,7 +40,7 @@ code { font-family: "Bloxwap Mono", ui-monospace, monospace; }
 One family name covers every script: the stylesheet loads companions with
 `unicode-range` only when a page uses them. Armenian and Georgian have italics;
 Arabic and Hebrew include mark positioning for joined and pointed text.
-Downloads and self-hosting: [Installation](https://bloxwap.github.io/font/docs/installation/).
+Downloads: [latest release](https://github.com/bloxwap/font/releases/latest). Self-hosting: [Installation](https://bloxwap.github.io/font/docs/installation/).
 
 ## Develop
 
