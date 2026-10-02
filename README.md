@@ -6,8 +6,7 @@
 </p>
 
 <p align="center">
-  <a href="https://www.npmjs.com/package/@bloxwap/font"><img alt="npm version" src="https://img.shields.io/npm/v/@bloxwap/font?color=blue&style=flat-square"></a>
-  <a href="https://github.com/bloxwap/font/releases/latest"><img alt="Latest release" src="https://img.shields.io/github/v/release/bloxwap/font?color=blue&style=flat-square"></a>
+  <a href="https://www.npmjs.com/package/@bloxwap/font"><img alt="Latest release" src="https://img.shields.io/npm/v/@bloxwap/font?label=release&color=blue&style=flat-square"></a>
   <a href="https://github.com/bloxwap/font/releases"><img alt="Release downloads" src="https://img.shields.io/github/downloads/bloxwap/font/total?style=flat-square"></a>
   <a href="https://github.com/bloxwap/font/actions/workflows/docs.yml"><img alt="Docs build" src="https://img.shields.io/github/actions/workflow/status/bloxwap/font/docs.yml?branch=main&amp;label=docs&amp;style=flat-square"></a>
   <a href="LICENSE"><img alt="License: OFL-1.1" src="https://img.shields.io/badge/license-OFL--1.1-blue?style=flat-square"></a>

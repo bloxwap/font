@@ -1,12 +1,14 @@
 #!/usr/bin/env bash
 # Publish the download zips as GitHub Release assets. `bun run fonts:build` writes them to
 # apps/docs/public/downloads/ (ignored by git); the website links to releases/latest/download/<name>.zip.
-#   tools/release.sh            tag v<Bloxwap Sans version>, e.g. v1.000
-#   tools/release.sh v1.001     explicit tag
+#   tools/release.sh            tag v<@bloxwap/font version> (packages/npm/package.json), e.g. v0.1.0
+#   tools/release.sh v0.1.1     explicit tag
+# One version everywhere: the GitHub Release tag follows the npm package, and publishing the release
+# triggers .github/workflows/publish_npm.yml for that version.
 # Creates the release if it doesn't exist, otherwise replaces its zips.  Needs the GitHub CLI (gh auth login).
 set -euo pipefail
 cd "$(dirname "$0")/../../.."
-TAG=${1:-v$(node -p "require('./apps/docs/public/data/sans.json').version")}
+TAG=${1:-v$(node -p "require('./packages/npm/package.json').version")}
 shopt -s nullglob
 ZIPS=(apps/docs/public/downloads/*.zip)
 [ ${#ZIPS[@]} -gt 0 ] || { echo "no zips in apps/docs/public/downloads — run bun run fonts:build first"; exit 1; }
