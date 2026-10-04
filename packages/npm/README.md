@@ -9,6 +9,8 @@ npm install @bloxwap/font
 
 ## Next.js
 
+The `next/font` exports need Next.js 15 or later.
+
 ```tsx title="app/layout.tsx"
 import { BloxwapSans } from '@bloxwap/font/sans';
 import { BloxwapMono } from '@bloxwap/font/mono';

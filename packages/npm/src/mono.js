@@ -9,7 +9,9 @@ import './mono-italic.js';
  * Next.js preloads the normal face; the italic loads only when a page renders italic text.
  */
 export const BloxwapMono = localFont({
-  src: [{ path: '../fonts/BloxwapMono/BloxwapMono-Variable.woff2', weight: '100 900', style: 'normal' }],
+  // No `style` on this src: with a single file next/font copies its style onto className and .style, and a
+  // `font-style: normal` there would cancel inherited italics (<em><code className>) and fall back to the normal face.
+  src: [{ path: '../fonts/BloxwapMono/BloxwapMono-Variable.woff2', weight: '100 900' }],
   variable: '--font-bloxwap-mono',
   display: 'swap',
   adjustFontFallback: false,

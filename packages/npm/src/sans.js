@@ -9,7 +9,9 @@ import './sans-italic.js';
  * Next.js preloads the normal face; the italic loads only when a page renders italic text.
  */
 export const BloxwapSans = localFont({
-  src: [{ path: '../fonts/BloxwapSans/BloxwapSans-Variable.woff2', weight: '100 900', style: 'normal' }],
+  // No `style` on this src: with a single file next/font copies its style onto className and .style, and a
+  // `font-style: normal` there would cancel inherited italics (<em><code className>) and fall back to the normal face.
+  src: [{ path: '../fonts/BloxwapSans/BloxwapSans-Variable.woff2', weight: '100 900' }],
   variable: '--font-bloxwap-sans',
   display: 'swap',
   // A metric-adjusted Arial fallback would sit before the companions and draw Arabic and Hebrew in Arial.

@@ -8,7 +8,9 @@ import './pixel-italic.js';
  * page renders italic text.
  */
 export const BloxwapPixel = localFont({
-  src: [{ path: '../fonts/BloxwapPixel/BloxwapPixel-Variable.woff2', weight: '100 900', style: 'normal' }],
+  // No `style` on this src: with a single file next/font copies its style onto className and .style, and a
+  // `font-style: normal` there would cancel inherited italics (<em><code className>) and fall back to the normal face.
+  src: [{ path: '../fonts/BloxwapPixel/BloxwapPixel-Variable.woff2', weight: '100 900' }],
   variable: '--font-bloxwap-pixel',
   display: 'swap',
   adjustFontFallback: false,

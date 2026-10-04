@@ -4,7 +4,8 @@ import localFont from 'next/font/local';
 // can opt out of preloading: `preload` applies to every file in a call, and a page that never renders italic text
 // would otherwise download the italic as well. Without a preload, the browser fetches this face only when text uses it.
 //
-// next/font/local names the family after the const the call is assigned to, so this const must stay `BloxwapPixel`:
+// From Next.js 15, next/font/local names the family after the const the call is assigned to (Next 13.2-14 hashed it
+// per call, hence the `next >=15` peer range), so this const must stay `BloxwapPixel`:
 // that adds the italic to the same family as the normal face in ./pixel.js, and <em> gets the real italic, not a
 // synthesized slant.
 const BloxwapPixel = localFont({
