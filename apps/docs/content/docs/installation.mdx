@@ -142,7 +142,7 @@ Preload the upright Sans file so text renders in Bloxwap Sans on first paint. Th
 
 ## Next.js
 
-With the npm package, import a family and add its class names. Each export comes from `next/font/local`, so Next.js self-hosts and preloads it; Sans and Mono include the script companions, downloaded only for text in those scripts:
+With the npm package (Next.js 15 or later), import a family and add its class names. Each export comes from `next/font/local`, so Next.js self-hosts it and preloads the normal face (the italic, in the same family, downloads only when a page renders italic text); Sans and Mono include the script companions, downloaded only for text in those scripts:
 
 ```tsx title="app/layout.tsx"
 import { BloxwapSans } from '@bloxwap/font/sans';

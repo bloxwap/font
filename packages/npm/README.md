@@ -9,6 +9,8 @@ npm install @bloxwap/font
 
 ## Next.js
 
+The `next/font` exports need Next.js 15 or later.
+
 ```tsx title="app/layout.tsx"
 import { BloxwapSans } from '@bloxwap/font/sans';
 import { BloxwapMono } from '@bloxwap/font/mono';
@@ -22,7 +24,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 }
 ```
 
-`BloxwapSans`, `BloxwapMono` and `BloxwapPixel` come from `next/font/local`, so Next.js self-hosts and preloads them.
+`BloxwapSans`, `BloxwapMono` and `BloxwapPixel` come from `next/font/local`, so Next.js self-hosts them and preloads
+the normal face. The italic is in the same family but isn't preloaded: a page downloads it only when it renders italic text.
 `.variable` defines `--font-bloxwap-sans`, `--font-bloxwap-mono` and `--font-bloxwap-pixel`:
 
 ```css

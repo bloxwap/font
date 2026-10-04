@@ -1,13 +1,17 @@
 import localFont from 'next/font/local';
 // The companion scripts (Arabic, Hebrew, Armenian, Georgian, CJK) as one fallback family with unicode-range.
 import '../sans-scripts.css';
+// The italic face: the same family, not preloaded, so it downloads only when a page renders italic text.
+import './sans-italic.js';
 
-/** Bloxwap Sans for Next.js: variable weight 100–900 with italics; `variable` sets --font-bloxwap-sans. */
+/**
+ * Bloxwap Sans for Next.js: variable weight 100–900 with italics; `variable` sets --font-bloxwap-sans.
+ * Next.js preloads the normal face; the italic loads only when a page renders italic text.
+ */
 export const BloxwapSans = localFont({
-  src: [
-    { path: '../fonts/BloxwapSans/BloxwapSans-Variable.woff2', weight: '100 900', style: 'normal' },
-    { path: '../fonts/BloxwapSans/BloxwapSans-Italic-Variable.woff2', weight: '100 900', style: 'italic' },
-  ],
+  // No `style` on this src: with a single file next/font copies its style onto className and .style, and a
+  // `font-style: normal` there would cancel inherited italics (<em><code className>) and fall back to the normal face.
+  src: [{ path: '../fonts/BloxwapSans/BloxwapSans-Variable.woff2', weight: '100 900' }],
   variable: '--font-bloxwap-sans',
   display: 'swap',
   // A metric-adjusted Arial fallback would sit before the companions and draw Arabic and Hebrew in Arial.
