@@ -3,6 +3,11 @@ title: Changelog
 description: Release history of Bloxwap Font.
 ---
 
+## 0.1.2
+
+- **Italics load on demand.** The Next.js exports (`@bloxwap/font/sans`, `/mono` and `/pixel`) now preload only the normal face. The italic is in the same family but is not preloaded, so the browser downloads it only when a page renders italic text. A page without italics saves about 632 KiB per cold load with Sans and Mono. `<em>` and inherited italics still use the real italic, not a synthesized slant.
+- **Next.js 15 or later.** The `next` peer range is now `>=15.0.0`. Next.js 13.2–14 are no longer supported: they name each `next/font` call's family separately, so the on-demand italic would not join the normal face's family.
+
 ## 0.1.1
 
 - **Distinct capital I.** Sans uses rounded horizontal bars on capital `I` by default to distinguish it from lowercase `l`. All eight Sans families, including accented forms and script aliases, have been rebuilt. The wider advance can slightly change text layout.

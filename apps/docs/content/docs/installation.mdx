@@ -161,28 +161,52 @@ The `variable` class names define `--font-bloxwap-sans` and `--font-bloxwap-mono
 
 ### Without the package
 
-Put the variable WOFF2 files next to your layout (for example in `app/fonts/`) and load them with `next/font/local`. Next.js self-hosts them, adds preload tags and generates a size-adjusted fallback:
+Put the variable WOFF2 files next to your layout (for example in `app/fonts/`) and load them with `next/font/local` (Next.js 15 or later). Next.js self-hosts them, adds preload tags and generates a size-adjusted fallback.
 
-```tsx title="app/layout.tsx"
+`preload` applies to every file in a `localFont` call, so load the italics in a second call with `preload: false`. Assign it to a `const` with the same name: Next.js names the family after the `const`, so the italic joins the normal face's family and the browser downloads it only when a page renders italic text:
+
+```tsx title="app/fonts.ts"
 import localFont from 'next/font/local';
+// The italic faces: same families, not preloaded.
+import './fonts-italic';
 
-const sans = localFont({
-  src: [
-    { path: './fonts/BloxwapSans[wght].woff2', weight: '100 900', style: 'normal' },
-    { path: './fonts/BloxwapSans-Italic[wght].woff2', weight: '100 900', style: 'italic' },
-  ],
+// No `style` on a single src: next/font would copy it onto className and cancel inherited italics.
+export const sans = localFont({
+  src: [{ path: './fonts/BloxwapSans[wght].woff2', weight: '100 900' }],
   variable: '--font-bloxwap-sans',
   display: 'swap',
 });
 
-const mono = localFont({
-  src: [
-    { path: './fonts/BloxwapMono[wght].woff2', weight: '100 900', style: 'normal' },
-    { path: './fonts/BloxwapMono-Italic[wght].woff2', weight: '100 900', style: 'italic' },
-  ],
+export const mono = localFont({
+  src: [{ path: './fonts/BloxwapMono[wght].woff2', weight: '100 900' }],
   variable: '--font-bloxwap-mono',
   display: 'swap',
 });
+```
+
+```tsx title="app/fonts-italic.ts"
+import localFont from 'next/font/local';
+
+// Keep these names equal to the consts in fonts.ts so each italic joins that family.
+const sans = localFont({
+  src: [{ path: './fonts/BloxwapSans-Italic[wght].woff2', weight: '100 900', style: 'italic' }],
+  display: 'swap',
+  preload: false,
+  adjustFontFallback: false,
+});
+
+const mono = localFont({
+  src: [{ path: './fonts/BloxwapMono-Italic[wght].woff2', weight: '100 900', style: 'italic' }],
+  display: 'swap',
+  preload: false,
+  adjustFontFallback: false,
+});
+
+export { sans, mono };
+```
+
+```tsx title="app/layout.tsx"
+import { sans, mono } from './fonts';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -198,7 +222,7 @@ body { font-family: var(--font-bloxwap-sans), system-ui, sans-serif; }
 code, pre { font-family: var(--font-bloxwap-mono), ui-monospace, monospace; }
 ```
 
-For Bloxwap Pixel, load `BloxwapPixel[ROND,wght].woff2` the same way and set `ROND` with `font-variation-settings`.
+For Bloxwap Pixel, load `BloxwapPixel[ROND,wght].woff2` and its italic the same way and set `ROND` with `font-variation-settings`.
 
 ## Tailwind CSS v4
 
