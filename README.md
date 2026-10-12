@@ -6,29 +6,33 @@
 </p>
 
 <p align="center">
-  <a href="https://www.npmjs.com/package/@bloxwap/font"><img alt="Latest release" src="https://img.shields.io/npm/v/@bloxwap/font?label=release&color=blue&style=flat-square"></a>
-  <a href="https://github.com/bloxwap/font/releases"><img alt="Release downloads" src="https://img.shields.io/github/downloads/bloxwap/font/total?style=flat-square"></a>
-  <a href="https://github.com/bloxwap/font/actions/workflows/docs.yml"><img alt="Docs build" src="https://img.shields.io/github/actions/workflow/status/bloxwap/font/docs.yml?branch=main&amp;label=docs&amp;style=flat-square"></a>
-  <a href="LICENSE"><img alt="License: OFL-1.1" src="https://img.shields.io/badge/license-OFL--1.1-blue?style=flat-square"></a>
+  <a href="https://www.npmjs.com/package/@bloxwap/font"><img src="https://img.shields.io/npm/v/@bloxwap/font?style=flat-square" alt="npm version"></a>
+  <a href="https://www.npmjs.com/package/@bloxwap/font"><img src="https://img.shields.io/npm/dm/@bloxwap/font?style=flat-square" alt="npm downloads"></a>
+  <a href="https://github.com/bloxwap/font/releases"><img src="https://img.shields.io/github/v/release/bloxwap/font?style=flat-square" alt="release"></a>
+  <a href="https://openfontlicense.org/"><img src="https://img.shields.io/badge/license-OFL--1.1-blue?style=flat-square" alt="license"></a>
 </p>
+
+## Features
+
+- **Three type families.** Sans for interfaces and text, Mono for code with ligatures, and Pixel for displays and game-like moments, all with matching proportions and weights.
+- **11 scripts, 656 languages.** Multilingual companions for Arabic, Armenian, Georgian, Hebrew, Japanese, Korean, and Simplified Chinese. Armenian and Georgian include italics; Arabic and Hebrew include mark positioning for joined and pointed text.
+- **Variable and static fonts.** 24 variable fonts (wght 100-900, italics where applicable, and ROND 0-100 for Pixel) plus 216 static weights. Available as OTF, TTF, WOFF2, and WOFF.
+- **Clean-room design.** All 19,311 characters drawn from scratch, in the spirit of Inter and Geist. No outlines copied, traced, or derived from any other font.
 
 | Family | For | Axes |
 |---|---|---|
-| **Bloxwap Sans** | Interfaces and text | `wght` 100–900 · italics |
-| **Bloxwap Mono** | Code and terminals, with code ligatures | `wght` 100–900 · italics |
-| **Bloxwap Pixel** | Displays, tickers, game-like moments | `wght` 100–900 · `ROND` 0–100 · italics |
-| **Sans / Mono Arabic** | Arabic, Persian, Urdu, Pashto, Kurdish, Sindhi, Uyghur, Jawi… | `wght` 100–900 |
-| **Sans / Mono Armenian** | Armenian, proportioned for multilingual text | `wght` 100–900 · italics |
-| **Sans / Mono Georgian** | Mkhedruli and Mtavruli uppercase | `wght` 100–900 · italics |
-| **Sans / Mono Hebrew** | Hebrew and full Niqqud | `wght` 100–900 |
-| **Sans / Mono JP** | Japanese kana and Jōyō kanji | `wght` 100–900 |
-| **Sans / Mono KR** | Korean (all 11,172 Hangul syllables) | `wght` 100–900 |
-| **Sans / Mono SC** | Simplified Chinese (3,500 standard characters) | `wght` 100–900 |
+| **Bloxwap Sans** | Interfaces and text | `wght` 100-900 · italics |
+| **Bloxwap Mono** | Code and terminals, with code ligatures | `wght` 100-900 · italics |
+| **Bloxwap Pixel** | Displays, tickers, game-like moments | `wght` 100-900 · `ROND` 0-100 · italics |
+| **Sans / Mono Arabic** | Arabic, Persian, Urdu, Pashto, Kurdish, Sindhi, Uyghur, Jawi… | `wght` 100-900 |
+| **Sans / Mono Armenian** | Armenian, proportioned for multilingual text | `wght` 100-900 · italics |
+| **Sans / Mono Georgian** | Mkhedruli and Mtavruli uppercase | `wght` 100-900 · italics |
+| **Sans / Mono Hebrew** | Hebrew and full Niqqud | `wght` 100-900 |
+| **Sans / Mono JP** | Japanese kana and Jōyō kanji | `wght` 100-900 |
+| **Sans / Mono KR** | Korean (all 11,172 Hangul syllables) | `wght` 100-900 |
+| **Sans / Mono SC** | Simplified Chinese (3,500 standard characters) | `wght` 100-900 |
 
-17 families · 11 scripts · 19,311 characters · 656 languages · 216 static + 24 variable fonts
-(OTF, TTF, WOFF2, WOFF) · OFL-1.1.
-
-## Use
+## Installation
 
 ```sh
 npm install @bloxwap/font
@@ -48,39 +52,37 @@ body { font-family: "Bloxwap Sans", system-ui, sans-serif; }
 code { font-family: "Bloxwap Mono", ui-monospace, monospace; }
 ```
 
-One family name covers every script: the stylesheet loads companions with
-`unicode-range` only when a page uses them. Armenian and Georgian have italics;
-Arabic and Hebrew include mark positioning for joined and pointed text.
-Downloads: [latest release](https://github.com/bloxwap/font/releases/latest). Self-hosting: [Installation](https://bloxwap.github.io/font/docs/installation/).
+One family name covers every script: the stylesheet loads companions with `unicode-range` only when a page uses them. Downloads: [latest release](https://github.com/bloxwap/font/releases/latest). Self-hosting: [Installation](https://bloxwap.github.io/font/docs/installation/).
 
-## Develop
+## Release status
+
+`0.1.2` is an early developer preview; expect breaking changes before `1.0`.
+
+## Documentation
+
+Guides, glyph charts, and the type tester: **https://bloxwap.github.io/font/**
+
+## Development
+
+This repository is a workspace: the type design and build tools live in [`packages/font`](packages/font), the `@bloxwap/font` npm package in [`packages/npm`](packages/npm), and the documentation site in [`apps/docs`](apps/docs).
 
 ```sh
 bun install
-bun run docs:dev        # website on http://localhost:3904
 bun run fonts:setup     # Python 3.12 toolchain (uv) for the font build
 bun run fonts:build     # build every family into packages/font/fonts and the website
+bun run dev             # docs and type tester at http://localhost:3904
 ```
 
-| Path | |
-|---|---|
-| [`apps/docs`](apps/docs) | The website (Fumadocs + Next.js, static export) |
-| [`packages/font`](packages/font) | The type design: skeleton glyph source and build tools |
-| [`packages/npm`](packages/npm) | The `@bloxwap/font` npm package (web fonts, `next/font` exports, CSS) |
+Requires Bun. Font build requires Python 3.12 or newer and depends on [fontmake](https://github.com/googlefonts/fontmake), [fonttools](https://github.com/fonttools/fonttools), and [uv](https://docs.astral.sh/uv/).
 
-With the docs running, check glyph copy identity, accessible control names,
-keyboard access, replacement fonts and text-spacing reflow:
+With the docs running, check glyph copy identity, accessible control names, keyboard access, replacement fonts and text-spacing reflow:
 
 ```sh
 DOCS_URL=http://localhost:3904/ bun run docs:accessibility
 ```
 
-The browser suite runs in Chromium, Firefox and WebKit. Its 320 px viewport and
-200% root text size checks complement manual browser zoom and screen-reader
-testing. For font raster previews and Unicode QA, see
-[Readability and text integrity](packages/font/DESIGN.md#readability-and-text-integrity).
+The browser suite runs in Chromium, Firefox and WebKit. Its 320 px viewport and 200% root text size checks complement manual browser zoom and screen-reader testing. For font raster previews and Unicode QA, see [Readability and text integrity](packages/font/DESIGN.md#readability-and-text-integrity).
 
 ## License
 
-[SIL Open Font License 1.1](LICENSE). © 2026 Bloxwap, Inc. Clean-room: no
-outlines were copied, traced or derived from any other font.
+[SIL Open Font License 1.1](https://openfontlicense.org/). © 2026 Bloxwap, Inc. Clean-room: no outlines were copied, traced or derived from any other font.
