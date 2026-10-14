@@ -59,7 +59,8 @@ jobs:
             sleep 1
           done
           cd apps/docs
-          bunx playwright test --workers=3
+          # One active page avoids oversubscribing the runner while shaping the full font catalog.
+          bunx playwright test --workers=1
       - uses: actions/upload-artifact@v6
         if: always()
         with:
