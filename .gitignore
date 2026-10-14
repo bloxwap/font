@@ -23,3 +23,16 @@ apps/docs/out/
 apps/docs/next-env.d.ts
 test-results/
 playwright-report/
+
+# Next recipe consumer fixture
+apps/next-fixture/.next/
+apps/next-fixture/out/
+apps/next-fixture/next-env.d.ts
+
+.playwright-browsers/
+
+test-results-recheck/
+
+ci-evidence/
+
+.baseline/

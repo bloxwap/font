@@ -4,3 +4,7 @@ bloxwap-font.css
 sans-scripts.css
 mono-scripts.css
 *.tgz
+
+css/
+native/
+manifest.json

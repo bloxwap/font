@@ -1,0 +1,5 @@
+Georgia { width: 320, offenders: [] }
+serif { width: 320, offenders: [] }
+Liberation Serif { width: 320, offenders: [] }
+Times New Roman { width: 320, offenders: [] }
+DejaVu Serif { width: 320, offenders: [] }

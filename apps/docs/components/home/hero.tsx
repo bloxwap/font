@@ -15,9 +15,9 @@ interface Axis { wght: number; rond: number | null }
 const READOUT_MS = 160;
 
 /** The live axis readout, its own component so the hero's 60 fps loop never re-renders the wordmark. */
-function AxisReadout({ bind }: { bind: { current: (axis: Axis) => void } }) {
+function AxisReadout({ bindRef }: { bindRef: { current: (axis: Axis) => void } }) {
   const [axis, setAxis] = useState<Axis>({ wght: 400, rond: null });
-  useEffect(() => { bind.current = setAxis; }, [bind]);
+  useEffect(() => { bindRef.current = setAxis; }, [bindRef]);
   return <output>
     <NumberFlow value={axis.wght} transformTiming={ROLL} spinTiming={ROLL} />
     {axis.rond != null && <> · ROND <NumberFlow value={axis.rond} transformTiming={ROLL} spinTiming={ROLL} /></>}
@@ -152,16 +152,16 @@ export function Hero({ version, zip, stats }: {
         <p className="hero-tag">Rounded typefaces for interfaces, code and screens — with Arabic, Armenian, Georgian, Hebrew and CJK companions. Free and open source.</p>
         <div className="hero-cta">
           {zip
-            ? <a className="btn" href={zip.href} download><Download aria-hidden="true" /> Download Sans, Mono &amp; Pixel <span className="btn-meta">{zip.size}</span></a>
-            : <a className="btn" href="#download"><Download aria-hidden="true" /> Download</a>}
-          <a className="btn btn--secondary" href="#tester">Try it <ArrowDown aria-hidden="true" /></a>
+            ? <a className="hig-button btn" href={zip.href} download><Download aria-hidden="true" /> Download Sans, Mono &amp; Pixel <span className="btn-meta">{zip.size}</span></a>
+            : <a className="hig-button btn" href="#download"><Download aria-hidden="true" /> Download</a>}
+          <a className="hig-button btn btn--secondary" href="#tester">Try it <ArrowDown aria-hidden="true" /></a>
         </div>
         <InstallCommand />
       </div>
       <div className="hero-side">
         <Segmented label="Hero typeface" value={family} onChange={choose}
           options={[{ value: 'sans', label: 'Sans' }, { value: 'mono', label: 'Mono' }, { value: 'pixel', label: 'Pixel' }]} />
-        <p className="hero-axis mono-label"><span>wght</span> <AxisReadout bind={readoutRef} /> <span className="hint" ref={hintRef}>move your pointer</span></p>
+        <p className="hero-axis mono-label"><span>wght</span> <AxisReadout bindRef={readoutRef} /> <span className="hint" ref={hintRef}>move your pointer</span></p>
       </div>
     </div>
     </div>

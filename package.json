@@ -22,6 +22,10 @@
     "docs:data": "cd apps/docs && bun run data",
     "docs:smoke": "cd apps/docs && bun run smoke",
     "docs:accessibility": "cd apps/docs && bun run test:accessibility",
-    "npm:pack": "cd packages/npm && npm pack --dry-run"
+    "npm:pack": "cd packages/npm && npm pack --dry-run",
+    "lint": "cd apps/docs && bun run lint",
+    "typecheck": "bun run docs:check",
+    "test": "cd packages/npm && bun run test",
+    "build": "cd packages/npm && bun run build && cd ../../apps/docs && bun run build"
   }
 }

@@ -56,3 +56,31 @@ Weights 100–900 on one variable axis, with italics for Sans, Mono, Pixel, Arme
 ## License
 
 [SIL Open Font License 1.1](https://github.com/bloxwap/font/blob/main/LICENSE). © 2026 Bloxwap, Inc.
+
+## HIG / selective web and native assets (0.1.3 candidate)
+
+The new distribution is a candidate, not yet published. Build a pinned checkout using
+Python with `fonttools[woff,unicode]==4.66.1` and `brotli==1.2.0`; set `FONT_PYTHON`
+to that interpreter before `npm pack`. No glyph sources are changed by packaging.
+
+- `@bloxwap/font/manifest`: every built face's path, weight, style, ISO 15924 scripts,
+  internal font version, package version, bytes and SHA-256. Static faces include
+  their unique registration name and variable source hash.
+- `@bloxwap/font/css/{sans,mono,pixel}`: one role with its companions.
+- `@bloxwap/font/css/{sans,mono}-core` and `pixel-core`: core only.
+- `@bloxwap/font/css/{sans,mono}-{arabic,hebrew,armenian,georgian,jp,kr,sc}`:
+  script only, retaining unicode-range and swap behavior.
+- `@bloxwap/font/native/assets/BloxwapSans/BloxwapSans-SemiBold.ttf`: direct
+  Metro `require()` entry for a chosen face, without bundling other weights.
+- `@bloxwap/font/native/BloxwapSans` (or another published family): typed Metro
+  asset map, e.g. `faces['BloxwapSans-SemiBold']`. Maps bundle every face in that family; prefer direct entries for strict budgets.
+  Register only selected TTFs;
+  use their exact keys as fontFamily with no fontWeight/fontStyle override.
+  Native TTFs decode committed static WOFF2s without changing glyphs or hinting;
+  OS/2 registration weights normalize to named tiers, with sourceWeight retained.
+  Static Pixel uses ROND 50. All nine weights and available italics are included.
+
+Read [Cross-platform typography](https://bloxwap.github.io/font/docs/cross-platform/)
+for Next.js and Expo recipes, locale selection, scaling, licensing and limitations.
+`npm test` checks the manifest against the actual built files and binary metadata.
+Physical native rendering still requires host/device validation.

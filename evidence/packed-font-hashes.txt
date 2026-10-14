@@ -1,0 +1,1 @@
+Packed candidate checked against all 240 final built font SHA-256 values: pass.

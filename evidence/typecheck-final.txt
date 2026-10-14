@@ -1,0 +1,7 @@
+$ bun run docs:check
+$ cd apps/docs && bun run check
+$ fumadocs-mdx && next typegen && tsc --noEmit
+[MDX] generated files in 7.938130000000001ms
+[MDX] generated files in 10.163095999999996ms
+Generating route types...
+✓ Types generated successfully

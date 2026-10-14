@@ -12,7 +12,7 @@ test('fonts, tester, glyph browser, languages, search and public resources', asy
   const fonts = await page.evaluate(async () => {
     await document.fonts.ready;
     await Promise.all(['Bloxwap Sans', 'Bloxwap Mono', 'Bloxwap Pixel'].map((family) => document.fonts.load(`400 16px "${family}"`)));
-    return [...document.fonts].filter((f) => f.status === 'loaded').map((f) => f.family);
+    return [...document.fonts].filter((f) => f.status === 'loaded').map((f) => f.family.replaceAll('"', ''));
   });
   for (const family of ['Bloxwap Sans', 'Bloxwap Mono', 'Bloxwap Pixel']) expect(fonts).toContain(family);
 

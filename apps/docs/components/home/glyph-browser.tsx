@@ -60,7 +60,12 @@ export function GlyphBrowser({ families, initial = 'sans', eyebrow = '05 — Gly
   const sentinelRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => { const t = window.setTimeout(() => setDebounced(query.trim()), 120); return () => window.clearTimeout(t); }, [query]);
-  useEffect(() => { setLimit(PAGE); }, [familyId, debounced, category, script]);
+  const filterKey = JSON.stringify([familyId, debounced, category, script]);
+  const [previousFilterKey, setPreviousFilterKey] = useState(filterKey);
+  if (previousFilterKey !== filterKey) {
+    setPreviousFilterKey(filterKey);
+    setLimit(PAGE);
+  }
 
   const categories = useMemo(() => {
     const counts = new Map<string, number>();
@@ -72,10 +77,8 @@ export function GlyphBrowser({ families, initial = 'sans', eyebrow = '05 — Gly
     for (const g of variants) counts.set(g.s, (counts.get(g.s) ?? 0) + 1);
     return [...counts.entries()].sort((a, b) => b[1] - a[1]);
   }, [variants]);
-  useEffect(() => {
-    if (category && !categories.some(([c]) => c === category)) setCategory('');
-    if (script && !scripts.some(([s]) => s === script)) setScript('');
-  }, [categories, scripts, category, script]);
+  if (category && !categories.some(([c]) => c === category)) setCategory('');
+  if (script && !scripts.some(([s]) => s === script)) setScript('');
 
   const list = useMemo(() => variants.filter((g) => (!category || g.c === category) && (!script || g.s === script) && matches(g, debounced)), [variants, category, script, debounced]);
   const selIndex = useMemo(() => {
@@ -136,16 +139,16 @@ export function GlyphBrowser({ families, initial = 'sans', eyebrow = '05 — Gly
     <div className="g-toolbar">
       <label className="search-field"><span className="sr-only">Search glyphs</span>
         <Search aria-hidden="true" />
-        <input type="search" value={query} onChange={(e) => { setQuery(e.target.value); setSelKey(null); }} placeholder="Search: a, Aacute, U+00E9, 233" autoComplete="off" />
+        <input type="search" disabled={glyphs === undefined} aria-busy={glyphs === undefined} value={query} onChange={(e) => { setQuery(e.target.value); setSelKey(null); }} placeholder="Search: a, Aacute, U+00E9, 233" autoComplete="off" />
       </label>
       <label className="sel"><span className="sr-only">Category</span>
-        <select value={category} onChange={(e) => setCategory(e.target.value)}>
+        <select disabled={glyphs === undefined} value={category} onChange={(e) => setCategory(e.target.value)}>
           <option value="">All categories</option>
           {categories.map(([c, n]) => <option key={c} value={c}>{c} ({fmtNum(n)})</option>)}
         </select>
       </label>
       <label className="sel"><span className="sr-only">Script</span>
-        <select value={script} onChange={(e) => setScript(e.target.value)}>
+        <select disabled={glyphs === undefined} value={script} onChange={(e) => setScript(e.target.value)}>
           <option value="">All scripts</option>
           {scripts.map(([s, n]) => <option key={s} value={s}>{s} ({fmtNum(n)})</option>)}
         </select>
@@ -167,7 +170,7 @@ export function GlyphBrowser({ families, initial = 'sans', eyebrow = '05 — Gly
           </button>;
         })}
         {!empty && list.length > limit && <div className="g-more" ref={sentinelRef}>
-          <button type="button" className="btn btn--secondary btn--sm" onClick={() => setLimit((l) => l + PAGE * 4)}>Show more ({fmtNum(list.length - limit)} left)</button>
+          <button type="button" className="hig-button btn btn--secondary btn--sm" onClick={() => setLimit((l) => l + PAGE * 4)}>Show more ({fmtNum(list.length - limit)} left)</button>
         </div>}
       </div>
       <Inspector meta={meta} glyph={empty ? undefined : selected} wght={wght} stack={stack} pixel={!!pixel} onCopy={() => void copy(selected)}
@@ -230,8 +233,8 @@ function Inspector({ meta, glyph, wght, stack, pixel, onCopy, onTry, weightContr
       </dl>
       {weightControl}
       <div className="gi-actions">
-        <button type="button" className="btn btn--secondary btn--sm" onClick={onCopy} disabled={!glyph || !glyphText(glyph)}>Copy character</button>
-        <button type="button" className="btn btn--secondary btn--sm" onClick={onTry} disabled={!glyph || !glyphText(glyph)}>Use in tester</button>
+        <button type="button" className="hig-button btn btn--secondary btn--sm" onClick={onCopy} disabled={!glyph || !glyphText(glyph)}>Copy character</button>
+        <button type="button" className="hig-button btn btn--secondary btn--sm" onClick={onTry} disabled={!glyph || !glyphText(glyph)}>Use in tester</button>
       </div>
     </div>
   </aside>;

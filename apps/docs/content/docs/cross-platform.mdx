@@ -1,0 +1,100 @@
+---
+title: Cross-platform typography
+description: Pin font assets, select web scripts, use Next.js and register static React Native faces.
+---
+
+This recipe supplies the font assets for [HIG typography #7](https://github.com/bloxwap/hig/issues/7). HIG owns the approved semantic type roles and consumer certification. Font supplies the binary faces and registration names. The new entries below belong to **0.1.3 candidate**, built from this repository; 0.1.2 on npm does not include them. No candidate has been published by this migration.
+
+## Pin and inspect
+
+Use a reviewed immutable font commit and its built package tarball until a release is available. Do not duplicate binaries in each product repository. A source checkout needs Node, Python and the pinned packaging tools:
+
+```sh
+python3 -m venv packages/font/.venv
+packages/font/.venv/bin/pip install 'fonttools[woff,unicode]==4.66.1' 'brotli==1.2.0'
+export FONT_PYTHON="$PWD/packages/font/.venv/bin/python"
+cd packages/npm
+npm pack
+# In your application, install the resulting local/CI artifact tarball.
+```
+
+```ts
+import manifest from '@bloxwap/font/manifest';
+// schemaVersion, package version, OFL-1.1 license, generator;
+// faces: path, family, weight, style, scripts (ISO 15924), font version,
+// byte count, SHA-256, axes, and static face registrationName/source hash.
+```
+
+The built manifest includes every WOFF2 and static TTF. Package version and internal font version are distinct: the existing binaries report Version 1.000. The packaging tests verify files, hashes, Unicode coverage, family names and actual binary metadata. Native TTFs decode the committed named static WOFF2 faces, preserving glyph outlines, metrics and hinting. Their registration metadata normalizes the published weight tiers (for example, an approximate source class 608 becomes 600); the manifest retains sourceWeight. The existing Pixel static faces use ROND 50. Sources, glyph design and existing variable binaries stay unchanged. Font generation provenance lives in [Building](/docs/building); all assets retain the [SIL OFL 1.1](/docs/license).
+
+## Web: load only the roles and scripts you use
+
+```css
+@import '@bloxwap/font/css/sans-core';
+@import '@bloxwap/font/css/mono-core';
+@import '@bloxwap/font/css/sans-arabic';
+@import '@bloxwap/font/css/sans-hebrew';
+body { font-family: 'Bloxwap Sans', system-ui, sans-serif; font-synthesis: none; }
+code, pre { font-family: 'Bloxwap Mono', ui-monospace, monospace; }
+.price { font-variant-numeric: tabular-nums; }
+```
+
+Entries `sans`, `mono`, `pixel` load one family with all its available companions. Entries `sans-core`, `mono-core`, `pixel-core` select the core (Latin, Greek, Cyrillic coverage); Sans/Mono additionally offer `arabic`, `hebrew`, `armenian`, `georgian`, `jp`, `kr`, `sc`. There is no Pixel companion or synthesized italic for companions that only publish normal faces. Existing `@bloxwap/font/css` remains the complete catalog. Retained unicode-range rules defer downloads until text needs the face; these are script selections, not newly subsetted glyph files.
+
+Prefer explicit locale entries for Japanese, Korean and Simplified Chinese. Loading multiple CJK companions with overlapping Han ranges does not implement a locale switch: scope the published named families (`Bloxwap Sans JP`, etc.) to matching `lang` containers. Use `lang` and `dir="auto"` for mixed translations, and a host-approved system fallback for unsupported characters. Pixel is a scoped display accent; use Sans for UI/prose and Mono for code/numeric roles.
+
+All rules use `font-display: swap`. A system fallback is available while loading or offline, but metrics differ; do not claim zero layout shift. Preload only the primary normal UI face. The generated manifest gives exact byte budgets; choose a budget from selected faces rather than loading the catalog. The migration report records measured production requests and large-text/fallback tests. Host language-specific clipping and layout-shift budgets still require consumer checks.
+
+## Next.js App Router
+
+The current package loaders remain supported and include companions. They preload the core normal face; italic styles are lazy:
+
+```tsx title="app/layout.tsx"
+import { BloxwapSans } from '@bloxwap/font/sans';
+import { BloxwapMono } from '@bloxwap/font/mono';
+import './globals.css';
+
+export default function Layout({ children }: { children: React.ReactNode }) {
+  return <html lang="en" className={`${BloxwapSans.variable} ${BloxwapMono.variable}`}>
+    <body>{children}</body>
+  </html>;
+}
+```
+
+```css title="app/globals.css"
+body { font-family: var(--font-bloxwap-sans), system-ui, sans-serif; }
+code, pre { font-family: var(--font-bloxwap-mono), ui-monospace, monospace; }
+```
+
+For a strict script budget, import the selective CSS entries in the root layout instead. They need no Next loader or copied font files. See [Installation](/docs/installation) for loader behavior and existing APIs. The HIG migration uses Next 16.3.6 static export with `/font`; other Next versions require host validation.
+
+## Expo / React Native
+
+WOFF2 is a web asset. Native uses the generated static TTFs. Each face has a unique embedded family and PostScript name, identical to its registration key. Choose weight/style by changing the key, retaining native font scaling:
+
+```tsx
+import * as Font from 'expo-font';
+import { Text } from 'react-native';
+
+// Register just the selected faces, before rendering content.
+export async function registerFonts() {
+  await Font.loadAsync({
+  'BloxwapSans-Regular': require('@bloxwap/font/native/assets/BloxwapSans/BloxwapSans-Regular.ttf'),
+  'BloxwapSans-SemiBold': require('@bloxwap/font/native/assets/BloxwapSans/BloxwapSans-SemiBold.ttf'),
+  'BloxwapSans-RegularItalic': require('@bloxwap/font/native/assets/BloxwapSans/BloxwapSans-RegularItalic.ttf'),
+  'BloxwapMono-Regular': require('@bloxwap/font/native/assets/BloxwapMono/BloxwapMono-Regular.ttf'),
+  });
+}
+
+export function Label() {
+  return <Text allowFontScaling style={{
+    fontFamily: 'BloxwapSans-SemiBold', fontSize: 16, lineHeight: 24,
+  }}>Account balance</Text>;
+}
+```
+
+Use the exact manifest registrationName as the key (for italic, register `BloxwapSans-RegularItalic` under that same name). Do not set `fontWeight` or `fontStyle` alongside the unique family, as platform font matching may substitute or synthesize a face. The per-file `native/assets/*` entry above lets Metro bundle only chosen faces. Convenient typed `native/BloxwapSans` and other per-family maps contain Metro `require()` asset IDs for every weight in that family; importing a complete map adds all of those files to the native bundle even if only some are registered. Nine weights, 100–900, use Thin, ExtraLight, Light, Regular, Medium, SemiBold, Bold, ExtraBold and Black; available italics append Italic. Bare RN must register/package these dependency TTFs through its asset pipeline; on iOS list the chosen files in UIAppFonts, then use the embedded PostScript names. Do not copy source binaries into each repository.
+
+Companion maps use `BloxwapSansArabic`, `BloxwapSansHebrew`, `BloxwapSansArmenian`, `BloxwapSansGeorgian`, `BloxwapSansJP`, `BloxwapSansKR`, `BloxwapSansSC` and matching Mono names. Native has no CSS fallback list: select the locale family, split mixed-script runs when necessary, and preserve system fallback for unsupported glyphs. Arabic/Hebrew/CJK have normal faces only. Pixel maps pin roundness to 50.
+
+The sample uses explicit **dp** values. Web rem and NativeWind rem-root are separate host decisions; do not multiply or mechanically rename HIG web steps. Keep `allowFontScaling` enabled, avoid fixed text container heights and validate the largest accessibility text setting with long translations. Package metadata and static registration are verified on Linux; physical Android/iOS rendering, Dynamic Type, VoiceOver and native clipping are **not verified** here. See the migration report for the exact evidence and remaining HIG responsibilities.

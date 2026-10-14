@@ -1,0 +1,11 @@
+bun test v1.4.2 (744846f84)
+
+apps/docs/lib/glyph-text.test.ts:
+(pass) encoded characters keep their Unicode code point and readable identity [162.70ms]
+(pass) alternates and ligatures copy source text without compatibility substitutions [0.13ms]
+(pass) invisible and supplementary-plane characters are intact; unreachable glyphs have no source [0.04ms]
+(pass) shared outlines retain separate Unicode identities and selection keys [0.31ms]
+
+ 4 pass
+ 0 fail
+Ran 4 tests across 1 file. [467.00ms]

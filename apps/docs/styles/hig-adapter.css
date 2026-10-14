@@ -1,0 +1,37 @@
+/* Host aliases for the approved HIG CSS distribution. Fumadocs owns routing/search. */
+:root {
+  --bloxwap-green: var(--hig-action); --bloxwap-blue: var(--hig-info);
+  --bloxwap-black: var(--hig-background);
+  --background: var(--hig-background); --foreground: var(--hig-text);
+  --card: var(--hig-surface); --muted: var(--hig-nested);
+  --muted-foreground: var(--hig-muted); --faint: var(--hig-faint);
+  --border: var(--hig-nested); --border-strong: var(--hig-border);
+  --popover: var(--hig-surface); --popover-foreground: var(--hig-text);
+  --accent: var(--hig-action); --accent-ink: var(--hig-focus); --on-accent: var(--hig-onAction);
+  --up: var(--hig-positive); --down: var(--hig-negative); --wip: var(--hig-warning);
+  --guide: color-mix(in srgb, var(--hig-action) 35%, transparent);
+  --radius: 0.625rem;
+  --code-string: var(--hig-action);
+  --code-number: color-mix(in oklab, var(--hig-info) 60%, var(--hig-text));
+  --code-type: var(--code-number);
+  --code-keyword: var(--hig-info);
+}
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+@theme {
+  --text-3xs: 0.625rem;
+  --text-3xs--line-height: 0.875rem;
+  --text-2xs: 0.6875rem;
+  --text-2xs--line-height: 1rem;
+}

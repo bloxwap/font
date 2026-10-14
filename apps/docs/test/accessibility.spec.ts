@@ -69,6 +69,10 @@ test('symbol controls have meaningful names and work with the keyboard', async (
   await expect(alignment.getByRole('radio', { name: 'Align center', exact: true })).toBeFocused();
   await expect(alignment.getByRole('radio', { name: 'Align center', exact: true })).toBeChecked();
 
+  const watchlist = page.getByRole('region', { name: 'Watchlist table, horizontally scrollable' });
+  await watchlist.focus();
+  await expect(watchlist).toBeFocused();
+
   const price = page.getByLabel('Bitcoin price specimen, horizontally scrollable');
   await price.focus();
   await expect(price).toBeFocused();

@@ -5,12 +5,13 @@
   "type": "module",
   "scripts": {
     "dev": "bun run scripts/check-data.ts && fumadocs-mdx && next dev --port 3904",
-    "build": "bun run scripts/check-data.ts && fumadocs-mdx && next build && bun run scripts/check-export.ts",
+    "build": "bun run scripts/check-hig-source.ts && bun run scripts/check-data.ts && fumadocs-mdx && next build && bun run scripts/check-export.ts",
     "preview": "bun run scripts/preview.ts",
     "check": "fumadocs-mdx && next typegen && tsc --noEmit",
     "data": "cd ../../packages/font && .venv/bin/python tools/site_data.py",
     "smoke": "playwright test",
-    "test:accessibility": "bun test lib/glyph-text.test.ts && playwright test accessibility.spec.ts unicode.spec.ts"
+    "test:accessibility": "bun test lib/glyph-text.test.ts && playwright test accessibility.spec.ts unicode.spec.ts",
+    "lint": "eslint ."
   },
   "dependencies": {
     "@number-flow/react": "0.6.2",
@@ -29,7 +30,9 @@
     "@types/node": "^26.6.3",
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
+    "eslint": "9",
+    "eslint-config-next": "16.3.6",
     "tailwindcss": "^4.2.0",
-    "typescript": "^7.0.2"
+    "typescript": "6.0.3"
   }
 }

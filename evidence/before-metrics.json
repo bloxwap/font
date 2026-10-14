@@ -1,0 +1,17 @@
+{
+  "home": {
+    "cssBytes": 190005,
+    "fontBytes": 11567128,
+    "runtimeBytes": 1718785
+  },
+  "docs": {
+    "cssBytes": 190005,
+    "fontBytes": 592796,
+    "runtimeBytes": 1190836
+  },
+  "mobile": {
+    "cssBytes": 190005,
+    "fontBytes": 11567128,
+    "runtimeBytes": 1626782
+  }
+}

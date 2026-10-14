@@ -1,0 +1,8 @@
+{
+ "name": "@bloxwap/font-next-fixture",
+ "private": true,
+ "type": "module",
+ "scripts": {"build":"next build", "check":"next typegen && tsc --noEmit"},
+ "dependencies": {"@bloxwap/font":"workspace:*", "next":"16.3.6", "react":"^19.2.0", "react-dom":"^19.2.0"},
+ "devDependencies": {"typescript":"6.0.3", "@types/react":"^19.2.0", "@types/node":"^26.6.3"}
+}

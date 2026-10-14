@@ -43,5 +43,7 @@ export function sendToTester(request: TesterRequest): void {
   }
   const params = new URLSearchParams();
   for (const [key, value] of Object.entries(request)) if (value) params.set(key, value);
+  // This cross-page handoff deliberately reloads the standalone tester and its query state.
+  // eslint-disable-next-line @next/next/no-location-assign-relative-destination
   window.location.href = `${assetUrl('/')}?${params}#tester`;
 }
