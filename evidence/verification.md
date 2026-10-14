@@ -23,7 +23,7 @@ removed), and FontFace family comparisons normalize Firefox's quoted serializati
 The watchlist table is a keyboard-focusable HIG scroll region: this fixes a 7px
 WebKit/DejaVu Serif overflow at 320px without hiding content or weakening reflow checks.
 reflow-fixed.txt records five replacement font checks, all with a 320px page width.
-CI runs the same entire 57-case suite as the merge gate.
+The final hydration gate is covered by 30/30 affected browser checks (browser-hydration.txt), including a held glyph request that verifies disabled search before readiness and retained Unicode queries afterwards. CI runs the same entire 57-case suite as the merge gate.
 
 No native app was built or run. No physical iOS/Android, iOS hardware, Dynamic Type,
 VoiceOver/TalkBack or platform font-substitution/clipping observation is represented by

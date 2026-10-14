@@ -7,7 +7,7 @@ Owner: font maintainers. Exception review: 2026-11-13.
 
 ## Presentation migration
 
-The SDK-docs kit explicitly permits retaining Fumadocs conventions and a host-equivalent shell. This pilot keeps Fumadocs routing, navigation/mobile drawer, static Orama search, code/copy conventions and all distinctive font components. It imports the approved plain CSS distribution (HIG tokens and control styles), pinned with source hashes and the MIT license. A build check prevents hand-edited vendor drift. Local names now alias HIG semantic variables; shared button presentation comes from `.hig-button`. The old 80-line palette file and duplicate base button interaction declarations are removed. Fumadocs and SDK-specific axis/glyph/feature control layout remain intentional host adapters, not a forked HIG component library. No feedback backend is introduced; reduced motion and quiet status messages remain intact.
+The SDK-docs kit explicitly permits retaining Fumadocs conventions and a host-equivalent shell. This pilot keeps Fumadocs routing, navigation/mobile drawer, static Orama search, code/copy conventions and all distinctive font components. It imports the approved plain CSS distribution (HIG tokens and control styles), pinned with source hashes and the MIT license. A build check prevents hand-edited vendor drift. Local names now alias HIG semantic variables; shared button presentation comes from `.hig-button`. The old 80-line palette file and duplicate base button interaction declarations are removed. Fumadocs and SDK-specific axis/glyph/feature control layout remain intentional host adapters, not a forked HIG component library. Glyph search/category/script controls stay disabled while loading, preventing server-rendered input from accepting queries before hydration. No feedback backend is introduced; reduced motion and quiet status messages remain intact.
 
 Rollback is a revert of this owning PR to baseline `269a0af` and its lockfile. The final migration removes the old copies after validation; there is no permanent duplicate CSS or dual-shell runtime flag. The kit's temporary pilot flag is replaced by this reviewed commit rollback. Upstream HIG packages are unpublished candidates, so package-registry imports would not be reproducible; the approved plain CSS route is used instead. Existing base path `/font`, static export, metadata/social cards, search index, docs deep links and SDK API examples remain supported. The installation page links the new cross-platform recipe and explicitly distinguishes published 0.1.2 from candidate additions.
 
@@ -17,9 +17,9 @@ Rollback is a revert of this owning PR to baseline `269a0af` and its lockfile. T
 
 | Page | CSS before → after | Font before → after | JS before → after |
 | --- | --- | --- | --- |
-| Home desktop | 190,005 → 193,351 | 11,567,128 → 11,567,128 | 1,718,785 → 1,719,083 |
-| Installation desktop | 190,005 → 193,351 | 592,796 → 592,796 | 1,190,836 → 1,191,134 |
-| Home mobile | 190,005 → 193,351 | 11,567,128 → 11,567,128 | 1,626,782 → 1,627,087 |
+| Home desktop | 190,005 → 193,351 | 11,567,128 → 11,567,128 | 1,718,785 → 1,719,166 |
+| Installation desktop | 190,005 → 193,351 | 592,796 → 592,796 | 1,190,836 → 1,191,217 |
+| Home mobile | 190,005 → 193,351 | 11,567,128 → 11,567,128 | 1,626,782 → 1,627,170 |
 
 CSS increases by 3,346 decoded bytes from shared HIG styles. Runtime dependency count remains eight; ESLint/config/parser dependencies are development-only. TypeScript is pinned to 6.0.3 because the ESLint parser rejects the previous TypeScript 7 dependency. No runtime dependency removal is claimed. Font binaries and catalog data are unchanged. Selective font CSS entries allow consumers to avoid catalog-wide loading; the manifest reports the exact bytes for each chosen face. Retained swap/fallback loading is not certified as zero CLS.
 

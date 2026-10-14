@@ -139,16 +139,16 @@ export function GlyphBrowser({ families, initial = 'sans', eyebrow = '05 — Gly
     <div className="g-toolbar">
       <label className="search-field"><span className="sr-only">Search glyphs</span>
         <Search aria-hidden="true" />
-        <input type="search" value={query} onChange={(e) => { setQuery(e.target.value); setSelKey(null); }} placeholder="Search: a, Aacute, U+00E9, 233" autoComplete="off" />
+        <input type="search" disabled={glyphs === undefined} aria-busy={glyphs === undefined} value={query} onChange={(e) => { setQuery(e.target.value); setSelKey(null); }} placeholder="Search: a, Aacute, U+00E9, 233" autoComplete="off" />
       </label>
       <label className="sel"><span className="sr-only">Category</span>
-        <select value={category} onChange={(e) => setCategory(e.target.value)}>
+        <select disabled={glyphs === undefined} value={category} onChange={(e) => setCategory(e.target.value)}>
           <option value="">All categories</option>
           {categories.map(([c, n]) => <option key={c} value={c}>{c} ({fmtNum(n)})</option>)}
         </select>
       </label>
       <label className="sel"><span className="sr-only">Script</span>
-        <select value={script} onChange={(e) => setScript(e.target.value)}>
+        <select disabled={glyphs === undefined} value={script} onChange={(e) => setScript(e.target.value)}>
           <option value="">All scripts</option>
           {scripts.map(([s, n]) => <option key={s} value={s}>{s} ({fmtNum(n)})</option>)}
         </select>

@@ -67,9 +67,20 @@ for (const sample of cases) {
 }
 
 test('Unicode names are searchable and unreachable glyphs cannot be copied', async ({ page }) => {
+  let releaseGlyphs!: () => void;
+  const ready = new Promise<void>((resolve) => { releaseGlyphs = resolve; });
+  await page.route('**/data/sans.glyphs.json', async (route) => {
+    await ready;
+    await route.continue();
+  });
   await page.goto(live!);
   const glyphs = page.locator('#glyphs');
-  await glyphs.getByRole('searchbox', { name: 'Search glyphs' }).fill('Greek small letter alpha');
+  const search = glyphs.getByRole('searchbox', { name: 'Search glyphs' });
+  // Loading data completes after hydration; input must not accept a query that React discards.
+  await expect(search).toBeDisabled();
+  releaseGlyphs();
+  await expect(search).toBeEnabled();
+  await search.fill('Greek small letter alpha');
   await expect(glyphs.getByRole('option', { name: 'Greek small letter alpha, U+03B1', exact: true })).toBeVisible();
   await glyphs.getByRole('searchbox', { name: 'Search glyphs' }).fill('.notdef');
   await expect(glyphs.getByRole('listbox').getByRole('option')).toHaveCount(1);
