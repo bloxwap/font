@@ -13,21 +13,21 @@ Rollback is a revert of this owning PR to baseline `269a0af` and its lockfile. T
 
 ## Equivalent measured pages
 
-`capture.mjs` captures the home and installation page at 1280×900 and the home at 390×900 against the local production `/font` export with Chrome on Linux. Screenshots and raw resource metrics are adjacent to this report. Bytes are decoded browser resource bodies, not compressed transfer sizes or npm package size. Home deliberately demonstrates the entire script catalog; its budget is not a minimal product UI budget.
+`capture.mjs` captures the home and installation page at 1280×900 and the home at 390×900 against the local production `/font` export with Chrome on Linux. Screenshots and raw resource metrics are adjacent to this report. Both baseline and final export are rebuilt from their locked sources; a two-second settling period includes route prefetches consistently. Bytes are decoded browser resource bodies, not compressed transfer sizes or npm package size. Home deliberately demonstrates the entire script catalog; its budget is not a minimal product UI budget.
 
 | Page | CSS before → after | Font before → after | JS before → after |
 | --- | --- | --- | --- |
-| Home desktop | 190,005 → 193,351 | 11,567,128 → 11,567,128 | 1,098,833 → 1,099,000 |
-| Installation desktop | 190,005 → 193,351 | 592,796 → 592,796 | 1,130,463 → 1,130,559 |
-| Home mobile | 190,005 → 193,351 | 11,567,128 → 11,567,128 | 1,626,782 → 1,626,949 |
+| Home desktop | 190,005 → 193,351 | 11,567,128 → 11,567,128 | 1,718,785 → 1,719,083 |
+| Installation desktop | 190,005 → 193,351 | 592,796 → 592,796 | 1,190,836 → 1,191,134 |
+| Home mobile | 190,005 → 193,351 | 11,567,128 → 11,567,128 | 1,626,782 → 1,627,087 |
 
 CSS increases by 3,346 decoded bytes from shared HIG styles. Runtime dependency count remains eight; ESLint/config/parser dependencies are development-only. TypeScript is pinned to 6.0.3 because the ESLint parser rejects the previous TypeScript 7 dependency. No runtime dependency removal is claimed. Font binaries and catalog data are unchanged. Selective font CSS entries allow consumers to avoid catalog-wide loading; the manifest reports the exact bytes for each chosen face. Retained swap/fallback loading is not certified as zero CLS.
 
 ## Asset and recipe evidence
 
-The candidate contains 240 faces (24 variable WOFF2 plus 216 static TTF), totaling 191,666,832 font bytes. The packed artifact has 330 entries, 192,090,389 unpacked bytes and 75,874,236 compressed bytes; these are whole-catalog install costs, not automatic web/native runtime downloads.
+The candidate contains 240 faces (24 variable WOFF2 plus 216 static TTF), totaling 276,286,760 font bytes. The packed artifact has 330 entries, 276,772,438 unpacked bytes and 117,382,906 compressed bytes; these are whole-catalog install costs, not automatic web/native runtime downloads.
 
-The package builder copies the original variable WOFF2 bytes, emits family/script CSS with retained Unicode ranges and generates static TTFs at the nine named weights. Pixel ROND is fixed at 50. Each static face's unique embedded family/full/PostScript/typographic family name matches its Metro registration key. TTF output is generated rather than added as per-consumer binary copies. The typed manifest includes actual scripts, internal font version, package version, hashes, byte sizes and static source/axis provenance. Package tests open the built binaries and verify names, weights/styles, Unicode cmap, shaping script/feature tags, tabular digits, source bytes, CSS paths and complete inventory. Per-family Metro maps have typed stable keys; assets must be registered before rendering.
+The package builder copies the original variable WOFF2 bytes, emits family/script CSS with retained Unicode ranges and decodes the existing static WOFF2s into TTFs at the nine named weight tiers. Pixel ROND is fixed at 50. The existing named static sources carry approximate OS/2 weights (e.g. 608 for SemiBold); native registration metadata is normalized to the named tier (600) and sourceWeight is retained. Outlines, cmap, metrics and hinting remain unchanged, verified against the committed source tables. Each static face's unique embedded family/full/PostScript/typographic family name matches its Metro registration key. TTF output is generated rather than added as per-consumer binary copies. The typed manifest includes actual scripts, internal font version, package version, hashes, byte sizes and static/variable source hashes and axis provenance. Package tests open the built binaries and verify names, weights/styles, Unicode cmap, shaping script/feature tags, tabular digits, unchanged glyph/metric/hinting tables, source bytes, CSS paths and complete inventory. Per-family Metro maps have typed stable keys but bundle all their weights. Direct native/assets/* entries let consumers bundle only chosen faces. Assets must be registered before rendering.
 
 The Next consumer fixture builds the package's existing Sans/Mono loaders in Next 16.3.6 and checks that only two primary normal faces are preloaded. Its typecheck also consumes the new manifest and native-map declarations. Browser checks cover font loading, the type tester/axes, glyph browsing/Unicode/ligature transfers, search/static paths, clipboard/install keyboard actions, mobile navigation, mixed-script text, replacement fonts, 320/640/1280 reflow and 200% root text. Existing Arabic/Hebrew/Armenian/Georgian script specimens remain part of the suite; physical-device behavior is not browser evidence.
 

@@ -70,10 +70,15 @@ to that interpreter before `npm pack`. No glyph sources are changed by packaging
 - `@bloxwap/font/css/{sans,mono}-core` and `pixel-core`: core only.
 - `@bloxwap/font/css/{sans,mono}-{arabic,hebrew,armenian,georgian,jp,kr,sc}`:
   script only, retaining unicode-range and swap behavior.
+- `@bloxwap/font/native/assets/BloxwapSans/BloxwapSans-SemiBold.ttf`: direct
+  Metro `require()` entry for a chosen face, without bundling other weights.
 - `@bloxwap/font/native/BloxwapSans` (or another published family): typed Metro
-  asset map, e.g. `faces['BloxwapSans-SemiBold']`. Register only selected TTFs;
+  asset map, e.g. `faces['BloxwapSans-SemiBold']`. Maps bundle every face in that family; prefer direct entries for strict budgets.
+  Register only selected TTFs;
   use their exact keys as fontFamily with no fontWeight/fontStyle override.
-  Static Pixel pins ROND to 50. All nine weights and available italics are included.
+  Native TTFs decode committed static WOFF2s without changing glyphs or hinting;
+  OS/2 registration weights normalize to named tiers, with sourceWeight retained.
+  Static Pixel uses ROND 50. All nine weights and available italics are included.
 
 Read [Cross-platform typography](https://bloxwap.github.io/font/docs/cross-platform/)
 for Next.js and Expo recipes, locale selection, scaling, licensing and limitations.

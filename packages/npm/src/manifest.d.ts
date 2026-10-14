@@ -12,7 +12,12 @@ export interface FontFace {
  readonly format: 'woff2' | 'ttf';
  readonly axes: Readonly<Record<string, number | { min: number; default: number; max: number }>>;
  readonly registrationName?: string;
+ /** Committed static WOFF2 path, relative to the source repository. */
  readonly source?: string;
+ readonly sourceWeight?: number;
+ readonly variableSource?: string;
+ readonly variableSourceSha256?: string;
+ readonly generation?: 'decode-static-woff2-and-register';
  readonly sourceSha256?: string;
 }
 export interface FontManifest {

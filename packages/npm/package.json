@@ -68,7 +68,8 @@
     "./native/*": {
       "types": "./native/*/index.d.ts",
       "default": "./native/*/index.js"
-    }
+    },
+    "./native/assets/*": "./native/*"
   },
   "files": [
     "src",

@@ -1,21 +1,21 @@
 $ cd apps/docs && bun run build
 $ bun run scripts/check-hig-source.ts && bun run scripts/check-data.ts && fumadocs-mdx && next build && bun run scripts/check-export.ts
 Pinned HIG CSS distribution hashes OK
-[MDX] generated files in 14.50510700000018ms
+[MDX] generated files in 10.368510000000015ms
 ▲ Next.js 16.3.6 (Turbopack)
-[MDX] generated files in 11.043638999999985ms
-✓ Running next.config.ts took 429ms
+[MDX] generated files in 11.793451000000005ms
+✓ Running next.config.ts took 405ms
 
   Creating an optimized production build ...
-✓ Compiled successfully in 4.2s
+✓ Compiled successfully in 3.3s
   Running TypeScript ...
-  Finished TypeScript in 4.3s ...
+  Finished TypeScript in 3.8s ...
   Collecting page data using 7 workers ...
   Generating static pages using 7 workers (0/52) ...
   Generating static pages using 7 workers (13/52)
   Generating static pages using 7 workers (26/52)
   Generating static pages using 7 workers (39/52)
-✓ Generating static pages using 7 workers (52/52) in 3.1s
+✓ Generating static pages using 7 workers (52/52) in 4.5s
   Finalizing page optimization ...
 
 Route (app)

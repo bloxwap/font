@@ -9,7 +9,7 @@ export default defineConfig({
   use: { trace: 'retain-on-failure' },
   projects: [
     { name: 'chromium', use: { ...devices['Desktop Chrome'], ...(process.env.CHROME_PATH ? { launchOptions: { executablePath: process.env.CHROME_PATH } } : {}) } },
-    { name: 'firefox', use: { ...devices['Desktop Firefox'], headless: !process.env.CI } },
+    { name: 'firefox', use: { ...devices['Desktop Firefox'] } },
     { name: 'webkit', use: { ...devices['Desktop Safari'] } },
   ],
 });

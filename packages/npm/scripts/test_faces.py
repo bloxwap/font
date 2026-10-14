@@ -13,7 +13,7 @@ class BuiltFaces(unittest.TestCase):
         manifest = json.loads((ROOT / 'manifest.json').read_text())
         for face in manifest['faces']:
             with self.subTest(path=face['path']):
-                font = TTFont(ROOT / face['path'])
+                font = TTFont(ROOT / face['path'], recalcBBoxes=False)
                 self.assertEqual(face['family'], font['name'].getDebugName(1))
                 self.assertEqual(face['version'], font['name'].getDebugName(5))
                 self.assertEqual(face['style'], 'italic' if font['OS/2'].fsSelection & 1 else 'normal')
@@ -26,7 +26,15 @@ class BuiltFaces(unittest.TestCase):
                     if Path(face['path']).parent.name in ['BloxwapSans', 'BloxwapMono', 'BloxwapPixel']:
                         cmap = font.getBestCmap()
                         self.assertEqual(len({font['hmtx'][cmap[ord(n)]][0] for n in '0123456789'}), 1)
-                    source = TTFont(ROOT / face['source'])
+                    source_path = ROOT.parents[1] / face['source']
+                    source = TTFont(source_path, recalcBBoxes=False)
+                    self.assertEqual(face['sourceWeight'], source['OS/2'].usWeightClass)
+                    from hashlib import sha256
+                    self.assertEqual(face['sourceSha256'], sha256(source_path.read_bytes()).hexdigest())
+                    self.assertEqual(font.getGlyphOrder(), source.getGlyphOrder())
+                    for table in ['glyf', 'hmtx', 'cmap', 'fpgm', 'prep', 'cvt ']:
+                        if table in source:
+                            self.assertEqual(font[table].compile(font), source[table].compile(source), table)
                     self.assertEqual(font.getBestCmap(), source.getBestCmap())
                     for table in ['GSUB', 'GPOS']:
                         if table in source:

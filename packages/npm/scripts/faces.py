@@ -1,4 +1,4 @@
-"""Build static native TTFs and a content-addressed manifest from committed WOFF2s.
+"""Decode committed static WOFF2s into native TTFs and build a face manifest.
 No source outlines, cmap, shaping features, or variable font files are edited.
 """
 import hashlib
@@ -6,7 +6,6 @@ import json
 from pathlib import Path
 import fontTools
 from fontTools.ttLib import TTFont
-from fontTools.varLib.instancer import instantiateVariableFont
 from fontTools.unicodedata import script
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -44,7 +43,15 @@ def build():
         for weight, label in WEIGHTS.items():
             location = {tag: axis['default'] for tag, axis in axes.items()}
             location['wght'] = weight
-            face = instantiateVariableFont(variable, location, inplace=False)
+            source_suffix = ('Italic' if label == 'Regular' else label + 'Italic') if variable['OS/2'].fsSelection & 1 else label
+            static_source = ROOT.parents[1] / 'apps/docs/public/fonts' / family / 'woff2' / f'{family}-{source_suffix}.woff2'
+            face = TTFont(static_source, recalcTimestamp=False, recalcBBoxes=False)
+            if 'fvar' in face or face.sfntVersion != '\x00\x01\x00\x00':
+                raise RuntimeError(f'Expected committed static TrueType source: {static_source}')
+            source_weight = face['OS/2'].usWeightClass
+            # Existing named static instances have approximate OS/2 classes (e.g. 608).
+            # Normalize only registration metadata to the published named tier (600).
+            face['OS/2'].usWeightClass = weight
             suffix = label + ('Italic' if face['OS/2'].fsSelection & 1 else '')
             name = f'{family}-{suffix}'
             # A distinct family for each face works with Expo registration and bare RN on both OSes.
@@ -58,7 +65,9 @@ def build():
             target = native_dir / f'{name}.ttf'
             face.save(target)
             faces.append(metadata(target, face, format='ttf', registrationName=name,
-                                  source=str(path.relative_to(ROOT)), sourceSha256=digest(path),
+                                  source=str(static_source.relative_to(ROOT.parents[1])), sourceSha256=digest(static_source),
+                                  variableSource=str(path.relative_to(ROOT)), variableSourceSha256=digest(path),
+                                  generation='decode-static-woff2-and-register', sourceWeight=source_weight,
                                   axes=location))
     manifest = dict(schemaVersion=1, package='@bloxwap/font', version=VERSION,
                     license='OFL-1.1', generator=f'fonttools {fontTools.__version__}', faces=faces)

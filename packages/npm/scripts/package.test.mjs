@@ -45,6 +45,7 @@ test('CSS exports resolve real files and all manifest web faces',async()=>{
  assert.ok(!arabic.includes('BloxwapSans/'));
 });
 test('native Metro entries have exact stable registration keys',async()=>{
+ assert.equal(pkg.exports['./native/assets/*'],'./native/*');
  for(const family of await readdir(new URL('native/',root))) {
   const js=await readFile(new URL(`native/${family}/index.js`,root),'utf8');
   const entries=[...js.matchAll(/"([^"]+)": require\("\.\/([^"]+)"\)/g)];

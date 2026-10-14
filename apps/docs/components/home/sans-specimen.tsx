@@ -61,6 +61,7 @@ export function SansSpecimen() {
         <h3 id="ticker-title" className="card-title">Watchlist</h3>
         <Switch label={<><code>tnum</code> tabular</>} checked={tabular} onChange={setTabular} />
       </div>
+      <div className="hig-table-scroll" role="region" tabIndex={0} aria-label="Watchlist table, horizontally scrollable">
       <table className="ticker">
         <thead><tr><th scope="col">Asset</th><th scope="col" className="num">Price</th><th scope="col" className="num">24h</th></tr></thead>
         <tbody>{rows.map((r) => {
@@ -72,6 +73,7 @@ export function SansSpecimen() {
           </tr>;
         })}</tbody>
       </table>
+      </div>
       <p className="card-foot">Toggle <code>tnum</code> off to watch proportional figures shift as prices tick.</p>
     </article>
 
