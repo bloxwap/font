@@ -1,0 +1,41 @@
+$ cd apps/docs && bun run build
+$ bun run scripts/check-hig-source.ts && bun run scripts/check-data.ts && fumadocs-mdx && next build && bun run scripts/check-export.ts
+Pinned HIG CSS distribution hashes OK
+[MDX] generated files in 14.50510700000018ms
+▲ Next.js 16.3.6 (Turbopack)
+[MDX] generated files in 11.043638999999985ms
+✓ Running next.config.ts took 429ms
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 4.2s
+  Running TypeScript ...
+  Finished TypeScript in 4.3s ...
+  Collecting page data using 7 workers ...
+  Generating static pages using 7 workers (0/52) ...
+  Generating static pages using 7 workers (13/52)
+  Generating static pages using 7 workers (26/52)
+  Generating static pages using 7 workers (39/52)
+✓ Generating static pages using 7 workers (52/52) in 3.1s
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├   /docs/[[...slug]]
+│ ├ ● /docs/building
+│ ├ ● /docs/changelog
+│ ├ ● /docs/character-set
+│ └ ● [+20 more paths]
+├   /og/[...slug]
+│ ├ ● /og/home.png
+│ ├ ● /og/docs/building.png
+│ ├ ● /og/docs/changelog.png
+│ └ ● [+21 more paths]
+├ ○ /search.json
+└ ○ /sitemap.xml
+
+
+○  (Static)  prerendered as static content
+●  (SSG)     prerendered as static HTML (uses generateStaticParams)
+
+Static export OK: 27 HTML files, 24 social cards, 52 @font-face rules, base path /font.

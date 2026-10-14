@@ -1,0 +1,32 @@
+$ cd packages/npm && bun run test
+$ node --test scripts/package.test.mjs && ${FONT_PYTHON:-python3} scripts/test_faces.py
+TAP version 13
+# Subtest: manifest describes every built font and exact bytes
+ok 1 - manifest describes every built font and exact bytes
+  ---
+  duration_ms: 989.72608
+  ...
+# Subtest: CSS exports resolve real files and all manifest web faces
+ok 2 - CSS exports resolve real files and all manifest web faces
+  ---
+  duration_ms: 51.031009
+  ...
+# Subtest: native Metro entries have exact stable registration keys
+ok 3 - native Metro entries have exact stable registration keys
+  ---
+  duration_ms: 24.351549
+  ...
+1..3
+# tests 3
+# suites 0
+# pass 3
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1325.373742
+.
+----------------------------------------------------------------------
+Ran 1 test in 62.191s
+
+OK

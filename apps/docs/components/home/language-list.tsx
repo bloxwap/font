@@ -33,7 +33,11 @@ export function LanguageList({ families }: { families: FamilyMeta[] }) {
   const [script, setScript] = useState('');
   const [pressed, setPressed] = useState<string | null>(null);
   useEffect(() => { const t = window.setTimeout(() => setDebounced(query.trim().toLowerCase()), 120); return () => window.clearTimeout(t); }, [query]);
-  useEffect(() => { setScript(''); }, [familyId]);
+  const [previousFamilyId, setPreviousFamilyId] = useState(familyId);
+  if (previousFamilyId !== familyId) {
+    setPreviousFamilyId(familyId);
+    setScript('');
+  }
 
   const byId = useMemo(() => new Map(families.map((f) => [f.id, f])), [families]);
   const familyOf = (l: Language) => byId.get(all ? l.family ?? 'sans' : familyId);

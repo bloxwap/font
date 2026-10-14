@@ -1,0 +1,10 @@
+{
+  "repository": "bloxwap/hig",
+  "commit": "1a776b9326c6ba03702894943b3edbfd178c4b40",
+  "version": "0.1.0 candidate",
+  "distribution": "approved plain CSS; sdk-docs migration kit",
+  "files": {
+    "hig-tokens.css": "1c60086af561070fdc1ee6056d6bc43bd8eed78614c318d466ee3850dc317609",
+    "hig-controls.css": "f0ef3dd51ae6a67a34bf32fc20a4949c5a39ec5b0de4ad2c3813a28c2cdfad49"
+  }
+}

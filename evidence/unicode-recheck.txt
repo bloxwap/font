@@ -1,0 +1,8 @@
+
+Running 3 tests using 1 worker
+
+  ✓  1 [chromium] › test/unicode.spec.ts:69:1 › Unicode names are searchable and unreachable glyphs cannot be copied (2.9s)
+  ✓  2 [firefox] › test/unicode.spec.ts:69:1 › Unicode names are searchable and unreachable glyphs cannot be copied (4.5s)
+  ✓  3 [webkit] › test/unicode.spec.ts:69:1 › Unicode names are searchable and unreachable glyphs cannot be copied (11.2s)
+
+  3 passed (23.1s)

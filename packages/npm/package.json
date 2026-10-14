@@ -1,6 +1,6 @@
 {
   "name": "@bloxwap/font",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Bloxwap Sans, Mono and Pixel: rounded variable web fonts with Arabic, Hebrew, Armenian, Georgian, Japanese, Korean and Chinese companions. next/font exports and a plain CSS stylesheet.",
   "type": "module",
   "license": "OFL-1.1",
@@ -59,7 +59,16 @@
       "default": "./src/pixel.js"
     },
     "./fonts/*": "./fonts/*",
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./css/*": "./css/*.css",
+    "./manifest": {
+      "types": "./src/manifest.d.ts",
+      "default": "./manifest.json"
+    },
+    "./native/*": {
+      "types": "./native/*/index.d.ts",
+      "default": "./native/*/index.js"
+    }
   },
   "files": [
     "src",
@@ -68,11 +77,15 @@
     "sans-scripts.css",
     "mono-scripts.css",
     "LICENSE",
-    "README.md"
+    "README.md",
+    "css",
+    "native",
+    "manifest.json"
   ],
   "scripts": {
     "build": "node scripts/build.mjs",
-    "prepack": "node scripts/build.mjs"
+    "prepack": "node scripts/build.mjs",
+    "test": "node --test scripts/package.test.mjs && ${FONT_PYTHON:-python3} scripts/test_faces.py"
   },
   "peerDependencies": {
     "next": ">=15.0.0"

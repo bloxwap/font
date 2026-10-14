@@ -1,7 +1,9 @@
 @import 'tailwindcss';
 @import 'fumadocs-ui/css/neutral.css';
 @import 'fumadocs-ui/css/preset.css';
-@import '../styles/tokens.css';
+@import '../styles/hig-tokens.css';
+@import '../styles/hig-controls.css';
+@import '../styles/hig-adapter.css';
 
 /* The site is set in its own typefaces (public/bloxwap-font.css, linked in app/layout.tsx). */
 @theme inline {
@@ -48,16 +50,14 @@ html > body[data-scroll-locked] { margin-right: 0 !important; --removed-body-scr
 :focus-visible { outline: 2px solid var(--accent-ink); outline-offset: 3px; }
 code, kbd, pre, samp { font-family: var(--f-mono); }
 
-/*
- * Scale layer from the monorepo's plain-UI system (as in the sfx docs).
- */
+/* Demo-specific scale extensions; shared spacing is supplied by HIG. */
 :root {
   --radius-2xl: 1rem;
   --radius-full: 9999px;
   --text-xs: 0.75rem; --text-sm: 0.875rem; --text-base: 1rem; --text-lg: 1.125rem; --text-xl: 1.25rem;
   --text-2xl: 1.5rem; --text-3xl: 1.875rem; --text-4xl: 2.25rem; --text-5xl: 3rem; --text-6xl: 3.75rem;
-  --space-xs: 0.25rem; --space-sm: 0.5rem; --space-md: 0.75rem; --space-lg: 1rem; --space-xl: 1.25rem;
-  --space-2xl: 1.5rem; --space-3xl: 2rem; --space-4xl: 2.5rem; --space-5xl: 3rem; --space-6xl: 4rem;
+  --space-xs: var(--hig-space-xs); --space-sm: var(--hig-space-sm); --space-md: var(--hig-space-md); --space-lg: var(--hig-space-lg); --space-xl: var(--hig-space-xl);
+  --space-2xl: var(--hig-space-xxl); --space-3xl: var(--hig-space-xxxl); --space-4xl: 2.5rem; --space-5xl: 3rem; --space-6xl: 4rem;
   --duration-fast: 180ms; --duration-base: 260ms; --duration-slow: 320ms;
   --ease-spring: cubic-bezier(0.22, 1, 0.36, 1); --ease-standard: ease-out;
   --icon-sm: 12px; --icon-md: 16px;
@@ -68,20 +68,9 @@ code, kbd, pre, samp { font-family: var(--f-mono); }
   :root { --duration-fast: 0ms; --duration-base: 0ms; --duration-slow: 0ms; }
 }
 
+/* SDK button layout extensions; HIG owns shared font, fill, focus and interaction. */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: var(--hig-space-sm); flex-wrap: wrap; text-decoration: none; touch-action: manipulation; }
 /* ------------------------------------------------------------------ buttons */
-.btn {
-  display: inline-flex; align-items: center; justify-content: center; gap: var(--space-sm);
-  min-height: var(--control-h); min-width: min(var(--control-min-w), 100%); max-width: 100%; padding: var(--space-sm) var(--space-xl); flex-wrap: wrap;
-  border: 1px solid transparent; border-radius: var(--radius-full);
-  background: var(--accent); color: var(--on-accent);
-  font: 600 var(--text-base) / 1.25 var(--f-sans); white-space: normal; overflow-wrap: anywhere; cursor: pointer; text-decoration: none;
-  touch-action: manipulation;
-  transition: background-color var(--duration-fast) var(--ease-spring), color var(--duration-fast) var(--ease-spring),
-    border-color var(--duration-fast) var(--ease-spring), transform var(--duration-fast) var(--ease-spring);
-}
-.btn:hover { background: color-mix(in oklab, var(--accent) 90%, transparent); color: var(--on-accent); }
-.btn:active { transform: scale(0.98); }
-.btn:disabled, .btn[aria-disabled='true'] { opacity: 0.5; pointer-events: none; }
 .btn svg { flex: none; width: var(--icon-md); height: var(--icon-md); }
 .btn--secondary { background: var(--card); color: var(--foreground); }
 .btn--secondary:hover { background: var(--muted); color: var(--foreground); }

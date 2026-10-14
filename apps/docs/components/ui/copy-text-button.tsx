@@ -14,7 +14,7 @@ export function CopyTextButton({ text, label = 'Copy', ariaLabel }: { text: stri
   }, [state]);
   const name = ariaLabel ?? label;
   return <>
-    <button type="button" className="btn btn--ghost btn--icon copy-btn" data-state={state} aria-label={name} title={state === 'ok' ? 'Copied!' : name}
+    <button type="button" className="hig-button btn btn--ghost btn--icon copy-btn" data-state={state} aria-label={name} title={state === 'ok' ? 'Copied!' : name}
       onClick={async () => setState(await copyText(typeof text === 'function' ? text() : text) ? 'ok' : 'failed')}>
       {state === 'ok' ? <Check aria-hidden="true" /> : <Copy aria-hidden="true" />}
     </button>

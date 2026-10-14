@@ -12,7 +12,7 @@ export function baseOptions(): BaseLayoutProps {
       </span>,
       url: '/',
     },
-    links: [{ text: 'Docs', url: '/docs', active: 'nested-url' }],
+    links: [{ text: 'Docs', url: '/docs', active: 'nested-url' }, { text: 'HIG', url: 'https://bloxwap.github.io/hig/' }],
     themeSwitch: { enabled: false },
     githubUrl: repository,
   };

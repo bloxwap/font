@@ -1,0 +1,23 @@
+{
+  "scope": "Font row only; other owning repositories are not assessed here",
+  "issue": "https://github.com/bloxwap/hig/issues/34",
+  "repository": "bloxwap/font",
+  "owner": "Font maintainers",
+  "baseline": "269a0af",
+  "higCommit": "1a776b9326c6ba03702894943b3edbfd178c4b40",
+  "higVersion": "0.1.0 candidate",
+  "fontVersion": "0.1.3 candidate",
+  "pr": "pending owning PR URL",
+  "rollback": "revert owning PR to baseline and lockfile",
+  "exceptionReview": "2026-11-13",
+  "evidence": "evidence/migration.md",
+  "exceptions": [
+    "Pinned approved plain CSS while HIG packages remain unpublished",
+    "Fumadocs and SDK-specific demo adapters retained",
+    "Commit rollback replaces temporary pilot flag"
+  ],
+  "remaining": [
+    "HIG owner matrix integration",
+    "Physical native consumer validation belongs to HIG #7"
+  ]
+}

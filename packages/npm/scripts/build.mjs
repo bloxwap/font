@@ -43,3 +43,24 @@ for (const [style, ps] of [['Sans', 'BloxwapSans'], ['Mono', 'BloxwapMono']]) {
 
 await cp(join(repo, 'LICENSE'), join(pkg, 'LICENSE'));
 console.log(`@bloxwap/font: ${faces.length} @font-face rules, ${(await readdir(join(pkg, 'fonts'))).length} families`);
+
+// Explicit CSS entries retain existing Unicode ranges, including locale-sensitive CJK ordering.
+await rm(join(pkg, 'css'), { recursive: true, force: true });
+await mkdir(join(pkg, 'css'), { recursive: true });
+const groups = new Map();
+for (const face of faces) {
+  const family = /font-family: "([^"]+)"/.exec(face)[1];
+  const ps = /url\("\.\/fonts\/([^/]+)\//.exec(face)[1];
+  const role = family.includes('Mono') ? 'mono' : family.includes('Pixel') ? 'pixel' : 'sans';
+  const suffix = ps.replace(/^Bloxwap(?:Sans|Mono|Pixel)/, '');
+  const script = ({Arabic:'arabic', Hebrew:'hebrew', Armenian:'armenian', Georgian:'georgian', JP:'jp', KR:'kr', SC:'sc'})[suffix] ?? 'core';
+  // Named companion aliases belong only to their script entry.
+  for (const key of [role, `${role}-${script}`]) {
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(face.replaceAll('"./fonts/', '"../fonts/'));
+  }
+}
+for (const [key, rules] of groups) await writeFile(join(pkg, 'css', `${key}.css`), header(key) + rules.join('\n') + '\n');
+await rm(join(pkg, 'native'), {recursive:true, force:true});
+const { execFileSync } = await import('node:child_process');
+execFileSync(process.env.FONT_PYTHON ?? 'python3', [join(pkg, 'scripts/faces.py')], {stdio:'inherit'});

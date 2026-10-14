@@ -1,0 +1,20 @@
+
+Running 15 tests using 2 workers
+
+  ✓   2 [chromium] › test/scripts.spec.ts:14:3 › Arabic: real fonts, specimens and downloads (3.1s)
+  ✓   1 [chromium] › test/deployed.spec.ts:6:1 › fonts, tester, glyph browser, languages, search and public resources (4.7s)
+  ✓   3 [chromium] › test/scripts.spec.ts:14:3 › Armenian: real fonts, specimens and downloads (3.4s)
+  ✓   4 [chromium] › test/scripts.spec.ts:14:3 › Georgian: real fonts, specimens and downloads (3.4s)
+  ✓   5 [chromium] › test/scripts.spec.ts:14:3 › Hebrew: real fonts, specimens and downloads (4.3s)
+  ✓   7 [firefox] › test/scripts.spec.ts:14:3 › Arabic: real fonts, specimens and downloads (4.8s)
+  ✓   6 [firefox] › test/deployed.spec.ts:6:1 › fonts, tester, glyph browser, languages, search and public resources (8.6s)
+  ✓   8 [firefox] › test/scripts.spec.ts:14:3 › Armenian: real fonts, specimens and downloads (3.8s)
+  ✓   9 [firefox] › test/scripts.spec.ts:14:3 › Georgian: real fonts, specimens and downloads (4.0s)
+  ✓  10 [firefox] › test/scripts.spec.ts:14:3 › Hebrew: real fonts, specimens and downloads (3.5s)
+  ✓  12 [webkit] › test/scripts.spec.ts:14:3 › Arabic: real fonts, specimens and downloads (3.6s)
+  ✓  13 [webkit] › test/scripts.spec.ts:14:3 › Armenian: real fonts, specimens and downloads (3.8s)
+  ✓  14 [webkit] › test/scripts.spec.ts:14:3 › Georgian: real fonts, specimens and downloads (3.4s)
+  ✓  11 [webkit] › test/deployed.spec.ts:6:1 › fonts, tester, glyph browser, languages, search and public resources (14.3s)
+  ✓  15 [webkit] › test/scripts.spec.ts:14:3 › Hebrew: real fonts, specimens and downloads (2.7s)
+
+  15 passed (42.6s)
