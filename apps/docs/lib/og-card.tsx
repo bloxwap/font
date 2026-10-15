@@ -1,6 +1,7 @@
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { ImageResponse } from 'next/og';
+import { tokens } from '@bloxwap/hig-tokens';
 import { getTotals } from './font-data';
 import { fmtNum } from './format';
 import { socialImageSize } from './social';
@@ -8,9 +9,12 @@ import { socialImageSize } from './social';
 // Modeled on GitHub's repository cards, in dark mode (as on the sfx docs): black canvas, title, muted
 // description, the logo tile, a stats row, and the Bloxwap brand palette along the bottom. Set in
 // Bloxwap Sans itself, read from the static TTFs in the distribution (apps/docs/assets/og, copied there by the font build).
-const ink = '#f5f7fa';
-const muted = '#a1a1a1';
-const bar: [color: string, share: number][] = [['#00ff3f', 62], ['#35b5ff', 14], ['#b300ff', 10], ['#ff479c', 8], ['#fffb38', 6]];
+// Canvas, text and the leading brand bar colours come from the HIG tokens (satori needs sRGB hex, not CSS variables);
+// the last three bar stops are Bloxwap marketing accents that have no HIG semantic role.
+const { background, text: ink, muted, action, onAction, info } = Object.fromEntries(
+  Object.entries(tokens.colors).map(([name, value]) => [name, value.srgb]),
+) as Record<keyof typeof tokens.colors, string>;
+const bar: [color: string, share: number][] = [[action, 62], [info, 14], ['#b300ff', 10], ['#ff479c', 8], ['#fffb38', 6]];
 const ttf = (style: string) => readFile(join(process.cwd(), 'assets', 'og', `BloxwapSans-${style}.ttf`));
 const fonts = Promise.all([ttf('SemiBold'), ttf('Black')]);
 
@@ -54,7 +58,7 @@ export async function renderSocialCard(options: {
   const fontSize = options.home || title.length <= 20 ? 84 : title.length <= 34 ? 72 : 60;
 
   return new ImageResponse(
-    <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%', background: '#0a0a0a', color: ink, fontFamily: 'Bloxwap Sans' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%', background, color: ink, fontFamily: 'Bloxwap Sans' }}>
       <div style={{ display: 'flex', flex: 1, padding: '76px 80px 0' }}>
         <div style={{ display: 'flex', flexDirection: 'column', flex: 1, paddingRight: 64 }}>
           <div style={{ display: 'flex', flexWrap: 'wrap', fontSize, lineHeight: 1.08, letterSpacing: -2 }}>
@@ -65,8 +69,8 @@ export async function renderSocialCard(options: {
           <div style={{ display: 'flex', marginTop: 28, fontSize: 32, fontWeight: 600, lineHeight: 1.4, color: muted }}>{description}</div>
         </div>
         <svg width={200} height={200} viewBox="0 0 100 100">
-          <rect width="100" height="100" rx="22.37" fill="#00ff3f" />
-          <g fill="none" stroke="#0a0a0a" strokeWidth="16" strokeLinecap="round">
+          <rect width="100" height="100" rx="22.37" fill={action} />
+          <g fill="none" stroke={onAction} strokeWidth="16" strokeLinecap="round">
             <path d="M25 75L75 25" /><path d="M24 24L35 35" /><path d="M65 65L76 76" />
           </g>
         </svg>

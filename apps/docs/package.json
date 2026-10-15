@@ -5,15 +5,19 @@
   "type": "module",
   "scripts": {
     "dev": "bun run scripts/check-data.ts && fumadocs-mdx && next dev --port 3904",
-    "build": "bun run scripts/check-hig-source.ts && bun run scripts/check-data.ts && fumadocs-mdx && next build && bun run scripts/check-export.ts",
+    "build": "bun run scripts/check-hig-vendor.ts && bun run scripts/check-data.ts && fumadocs-mdx && next build && bun run scripts/check-export.ts",
     "preview": "bun run scripts/preview.ts",
     "check": "fumadocs-mdx && next typegen && tsc --noEmit",
     "data": "cd ../../packages/font && .venv/bin/python tools/site_data.py",
     "smoke": "playwright test",
+    "test:unit": "bun test lib/glyph-text.test.ts components/docs/in-development.test.tsx",
     "test:accessibility": "bun test lib/glyph-text.test.ts && playwright test accessibility.spec.ts unicode.spec.ts",
     "lint": "eslint ."
   },
   "dependencies": {
+    "@bloxwap/hig-contracts": "file:../../vendor/bloxwap-hig/bloxwap-hig-contracts-0.1.0-candidate.sha7c67a07c.tgz",
+    "@bloxwap/hig-react": "file:../../vendor/bloxwap-hig/bloxwap-hig-react-0.1.0-candidate.sha7c67a07c.tgz",
+    "@bloxwap/hig-tokens": "file:../../vendor/bloxwap-hig/bloxwap-hig-tokens-0.1.0-candidate.sha7c67a07c.tgz",
     "@number-flow/react": "0.6.2",
     "fumadocs-core": "16.15.17",
     "fumadocs-mdx": "15.4.5",

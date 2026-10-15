@@ -152,9 +152,9 @@ export function Hero({ version, zip, stats }: {
         <p className="hero-tag">Rounded typefaces for interfaces, code and screens — with Arabic, Armenian, Georgian, Hebrew and CJK companions. Free and open source.</p>
         <div className="hero-cta">
           {zip
-            ? <a className="hig-button btn" href={zip.href} download><Download aria-hidden="true" /> Download Sans, Mono &amp; Pixel <span className="btn-meta">{zip.size}</span></a>
-            : <a className="hig-button btn" href="#download"><Download aria-hidden="true" /> Download</a>}
-          <a className="hig-button btn btn--secondary" href="#tester">Try it <ArrowDown aria-hidden="true" /></a>
+            ? <a className="hig-button btn" data-intent="primary" href={zip.href} download><Download aria-hidden="true" /> Download Sans, Mono &amp; Pixel <span className="btn-meta">{zip.size}</span></a>
+            : <a className="hig-button btn" data-intent="primary" href="#download"><Download aria-hidden="true" /> Download</a>}
+          <a className="hig-button btn" data-intent="secondary" href="#tester">Try it <ArrowDown aria-hidden="true" /></a>
         </div>
         <InstallCommand />
       </div>

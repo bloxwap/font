@@ -1,0 +1,68 @@
+# HIG #34 Font row verification (local macOS 27.2, bun 1.4.3, node v24.10.0); evidence kind: automated + browser (Playwright headless)
+## bun install --frozen-lockfile
+Checked 602 installs across 717 packages (no changes) [47.00ms]
+## bun run lint
+$ cd apps/docs && bun run lint
+$ eslint .
+exit=0
+## bun run typecheck
+Generating route types...
+✓ Types generated successfully
+## bun run docs:build
+HIG 0.1.0-candidate.sha7c67a07c vendored tarballs, installed packages and source guard OK
+✓ Compiled successfully in 833ms
+Static export OK: 27 HTML files, 24 social cards, 52 @font-face rules, base path /font.
+## bun test apps/docs/lib/glyph-text.test.ts
+ 4 pass
+ 0 fail
+Ran 4 tests across 1 file. [37.00ms]
+## Playwright (Chromium + WebKit, production export served at /font on 127.0.0.1:4125; Firefox runs in CI only: local Playwright Firefox 1543 fails to launch on this Mac with 'Could not find profile folder')
+  ✓   2 [chromium] › test/accessibility.spec.ts:30:3 › content reflows at 320px with user spacing and a replacement font (1.1s)
+  ✓   1 [chromium] › test/accessibility.spec.ts:30:3 › content reflows at 640px with user spacing and a replacement font (1.1s)
+  ✓   4 [chromium] › test/accessibility.spec.ts:50:1 › text remains usable at 200% root font size (540ms)
+  ✓   3 [chromium] › test/accessibility.spec.ts:30:3 › content reflows at 1280px with user spacing and a replacement font (1.1s)
+  ✓   6 [chromium] › test/deployed.spec.ts:6:1 › fonts, tester, glyph browser, languages, search and public resources (1.9s)
+  ✓   7 [chromium] › test/hig-packages.spec.ts:6:1 › package CSS, HIG copy buttons and loading/empty states (1.0s)
+  ✓   8 [chromium] › test/hig-packages.spec.ts:48:1 › keyboard search opens the static index and deep-links under the base path (1.1s)
+  ✓   9 [chromium] › test/hig-packages.spec.ts:65:3 › 390px mobile layout has no horizontal scroll: / (673ms)
+  ✓  10 [chromium] › test/hig-packages.spec.ts:65:3 › 390px mobile layout has no horizontal scroll: /docs/installation/ (348ms)
+  ✓  11 [chromium] › test/hig-packages.spec.ts:65:3 › 390px mobile layout has no horizontal scroll: /docs/character-set/ (334ms)
+  ✓  12 [chromium] › test/hig.spec.ts:5:1 › HIG tokens, install keyboard/copy and variable axes survive migration (2.0s)
+  ✓  13 [chromium] › test/hig.spec.ts:36:1 › mobile shell keeps navigation, search and deep links (579ms)
+  ✓  14 [chromium] › test/scripts.spec.ts:14:3 › Arabic: real fonts, specimens and downloads (2.0s)
+  ✓  15 [chromium] › test/scripts.spec.ts:14:3 › Armenian: real fonts, specimens and downloads (2.1s)
+  ✓   5 [chromium] › test/accessibility.spec.ts:57:1 › symbol controls have meaningful names and work with the keyboard (14.2s)
+  ✓  16 [chromium] › test/scripts.spec.ts:14:3 › Georgian: real fonts, specimens and downloads (2.1s)
+  ✓  18 [chromium] › test/unicode.spec.ts:32:3 › encoded Greek alpha: copy and tester preserve source Unicode (1.2s)
+  ✓  17 [chromium] › test/scripts.spec.ts:14:3 › Hebrew: real fonts, specimens and downloads (2.2s)
+  ✓  19 [chromium] › test/unicode.spec.ts:32:3 › Greek mu sharing the micro-sign outline: copy and tester preserve source Unicode (965ms)
+  ✓  20 [chromium] › test/unicode.spec.ts:32:3 › micro sign sharing the Greek-mu outline: copy and tester preserve source Unicode (907ms)
+  ✓  21 [chromium] › test/unicode.spec.ts:32:3 › stylistic alternate: copy and tester preserve source Unicode (1.0s)
+  ✓  22 [chromium] › test/unicode.spec.ts:32:3 › Mono arrow ligature: copy and tester preserve source Unicode (1.3s)
+  ✓  23 [chromium] › test/unicode.spec.ts:69:1 › Unicode names are searchable and unreachable glyphs cannot be copied (1.1s)
+  ✓  24 [chromium] › test/unicode.spec.ts:91:1 › shared mu glyph offers separately named Unicode choices (627ms)
+  ✓  25 [webkit] › test/accessibility.spec.ts:30:3 › content reflows at 320px with user spacing and a replacement font (2.2s)
+  ✓  26 [webkit] › test/accessibility.spec.ts:30:3 › content reflows at 640px with user spacing and a replacement font (2.2s)
+  ✓  28 [webkit] › test/accessibility.spec.ts:50:1 › text remains usable at 200% root font size (1.4s)
+  ✓  27 [webkit] › test/accessibility.spec.ts:30:3 › content reflows at 1280px with user spacing and a replacement font (2.2s)
+  ✓  30 [webkit] › test/deployed.spec.ts:6:1 › fonts, tester, glyph browser, languages, search and public resources (2.8s)
+  ✓  31 [webkit] › test/hig-packages.spec.ts:6:1 › package CSS, HIG copy buttons and loading/empty states (2.0s)
+  ✓  32 [webkit] › test/hig-packages.spec.ts:48:1 › keyboard search opens the static index and deep-links under the base path (1.5s)
+  ✓  29 [webkit] › test/accessibility.spec.ts:57:1 › symbol controls have meaningful names and work with the keyboard (6.8s)
+  ✓  34 [webkit] › test/hig-packages.spec.ts:65:3 › 390px mobile layout has no horizontal scroll: /docs/installation/ (493ms)
+  ✓  35 [webkit] › test/hig-packages.spec.ts:65:3 › 390px mobile layout has no horizontal scroll: /docs/character-set/ (591ms)
+  ✓  33 [webkit] › test/hig-packages.spec.ts:65:3 › 390px mobile layout has no horizontal scroll: / (1.3s)
+  ✓  37 [webkit] › test/hig.spec.ts:36:1 › mobile shell keeps navigation, search and deep links (950ms)
+  ✓  36 [webkit] › test/hig.spec.ts:5:1 › HIG tokens, install keyboard/copy and variable axes survive migration (2.4s)
+  ✓  38 [webkit] › test/scripts.spec.ts:14:3 › Arabic: real fonts, specimens and downloads (1.6s)
+  ✓  40 [webkit] › test/scripts.spec.ts:14:3 › Georgian: real fonts, specimens and downloads (2.1s)
+  ✓  39 [webkit] › test/scripts.spec.ts:14:3 › Armenian: real fonts, specimens and downloads (3.0s)
+  ✓  42 [webkit] › test/unicode.spec.ts:32:3 › encoded Greek alpha: copy and tester preserve source Unicode (1.8s)
+  ✓  41 [webkit] › test/scripts.spec.ts:14:3 › Hebrew: real fonts, specimens and downloads (2.6s)
+  ✓  43 [webkit] › test/unicode.spec.ts:32:3 › Greek mu sharing the micro-sign outline: copy and tester preserve source Unicode (1.8s)
+  ✓  44 [webkit] › test/unicode.spec.ts:32:3 › micro sign sharing the Greek-mu outline: copy and tester preserve source Unicode (2.2s)
+  ✓  45 [webkit] › test/unicode.spec.ts:32:3 › stylistic alternate: copy and tester preserve source Unicode (2.0s)
+  ✓  46 [webkit] › test/unicode.spec.ts:32:3 › Mono arrow ligature: copy and tester preserve source Unicode (2.3s)
+  ✓  47 [webkit] › test/unicode.spec.ts:69:1 › Unicode names are searchable and unreachable glyphs cannot be copied (1.9s)
+  ✓  48 [webkit] › test/unicode.spec.ts:91:1 › shared mu glyph offers separately named Unicode choices (1.5s)
+  48 passed (47.1s)

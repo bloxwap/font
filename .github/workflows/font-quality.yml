@@ -49,7 +49,7 @@ jobs:
       - run: bun run lint
       - run: bun run typecheck
       - run: bun run docs:build
-      - run: bun test apps/docs/lib/glyph-text.test.ts
+      - run: cd apps/docs && bun run test:unit
       - run: cd apps/docs && bunx playwright install --with-deps chromium firefox webkit
       - name: Production browser checks
         run: |

@@ -19,7 +19,7 @@ export function InstallCommand() {
   const { command } = managers[selected]!;
 
   return <div className="package-install">
-    <div className="install-tabs" role="tablist" aria-label="Package manager">
+    <div className="seg seg--mono" role="tablist" aria-label="Package manager">
       {managers.map(({ name }, index) => <button
         key={name}
         type="button"

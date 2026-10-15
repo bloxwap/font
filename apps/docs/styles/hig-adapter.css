@@ -1,4 +1,4 @@
-/* Host aliases for the approved HIG CSS distribution. Fumadocs owns routing/search. */
+/* Host aliases onto the HIG semantic variables from @bloxwap/hig-tokens/css. Fumadocs owns routing/search. */
 :root {
   --bloxwap-green: var(--hig-action); --bloxwap-blue: var(--hig-info);
   --bloxwap-black: var(--hig-background);

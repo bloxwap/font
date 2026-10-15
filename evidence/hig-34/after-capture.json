@@ -1,0 +1,42 @@
+{
+  "home-desktop": {
+    "cssBytes": 193079,
+    "fontBytes": 11567128,
+    "jsBytes": 1195295
+  },
+  "installation-desktop": {
+    "cssBytes": 193079,
+    "fontBytes": 592796,
+    "jsBytes": 1195295
+  },
+  "sans-desktop": {
+    "cssBytes": 193079,
+    "fontBytes": 592796,
+    "jsBytes": 1195295
+  },
+  "character-set-desktop": {
+    "cssBytes": 193079,
+    "fontBytes": 592796,
+    "jsBytes": 1195295
+  },
+  "home-mobile": {
+    "cssBytes": 193079,
+    "fontBytes": 11567128,
+    "jsBytes": 1103299
+  },
+  "installation-mobile": {
+    "cssBytes": 193079,
+    "fontBytes": 592796,
+    "jsBytes": 1195295
+  },
+  "sans-mobile": {
+    "cssBytes": 193079,
+    "fontBytes": 592796,
+    "jsBytes": 1195295
+  },
+  "character-set-mobile": {
+    "cssBytes": 193079,
+    "fontBytes": 592796,
+    "jsBytes": 1195295
+  }
+}

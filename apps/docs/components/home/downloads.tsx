@@ -30,8 +30,8 @@ function DownloadCard({ meta }: { meta: FamilyMeta }) {
       <ul>{meta.files.web.map((w) => <li key={w.path}><a href={fileUrl(w.path)}>{w.name}</a> <span className="l-iso">{fmtBytes(w.bytes)}</span></li>)}</ul>
     </details>}
     {zip
-      ? <a className="hig-button btn btn--secondary" href={downloadUrl(zip.path)} download><Download aria-hidden="true" /> Download {shortName(meta.name)} <span className="btn-meta">{fmtBytes(zip.bytes)}</span></a>
-      : <span className="hig-button btn btn--secondary" aria-disabled="true">Zip available after release build</span>}
+      ? <a className="hig-button btn" data-intent="secondary" href={downloadUrl(zip.path)} download><Download aria-hidden="true" /> Download {shortName(meta.name)} <span className="btn-meta">{fmtBytes(zip.bytes)}</span></a>
+      : <span className="hig-button btn" data-intent="secondary" aria-disabled="true">Zip available after release build</span>}
   </article>;
 }
 
@@ -93,8 +93,8 @@ export function Downloads({ families, zip }: { families: FamilyMeta[]; zip: ZipF
         <p>{primary.map((f) => shortName(f.name)).join(', ')}{companions.length ? ` and ${companions.length} companion famil${companions.length === 1 ? 'y' : 'ies'}` : ''} — static and variable, desktop and web formats, plus <code>OFL.txt</code>.</p>
       </div>
       {zip
-        ? <a className="hig-button btn" href={downloadUrl(zip.path)} download><Download aria-hidden="true" /> Download all <span className="btn-meta">{fmtBytes(zip.bytes)}</span></a>
-        : <span className="hig-button btn" aria-disabled="true">Download all <span className="btn-meta">soon</span></span>}
+        ? <a className="hig-button btn" data-intent="primary" href={downloadUrl(zip.path)} download><Download aria-hidden="true" /> Download all <span className="btn-meta">{fmtBytes(zip.bytes)}</span></a>
+        : <span className="hig-button btn" data-intent="primary" aria-disabled="true">Download all <span className="btn-meta">soon</span></span>}
     </div>
     <div className="dl-grid">{primary.map((meta) => <DownloadCard key={meta.id} meta={meta} />)}</div>
     {companions.length > 0 && <div className="dl-grid dl-grid--companions">{companions.map((meta) => <DownloadCard key={meta.id} meta={meta} />)}</div>}
@@ -107,9 +107,9 @@ export function Downloads({ families, zip }: { families: FamilyMeta[]; zip: ZipF
         <Snippet title="3 · Or link the hosted stylesheet (every family, every script)" code={cdn} className="span-2" />
       </div>
       <div className="usage-links">
-        <Link className="hig-button btn btn--secondary btn--sm" href="/docs/installation">Installation guide <ArrowRight aria-hidden="true" /></Link>
-        <Link className="hig-button btn btn--ghost btn--sm" href="/docs/multi-script">One family for every script <ArrowRight aria-hidden="true" /></Link>
-        <Link className="hig-button btn btn--ghost btn--sm" href="/docs/opentype-features">OpenType features <ArrowRight aria-hidden="true" /></Link>
+        <Link className="hig-button btn btn--sm" data-intent="secondary" href="/docs/installation">Installation guide <ArrowRight aria-hidden="true" /></Link>
+        <Link className="hig-button btn btn--sm" data-intent="ghost" href="/docs/multi-script">One family for every script <ArrowRight aria-hidden="true" /></Link>
+        <Link className="hig-button btn btn--sm" data-intent="ghost" href="/docs/opentype-features">OpenType features <ArrowRight aria-hidden="true" /></Link>
       </div>
     </div>
   </>;

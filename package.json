@@ -27,5 +27,9 @@
     "typecheck": "bun run docs:check",
     "test": "cd packages/npm && bun run test",
     "build": "cd packages/npm && bun run build && cd ../../apps/docs && bun run build"
+  },
+  "overrides": {
+    "@bloxwap/hig-contracts": "file:./vendor/bloxwap-hig/bloxwap-hig-contracts-0.1.0-candidate.sha7c67a07c.tgz",
+    "@bloxwap/hig-tokens": "file:./vendor/bloxwap-hig/bloxwap-hig-tokens-0.1.0-candidate.sha7c67a07c.tgz"
   }
 }
