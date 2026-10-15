@@ -3,7 +3,6 @@
  * (lib/font-data.ts), so every number in the docs is the number in the fonts that ship with the site.
  */
 import { ServerCodeBlock } from 'fumadocs-ui/components/codeblock.rsc';
-import { Callout } from '@bloxwap/hig-react/status';
 import type { CSSProperties } from 'react';
 import { getCatalog, getCatalogEntry, getFamily, getIndex, getMetas, getReadyFamilies, readPublic } from '@/lib/font-data';
 import { fontStack, shortName } from '@/lib/families';
@@ -13,6 +12,7 @@ import { downloadUrl, fileUrl } from '@/lib/site';
 import type { FamilyData } from '@/lib/types';
 import { GlyphBrowser } from '@/components/home/glyph-browser';
 import { FamilySpecimenClient } from './family-specimen';
+import { InDevelopmentCallout } from './in-development';
 
 const PACK_LABEL: Record<string, string> = {
   core: 'Latin, Greek, Cyrillic and symbols', arabic: 'Arabic', hangul: 'Korean Hangul', han: 'Simplified Chinese hanzi', cjk: 'CJK punctuation and symbols',
@@ -29,11 +29,7 @@ export function InDevelopment({ id }: { id: string }) {
   if (data) return null;
   const entry = getCatalogEntry(id);
   const packs = entry?.packs.map((p) => PACK_LABEL[p] ?? p).join(' + ');
-  return <div className="bw-callout not-prose" role="note">
-    <Callout severity="warning" announce={false} title={`${familyName(id)} is being drawn.`} action={<span className="wip-badge">In development</span>}>
-      <p>Its fonts are not part of this release yet{packs ? ` (planned coverage: ${packs})` : ''}. This page fills in automatically from the font data once it is built.</p>
-    </Callout>
-  </div>;
+  return <InDevelopmentCallout name={familyName(id)} packs={packs} />;
 }
 
 /** A one-line placeholder for secondary blocks (the dashed note is shown once, by FamilyFacts or InDevelopment). */

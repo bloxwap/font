@@ -13,7 +13,9 @@ const scripts = [
 for (const script of scripts) {
   test(`${script.name}: real fonts, specimens and downloads`, async ({ page, request }) => {
     await page.goto(new URL(`docs/families/sans-${script.id}/`, live!).href);
-    await expect(page.locator('.bw-callout-wip')).toHaveCount(0);
+    // A ready family must not fall back to the HIG 'in development' callout (InDevelopment).
+    await expect(page.locator('.bw-callout')).toHaveCount(0);
+    await expect(page.getByRole('note').filter({ hasText: 'is being drawn' })).toHaveCount(0);
     const sans = page.getByRole('textbox', { name: `Bloxwap Sans ${script.name} specimen text, editable` });
     await expect(sans).toBeVisible();
     // Hebrew and Arabic specimens infer direction from their editable content.
