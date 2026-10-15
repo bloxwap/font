@@ -4,6 +4,8 @@ import { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import NumberFlow from '@number-flow/react';
 import { ArrowRight, Search } from 'lucide-react';
+import { EmptyState, Spinner } from '@bloxwap/hig-react/status';
+import { Surface } from '@bloxwap/hig-react/surface';
 import { FamilyPicker } from '@/components/ui/controls';
 import { toast } from '@/components/ui/toast';
 import { fontStack } from '@/lib/families';
@@ -82,7 +84,7 @@ export function LanguageList({ families }: { families: FamilyMeta[] }) {
       {highlights.map((h) => <span className="coverage-pill" key={h.label}><strong>{h.value}</strong><span>{h.label}</span></span>)}
     </div>}
     <div className="g-toolbar">
-      <label className="search-field"><span className="sr-only">Search languages</span>
+      <label className="search-field"><span className="hig-sr-only">Search languages</span>
         <Search aria-hidden="true" />
         <input type="search" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search languages or ISO codes" autoComplete="off" />
       </label>
@@ -92,10 +94,10 @@ export function LanguageList({ families }: { families: FamilyMeta[] }) {
       </div>}
     </div>
     <div className="l-list">
-      {langs === undefined ? <div className="empty-state">Loading languages…</div>
-        : !langs || !langs.scripts.length ? <div className="empty-state"><strong>No languages to show yet</strong>
-          {!langs ? `Data for ${all ? 'the collection' : name} isn’t available yet.` : langs?.skipped ? 'Language detection was skipped for this build.' : `Hyperglot doesn’t list a complete language for ${name} yet. This list fills in automatically as coverage grows.`}</div>
-          : !picked.length ? <div className="empty-state"><strong>No matches</strong>Try another name or ISO 639-3 code.</div>
+      {langs === undefined ? <Surface className="l-state"><Spinner label="Loading languages" /></Surface>
+        : !langs || !langs.scripts.length ? <EmptyState title="No languages to show yet"
+          description={!langs ? `Data for ${all ? 'the collection' : name} isn’t available yet.` : langs?.skipped ? 'Language detection was skipped for this build.' : `Hyperglot doesn’t list a complete language for ${name} yet. This list fills in automatically as coverage grows.`} />
+          : !picked.length ? <EmptyState title="No matches" description="Try another name or ISO 639-3 code." />
             : <>
               <div className="l-grid">{picked.map((l) => {
                 const key = `${l.script}:${l.iso}`;

@@ -3,6 +3,7 @@
  * (lib/font-data.ts), so every number in the docs is the number in the fonts that ship with the site.
  */
 import { ServerCodeBlock } from 'fumadocs-ui/components/codeblock.rsc';
+import { Callout } from '@bloxwap/hig-react/status';
 import type { CSSProperties } from 'react';
 import { getCatalog, getCatalogEntry, getFamily, getIndex, getMetas, getReadyFamilies, readPublic } from '@/lib/font-data';
 import { fontStack, shortName } from '@/lib/families';
@@ -22,18 +23,16 @@ function familyName(id: string): string {
   return getCatalogEntry(id)?.name ?? id;
 }
 
-/** The dashed "in development" note for a family whose fonts are not built yet. */
+/** The HIG warning callout for a family whose fonts are not built yet. */
 export function InDevelopment({ id }: { id: string }) {
   const data = getFamily(id);
   if (data) return null;
   const entry = getCatalogEntry(id);
   const packs = entry?.packs.map((p) => PACK_LABEL[p] ?? p).join(' + ');
-  return <div className="bw-callout-wip not-prose" role="note">
-    <span className="wip-badge">In development</span>
-    <div>
-      <strong>{familyName(id)} is being drawn.</strong>
+  return <div className="bw-callout not-prose" role="note">
+    <Callout severity="warning" announce={false} title={`${familyName(id)} is being drawn.`} action={<span className="wip-badge">In development</span>}>
       <p>Its fonts are not part of this release yet{packs ? ` (planned coverage: ${packs})` : ''}. This page fills in automatically from the font data once it is built.</p>
-    </div>
+    </Callout>
   </div>;
 }
 

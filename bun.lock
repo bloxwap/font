@@ -9,6 +9,9 @@
       "name": "@bloxwap/font-docs",
       "version": "1.0.0",
       "dependencies": {
+        "@bloxwap/hig-contracts": "file:../../vendor/bloxwap-hig/bloxwap-hig-contracts-0.1.0-candidate.sha7c67a07c.tgz",
+        "@bloxwap/hig-react": "file:../../vendor/bloxwap-hig/bloxwap-hig-react-0.1.0-candidate.sha7c67a07c.tgz",
+        "@bloxwap/hig-tokens": "file:../../vendor/bloxwap-hig/bloxwap-hig-tokens-0.1.0-candidate.sha7c67a07c.tgz",
         "@number-flow/react": "0.6.2",
         "fumadocs-core": "16.15.17",
         "fumadocs-mdx": "15.4.5",
@@ -60,6 +63,10 @@
       ],
     },
   },
+  "overrides": {
+    "@bloxwap/hig-contracts": "file:./vendor/bloxwap-hig/bloxwap-hig-contracts-0.1.0-candidate.sha7c67a07c.tgz",
+    "@bloxwap/hig-tokens": "file:./vendor/bloxwap-hig/bloxwap-hig-tokens-0.1.0-candidate.sha7c67a07c.tgz",
+  },
   "packages": {
     "@alloc/quick-lru": ["@alloc/quick-lru@5.3.0", "", {}, "sha512-U4+70Pc5ZS9osnCBCE5Jha/ciHM+Yp+CNMNC/7HvYbNRk1Ldd+f7qO65W5qfhu/TCv+/ozljlXXe9Nj8419DMA=="],
 
@@ -102,6 +109,12 @@
     "@bloxwap/font-next-fixture": ["@bloxwap/font-next-fixture@workspace:apps/next-fixture"],
 
     "@bloxwap/font-source": ["@bloxwap/font-source@workspace:packages/font"],
+
+    "@bloxwap/hig-contracts": ["@bloxwap/hig-contracts@./vendor/bloxwap-hig/bloxwap-hig-contracts-0.1.0-candidate.sha7c67a07c.tgz", {}, "sha512-QJ2gdBNpzzDM8pmGM3Vtw0nPPSdCFGXFtZvAaRhGZmGRw4asG4MIcIhfceXJaa3StuweZsxD/DSwzKNl71MwmA=="],
+
+    "@bloxwap/hig-react": ["@bloxwap/hig-react@../../vendor/bloxwap-hig/bloxwap-hig-react-0.1.0-candidate.sha7c67a07c.tgz", { "dependencies": { "@bloxwap/hig-contracts": "0.1.0-candidate.sha7c67a07c", "@bloxwap/hig-tokens": "0.1.0-candidate.sha7c67a07c" }, "peerDependencies": { "@bloxwap/chart": "^0.3.0", "@radix-ui/react-dialog": "1.1.15", "@radix-ui/react-dropdown-menu": "2.1.16", "@radix-ui/react-popover": "1.1.15", "@radix-ui/react-tooltip": "1.2.8", "react": "^19.1.0", "react-dom": "^19.1.0" }, "optionalPeers": ["@bloxwap/chart", "@radix-ui/react-dialog", "@radix-ui/react-dropdown-menu", "@radix-ui/react-popover", "@radix-ui/react-tooltip"] }, "sha512-muTFRY9Co49PO9ZmmMeZDNscjtpnLamaa/zSOOazoQjjoBIQVpqa13jJw9x1qguPNAGaV9AN4v/UlBfIPEwiQA=="],
+
+    "@bloxwap/hig-tokens": ["@bloxwap/hig-tokens@./vendor/bloxwap-hig/bloxwap-hig-tokens-0.1.0-candidate.sha7c67a07c.tgz", {}, "sha512-GEgLcN1IQgqJfMvfmK88tn0B8y5ixGbzjnj7WO+oN9IHXJ7GC1TM7FQwDssanOaxrpDJisBLURR99WwE+rEHGw=="],
 
     "@emnapi/core": ["@emnapi/core@1.10.0", "", { "dependencies": { "@emnapi/wasi-threads": "1.2.1", "tslib": "^2.4.0" } }, "sha512-yq6OkJ4p82CAfPl0u9mQebQHKPJkY7WrIuk205cTYnYe+k2Z8YBh11FrbRG/H6ihirqcacOgl2BIO8oyMQLeXw=="],
 

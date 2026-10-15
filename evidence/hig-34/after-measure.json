@@ -1,0 +1,75 @@
+{
+  "phase": "after",
+  "export": {
+    "files": 491,
+    "bytes": 107518967,
+    "bytesExcludingFonts": 25110651,
+    "byExtension": {
+      "(none)": 0,
+      ".html": 4363177,
+      ".txt": 6555058,
+      ".js": 1337903,
+      ".css": 193079,
+      ".json": 11264743,
+      ".woff2": 82408316,
+      ".svg": 61194,
+      ".png": 1332545,
+      ".xml": 2952
+    }
+  },
+  "generatedCss": {
+    "files": [
+      {
+        "file": "_next/static/chunks/1wjiszhixwfuc.css",
+        "raw": 139695,
+        "gzip": 24573
+      }
+    ],
+    "raw": 139695,
+    "gzip": 24573
+  },
+  "presentationSources": {
+    "files": [
+      {
+        "file": "app/global.css",
+        "bytes": 59167,
+        "lines": 680
+      },
+      {
+        "file": "styles/hig-adapter.css",
+        "bytes": 1531,
+        "lines": 38
+      }
+    ],
+    "bytes": 60698,
+    "lines": 718
+  },
+  "primitiveAndCheckFiles": [
+    {
+      "file": "components/ui/controls.tsx",
+      "bytes": 4863
+    },
+    {
+      "file": "components/ui/copy-text-button.tsx",
+      "bytes": 1313
+    },
+    {
+      "file": "components/ui/toast.tsx",
+      "bytes": 1457
+    },
+    {
+      "file": "scripts/check-hig-vendor.ts",
+      "bytes": 2564
+    }
+  ],
+  "dependencies": {
+    "runtime": 11,
+    "dev": 10,
+    "runtimeHig": [
+      "@bloxwap/hig-contracts",
+      "@bloxwap/hig-react",
+      "@bloxwap/hig-tokens"
+    ],
+    "lockfilePackages": 727
+  }
+}

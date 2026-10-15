@@ -1,0 +1,213 @@
+{
+  "issue": "https://github.com/bloxwap/hig/issues/34",
+  "row": "font",
+  "higSource": "bloxwap/hig@7c67a07 (0.1.0-candidate.sha7c67a07c)",
+  "generatedCssRaw": {
+    "before": 139967,
+    "after": 139695,
+    "delta": -272
+  },
+  "generatedCssGzip": {
+    "before": 24470,
+    "after": 24573,
+    "delta": 103
+  },
+  "exportBytes": {
+    "before": 107522123,
+    "after": 107518967,
+    "delta": -3156
+  },
+  "exportBytesExcludingFonts": {
+    "before": 25113807,
+    "after": 25110651,
+    "delta": -3156
+  },
+  "exportFiles": {
+    "before": 491,
+    "after": 491,
+    "delta": 0
+  },
+  "exportJs": {
+    "before": 1333825,
+    "after": 1337903,
+    "delta": 4078
+  },
+  "exportHtml": {
+    "before": 4360644,
+    "after": 4363177,
+    "delta": 2533
+  },
+  "exportPng": {
+    "before": 1345478,
+    "after": 1332545,
+    "delta": -12933
+  },
+  "presentationSourceBytes": {
+    "before": 68202,
+    "after": 60698,
+    "delta": -7504
+  },
+  "presentationSourceLines": {
+    "before": 830,
+    "after": 718,
+    "delta": -112
+  },
+  "presentationSourceFiles": {
+    "before": 6,
+    "after": 2,
+    "delta": -4
+  },
+  "runtimeDependencies": {
+    "before": 8,
+    "after": 11,
+    "delta": 3
+  },
+  "devDependencies": {
+    "before": 10,
+    "after": 10,
+    "delta": 0
+  },
+  "lockfilePackages": {
+    "before": 724,
+    "after": 727,
+    "delta": 3
+  },
+  "decodedPageBytes": {
+    "home-desktop": {
+      "css": {
+        "before": 193351,
+        "after": 193079,
+        "delta": -272
+      },
+      "js": {
+        "before": 1191217,
+        "after": 1195295,
+        "delta": 4078
+      },
+      "font": {
+        "before": 11567128,
+        "after": 11567128,
+        "delta": 0
+      }
+    },
+    "installation-desktop": {
+      "css": {
+        "before": 193351,
+        "after": 193079,
+        "delta": -272
+      },
+      "js": {
+        "before": 1191217,
+        "after": 1195295,
+        "delta": 4078
+      },
+      "font": {
+        "before": 592796,
+        "after": 592796,
+        "delta": 0
+      }
+    },
+    "sans-desktop": {
+      "css": {
+        "before": 193351,
+        "after": 193079,
+        "delta": -272
+      },
+      "js": {
+        "before": 1191217,
+        "after": 1195295,
+        "delta": 4078
+      },
+      "font": {
+        "before": 592796,
+        "after": 592796,
+        "delta": 0
+      }
+    },
+    "character-set-desktop": {
+      "css": {
+        "before": 193351,
+        "after": 193079,
+        "delta": -272
+      },
+      "js": {
+        "before": 1191217,
+        "after": 1195295,
+        "delta": 4078
+      },
+      "font": {
+        "before": 592796,
+        "after": 592796,
+        "delta": 0
+      }
+    },
+    "home-mobile": {
+      "css": {
+        "before": 193351,
+        "after": 193079,
+        "delta": -272
+      },
+      "js": {
+        "before": 1099221,
+        "after": 1103299,
+        "delta": 4078
+      },
+      "font": {
+        "before": 11567128,
+        "after": 11567128,
+        "delta": 0
+      }
+    },
+    "installation-mobile": {
+      "css": {
+        "before": 193351,
+        "after": 193079,
+        "delta": -272
+      },
+      "js": {
+        "before": 1191217,
+        "after": 1195295,
+        "delta": 4078
+      },
+      "font": {
+        "before": 592796,
+        "after": 592796,
+        "delta": 0
+      }
+    },
+    "sans-mobile": {
+      "css": {
+        "before": 193351,
+        "after": 193079,
+        "delta": -272
+      },
+      "js": {
+        "before": 1191217,
+        "after": 1195295,
+        "delta": 4078
+      },
+      "font": {
+        "before": 592796,
+        "after": 592796,
+        "delta": 0
+      }
+    },
+    "character-set-mobile": {
+      "css": {
+        "before": 193351,
+        "after": 193079,
+        "delta": -272
+      },
+      "js": {
+        "before": 1191217,
+        "after": 1195295,
+        "delta": 4078
+      },
+      "font": {
+        "before": 592796,
+        "after": 592796,
+        "delta": 0
+      }
+    }
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "phase": "before",
+  "export": {
+    "files": 491,
+    "bytes": 107522123,
+    "bytesExcludingFonts": 25113807,
+    "byExtension": {
+      "(none)": 0,
+      ".html": 4360644,
+      ".txt": 6551620,
+      ".js": 1333825,
+      ".css": 193351,
+      ".json": 11264743,
+      ".woff2": 82408316,
+      ".svg": 61194,
+      ".png": 1345478,
+      ".xml": 2952
+    }
+  },
+  "generatedCss": {
+    "files": [
+      {
+        "file": "_next/static/chunks/3exn_izvze-j8.css",
+        "raw": 139967,
+        "gzip": 24470
+      }
+    ],
+    "raw": 139967,
+    "gzip": 24470
+  },
+  "presentationSources": {
+    "files": [
+      {
+        "file": "app/global.css",
+        "bytes": 60624,
+        "lines": 693
+      },
+      {
+        "file": "styles/HIG-LICENSE",
+        "bytes": 558,
+        "lines": 6
+      },
+      {
+        "file": "styles/hig-adapter.css",
+        "bytes": 1531,
+        "lines": 38
+      },
+      {
+        "file": "styles/hig-controls.css",
+        "bytes": 4079,
+        "lines": 46
+      },
+      {
+        "file": "styles/hig-source.json",
+        "bytes": 385,
+        "lines": 11
+      },
+      {
+        "file": "styles/hig-tokens.css",
+        "bytes": 1025,
+        "lines": 36
+      }
+    ],
+    "bytes": 68202,
+    "lines": 830
+  },
+  "primitiveAndCheckFiles": [
+    {
+      "file": "components/ui/controls.tsx",
+      "bytes": 4863
+    },
+    {
+      "file": "components/ui/copy-text-button.tsx",
+      "bytes": 1303
+    },
+    {
+      "file": "components/ui/toast.tsx",
+      "bytes": 1457
+    },
+    {
+      "file": "scripts/check-hig-source.ts",
+      "bytes": 608
+    }
+  ],
+  "dependencies": {
+    "runtime": 8,
+    "dev": 10,
+    "runtimeHig": [],
+    "lockfilePackages": 724
+  }
+}
