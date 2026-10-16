@@ -4,11 +4,62 @@ on:
   workflow_dispatch:
 permissions:
   contents: read
+  pull-requests: read
 concurrency:
   group: font-quality-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 jobs:
+  # Job-level path filter (not on.pull_request.paths): the workflow always starts, so
+  # required checks are skipped-success instead of sitting pending on unrelated PRs.
+  changes:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      assets: ${{ steps.paths.outputs.assets }}
+      docs: ${{ steps.paths.outputs.docs }}
+    steps:
+      - id: paths
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          assets=false
+          docs=false
+          if [[ "${{ github.event_name }}" != "pull_request" ]]; then
+            echo "assets=true" >> "$GITHUB_OUTPUT"
+            echo "docs=true" >> "$GITHUB_OUTPUT"
+            echo "Running the full suite (${{ github.event_name }})"
+            exit 0
+          fi
+          files=$(gh api --paginate "repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/files" --jq '.[].filename')
+          echo "Changed files:"
+          printf '%s\n' "$files"
+          while IFS= read -r file; do
+            [[ -z "$file" ]] && continue
+            case "$file" in
+              apps/next-fixture/*|packages/npm/*|LICENSE|apps/docs/public/*)
+                assets=true
+                ;;
+            esac
+            case "$file" in
+              apps/docs/*|vendor/bloxwap-hig/*|bunfig.toml)
+                docs=true
+                ;;
+            esac
+            case "$file" in
+              package.json|bun.lock|.github/workflows/font-quality.yml)
+                assets=true
+                docs=true
+                ;;
+            esac
+          done <<< "$files"
+          echo "assets=$assets" >> "$GITHUB_OUTPUT"
+          echo "docs=$docs" >> "$GITHUB_OUTPUT"
+          echo "assets=$assets docs=$docs"
+
   assets:
+    needs: changes
+    if: needs.changes.outputs.assets == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
@@ -22,7 +73,22 @@ jobs:
       - uses: oven-sh/setup-bun@v2
       - run: bun install --frozen-lockfile
       - run: python -m pip install 'fonttools[woff,unicode]==4.66.1' 'brotli==1.2.0'
-      - run: node packages/npm/scripts/build.mjs
+      - uses: actions/cache@v4
+        id: font-build
+        with:
+          path: |
+            packages/npm/fonts
+            packages/npm/LICENSE
+            packages/npm/bloxwap-font.css
+            packages/npm/sans-scripts.css
+            packages/npm/mono-scripts.css
+            packages/npm/css
+            packages/npm/native
+            packages/npm/manifest.json
+          key: font-build-${{ runner.os }}-fonttools-4.66.1-${{ hashFiles('apps/docs/public/fonts/**', 'apps/docs/public/bloxwap-font.css', 'packages/npm/scripts/build.mjs', 'packages/npm/scripts/faces.py', 'packages/npm/package.json', 'LICENSE') }}
+      - name: Generate package fonts
+        if: steps.font-build.outputs.cache-hit != 'true'
+        run: node packages/npm/scripts/build.mjs
       - run: npm test --prefix packages/npm
       - run: cd apps/next-fixture && bun run check && bun run build && node check-export.mjs
       - name: Check the packed distribution
@@ -34,9 +100,38 @@ jobs:
           path: |
             packages/npm/*.tgz
             packages/npm/manifest.json
-  docs:
+
+  docs-build:
+    needs: changes
+    if: needs.changes.outputs.docs == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    env:
+      NEXT_PUBLIC_BASE_PATH: /font
+      NEXT_TELEMETRY_DISABLED: '1'
+    steps:
+      - uses: actions/checkout@v7
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install --frozen-lockfile
+      - run: bun run lint
+      - run: bun run typecheck
+      - run: bun run docs:build
+      - run: cd apps/docs && bun run test:unit
+      - uses: actions/upload-artifact@v6
+        with:
+          name: docs-preview
+          path: apps/docs/out
+          retention-days: 1
+
+  docs-browser:
+    needs: [changes, docs-build]
+    if: needs.changes.outputs.docs == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, firefox, webkit]
     env:
       NEXT_PUBLIC_BASE_PATH: /font
       NEXT_TELEMETRY_DISABLED: '1'
@@ -46,11 +141,23 @@ jobs:
       - uses: actions/checkout@v7
       - uses: oven-sh/setup-bun@v2
       - run: bun install --frozen-lockfile
-      - run: bun run lint
-      - run: bun run typecheck
-      - run: bun run docs:build
-      - run: cd apps/docs && bun run test:unit
-      - run: cd apps/docs && bunx playwright install --with-deps chromium firefox webkit
+      - uses: actions/download-artifact@v6
+        with:
+          name: docs-preview
+          path: apps/docs/out
+      - uses: actions/cache@v4
+        id: playwright-cache
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ matrix.browser }}-${{ hashFiles('bun.lock', 'apps/docs/package.json') }}
+          restore-keys: |
+            playwright-${{ runner.os }}-${{ matrix.browser }}-
+      - name: Install Playwright browser
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: cd apps/docs && bunx playwright install --with-deps ${{ matrix.browser }}
+      - name: Install Playwright OS dependencies
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        run: cd apps/docs && bunx playwright install-deps ${{ matrix.browser }}
       - name: Production browser checks
         run: |
           bun run docs:preview > preview.log 2>&1 &
@@ -60,11 +167,37 @@ jobs:
           done
           cd apps/docs
           # One active page avoids oversubscribing the runner while shaping the full font catalog.
-          bunx playwright test --workers=1
+          bunx playwright test --project=${{ matrix.browser }} --workers=1
       - uses: actions/upload-artifact@v6
         if: always()
         with:
-          name: docs-test-evidence
+          name: docs-test-evidence-${{ matrix.browser }}
           path: |
             apps/docs/test-results
             apps/docs/playwright-report
+
+  # Always reports so the required `docs` check is never pending. Fails when a
+  # docs-related run's build or any browser shard failed; succeeds on skip.
+  docs:
+    needs: [changes, docs-build, docs-browser]
+    if: always() && !cancelled()
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Required docs checks
+        run: |
+          set -euo pipefail
+          echo "changes=${{ needs.changes.result }} docs-filter=${{ needs.changes.outputs.docs }}"
+          echo "docs-build=${{ needs.docs-build.result }} docs-browser=${{ needs.docs-browser.result }}"
+          if [[ "${{ needs.changes.result }}" != "success" ]]; then
+            echo "Path filter job failed"
+            exit 1
+          fi
+          if [[ "${{ needs.changes.outputs.docs }}" != "true" ]]; then
+            echo "No docs-related paths changed; docs check is a no-op"
+            exit 0
+          fi
+          if [[ "${{ needs.docs-build.result }}" != "success" || "${{ needs.docs-browser.result }}" != "success" ]]; then
+            echo "Docs quality checks failed"
+            exit 1
+          fi
