@@ -1,12 +1,14 @@
 # CI runners
 
-Every GitHub Actions job in this repository runs on self-hosted Apple Silicon Mac minis:
+Documentation and Font delivery quality jobs run on self-hosted Apple Silicon Mac minis:
 
 ```yaml
 runs-on: [self-hosted, macOS, ARM64]
 ```
 
-Jobs do not call `apt`, `sudo`, or `playwright install --with-deps`. System tools must already be on the machine. Workflow scripts are BSD/`bash` 3.2 portable and write scratch files under `$RUNNER_TEMP`.
+The npm publish job stays on GitHub-hosted `ubuntu-latest` because [npm trusted publishing does not support self-hosted runners](https://docs.npmjs.com/trusted-publishers/). It uses `actions/setup-python` for Python 3.13.
+
+Mac mini jobs do not call `apt`, `sudo`, or `playwright install --with-deps`. System tools must already be on the machine. Workflow scripts are BSD/`bash` 3.2 portable and write scratch files under `$RUNNER_TEMP`.
 
 ## Runner labels
 
@@ -36,7 +38,7 @@ Install these on the runner account **before** the machine picks up jobs. Homebr
 | `curl` | Docs preview readiness check |
 | `gh` | Path filter in Font delivery quality (`changes`) |
 | `gtar` | `actions/upload-pages-artifact` on macOS (Homebrew `gnu-tar`; the action invokes `gtar`, not BSD `tar`) |
-| `python3.13` | Font package generate and publish (`brew install python@3.13`) |
+| `python3.13` | Font package generate and test (`brew install python@3.13`) |
 
 ```sh
 brew install gh gnu-tar python@3.13
@@ -44,7 +46,7 @@ brew install gh gnu-tar python@3.13
 # python3.13 must be on PATH (Homebrew does this for python@3.13)
 ```
 
-`actions/setup-python` is not used. On macOS it installs only to `/Users/runner/hostedtoolcache`, and creating `/Users/runner` needs `sudo`. Jobs use Homebrew Python 3.13 in a per-job venv (same version pin) and run `brew install python@3.13` when `python3.13` is missing.
+`actions/setup-python` is not used on the Mac minis. On macOS it installs only to `/Users/runner/hostedtoolcache`, and creating `/Users/runner` needs `sudo`. Mac mini jobs use Homebrew Python 3.13 in a per-job venv (same version pin) and run `brew install python@3.13` when `python3.13` is missing.
 
 ### Installed by workflow actions (do not pre-provision unless you want faster cold starts)
 
@@ -78,7 +80,7 @@ The runner must reach GitHub (git, APIs, Actions artifacts/cache, Pages, OIDC), 
 - GitHub Pages deploy (`Documentation` / `deploy`): `pages: write` and `id-token: write`
 - npm trusted publishing (`Publish to npm`): `id-token: write`
 
-OIDC works on official GitHub Actions self-hosted runners. Keep the runner application updated.
+GitHub Pages uses OIDC on the self-hosted runners. npm requires a GitHub-hosted runner for trusted publishing. Keep the runner application updated.
 
 ## Jobs
 
@@ -91,6 +93,6 @@ OIDC works on official GitHub Actions self-hosted runners. Keep the runner appli
 | Font delivery quality | `docs-build` | Lint, typecheck, docs build, unit tests |
 | Font delivery quality | `docs-browser` | Matrix `chromium` / `webkit`, `--workers=1` |
 | Font delivery quality | `docs` | Required-check aggregator; skip is success |
-| Publish to npm | `publish` | Release / workflow_dispatch |
+| Publish to npm | `publish` | GitHub-hosted `ubuntu-latest`; release / workflow_dispatch |
 
 A single Mac mini will serialize the browser matrix. That is expected. Playwright coverage is Chromium and WebKit.
