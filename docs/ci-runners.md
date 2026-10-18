@@ -69,7 +69,7 @@ Jobs run `python -m pip install` without `sudo`:
 - `$HOME/Library/Caches/ms-playwright` — Playwright browser cache
 - Tool caches used by `setup-bun` and `setup-node`
 
-Browser jobs set `HOME` to `$RUNNER_TEMP/pw-home` so Playwright Firefox can create a profile. Nightly still reads `~/Library/Application Support/Firefox`; that directory is often TCC-locked for the `admin` user. `PLAYWRIGHT_BROWSERS_PATH` stays the shared cache.
+Browser jobs set `HOME` / `CFFIXED_USER_HOME` to `$RUNNER_TEMP/pw-home` and rebrand Playwright Nightly's `application.ini` (`Name=PlaywrightFirefox`) so Gecko does not use the TCC-locked `~/Library/Application Support/Firefox` directory. Chromium and WebKit shards are unchanged. `PLAYWRIGHT_BROWSERS_PATH` stays the shared cache.
 
 ### Network
 
