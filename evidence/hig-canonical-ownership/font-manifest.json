@@ -1,0 +1,1217 @@
+{
+  "sourceCommit": "dbf9824f2abdd0a70f929e2393a7780d61121e29",
+  "fontFiles": 242,
+  "totalBytes": 83545680,
+  "files": [
+    {
+      "path": "apps/docs/assets/og/BloxwapSans-Black.ttf",
+      "bytes": 568740,
+      "sha256": "d6bddb06cbabd51e8979dafbcb66796d941f24a3cbe836ef7676ebb7e2110808"
+    },
+    {
+      "path": "apps/docs/assets/og/BloxwapSans-SemiBold.ttf",
+      "bytes": 568624,
+      "sha256": "5ca53a36a94955df29cc96d55a30f19f5e64ba9fd6afbd9e7a5fc967bac1a4af"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMono/variable/BloxwapMono-Italic[wght].woff2",
+      "bytes": 316116,
+      "sha256": "7e6f19e57d07511a0e3f4bd31662f90366f0f80852373625ce3fe587a3d7ae54"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMono/variable/BloxwapMono[wght].woff2",
+      "bytes": 281948,
+      "sha256": "fa66e41575807c3d260d8f5b493be349cac127836b0174976c7d4876237d2632"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMono/woff2/BloxwapMono-Black.woff2",
+      "bytes": 151624,
+      "sha256": "44983093fc7420e2e14e5d11337f5f9346e0151c77b3ee7db72df6b41714c045"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMono/woff2/BloxwapMono-BlackItalic.woff2",
+      "bytes": 161272,
+      "sha256": "b45e3729279059a4fc898e407a2b5772da1120f8f19e229d732805db5e61d6a5"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMono/woff2/BloxwapMono-Bold.woff2",
+      "bytes": 153148,
+      "sha256": "1f6e962df25d7bc74fe061d0cf2a0e0c54de6e31ae5d64c94f5ae098f9f75cc8"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMono/woff2/BloxwapMono-BoldItalic.woff2",
+      "bytes": 164684,
+      "sha256": "f0bb5aad31385108a373f603a40d28c4ec096a9a7cbb48d5b92f96de3b4a5757"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMono/woff2/BloxwapMono-ExtraBold.woff2",
+      "bytes": 152824,
+      "sha256": "fc82c91d3edd07c044133f45ff9df4cab33b0faeaf3b94c5605019817e371f56"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMono/woff2/BloxwapMono-ExtraBoldItalic.woff2",
+      "bytes": 164028,
+      "sha256": "fa337fd35a0ec4efff60234cb0876b3d4f248ad19e7806f3d03ed5161eb652bc"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMono/woff2/BloxwapMono-ExtraLight.woff2",
+      "bytes": 149672,
+      "sha256": "c69f52230995d34b787c9b47d84ad2e51a37846048dcf34c47cb787ad4cf8c05"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMono/woff2/BloxwapMono-ExtraLightItalic.woff2",
+      "bytes": 160348,
+      "sha256": "d3f7b0cd765730e2f4583126478544eebe59bee01ce221b23d66029106e90a30"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMono/woff2/BloxwapMono-Italic.woff2",
+      "bytes": 163900,
+      "sha256": "73a70cbfdde38ed59cd5d8f4dfdbdea7ee10aefbfb2abe9e4c3aa6511b428056"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMono/woff2/BloxwapMono-Light.woff2",
+      "bytes": 151152,
+      "sha256": "4db96d06a85fb071fed09390ff1bb454d0b3ef118f2115bfdf982bb62534651a"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMono/woff2/BloxwapMono-LightItalic.woff2",
+      "bytes": 160636,
+      "sha256": "0247b485bdd985b21e1b2738173ec20db217f4431b198b8d80655e9a5a9cd9b2"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMono/woff2/BloxwapMono-Medium.woff2",
+      "bytes": 150824,
+      "sha256": "9d89220bf4b9a8ff013293e68ae8bf49433c04fec145bbba94dc2458fbda99ec"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMono/woff2/BloxwapMono-MediumItalic.woff2",
+      "bytes": 165096,
+      "sha256": "16f467ddd612972a7ee74dd3fa7aa4c13b425b2af3df2c91c7ab92c924d9f695"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMono/woff2/BloxwapMono-Regular.woff2",
+      "bytes": 151204,
+      "sha256": "6fda72945ed766af8b28cee4d114ccaf6f2bf936b4948b8d69995c7e5b5d24da"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMono/woff2/BloxwapMono-SemiBold.woff2",
+      "bytes": 150536,
+      "sha256": "dc8b85621d938178feeaffb40c1c6ef8bb7cb280fccb1f70e7ea188fab24e6b4"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMono/woff2/BloxwapMono-SemiBoldItalic.woff2",
+      "bytes": 163764,
+      "sha256": "960acbe0e1c04422b83784c2fdd03fdd4b45bdc80d3877677a7d411b240d9e3a"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMono/woff2/BloxwapMono-Thin.woff2",
+      "bytes": 141584,
+      "sha256": "7cb6a7f730d123b1d616c0b95556965df98ff13cb853be27b7bff8dc83b907c8"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMono/woff2/BloxwapMono-ThinItalic.woff2",
+      "bytes": 155176,
+      "sha256": "ec210ed3c075901420dec6df182d4eb1ac4114a59387de0f2521eeb091c154df"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoArabic/variable/BloxwapMonoArabic[wght].woff2",
+      "bytes": 384164,
+      "sha256": "571c098d52654fe851573b06d15f26f74c9f9df78c1110e47722224dd693cce9"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoArabic/woff2/BloxwapMonoArabic-Black.woff2",
+      "bytes": 201968,
+      "sha256": "cb0c4b74dee299ea7753db36ea020b27f5d74a233f595b2206762918a30b782a"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoArabic/woff2/BloxwapMonoArabic-Bold.woff2",
+      "bytes": 208144,
+      "sha256": "ad8d2a4a5303a269b74dc386fd626ed0ec5761e6fffb39516515673ea5e01f1e"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoArabic/woff2/BloxwapMonoArabic-ExtraBold.woff2",
+      "bytes": 205640,
+      "sha256": "99442baeab3e9c67e218a1083d2be685f803a38258798dddfd4e2f3e41f2d690"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoArabic/woff2/BloxwapMonoArabic-ExtraLight.woff2",
+      "bytes": 201052,
+      "sha256": "dea6242b051663cd916c2182fbae712ae08656aaacc32c4cc24c0c00d9b82bf8"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoArabic/woff2/BloxwapMonoArabic-Light.woff2",
+      "bytes": 202016,
+      "sha256": "a1e3ebc12f6e9b82c2e7dfede9e4571a592d1810b363142045c1da81beb0b341"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoArabic/woff2/BloxwapMonoArabic-Medium.woff2",
+      "bytes": 204584,
+      "sha256": "bf85f4bbe4c76efa8440b356e1df23d99ff0298884c3caaa970929e23e7cccb3"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoArabic/woff2/BloxwapMonoArabic-Regular.woff2",
+      "bytes": 204004,
+      "sha256": "75fdfb7f76c04fbf7620851002dc3c1f8960fae91264add3585b9f56bc3ef6ec"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoArabic/woff2/BloxwapMonoArabic-SemiBold.woff2",
+      "bytes": 204824,
+      "sha256": "5387535a2b41974d2a0c6d5b8d61718f0d6384c420e4f4e0ab2064c673db776a"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoArabic/woff2/BloxwapMonoArabic-Thin.woff2",
+      "bytes": 187940,
+      "sha256": "377eecb774ebfec388123f8186d36f3bdd8506f14cb17162d4e57a2b75f0b65a"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoArmenian/variable/BloxwapMonoArmenian-Italic[wght].woff2",
+      "bytes": 343096,
+      "sha256": "d65a1f29665c5337426c6adad2aa531a2145a0e9616c30f8d452f188e2bfd133"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoArmenian/variable/BloxwapMonoArmenian[wght].woff2",
+      "bytes": 306868,
+      "sha256": "24b368afe8097ee5f22d2e9b510d73047273d1d5998ca2a7ba5df6dfac3bf8f3"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoArmenian/woff2/BloxwapMonoArmenian-Black.woff2",
+      "bytes": 161188,
+      "sha256": "ad4bdf58e4cfd4839abd470b3415137724b1ce05d058b758dff29c1363e09b3e"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoArmenian/woff2/BloxwapMonoArmenian-BlackItalic.woff2",
+      "bytes": 171364,
+      "sha256": "f6b0179d675160239837a56770d6c8748b44ed72e845ee7c96ab86b66d0909fe"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoArmenian/woff2/BloxwapMonoArmenian-Bold.woff2",
+      "bytes": 163792,
+      "sha256": "3d24f8c698a31495cdf5b38a0772a28241173ec89f10a0a40e490f3b9a48099b"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoArmenian/woff2/BloxwapMonoArmenian-BoldItalic.woff2",
+      "bytes": 175728,
+      "sha256": "cc6cb7beee210f70f8f4fd3d39609a0a98c737724b250756b434b82bcdb4a1e8"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoArmenian/woff2/BloxwapMonoArmenian-ExtraBold.woff2",
+      "bytes": 162884,
+      "sha256": "0399ad26bd633d2cb5316be8534c7b0fddb4da7da36278063f4a5b0fe11f60fc"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoArmenian/woff2/BloxwapMonoArmenian-ExtraBoldItalic.woff2",
+      "bytes": 174896,
+      "sha256": "564a66ac3097300c79a3956e05da4ac83c4618fac98e3a66d0a029b880647f45"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoArmenian/woff2/BloxwapMonoArmenian-ExtraLight.woff2",
+      "bytes": 161560,
+      "sha256": "e6e8c35f79ac1651d9e13e4fb2e6658f1a4378f6916a3dc847a61d4281d904fb"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoArmenian/woff2/BloxwapMonoArmenian-ExtraLightItalic.woff2",
+      "bytes": 171764,
+      "sha256": "da2198c2e839b8fe12157755cdc9c87b9860152bc54deb23e501dd842affaeb0"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoArmenian/woff2/BloxwapMonoArmenian-Italic.woff2",
+      "bytes": 175644,
+      "sha256": "b46cdc2daf78e4f8f0f4f701d1810dbcf53e012c572c5ad3135ef3498844ad48"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoArmenian/woff2/BloxwapMonoArmenian-Light.woff2",
+      "bytes": 162440,
+      "sha256": "074ef6e43326391f7e66ace5e41089c0f998c303e669a2e2a34ade89aec91487"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoArmenian/woff2/BloxwapMonoArmenian-LightItalic.woff2",
+      "bytes": 172072,
+      "sha256": "2e6483b541e199f6dcba354880e713a3dead4ad49b69863f5deb2016cd8643b1"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoArmenian/woff2/BloxwapMonoArmenian-Medium.woff2",
+      "bytes": 162340,
+      "sha256": "28eaa246466f5a118a7df57f1bd02643348a7b69d6cc58bd7a7364670eba4b25"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoArmenian/woff2/BloxwapMonoArmenian-MediumItalic.woff2",
+      "bytes": 176496,
+      "sha256": "6c0d0ff888b79b3cbad1a971f0b12d9f473302e1252e6ae94f710ff8024ab47d"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoArmenian/woff2/BloxwapMonoArmenian-Regular.woff2",
+      "bytes": 162756,
+      "sha256": "f8ea081dbd2708d0b628c1b98227957ef1b32fbb0f0f01b43b6e2a3ffa0bfa71"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoArmenian/woff2/BloxwapMonoArmenian-SemiBold.woff2",
+      "bytes": 161648,
+      "sha256": "642430f541c37a1cc584caa3e9edaf70390fb1cabe993d6ae5b634c0ba50bc66"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoArmenian/woff2/BloxwapMonoArmenian-SemiBoldItalic.woff2",
+      "bytes": 175516,
+      "sha256": "2118dc0e9e8d408f47c0c93a0e8bbc50013bfed7bcb81a87a016bd74240b124c"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoArmenian/woff2/BloxwapMonoArmenian-Thin.woff2",
+      "bytes": 152992,
+      "sha256": "4f7774e2827ae435d32625030d21cdf3fc88931cddfba7003666796c38d9cee6"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoArmenian/woff2/BloxwapMonoArmenian-ThinItalic.woff2",
+      "bytes": 166308,
+      "sha256": "1003c2299fb0e32d1de2f8e57ebcd352a14aa30ea05b62780dc4e44545991524"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoGeorgian/variable/BloxwapMonoGeorgian-Italic[wght].woff2",
+      "bytes": 360908,
+      "sha256": "579bf0368160836a7edcd88ee4859e7bf1fd065b1242a47968d1e5c8b1f2621d"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoGeorgian/variable/BloxwapMonoGeorgian[wght].woff2",
+      "bytes": 322688,
+      "sha256": "886b8e52bc589b65716f2b0e44b38096529dc57d7248c430f73350e60e0b3ec8"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoGeorgian/woff2/BloxwapMonoGeorgian-Black.woff2",
+      "bytes": 163888,
+      "sha256": "0ddf9a8ae8ed418f33455f5b92184709d215649e4186ec5080b3ba75bc0cedab"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoGeorgian/woff2/BloxwapMonoGeorgian-BlackItalic.woff2",
+      "bytes": 175264,
+      "sha256": "60e300833c435dbb470e3efc4a45fb4f6ded8e542158020ec7db81397bfd5e49"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoGeorgian/woff2/BloxwapMonoGeorgian-Bold.woff2",
+      "bytes": 166728,
+      "sha256": "05c21f4a109a55b54beacd2f7c0e1522cc6b766e8d4de14d03c9607e3e27af3f"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoGeorgian/woff2/BloxwapMonoGeorgian-BoldItalic.woff2",
+      "bytes": 180252,
+      "sha256": "ac07a10e2d7f84b2090861fb1db57c954d3270304d8700f783a4e585900481de"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoGeorgian/woff2/BloxwapMonoGeorgian-ExtraBold.woff2",
+      "bytes": 166164,
+      "sha256": "6a0a59d74be9cff6fb394b414efba699cc2d9d775195fd2ac33f71d4a278331e"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoGeorgian/woff2/BloxwapMonoGeorgian-ExtraBoldItalic.woff2",
+      "bytes": 179324,
+      "sha256": "bd293b6073feb0c500bf1a1720c47515a460629d95f748433dd8652d5aa0c6f5"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoGeorgian/woff2/BloxwapMonoGeorgian-ExtraLight.woff2",
+      "bytes": 164964,
+      "sha256": "8fb3b2c6ac8c7d933d1012ac57904025cf4b31bc4d25c76dd094ff08072df1a6"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoGeorgian/woff2/BloxwapMonoGeorgian-ExtraLightItalic.woff2",
+      "bytes": 177828,
+      "sha256": "d4ac799f2a5912e1ebcc07a31afddccbed533fd7bbb6d14571711cbb9a266831"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoGeorgian/woff2/BloxwapMonoGeorgian-Italic.woff2",
+      "bytes": 181084,
+      "sha256": "0996fa10c221c14d3bab8c8a339f125b1f16bc34421b0ab0548ab3be80e3b019"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoGeorgian/woff2/BloxwapMonoGeorgian-Light.woff2",
+      "bytes": 166076,
+      "sha256": "af550cc073e32ba7fc5a69fc71c2dcdb9af0490e91c805d08d7167ef6a3a3ac0"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoGeorgian/woff2/BloxwapMonoGeorgian-LightItalic.woff2",
+      "bytes": 178256,
+      "sha256": "7949e3ca1b5f1310f31211b613b49d22030804dc4d39e692d96a504297c4f1b4"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoGeorgian/woff2/BloxwapMonoGeorgian-Medium.woff2",
+      "bytes": 166456,
+      "sha256": "f880abdafd1c7de8806a2063bcec74e9b3f9654a6ceabe5093f44e1c13f79d41"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoGeorgian/woff2/BloxwapMonoGeorgian-MediumItalic.woff2",
+      "bytes": 181772,
+      "sha256": "7ffe83cc5a41406aea5153a7b5af3ec465c6d743469fe9e2243104ea4c0ccecf"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoGeorgian/woff2/BloxwapMonoGeorgian-Regular.woff2",
+      "bytes": 166300,
+      "sha256": "8352e632c546b3dc26f51bb00a12f6ac219a2a7ae4b173548a18754e0ee65d60"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoGeorgian/woff2/BloxwapMonoGeorgian-SemiBold.woff2",
+      "bytes": 164524,
+      "sha256": "8cbd77849080a60cc9e5a35eee898ad684ac861a931d1084551237f429626b49"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoGeorgian/woff2/BloxwapMonoGeorgian-SemiBoldItalic.woff2",
+      "bytes": 180016,
+      "sha256": "08d486b9f5fc6860ffdcbfb91aa60841274e881a9f45f1a169ec0057566db85b"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoGeorgian/woff2/BloxwapMonoGeorgian-Thin.woff2",
+      "bytes": 157004,
+      "sha256": "b26ec735169b53670acb8c63bfa6d39df35a1f2e94a5a7aaaac1f17cbabec78a"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoGeorgian/woff2/BloxwapMonoGeorgian-ThinItalic.woff2",
+      "bytes": 173256,
+      "sha256": "5e4c065ae96716aecb8cd537b4a50453f0bdf263ace033c6e927fb0990a48f76"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoHebrew/variable/BloxwapMonoHebrew[wght].woff2",
+      "bytes": 294244,
+      "sha256": "73be4e649b017bb207febcbd673eae3e1cc343d16768bc70f055b1a2a722d074"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoHebrew/woff2/BloxwapMonoHebrew-Black.woff2",
+      "bytes": 158072,
+      "sha256": "d7cbf5ef996491cabbe6159174475964b3732ef889121caa4e52118b9f4a836c"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoHebrew/woff2/BloxwapMonoHebrew-Bold.woff2",
+      "bytes": 159660,
+      "sha256": "ffab728dd944fa6f2aff78e8d57245f460edaef8e5951fc027643ed3a45ed146"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoHebrew/woff2/BloxwapMonoHebrew-ExtraBold.woff2",
+      "bytes": 159064,
+      "sha256": "68d2a2d7633a87ade8aae2534fa61486c97047c4498401dc75d134eb37d39684"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoHebrew/woff2/BloxwapMonoHebrew-ExtraLight.woff2",
+      "bytes": 156108,
+      "sha256": "50efec5b3fffbe02c8183214441bd277d4a6dce883827d73b2d5695ec97420bf"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoHebrew/woff2/BloxwapMonoHebrew-Light.woff2",
+      "bytes": 156892,
+      "sha256": "69b1da9c55cdb80efb51a8bb87a94eab71f4a3f74d70f72164e81efcd869d218"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoHebrew/woff2/BloxwapMonoHebrew-Medium.woff2",
+      "bytes": 157416,
+      "sha256": "7067d76f0e3c15979305f3c98d9b8269c20d4da1f82964dfc7a931499e21945e"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoHebrew/woff2/BloxwapMonoHebrew-Regular.woff2",
+      "bytes": 157468,
+      "sha256": "df9e61993e053747f5ed16de6f1fbab3f5c2b17ea4b3c71b7c48d4544672065d"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoHebrew/woff2/BloxwapMonoHebrew-SemiBold.woff2",
+      "bytes": 156916,
+      "sha256": "6ea2a52026b2a276fdf8c62024a003e545ecb57a62a740766e8fdf029028eb23"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoHebrew/woff2/BloxwapMonoHebrew-Thin.woff2",
+      "bytes": 147532,
+      "sha256": "1ba05649253097ac83ed6acbd5c7cb907012d2bd3d7fa71e166be603f779c5c9"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoJP/variable/BloxwapMonoJP[wght].woff2",
+      "bytes": 1408208,
+      "sha256": "91cd6db5fb40b9884ddaa21cefb1e7615e7b1809322deafb0fcc6a7df0c81708"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoJP/woff2/BloxwapMonoJP-Black.woff2",
+      "bytes": 799976,
+      "sha256": "48ae93145f9ca4024f514c089a1177ee70e8661be7d56083c4bfc2f0ebed7a10"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoJP/woff2/BloxwapMonoJP-Bold.woff2",
+      "bytes": 778216,
+      "sha256": "cb3ac9b9e2606357f4f16f881af5b1ab1d7fe3f3bd5768272be8c7c5675ee949"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoJP/woff2/BloxwapMonoJP-ExtraBold.woff2",
+      "bytes": 778584,
+      "sha256": "f7224410ed44761f3cefa7d76a224a7f6ab0fd3bdddda5cf4963bff9d2b849a9"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoJP/woff2/BloxwapMonoJP-ExtraLight.woff2",
+      "bytes": 708092,
+      "sha256": "50c8c07440e2237ac95f3aea7799c425d02459e140400fcfafcd3df52543d2f9"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoJP/woff2/BloxwapMonoJP-Light.woff2",
+      "bytes": 732260,
+      "sha256": "057c8056ed5a9ad4688ad78c1dc04ad87864629743c926174b70189af6fe00b2"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoJP/woff2/BloxwapMonoJP-Medium.woff2",
+      "bytes": 759444,
+      "sha256": "fff763a2d720bc2f086744256b5e3038c875d88650b79d886362e33279a415ad"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoJP/woff2/BloxwapMonoJP-Regular.woff2",
+      "bytes": 731472,
+      "sha256": "de5e7ad13eefa8e59a639366eacf6c056b3fa33704eb4c83bef7b6ec9d32fbbf"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoJP/woff2/BloxwapMonoJP-SemiBold.woff2",
+      "bytes": 768108,
+      "sha256": "4db544a2bfea26709c0601a02866d9762b0ffecd4385ba7012891972c95cdaec"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoJP/woff2/BloxwapMonoJP-Thin.woff2",
+      "bytes": 632900,
+      "sha256": "cd9d46b847d70570f6defd8f8b3e54b2ad4222c11d67f689d29d019ae164c401"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoKR/variable/BloxwapMonoKR[wght].woff2",
+      "bytes": 453104,
+      "sha256": "e36f38e99c48c65fb40731534a0aeb82acdaae877fcf7878bcff5e1c1fa09800"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoKR/woff2/BloxwapMonoKR-Black.woff2",
+      "bytes": 747872,
+      "sha256": "ad42c964cf02733c555b02f511e28d932f6fb5aee9f377b29c923cdb1416537b"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoKR/woff2/BloxwapMonoKR-Bold.woff2",
+      "bytes": 645572,
+      "sha256": "9db06f463e02705320816461fa594066ef535ff9d5dd306d78aa4291c2da3098"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoKR/woff2/BloxwapMonoKR-ExtraBold.woff2",
+      "bytes": 699852,
+      "sha256": "4f21f7481e75c5120e880a7a59a8a18f9029ff03a076b5129a5401920dfc2089"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoKR/woff2/BloxwapMonoKR-ExtraLight.woff2",
+      "bytes": 608864,
+      "sha256": "3dc4005385afbe92a718351beec7f8c6cbc4a6080ebfbaaaad12dbbef50d5fe5"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoKR/woff2/BloxwapMonoKR-Light.woff2",
+      "bytes": 659668,
+      "sha256": "328c9bf946502d58e3eeb16822f7dd9a49bdb584d9da6da4acee9da3bd960ce1"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoKR/woff2/BloxwapMonoKR-Medium.woff2",
+      "bytes": 645108,
+      "sha256": "4218cf2a5794ac2f8e82a7865b7604b38af43052fd51fff18d615a4b2bc9e9f9"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoKR/woff2/BloxwapMonoKR-Regular.woff2",
+      "bytes": 611860,
+      "sha256": "0243c587198122ca62da25d73f421cd68b1a5869a9bb66a91d3cbfb3a7cfd279"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoKR/woff2/BloxwapMonoKR-SemiBold.woff2",
+      "bytes": 654308,
+      "sha256": "809bfe131fcd65f5add2b00db6a11c69c342d98720168ae1967d2f837980cbb7"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoKR/woff2/BloxwapMonoKR-Thin.woff2",
+      "bytes": 543308,
+      "sha256": "cf886b0c1c24dd55801328cb31cf0afe7c49e4e8c3b50ad1aaeb843d4ffd4fba"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoSC/variable/BloxwapMonoSC[wght].woff2",
+      "bytes": 1861972,
+      "sha256": "3add92b864b94150400652e6c4bd15abf163ae55b6f1ae1ca1e84cb9b8291f74"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoSC/woff2/BloxwapMonoSC-Black.woff2",
+      "bytes": 1075592,
+      "sha256": "536f3576d3541f8209815596fdaf26c12a378ce62bc47f95e11c379814fc86bc"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoSC/woff2/BloxwapMonoSC-Bold.woff2",
+      "bytes": 1045012,
+      "sha256": "5bb387f84234b560d205ad5640ddf0f09db21efbbb0f6692e68f413c22b674e5"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoSC/woff2/BloxwapMonoSC-ExtraBold.woff2",
+      "bytes": 1047240,
+      "sha256": "d13d1492a39af560e51918df2aa2ed2ac029b07c1c92aca02ccb4aca30be259b"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoSC/woff2/BloxwapMonoSC-ExtraLight.woff2",
+      "bytes": 933388,
+      "sha256": "c0076b71c4cadccd919462ab74a440960d1c85a3acd29445845ce9cac35261cc"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoSC/woff2/BloxwapMonoSC-Light.woff2",
+      "bytes": 968516,
+      "sha256": "92e474a0ddae2d628e40710df7c506dcbb65b0cf142ef5f12423e77c103d2583"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoSC/woff2/BloxwapMonoSC-Medium.woff2",
+      "bytes": 1016952,
+      "sha256": "116c2573d548a178033c9244143770d4c0189ca220910b109b48949e0b02821b"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoSC/woff2/BloxwapMonoSC-Regular.woff2",
+      "bytes": 966464,
+      "sha256": "7203a1c498acd342a0d64792921d069932e39053ef57e01d13d22262e0ffdd9c"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoSC/woff2/BloxwapMonoSC-SemiBold.woff2",
+      "bytes": 1030572,
+      "sha256": "d48637cf1f01b3942125e48e75025b0b50b5b2a2665b93dd3fb97d3693d14870"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapMonoSC/woff2/BloxwapMonoSC-Thin.woff2",
+      "bytes": 822152,
+      "sha256": "02e6a9af587c5cee5f5938e7dc6d7734e66c5913ca2bc5ed2f3fae9b59b027f0"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapPixel/variable/BloxwapPixel-Italic[ROND,wght].woff2",
+      "bytes": 42840,
+      "sha256": "ce121c02ff62bd36b4341a789c0ca91787ebadfcdddcc8925f592a5a1aab9e75"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapPixel/variable/BloxwapPixel[ROND,wght].woff2",
+      "bytes": 41444,
+      "sha256": "4574b5a78d04a8c494ec2b0d9f55088f949bbc83c4b54055ff3480a180d19e5b"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapPixel/woff2/BloxwapPixel-Black.woff2",
+      "bytes": 122028,
+      "sha256": "d409fd2297c2e77b9cd9c672d85ed8e224cdaa4102f955e3990fc42174c89a8e"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapPixel/woff2/BloxwapPixel-BlackItalic.woff2",
+      "bytes": 146624,
+      "sha256": "f02728dfee3a354efb58a7d6e92d8a4bc0e094f2461fbb80262139a81efcb215"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapPixel/woff2/BloxwapPixel-Bold.woff2",
+      "bytes": 54148,
+      "sha256": "9762b4231e903cab8ea0a356fbcef014cc3e35194f8da3cd68485060e8258ffd"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapPixel/woff2/BloxwapPixel-BoldItalic.woff2",
+      "bytes": 55532,
+      "sha256": "c95b2c2fcc3d8e1d5f15aa69310b79253550e2c1832f4113622aa72c44255156"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapPixel/woff2/BloxwapPixel-ExtraBold.woff2",
+      "bytes": 56756,
+      "sha256": "17b5d1d590fe68de2c7e5eff067aa70299191da0ae5b57206cda055dfb34fd01"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapPixel/woff2/BloxwapPixel-ExtraBoldItalic.woff2",
+      "bytes": 58032,
+      "sha256": "85c9a33905a2531f1c08aa19c543ba59ec48cb04721a8119c9235e4682531c39"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapPixel/woff2/BloxwapPixel-ExtraLight.woff2",
+      "bytes": 60972,
+      "sha256": "5d3195f4c7b210ec8de02a5b5dc0ee4ec617d8d85227897f58ec638836f1b973"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapPixel/woff2/BloxwapPixel-ExtraLightItalic.woff2",
+      "bytes": 62212,
+      "sha256": "1f357301520f237a70ba45927b6ec0ee70b43df95490f132610e14a0c0b38403"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapPixel/woff2/BloxwapPixel-Italic.woff2",
+      "bytes": 61104,
+      "sha256": "2ba7752ece45f04d7ee8c7289e3b3c40f68c4cb8baacf5130813d646f941de7f"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapPixel/woff2/BloxwapPixel-Light.woff2",
+      "bytes": 65036,
+      "sha256": "78b7a5393c57dffb3c9c0ddd91943e6043e755ec87479a9850aec11655c65568"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapPixel/woff2/BloxwapPixel-LightItalic.woff2",
+      "bytes": 66324,
+      "sha256": "63273043bc183c39cfed77899b5a9d8d811d453bb44b041bfa8cd999e1ad9565"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapPixel/woff2/BloxwapPixel-Medium.woff2",
+      "bytes": 63920,
+      "sha256": "de97808a1d9795053e7a075d5fd6241ca325c291251130950bebb2a688d8ebf7"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapPixel/woff2/BloxwapPixel-MediumItalic.woff2",
+      "bytes": 65276,
+      "sha256": "1f99a650775e0eb9ce0bd2ea6752ad6a4f119971c5981fddf86a88d5500744aa"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapPixel/woff2/BloxwapPixel-Regular.woff2",
+      "bytes": 59796,
+      "sha256": "82bd9c87f5fc54c88673a5df137ea90e695e7c9c644fe6d7951f8db5bed824fc"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapPixel/woff2/BloxwapPixel-SemiBold.woff2",
+      "bytes": 56648,
+      "sha256": "4fe8d72a7f15935bf8b0efcd2138f7cee562513b392b1b7fcd519b617605529a"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapPixel/woff2/BloxwapPixel-SemiBoldItalic.woff2",
+      "bytes": 58108,
+      "sha256": "9f57528e61b5ef39188715d16322f6d81b8bc7d0d85e8e48fee5e18e46bd0981"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapPixel/woff2/BloxwapPixel-Thin.woff2",
+      "bytes": 63172,
+      "sha256": "85d32a715f4c2bf82f7980037bcba7027ea72bc36caede373a87d842f30e8019"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapPixel/woff2/BloxwapPixel-ThinItalic.woff2",
+      "bytes": 64288,
+      "sha256": "2b18f963f93f1781c9370dc62294e15586e15082393edf7f7e9792dcdb3e885e"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSans/variable/BloxwapSans-Italic[wght].woff2",
+      "bytes": 331172,
+      "sha256": "407ae048948bc5e39d322bb93d25915dfae5fb5bfbfe4388ab951a9761a1267a"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSans/variable/BloxwapSans[wght].woff2",
+      "bytes": 310848,
+      "sha256": "96f6be58023b1d22152c797336282a4330a47ab4a3c0ab87451be887903746b7"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSans/woff2/BloxwapSans-Black.woff2",
+      "bytes": 163792,
+      "sha256": "0bf6e1716a7c2afb8a938dd83c0ac843ede8551a240fb76b79a9d53bfb4727bc"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSans/woff2/BloxwapSans-BlackItalic.woff2",
+      "bytes": 170004,
+      "sha256": "24756072a7dd14fe1a3a5ea4b5e0b46ee2f6a5c7ad08d5a628ffec25a435841f"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSans/woff2/BloxwapSans-Bold.woff2",
+      "bytes": 165768,
+      "sha256": "0e8696124faf3e15e28768741a8815de15d084fbb19fe896acc90bec32665b82"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSans/woff2/BloxwapSans-BoldItalic.woff2",
+      "bytes": 170936,
+      "sha256": "3917c1eb512c9d7e711fa398c7a16414fe49fb110a11bdeaea3c81e93e2d2bb9"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSans/woff2/BloxwapSans-ExtraBold.woff2",
+      "bytes": 166180,
+      "sha256": "7aa3d805d89168009c25e9a6df69c8a5fff675c92c10cb0818f0345398c75abd"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSans/woff2/BloxwapSans-ExtraBoldItalic.woff2",
+      "bytes": 171828,
+      "sha256": "9541fc5c76bc6a95657ac56be5533ad5cd078ce58e4cd271b40fbc8d44917920"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSans/woff2/BloxwapSans-ExtraLight.woff2",
+      "bytes": 163504,
+      "sha256": "f9ab48b299f68cb94835b36d75a4db57774776ac0b85212a7eca93e04ef04b09"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSans/woff2/BloxwapSans-ExtraLightItalic.woff2",
+      "bytes": 167644,
+      "sha256": "853562342d318fa42bf62d6e5da833e6debcf2c680e8d60ed83200a1c39d269b"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSans/woff2/BloxwapSans-Italic.woff2",
+      "bytes": 169724,
+      "sha256": "41d0d3f925e8f27a6e2af25683235c39dd1d0db5cdf2c13cb76b06308b57633e"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSans/woff2/BloxwapSans-Light.woff2",
+      "bytes": 162860,
+      "sha256": "68a9e31f0ff702d97a3c3d284f89a864b142606295a79896c65f959d40fe59f1"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSans/woff2/BloxwapSans-LightItalic.woff2",
+      "bytes": 165764,
+      "sha256": "66cd033e3a45c730a9b3615a60e9288ad1b13849c8da14260d465fcf14c1592f"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSans/woff2/BloxwapSans-Medium.woff2",
+      "bytes": 162636,
+      "sha256": "a7a8dc5d2b2852e1f35c3321528b3c24eab4eb38a2c0cb9bb4626d8834308683"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSans/woff2/BloxwapSans-MediumItalic.woff2",
+      "bytes": 170248,
+      "sha256": "f8dacc0e56b372143325b3720202190f53652f6ddb07f02345b8d054e0566c8c"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSans/woff2/BloxwapSans-Regular.woff2",
+      "bytes": 163068,
+      "sha256": "c0b2c736df7545442121427c79afe291573fa9d13daa36bc65ea2f844d51983d"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSans/woff2/BloxwapSans-SemiBold.woff2",
+      "bytes": 164044,
+      "sha256": "59c08e50bfa7d554769b9e92dc737b1614db86764d54f2fdf642db075d84b60b"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSans/woff2/BloxwapSans-SemiBoldItalic.woff2",
+      "bytes": 169340,
+      "sha256": "2220b7fa13c9c58c89a3ad329992956e6f9ac5f0b77b626b3f5951ba579bccfc"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSans/woff2/BloxwapSans-Thin.woff2",
+      "bytes": 153668,
+      "sha256": "fc7a3a2ee0e0a097b5da6fadb783cc7f81a7f6031fd935755bda58dfe245a662"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSans/woff2/BloxwapSans-ThinItalic.woff2",
+      "bytes": 162552,
+      "sha256": "8697b07068c40f8130d15429d0668ff75522e7f4bc39a24ac35ce3bf9f55c050"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansArabic/variable/BloxwapSansArabic[wght].woff2",
+      "bytes": 409748,
+      "sha256": "244db8481e159000b6e58d939140eb53fd46854cb1ec7bb48a2037ed4a7667b1"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansArabic/woff2/BloxwapSansArabic-Black.woff2",
+      "bytes": 215748,
+      "sha256": "5fe52b93e4b2d1ac6ec86143577fab275cd5eff81c92d196d47bb32ff1aab68a"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansArabic/woff2/BloxwapSansArabic-Bold.woff2",
+      "bytes": 217460,
+      "sha256": "f52a4ea18dd08bbbb0714f7f7983918d2de42af906bc19045356fa9813cfb904"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansArabic/woff2/BloxwapSansArabic-ExtraBold.woff2",
+      "bytes": 220616,
+      "sha256": "90cf5b8e090d4a6696fead91bf4baef17e6f716f63d169e136d3427027d256d3"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansArabic/woff2/BloxwapSansArabic-ExtraLight.woff2",
+      "bytes": 210684,
+      "sha256": "5d7389bdf5fadde78705d1be0875005d565a2df25c4abd20cc59a0382fe315d5"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansArabic/woff2/BloxwapSansArabic-Light.woff2",
+      "bytes": 210576,
+      "sha256": "355970578e6e009c1ba2c10d2e84708185aefa946ca418f895f00efe6ee882af"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansArabic/woff2/BloxwapSansArabic-Medium.woff2",
+      "bytes": 212236,
+      "sha256": "3764df21552077890c74ee45325c2ed76e8b91b0ad460fdfcb75b13845344bfc"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansArabic/woff2/BloxwapSansArabic-Regular.woff2",
+      "bytes": 212556,
+      "sha256": "9ca377551f0b476b7672ccc4d3a9f250146f19d4c95acdfd37bc445e808fe2f7"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansArabic/woff2/BloxwapSansArabic-SemiBold.woff2",
+      "bytes": 214456,
+      "sha256": "b319b68433e4d9184833d97d559ee3a87b62c1207e080a4788c71ad47c1db6ce"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansArabic/woff2/BloxwapSansArabic-Thin.woff2",
+      "bytes": 198744,
+      "sha256": "b1d22e11b361b9ba7a073f48a39a228c4e4a717d933c3affecc383f7b37b70ef"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansArmenian/variable/BloxwapSansArmenian-Italic[wght].woff2",
+      "bytes": 358204,
+      "sha256": "66477814cef4ecf0783c59362c3fd2ad324a0fc0eb09ee7922ae6516bfce91aa"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansArmenian/variable/BloxwapSansArmenian[wght].woff2",
+      "bytes": 335848,
+      "sha256": "954ea6d59f0aff1c2baa0586549b07de986cbf0b2f50886b4ebb44d4e6dad38b"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansArmenian/woff2/BloxwapSansArmenian-Black.woff2",
+      "bytes": 174440,
+      "sha256": "3e29ea8a2e361a775f8c842c040be3bedef0e55bc8219ffa5d942694e620138e"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansArmenian/woff2/BloxwapSansArmenian-BlackItalic.woff2",
+      "bytes": 180600,
+      "sha256": "5791592fb53ad079e7762cd6307df6bf46a56b0be7dcbde862ac1749649bdd6d"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansArmenian/woff2/BloxwapSansArmenian-Bold.woff2",
+      "bytes": 177576,
+      "sha256": "c7770eeaeacb0f8f9ac23c1671a32a4d76b4eaf9ec0a374548e29603d4163162"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansArmenian/woff2/BloxwapSansArmenian-BoldItalic.woff2",
+      "bytes": 182352,
+      "sha256": "30095c5ef558f531009aeb7f5d7d51cdb97ab2073f954fe121d8304272623e7a"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansArmenian/woff2/BloxwapSansArmenian-ExtraBold.woff2",
+      "bytes": 178116,
+      "sha256": "719b2ad62d29656e1b89887b1229c304ea2e270a8f94d9c98c44bb37fb6d5e87"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansArmenian/woff2/BloxwapSansArmenian-ExtraBoldItalic.woff2",
+      "bytes": 183588,
+      "sha256": "787969d515999e1883b40b9af177703e0a2422e105d87312ff0021784afb9965"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansArmenian/woff2/BloxwapSansArmenian-ExtraLight.woff2",
+      "bytes": 175748,
+      "sha256": "8d899b4b842b81c852b6493f508db1f432ec64c30d540541d229ca72da35c5e1"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansArmenian/woff2/BloxwapSansArmenian-ExtraLightItalic.woff2",
+      "bytes": 179084,
+      "sha256": "8c8054e85e32a1d075267763b20a21d2498135c0216d90d90fc358660c256dee"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansArmenian/woff2/BloxwapSansArmenian-Italic.woff2",
+      "bytes": 181424,
+      "sha256": "2374bacdbe01682a5982be48722d0087207df2398be06f2fa19b02947c1104ea"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansArmenian/woff2/BloxwapSansArmenian-Light.woff2",
+      "bytes": 174916,
+      "sha256": "4b4bd21488241a243e74af1438e673bcbaff795164b0efff0e97fcfbfa500fba"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansArmenian/woff2/BloxwapSansArmenian-LightItalic.woff2",
+      "bytes": 177240,
+      "sha256": "61f361e6c7073b8630747bf2155414bf4b46ca73f1b8fe40cd1931c3d93982e4"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansArmenian/woff2/BloxwapSansArmenian-Medium.woff2",
+      "bytes": 174392,
+      "sha256": "fad3e42861534a2cd708f9752b602c7583eb704276595a875985bb68faa3dcd5"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansArmenian/woff2/BloxwapSansArmenian-MediumItalic.woff2",
+      "bytes": 181924,
+      "sha256": "7d473784d99d08eab7455596d2c27b539a81857c9e3ed0e61413172b9eaf4fae"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansArmenian/woff2/BloxwapSansArmenian-Regular.woff2",
+      "bytes": 174996,
+      "sha256": "d28dd31eea20f2ad5a04dcb7d5f3482807449a531935d07230c69da6bb9a2605"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansArmenian/woff2/BloxwapSansArmenian-SemiBold.woff2",
+      "bytes": 175976,
+      "sha256": "a9cd5e41f727d259195899de4f762f86f5f11089787439bde1b8962d9bf03d78"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansArmenian/woff2/BloxwapSansArmenian-SemiBoldItalic.woff2",
+      "bytes": 181000,
+      "sha256": "492ae60a8e5b808e46bc77055457dbc64ad1a859ff49847f2f7bfa8ffe84db0c"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansArmenian/woff2/BloxwapSansArmenian-Thin.woff2",
+      "bytes": 165300,
+      "sha256": "ade12ae62a2ecb4d57ed7af2fe3e1984043411f836883ec2c9756d157239e0cf"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansArmenian/woff2/BloxwapSansArmenian-ThinItalic.woff2",
+      "bytes": 173752,
+      "sha256": "61ca5a8806e7be6e491d20401953d8da55cf6fbdfd2e5167aec9b79643e8e672"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansGeorgian/variable/BloxwapSansGeorgian-Italic[wght].woff2",
+      "bytes": 377736,
+      "sha256": "e3d98c091dcae38dbd3f9f9bd91a5d06a9612447ac87b11b22587d61366dada2"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansGeorgian/variable/BloxwapSansGeorgian[wght].woff2",
+      "bytes": 353548,
+      "sha256": "df5eb69cb0a280b26e3160338ea13a1a11a3170682f6e70694117f5c71c06ff7"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansGeorgian/woff2/BloxwapSansGeorgian-Black.woff2",
+      "bytes": 177808,
+      "sha256": "fe88f2716f60dd7bfee722353b1836c8a2a187a1cd7442a61c2f451ece46dbdd"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansGeorgian/woff2/BloxwapSansGeorgian-BlackItalic.woff2",
+      "bytes": 186428,
+      "sha256": "67013199807aafa43b2a8f41c8211fdb591da65a98e4e5220c3bc0653888b4e0"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansGeorgian/woff2/BloxwapSansGeorgian-Bold.woff2",
+      "bytes": 181472,
+      "sha256": "0d4510b604fecdf47e0434c80fe3ce225801ce4336ca53cb6d96b85ead673e78"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansGeorgian/woff2/BloxwapSansGeorgian-BoldItalic.woff2",
+      "bytes": 187808,
+      "sha256": "db3be1e8d6ff945921aff770c60d0a645d59087fd5886397d5d16611c4c4e5f8"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansGeorgian/woff2/BloxwapSansGeorgian-ExtraBold.woff2",
+      "bytes": 181672,
+      "sha256": "28b05ac19991b2d7a02881e662b499dbef9a119bcdad0cd324c889d1aa7e9301"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansGeorgian/woff2/BloxwapSansGeorgian-ExtraBoldItalic.woff2",
+      "bytes": 188860,
+      "sha256": "9452e3da726e65844e01e954fc2df4b76636871632357239481bb13a84d67636"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansGeorgian/woff2/BloxwapSansGeorgian-ExtraLight.woff2",
+      "bytes": 180084,
+      "sha256": "8800b4aa8180bc125c17e3f5f4c9ce1427c39599ff4209ff65550248d9191750"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansGeorgian/woff2/BloxwapSansGeorgian-ExtraLightItalic.woff2",
+      "bytes": 185832,
+      "sha256": "35c40bec07d5616fb00bd781fbb687614230013e28dbb379adea8ff5ae067fb7"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansGeorgian/woff2/BloxwapSansGeorgian-Italic.woff2",
+      "bytes": 187420,
+      "sha256": "c1bc0b2fa267887ce9ee0693f3d7f480990e9c303a337d5eb987f7111cf2c07f"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansGeorgian/woff2/BloxwapSansGeorgian-Light.woff2",
+      "bytes": 179284,
+      "sha256": "deda264eff236ed8f1cc4eef5d4452c66a9446a8e3a91208e0073cc5936d2522"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansGeorgian/woff2/BloxwapSansGeorgian-LightItalic.woff2",
+      "bytes": 183728,
+      "sha256": "07a62acbfae4a0277a9f166e3e3c39179e6d2ec552fbd7acd15052b83e0821b4"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansGeorgian/woff2/BloxwapSansGeorgian-Medium.woff2",
+      "bytes": 178964,
+      "sha256": "c38536f4daab76a9e2d0f6335a2be405abba7df4d0e9af7c561981315d2fa4a4"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansGeorgian/woff2/BloxwapSansGeorgian-MediumItalic.woff2",
+      "bytes": 188128,
+      "sha256": "95fe385fe8ea77d5050ab722ea566820540200177d154ff59563cc35881e617b"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansGeorgian/woff2/BloxwapSansGeorgian-Regular.woff2",
+      "bytes": 179068,
+      "sha256": "c8ca5b20a39e02848dc28ac447cd81ca07c7cf22a350931860043c64f1a3e7e0"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansGeorgian/woff2/BloxwapSansGeorgian-SemiBold.woff2",
+      "bytes": 179520,
+      "sha256": "6010d45196f89946c368bb619ae30a580559e7f418a1ddf424c2a45f99c92ef2"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansGeorgian/woff2/BloxwapSansGeorgian-SemiBoldItalic.woff2",
+      "bytes": 186864,
+      "sha256": "0b4460772a90ab41e15ca78afcdd573445246116b85a2851b66abcf8311c6cc4"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansGeorgian/woff2/BloxwapSansGeorgian-Thin.woff2",
+      "bytes": 169756,
+      "sha256": "ecc91a498f158038113ed715af822d8c3d1ff0a2d8c2485ff6cf8940f835a018"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansGeorgian/woff2/BloxwapSansGeorgian-ThinItalic.woff2",
+      "bytes": 180992,
+      "sha256": "8607376c31259b2a072183b6a90d02adb049a29ad751e3952d8a404bef698cd6"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansHebrew/variable/BloxwapSansHebrew[wght].woff2",
+      "bytes": 324520,
+      "sha256": "674738e06825b1e32372740373bae68883eee16e375587eb095f57610eb65bfa"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansHebrew/woff2/BloxwapSansHebrew-Black.woff2",
+      "bytes": 170228,
+      "sha256": "62c7f3df8611fb8e09757d61ad055e966ece460ca392d5b2a65212378d8e7f72"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansHebrew/woff2/BloxwapSansHebrew-Bold.woff2",
+      "bytes": 172908,
+      "sha256": "89a1e8edba3229e7955b6bbc8dfd5cbe553316212732f4a9542f8cbc1084a608"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansHebrew/woff2/BloxwapSansHebrew-ExtraBold.woff2",
+      "bytes": 173492,
+      "sha256": "f39a9505010871347173cb481f12620acc60230a88cfe8c40accab0201bcbbc7"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansHebrew/woff2/BloxwapSansHebrew-ExtraLight.woff2",
+      "bytes": 170488,
+      "sha256": "adaa4f239db4414071ad8e8bf86cfd83f2780e24fd3d87564f5a2a753c5081d7"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansHebrew/woff2/BloxwapSansHebrew-Light.woff2",
+      "bytes": 169728,
+      "sha256": "51edf4ce84d390f50e5aa4945871a79802da68e1682ebaafd5ba49fa4cf77285"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansHebrew/woff2/BloxwapSansHebrew-Medium.woff2",
+      "bytes": 169316,
+      "sha256": "a701df5ac0d9119e20419e532fd62fa239e9a9e0c8cdc3e2a52469fbf9604ea3"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansHebrew/woff2/BloxwapSansHebrew-Regular.woff2",
+      "bytes": 169876,
+      "sha256": "081cda3f2685704ae3cd8899899d8d709e601edbdd8ac23b03bee790c7fe829f"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansHebrew/woff2/BloxwapSansHebrew-SemiBold.woff2",
+      "bytes": 170904,
+      "sha256": "538c9dfe20ee32e76971612d82fa604b46bd26e237eab1239f51a9f663da328c"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansHebrew/woff2/BloxwapSansHebrew-Thin.woff2",
+      "bytes": 160060,
+      "sha256": "dbb883067bbbd022137d3960252d7e4941ba26c5fd652960d74396cb009c2902"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansJP/variable/BloxwapSansJP[wght].woff2",
+      "bytes": 1443736,
+      "sha256": "d02c503c1dba77c9a8493fbb68eb9abd636c2eec90469f9f4870074295d38632"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansJP/woff2/BloxwapSansJP-Black.woff2",
+      "bytes": 793144,
+      "sha256": "9478dea7e9f1abc0a230be884f8cf069b9c69bac58d03bd4dce340a3fba5f8e1"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansJP/woff2/BloxwapSansJP-Bold.woff2",
+      "bytes": 789512,
+      "sha256": "50477fce572c511522ff03c0e0e4bb2982f80ce0c08177163b0401ebf4b8fa54"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansJP/woff2/BloxwapSansJP-ExtraBold.woff2",
+      "bytes": 793896,
+      "sha256": "4d369a8234e9284bc56460eaebf471174cb44c4c6800d94eb4ff36f9c63a70a2"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansJP/woff2/BloxwapSansJP-ExtraLight.woff2",
+      "bytes": 725300,
+      "sha256": "f4ad911cbd63373a15de7193d08f558a550519bf9337aa62ba7188bf0c91f2cc"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansJP/woff2/BloxwapSansJP-Light.woff2",
+      "bytes": 742804,
+      "sha256": "40766c09e6de47eb2b54432dfa6919d4df2ee1bc6ab38565c3534f0e79821d1f"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansJP/woff2/BloxwapSansJP-Medium.woff2",
+      "bytes": 770756,
+      "sha256": "fbc6ff906a0eab7f18b8a5e98b93f057380836a62e0ab1dbf320cd794b79ed34"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansJP/woff2/BloxwapSansJP-Regular.woff2",
+      "bytes": 741176,
+      "sha256": "bcb9af4ae10461a7aafdff822966dc8a1e280252805639b48bcedcba4edae013"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansJP/woff2/BloxwapSansJP-SemiBold.woff2",
+      "bytes": 780272,
+      "sha256": "27eae07adf517437e7a0b53aa08762dfa921e99ece6cae08654ff450f3932025"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansJP/woff2/BloxwapSansJP-Thin.woff2",
+      "bytes": 647140,
+      "sha256": "e04cc57c9ff06c4cad32c09442b7fcebea24e30300dc7a9efb188369336f1b20"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansKR/variable/BloxwapSansKR[wght].woff2",
+      "bytes": 489116,
+      "sha256": "ac41500ba7546e204d07499266cadb848e24c0e9935c2616124aedcfba5a9737"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansKR/woff2/BloxwapSansKR-Black.woff2",
+      "bytes": 687916,
+      "sha256": "b6bbd0777285a3b1ebce05cd824baf4118ecbfd81a0255ca1035cb46a590455d"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansKR/woff2/BloxwapSansKR-Bold.woff2",
+      "bytes": 662892,
+      "sha256": "b1547bfe75997be448acb38ce11ba6c7aa19dff7c93b1bd6ce40813cdb3747e9"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansKR/woff2/BloxwapSansKR-ExtraBold.woff2",
+      "bytes": 720336,
+      "sha256": "67d6eed189c92b6321fc3ce687616abe4627b3c843964b8566194cf2a9cff7a3"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansKR/woff2/BloxwapSansKR-ExtraLight.woff2",
+      "bytes": 622520,
+      "sha256": "c752ae328044df91171b0da98a65c908dac65bf7aee59f2ed547a16191c035e4"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansKR/woff2/BloxwapSansKR-Light.woff2",
+      "bytes": 680060,
+      "sha256": "272f5c89bb261a17514347c2bf3c97cda9012d8aa341634957730c2720c9e417"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansKR/woff2/BloxwapSansKR-Medium.woff2",
+      "bytes": 662752,
+      "sha256": "0f67710f3bca1f26fa3d481c0631d67264079e12f3ef98a827dddd524d90d574"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansKR/woff2/BloxwapSansKR-Regular.woff2",
+      "bytes": 629428,
+      "sha256": "757014dffdbb2667e1ed0bbea0a5e7be0d6c9b0f714fec0d149c17ab80f2b247"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansKR/woff2/BloxwapSansKR-SemiBold.woff2",
+      "bytes": 669816,
+      "sha256": "027cb271df2ee9f8793f1657007de127a57ff825b2abfeb8442384545b691252"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansKR/woff2/BloxwapSansKR-Thin.woff2",
+      "bytes": 554464,
+      "sha256": "d1efa4a05c1ccbd3fa71106935b87d63f49dd98008e9ab51b0050bfccca8d7c2"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansSC/variable/BloxwapSansSC[wght].woff2",
+      "bytes": 1897836,
+      "sha256": "c0244998e334bbd997dc9acfaf3f10bce169facfec1cf2bbcfc4db38c7122893"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansSC/woff2/BloxwapSansSC-Black.woff2",
+      "bytes": 1064236,
+      "sha256": "e9d989cdf1f46dd308bde42e94787151bbbba2d45bc08ab76d555a4e7f6ea5d7"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansSC/woff2/BloxwapSansSC-Bold.woff2",
+      "bytes": 1056464,
+      "sha256": "2d90585410b8583e533e42e9fa57b02e470982148e4566c68283af9b4cd41aec"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansSC/woff2/BloxwapSansSC-ExtraBold.woff2",
+      "bytes": 1062128,
+      "sha256": "2619d3fd85a2e91d9b07062fb859f40dbeab2315ccee403cf8bf30240585e58d"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansSC/woff2/BloxwapSansSC-ExtraLight.woff2",
+      "bytes": 949944,
+      "sha256": "37b18b2f6488235b975557a4e488e54b9bbcd6030ba6b6a37f09cd133526f3c2"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansSC/woff2/BloxwapSansSC-Light.woff2",
+      "bytes": 978248,
+      "sha256": "0cd2778b44fedc80f3c3f126f79a3fe92b7bdb06417bd5f62979608c5340daef"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansSC/woff2/BloxwapSansSC-Medium.woff2",
+      "bytes": 1026124,
+      "sha256": "b5a816b1ed974d4d90af519217a4c7b3cb8465b56620f90d7996f51d07c062c2"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansSC/woff2/BloxwapSansSC-Regular.woff2",
+      "bytes": 975144,
+      "sha256": "af34e0d08440b48c36f15d5d97d753ca90c82eec115bfb5caf4e2304aac11d32"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansSC/woff2/BloxwapSansSC-SemiBold.woff2",
+      "bytes": 1043464,
+      "sha256": "c8bbb23f69df373b3358e7fae25366468a0158406007402489c7d97ea9f0ebe1"
+    },
+    {
+      "path": "apps/docs/public/fonts/BloxwapSansSC/woff2/BloxwapSansSC-Thin.woff2",
+      "bytes": 836076,
+      "sha256": "ff66f073f3a43a31d9b5a83ed7628f3e236c4d60f1fa756ee9c68e0c1602dcdf"
+    }
+  ]
+}

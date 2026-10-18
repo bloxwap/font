@@ -1,0 +1,105 @@
+{
+  "sourceCommit": "dbf9824f2abdd0a70f929e2393a7780d61121e29",
+  "higToolCommit": "0e2394428a3971e677e0a97ef5259ac4ca1ec064",
+  "higToolSha256": "5c7cf67e2a510a23a4c7e879d7f9bb8863f1a207ac7858365379cea1c3ce8c76",
+  "runtimeCandidate": "0.1.0-candidate.sha7c67a07c",
+  "scopedTrackedFilesUnchanged": 383,
+  "canonicalEntries": 242,
+  "canonicalMatchesOnlyExactOwnedFontBinaries": true,
+  "exceptions": 0,
+  "fontBytesUnchanged": true,
+  "runtimeArchivesUnchanged": [
+    {
+      "path": "vendor/bloxwap-hig/bloxwap-hig-contracts-0.1.0-candidate.sha7c67a07c.tgz",
+      "bytes": 2550,
+      "sha256": "4519befc8d35c787b2f91302cf46801c82295f6dd33cbf84331be11308d71ef7"
+    },
+    {
+      "path": "vendor/bloxwap-hig/bloxwap-hig-react-0.1.0-candidate.sha7c67a07c.tgz",
+      "bytes": 15182,
+      "sha256": "6f3d7cc721ff246c647a2479ba39e898f4ba9d2ba75177b800a9942f5dab11f9"
+    },
+    {
+      "path": "vendor/bloxwap-hig/bloxwap-hig-tokens-0.1.0-candidate.sha7c67a07c.tgz",
+      "bytes": 4428734,
+      "sha256": "701750f9b85f148533995d9b603f2ea1a6acbe31ac475ac7f8ecce8cd3cd61dc"
+    }
+  ],
+  "mutationsUseTemporaryGitIndex": true,
+  "temporaryFilesRemoved": true,
+  "checks": {
+    "baseline": {
+      "exitCode": 0,
+      "files": 383,
+      "violations": [],
+      "stderr": ""
+    },
+    "withoutCanonicalOwnership": {
+      "exitCode": 1,
+      "files": 383,
+      "violationCount": 242,
+      "stderrSha256": "c505632c4284dc08d0d9a2ab5fe6d54c2627318ef78aadc5b6c663399dc7add5"
+    },
+    "higCssInsideFontDirectory": {
+      "exitCode": 1,
+      "files": 384,
+      "violations": [
+        {
+          "path": "apps/docs/public/fonts/BloxwapSans/hig-ownership-probe.css",
+          "rule": "copied-palette"
+        },
+        {
+          "path": "apps/docs/public/fonts/BloxwapSans/hig-ownership-probe.css",
+          "rule": "copied-token-definition"
+        },
+        {
+          "path": "apps/docs/public/fonts/BloxwapSans/hig-ownership-probe.css",
+          "rule": "copied-primitive-css"
+        }
+      ],
+      "stderr": "Design drift in .:\napps/docs/public/fonts/BloxwapSans/hig-ownership-probe.css: copied-palette \u2014 hard-codes a Bloxwap brand colour that belongs to @bloxwap/hig-tokens\napps/docs/public/fonts/BloxwapSans/hig-ownership-probe.css: copied-token-definition \u2014 assigns a literal value to a --hig-* token; import @bloxwap/hig-tokens/css (remapping one role to another with var() is allowed)\napps/docs/public/fonts/BloxwapSans/hig-ownership-probe.css: copied-primitive-css \u2014 re-implements a HIG primitive (paint/geometry on a bare .hig-* selector); import @bloxwap/hig-react/css and override layout only"
+    },
+    "unlistedFontInsideFontDirectory": {
+      "exitCode": 1,
+      "files": 384,
+      "violations": [
+        {
+          "path": "apps/docs/public/fonts/BloxwapSans/HigUnownedProbe.woff2",
+          "rule": "copied-font-binary"
+        }
+      ],
+      "stderr": "Design drift in .:\napps/docs/public/fonts/BloxwapSans/HigUnownedProbe.woff2: copied-font-binary \u2014 commits a font binary; install @bloxwap/font (web) or the HIG native font manifest instead"
+    }
+  },
+  "limitations": [
+    "Desktop/browser validation does not certify physical displays or devices.",
+    "The scoped checker is separately pinned because the unchanged older runtime candidate predates the scoped CLI; this is not a runtime dependency upgrade."
+  ],
+  "validation": {
+    "frozenInstall": "Bun 1.4.0 frozen install passed; bun.lock unchanged.",
+    "lint": "Existing docs lint passed.",
+    "typecheck": "Existing full docs typecheck passed.",
+    "unitTests": {
+      "passed": 7,
+      "failed": 0
+    },
+    "productionBuild": {
+      "passed": true,
+      "htmlFiles": 27,
+      "socialCards": 24,
+      "fontFaceRules": 52,
+      "basePath": "/font"
+    },
+    "browser": {
+      "passed": 24,
+      "failed": 0,
+      "engines": [
+        "chromium",
+        "webkit"
+      ],
+      "scope": "Existing HIG package, HIG interaction and accessibility specs; keyboard, mobile320/390/640, replacement font/user spacing,200% root text; two workers."
+    },
+    "workflow": "actionlint passed.",
+    "runtimeSourceIdentity": "All383 tracked apps/docs files match baseline dbf9824; no font, token, CSS, component, dependency, archive or lock bytes changed."
+  }
+}
