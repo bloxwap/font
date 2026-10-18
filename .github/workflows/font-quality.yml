@@ -65,9 +65,8 @@ jobs:
     timeout-minutes: 45
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/setup-python@v6
-        with:
-          python-version: '3.13'
+      - name: Require Homebrew Python 3.13
+        run: .github/scripts/macos-python313.sh
       - uses: actions/setup-node@v7
         with:
           node-version: '24'
@@ -160,6 +159,12 @@ jobs:
       - name: Production browser checks
         run: |
           set -euo pipefail
+          # Playwright Firefox still reads ~/Library/Application Support/Firefox.
+          # Isolate HOME so Nightly can create a profile; keep browsers in the shared cache.
+          export PLAYWRIGHT_BROWSERS_PATH="${PLAYWRIGHT_BROWSERS_PATH:-$HOME/Library/Caches/ms-playwright}"
+          export HOME="$RUNNER_TEMP/pw-home"
+          mkdir -p "$HOME" "$PLAYWRIGHT_BROWSERS_PATH"
+          xattr -dr com.apple.quarantine "$PLAYWRIGHT_BROWSERS_PATH" 2>/dev/null || true
           bun run docs:preview > "$RUNNER_TEMP/docs-preview.log" 2>&1 &
           attempt=1
           ready=0

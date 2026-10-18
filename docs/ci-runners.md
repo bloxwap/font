@@ -36,11 +36,15 @@ Install these on the runner account **before** the machine picks up jobs. Homebr
 | `curl` | Docs preview readiness check |
 | `gh` | Path filter in Font delivery quality (`changes`) |
 | `gtar` | `actions/upload-pages-artifact` on macOS (Homebrew `gnu-tar`; the action invokes `gtar`, not BSD `tar`) |
+| `python3.13` | Font package generate and publish (`brew install python@3.13`) |
 
 ```sh
-brew install gh gnu-tar
+brew install gh gnu-tar python@3.13
 # gtar must resolve as the binary name `gtar` (Homebrew ships it that way)
+# python3.13 must be on PATH (Homebrew does this for python@3.13)
 ```
+
+`actions/setup-python` is not used. On macOS it installs only to `/Users/runner/hostedtoolcache`, and creating `/Users/runner` needs `sudo`. Jobs use Homebrew Python 3.13 in a per-job venv instead (same version pin).
 
 ### Installed by workflow actions (do not pre-provision unless you want faster cold starts)
 
@@ -48,7 +52,6 @@ brew install gh gnu-tar
 | --- | --- | --- |
 | Bun | `oven-sh/setup-bun@v2` | docs build/deploy, font quality, browser shards |
 | Node.js 24 | `actions/setup-node@v7` | npm pack/test, next-fixture, publish |
-| Python 3.13 | `actions/setup-python@v6` | font package generate, publish |
 | Playwright browsers | `bunx playwright install <browser>` (no OS-deps flag) | `docs-browser` matrix: Chromium, Firefox, WebKit |
 
 Playwright browsers are cached at `~/Library/Caches/ms-playwright`. That directory must be writable by the runner user.
@@ -62,9 +65,11 @@ Jobs run `python -m pip install` without `sudo`:
 
 ### Writable locations
 
-- `$RUNNER_TEMP` — preview logs, path-filter file lists, Pages tarball
+- `$RUNNER_TEMP` — preview logs, path-filter file lists, Pages tarball, Python venv, Playwright `HOME`
 - `$HOME/Library/Caches/ms-playwright` — Playwright browser cache
-- Tool caches used by `setup-bun`, `setup-node`, and `setup-python`
+- Tool caches used by `setup-bun` and `setup-node`
+
+Browser jobs set `HOME` to `$RUNNER_TEMP/pw-home` so Playwright Firefox can create a profile. Nightly still reads `~/Library/Application Support/Firefox`; that directory is often TCC-locked for the `admin` user. `PLAYWRIGHT_BROWSERS_PATH` stays the shared cache.
 
 ### Network
 
