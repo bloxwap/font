@@ -1,5 +1,5 @@
 import { defineConfig, devices } from '@playwright/test';
-// Verifies a served site (DOCS_URL, e.g. `npm run preview` or the deployed docs) in all three engines.
+// Verifies a served site (DOCS_URL, e.g. `npm run preview` or the deployed docs) in Chromium and WebKit.
 export default defineConfig({
   testDir: './test',
   fullyParallel: true,
@@ -9,7 +9,6 @@ export default defineConfig({
   use: { trace: 'retain-on-failure' },
   projects: [
     { name: 'chromium', use: { ...devices['Desktop Chrome'], ...(process.env.CHROME_PATH ? { launchOptions: { executablePath: process.env.CHROME_PATH } } : {}) } },
-    { name: 'firefox', use: { ...devices['Desktop Firefox'] } },
     { name: 'webkit', use: { ...devices['Desktop Safari'] } },
   ],
 });

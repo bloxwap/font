@@ -18,12 +18,11 @@ Next 16.3.6 and Playwright 1.63.0's matching browser binaries.
 
 The final complete suite passed **57/57** without retries in Chromium, Firefox and WebKit;
 see browser-final-all.txt. It includes the Arabic/Hebrew/Armenian/Georgian specimens
-and downloads. Firefox uses default headless mode (the old inverted CI override is
-removed), and FontFace family comparisons normalize Firefox's quoted serialization.
+and downloads. FontFace family comparisons normalize quoted serialization.
 The watchlist table is a keyboard-focusable HIG scroll region: this fixes a 7px
 WebKit/DejaVu Serif overflow at 320px without hiding content or weakening reflow checks.
 reflow-fixed.txt records five replacement font checks, all with a 320px page width.
-The final hydration gate is covered by 30/30 affected browser checks (browser-hydration.txt), including a held glyph request that verifies disabled search before readiness and retained Unicode queries afterwards. CI runs the same entire 57-case suite as the merge gate.
+The final hydration gate is covered by 30/30 affected browser checks (browser-hydration.txt), including a held glyph request that verifies disabled search before readiness and retained Unicode queries afterwards. Current Playwright config and CI run that suite on Chromium and WebKit.
 
 No native app was built or run. No physical iOS/Android, iOS hardware, Dynamic Type,
 VoiceOver/TalkBack or platform font-substitution/clipping observation is represented by

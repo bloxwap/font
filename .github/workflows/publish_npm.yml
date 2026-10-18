@@ -17,6 +17,7 @@ concurrency:
 
 jobs:
   publish:
+    # npm trusted publishing only supports GitHub-hosted runners.
     runs-on: ubuntu-latest
     timeout-minutes: 15
     permissions:
@@ -46,7 +47,7 @@ jobs:
 
       - name: Determine version
         id: version
-        run: echo "value=$(jq -r .version package.json)" >> "$GITHUB_OUTPUT"
+        run: echo "value=$(node -p "require('./package.json').version")" >> "$GITHUB_OUTPUT"
 
       # Check authentication even if the version below is already published.
       - name: Verify npm trusted publishing
