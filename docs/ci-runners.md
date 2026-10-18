@@ -44,7 +44,7 @@ brew install gh gnu-tar python@3.13
 # python3.13 must be on PATH (Homebrew does this for python@3.13)
 ```
 
-`actions/setup-python` is not used. On macOS it installs only to `/Users/runner/hostedtoolcache`, and creating `/Users/runner` needs `sudo`. Jobs use Homebrew Python 3.13 in a per-job venv instead (same version pin).
+`actions/setup-python` is not used. On macOS it installs only to `/Users/runner/hostedtoolcache`, and creating `/Users/runner` needs `sudo`. Jobs use Homebrew Python 3.13 in a per-job venv (same version pin) and run `brew install python@3.13` when `python3.13` is missing.
 
 ### Installed by workflow actions (do not pre-provision unless you want faster cold starts)
 
