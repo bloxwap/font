@@ -1,0 +1,17 @@
+$ bun test lib/glyph-text.test.ts components/docs/in-development.test.tsx
+bun test v1.4.0 (34cbb9a40)
+
+lib/glyph-text.test.ts:
+(pass) encoded characters keep their Unicode code point and readable identity [1.45ms]
+(pass) alternates and ligatures copy source text without compatibility substitutions [0.04ms]
+(pass) invisible and supplementary-plane characters are intact; unreachable glyphs have no source [0.02ms]
+(pass) shared outlines retain separate Unicode identities and selection keys [0.14ms]
+
+components/docs/in-development.test.tsx:
+(pass) renders a HIG warning callout inside a single static note [0.50ms]
+(pass) titles the family, keeps the in-development badge and planned coverage [0.08ms]
+(pass) omits planned coverage when the catalog lists no packs [0.17ms]
+
+ 7 pass
+ 0 fail
+Ran 7 tests across 2 files. [35.00ms]

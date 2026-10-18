@@ -1,0 +1,1 @@
+HIG 0.1.0-candidate.sha7c67a07c vendored tarballs, installed packages and source guard OK

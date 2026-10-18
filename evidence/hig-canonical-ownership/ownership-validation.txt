@@ -1,0 +1,2 @@
+Actual HIG drift passes 383 files. Exactly 242 owned binaries; 83545680 bytes unchanged.
+Negative controls: removing canonical flags242fonts; HIG CSS inside font directory flags palette/token/primitive; unlisted font flags copied-font-binary. Normal Git index and source files preserved.

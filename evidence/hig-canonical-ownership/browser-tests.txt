@@ -1,0 +1,37 @@
+
+Running 24 tests using 2 workers
+
+(node:28922) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:28923) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   2 [chromium] › test/accessibility.spec.ts:30:3 › content reflows at 640px with user spacing and a replacement font (1.2s)
+  ✓   1 [chromium] › test/accessibility.spec.ts:30:3 › content reflows at 320px with user spacing and a replacement font (1.3s)
+  ✓   4 [chromium] › test/accessibility.spec.ts:50:1 › text remains usable at 200% root font size (557ms)
+  ✓   3 [chromium] › test/accessibility.spec.ts:30:3 › content reflows at 1280px with user spacing and a replacement font (1.1s)
+  ✓   6 [chromium] › test/hig-packages.spec.ts:6:1 › package CSS, HIG copy buttons and loading/empty states (1.1s)
+  ✓   7 [chromium] › test/hig-packages.spec.ts:48:1 › keyboard search opens the static index and deep-links under the base path (1.0s)
+  ✓   8 [chromium] › test/hig-packages.spec.ts:65:3 › 390px mobile layout has no horizontal scroll: / (528ms)
+  ✓   9 [chromium] › test/hig-packages.spec.ts:65:3 › 390px mobile layout has no horizontal scroll: /docs/installation/ (216ms)
+  ✓  10 [chromium] › test/hig-packages.spec.ts:65:3 › 390px mobile layout has no horizontal scroll: /docs/character-set/ (251ms)
+  ✓  11 [chromium] › test/hig.spec.ts:5:1 › HIG tokens, install keyboard/copy and variable axes survive migration (1.9s)
+  ✓  12 [chromium] › test/hig.spec.ts:36:1 › mobile shell keeps navigation, search and deep links (701ms)
+(node:29226) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  13 [webkit] › test/accessibility.spec.ts:30:3 › content reflows at 320px with user spacing and a replacement font (2.4s)
+  ✓  14 [webkit] › test/accessibility.spec.ts:30:3 › content reflows at 640px with user spacing and a replacement font (2.1s)
+  ✓  15 [webkit] › test/accessibility.spec.ts:30:3 › content reflows at 1280px with user spacing and a replacement font (2.1s)
+  ✓   5 [chromium] › test/accessibility.spec.ts:57:1 › symbol controls have meaningful names and work with the keyboard (13.8s)
+(node:29460) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  16 [webkit] › test/accessibility.spec.ts:50:1 › text remains usable at 200% root font size (1.4s)
+  ✓  18 [webkit] › test/hig-packages.spec.ts:6:1 › package CSS, HIG copy buttons and loading/empty states (2.1s)
+  ✓  19 [webkit] › test/hig-packages.spec.ts:48:1 › keyboard search opens the static index and deep-links under the base path (1.6s)
+  ✓  20 [webkit] › test/hig-packages.spec.ts:65:3 › 390px mobile layout has no horizontal scroll: / (1.3s)
+  ✓  21 [webkit] › test/hig-packages.spec.ts:65:3 › 390px mobile layout has no horizontal scroll: /docs/installation/ (525ms)
+  ✓  22 [webkit] › test/hig-packages.spec.ts:65:3 › 390px mobile layout has no horizontal scroll: /docs/character-set/ (594ms)
+  ✓  17 [webkit] › test/accessibility.spec.ts:57:1 › symbol controls have meaningful names and work with the keyboard (7.1s)
+  ✓  24 [webkit] › test/hig.spec.ts:36:1 › mobile shell keeps navigation, search and deep links (997ms)
+  ✓  23 [webkit] › test/hig.spec.ts:5:1 › HIG tokens, install keyboard/copy and variable axes survive migration (2.5s)
+
+  24 passed (26.2s)
