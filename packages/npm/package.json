@@ -86,7 +86,7 @@
   "scripts": {
     "build": "node scripts/build.mjs",
     "prepack": "node scripts/build.mjs",
-    "test": "node --test scripts/package.test.mjs && ${FONT_PYTHON:-python3} scripts/test_faces.py"
+    "test": "node --test scripts/package.test.mjs scripts/check-publish-auth.test.mjs && ${FONT_PYTHON:-python3} scripts/test_faces.py"
   },
   "peerDependencies": {
     "next": ">=15.0.0"

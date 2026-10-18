@@ -1,39 +1,44 @@
-// Verify the same package-scoped OIDC exchange that npm publish uses, even when
-// the current version is already published. Never print or persist either token.
-// https://api-docs.npmjs.com/#tag/OIDC
+// Verify the token npm publish will use, even when the current version is
+// already published. Never print or persist the token.
+// npm trusted publishing is not available on self-hosted runners:
+// https://docs.npmjs.com/trusted-publishers/
 import { readFile } from 'node:fs/promises';
 
 const { name } = JSON.parse(await readFile(new URL('../package.json', import.meta.url), 'utf8'));
-const requestUrl = process.env.ACTIONS_ID_TOKEN_REQUEST_URL;
-const requestToken = process.env.ACTIONS_ID_TOKEN_REQUEST_TOKEN;
-if (!requestUrl || !requestToken) {
-  throw new Error('GitHub OIDC credentials are missing. The publish job requires id-token: write.');
+const token = process.env.NODE_AUTH_TOKEN || process.env.NPM_TOKEN;
+if (typeof token !== 'string' || !token) {
+  throw new Error(
+    'NPM_TOKEN is missing. Add a repository secret named NPM_TOKEN with permission to publish this package.',
+  );
 }
 
-const url = new URL(requestUrl);
-url.searchParams.set('audience', 'npm:registry.npmjs.org');
-const identity = await fetch(url, {
-  headers: { Authorization: `Bearer ${requestToken}` },
+const whoami = await fetch('https://registry.npmjs.org/-/whoami', {
+  headers: { Authorization: `Bearer ${token}` },
   signal: AbortSignal.timeout(30_000),
 });
-if (!identity.ok) {
-  throw new Error(`GitHub OIDC token request failed (HTTP ${identity.status}).`);
+if (!whoami.ok) {
+  throw new Error(
+    `npm token authentication failed (HTTP ${whoami.status}). Check the NPM_TOKEN repository secret.`,
+  );
 }
-const { value: idToken } = await identity.json();
-if (typeof idToken !== 'string' || !idToken) {
-  throw new Error('GitHub OIDC response did not contain an identity token.');
+const identity = await whoami.json();
+if (typeof identity.username !== 'string' || !identity.username) {
+  throw new Error('npm whoami did not return a username.');
 }
 
-const exchange = await fetch(`https://registry.npmjs.org/-/npm/v1/oidc/token/exchange/package/${encodeURIComponent(name)}`, {
-  method: 'POST',
-  headers: { Authorization: `Bearer ${idToken}` },
+const escapedName = name.replace('/', '%2f');
+const collaborators = await fetch(`https://registry.npmjs.org/-/package/${escapedName}/collaborators`, {
+  headers: { Authorization: `Bearer ${token}` },
   signal: AbortSignal.timeout(30_000),
 });
-if (!exchange.ok) {
-  throw new Error(`npm OIDC exchange failed (HTTP ${exchange.status}). Check the trusted publisher for ${name}: repository bloxwap/font, workflow publish_npm.yml, no environment, and permission to publish.`);
+if (!collaborators.ok) {
+  throw new Error(
+    `npm collaborator check failed (HTTP ${collaborators.status}). The NPM_TOKEN secret must be able to publish ${name}.`,
+  );
 }
-const result = await exchange.json();
-if (typeof result.token !== 'string' || !result.token) {
-  throw new Error('npm OIDC exchange did not return a publish token.');
+const access = await collaborators.json();
+const permission = access[identity.username];
+if (permission !== 'write' && permission !== 'read-write' && permission !== true) {
+  throw new Error(`npm token for ${identity.username} cannot publish ${name}.`);
 }
-console.log(`npm accepted this workflow's OIDC identity for ${name}.`);
+console.log(`npm accepted the repository NPM_TOKEN for ${name} as ${identity.username}.`);
