@@ -52,7 +52,7 @@ brew install gh gnu-tar python@3.13
 | --- | --- | --- |
 | Bun | `oven-sh/setup-bun@v2` | docs build/deploy, font quality, browser shards |
 | Node.js 24 | `actions/setup-node@v7` | npm pack/test, next-fixture, publish |
-| Playwright browsers | `bunx playwright install <browser>` (no OS-deps flag) | `docs-browser` matrix: Chromium, Firefox, WebKit |
+| Playwright browsers | `bunx playwright install <browser>` (no OS-deps flag) | `docs-browser` matrix: Chromium, WebKit |
 
 Playwright browsers are cached at `~/Library/Caches/ms-playwright`. That directory must be writable by the runner user.
 
@@ -65,11 +65,9 @@ Jobs run `python -m pip install` without `sudo`:
 
 ### Writable locations
 
-- `$RUNNER_TEMP` — preview logs, path-filter file lists, Pages tarball, Python venv, Playwright `HOME`
+- `$RUNNER_TEMP` — preview logs, path-filter file lists, Pages tarball, Python venv
 - `$HOME/Library/Caches/ms-playwright` — Playwright browser cache
 - Tool caches used by `setup-bun` and `setup-node`
-
-Browser jobs set `HOME` / `CFFIXED_USER_HOME` to `$RUNNER_TEMP/pw-home` and rebrand Playwright Nightly's `application.ini` (`Name=PlaywrightFirefox`) so Gecko does not use the TCC-locked `~/Library/Application Support/Firefox` directory. Chromium and WebKit shards are unchanged. `PLAYWRIGHT_BROWSERS_PATH` stays the shared cache.
 
 ### Network
 
@@ -91,8 +89,8 @@ OIDC works on official GitHub Actions self-hosted runners. Keep the runner appli
 | Font delivery quality | `changes` | Path filter via `gh`; aggregator inputs |
 | Font delivery quality | `assets` | Font package generate, tests, next-fixture, pack |
 | Font delivery quality | `docs-build` | Lint, typecheck, docs build, unit tests |
-| Font delivery quality | `docs-browser` | Matrix `chromium` / `firefox` / `webkit`, `--workers=1` |
+| Font delivery quality | `docs-browser` | Matrix `chromium` / `webkit`, `--workers=1` |
 | Font delivery quality | `docs` | Required-check aggregator; skip is success |
 | Publish to npm | `publish` | Release / workflow_dispatch |
 
-A single Mac mini will serialize the browser matrix. That is expected; coverage is unchanged.
+A single Mac mini will serialize the browser matrix. That is expected. Playwright coverage is Chromium and WebKit.

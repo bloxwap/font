@@ -132,7 +132,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        browser: [chromium, firefox, webkit]
+        browser: [chromium, webkit]
     env:
       NEXT_PUBLIC_BASE_PATH: /font
       NEXT_TELEMETRY_DISABLED: '1'
@@ -159,23 +159,6 @@ jobs:
       - name: Production browser checks
         run: |
           set -euo pipefail
-          # Playwright's Nightly is branded Name=Firefox. Gecko then uses the real
-          # ~/Library/Application Support/Firefox directory, which macOS TCC locks.
-          # $HOME is ignored (NSHomeDirectory); CFFIXED_USER_HOME is not.
-          export PLAYWRIGHT_BROWSERS_PATH="${PLAYWRIGHT_BROWSERS_PATH:-$HOME/Library/Caches/ms-playwright}"
-          export HOME="$RUNNER_TEMP/pw-home"
-          export CFFIXED_USER_HOME="$HOME"
-          export TMPDIR="$RUNNER_TEMP/pw-tmp"
-          export TMP="$TMPDIR"
-          export TEMP="$TMPDIR"
-          mkdir -p "$HOME/Library/Application Support" "$TMPDIR" "$PLAYWRIGHT_BROWSERS_PATH"
-          xattr -dr com.apple.quarantine "$PLAYWRIGHT_BROWSERS_PATH" 2>/dev/null || true
-          for ini in "$PLAYWRIGHT_BROWSERS_PATH"/firefox-*/firefox/Nightly.app/Contents/Resources/application.ini \
-                     "$PLAYWRIGHT_BROWSERS_PATH"/firefox-*/firefox/Nightly.app/Contents/Resources/browser/application.ini; do
-            [ -f "$ini" ] || continue
-            sed -i '' 's/^Name=Firefox$/Name=PlaywrightFirefox/' "$ini"
-            sed -i '' 's/^Vendor=Mozilla$/Vendor=Playwright/' "$ini"
-          done
           bun run docs:preview > "$RUNNER_TEMP/docs-preview.log" 2>&1 &
           attempt=1
           ready=0

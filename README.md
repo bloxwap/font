@@ -81,7 +81,7 @@ With the docs running, check glyph copy identity, accessible control names, keyb
 DOCS_URL=http://localhost:3904/ bun run docs:accessibility
 ```
 
-The browser suite runs in Chromium, Firefox and WebKit. Its 320 px viewport and 200% root text size checks complement manual browser zoom and screen-reader testing. For font raster previews and Unicode QA, see [Readability and text integrity](packages/font/DESIGN.md#readability-and-text-integrity).
+The browser suite runs in Chromium and WebKit. Its 320 px viewport and 200% root text size checks complement manual browser zoom and screen-reader testing. For font raster previews and Unicode QA, see [Readability and text integrity](packages/font/DESIGN.md#readability-and-text-integrity).
 
 ## License
 

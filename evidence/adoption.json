@@ -22,6 +22,6 @@
     "Switch to registry versions once @bloxwap/hig-* are published",
     "Physical native consumer validation belongs to HIG #7"
   ],
-  "status": "Font docs consume HIG packages; browser-validated locally (Chromium/WebKit) and in CI (Chromium/Firefox/WebKit)",
+  "status": "Font docs consume HIG packages; browser-validated locally and in CI (Chromium/WebKit)",
   "consumption": "vendor/bloxwap-hig/*.tgz via file: dependencies (@bloxwap/hig-tokens, @bloxwap/hig-contracts, @bloxwap/hig-react); provenance.json hashes enforced by apps/docs/scripts/check-hig-vendor.ts"
 }
