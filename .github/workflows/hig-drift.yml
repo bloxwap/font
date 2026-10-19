@@ -1,0 +1,57 @@
+name: HIG font ownership
+
+on:
+  pull_request:
+    paths:
+      - 'apps/docs/**'
+      - 'hig-drift.json'
+      - 'vendor/bloxwap-hig/**'
+      - 'package.json'
+      - 'bun.lock'
+      - 'bunfig.toml'
+      - '.github/workflows/hig-drift.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'apps/docs/**'
+      - 'hig-drift.json'
+      - 'vendor/bloxwap-hig/**'
+      - 'package.json'
+      - 'bun.lock'
+      - 'bunfig.toml'
+      - '.github/workflows/hig-drift.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: hig-font-ownership-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  drift:
+    runs-on: [self-hosted, macOS, ARM64]
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: '1.4.0'
+      - run: bun install --frozen-lockfile
+      # Tooling-only pin: the unchanged runtime candidate 7c67a07c predates the scoped CLI.
+      # Keep this ref and docs/hig-ownership.md in sync; never copy the checker into Font.
+      - uses: actions/checkout@v7
+        with:
+          repository: bloxwap/hig
+          ref: 0e2394428a3971e677e0a97ef5259ac4ca1ec064
+          path: .hig
+          sparse-checkout: scripts/drift.mjs
+          sparse-checkout-cone-mode: false
+          persist-credentials: false
+      - name: Check canonical Font ownership and HIG drift
+        run: node .hig/scripts/drift.mjs --root . --config hig-drift.json
+      - name: Check owning vendored HIG packages and imports
+        run: bun run --cwd apps/docs scripts/check-hig-vendor.ts

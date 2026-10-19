@@ -1,0 +1,3 @@
+bun install v1.4.0 (34cbb9a40)
+
+595 packages installed [1018.00ms]
