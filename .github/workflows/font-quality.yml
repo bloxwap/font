@@ -12,6 +12,8 @@ jobs:
   # Job-level path filter (not on.pull_request.paths): the workflow always starts, so
   # required checks are skipped-success instead of sitting pending on unrelated PRs.
   changes:
+    # Security: never run fork PR code on the self-hosted runner.
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
     runs-on: [self-hosted, macOS, ARM64]
     timeout-minutes: 5
     outputs:
@@ -60,7 +62,8 @@ jobs:
 
   assets:
     needs: changes
-    if: needs.changes.outputs.assets == 'true'
+    # Security: never run fork PR code on the self-hosted runner.
+    if: (needs.changes.outputs.assets == 'true') && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
     runs-on: [self-hosted, macOS, ARM64]
     timeout-minutes: 45
     steps:
@@ -104,7 +107,8 @@ jobs:
 
   docs-build:
     needs: changes
-    if: needs.changes.outputs.docs == 'true'
+    # Security: never run fork PR code on the self-hosted runner.
+    if: (needs.changes.outputs.docs == 'true') && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
     runs-on: [self-hosted, macOS, ARM64]
     timeout-minutes: 30
     env:
@@ -126,7 +130,8 @@ jobs:
 
   docs-browser:
     needs: [changes, docs-build]
-    if: needs.changes.outputs.docs == 'true'
+    # Security: never run fork PR code on the self-hosted runner.
+    if: (needs.changes.outputs.docs == 'true') && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
     runs-on: [self-hosted, macOS, ARM64]
     timeout-minutes: 30
     strategy:
@@ -190,7 +195,8 @@ jobs:
   # docs-related run's build or any browser shard failed; succeeds on skip.
   docs:
     needs: [changes, docs-build, docs-browser]
-    if: always() && !cancelled()
+    # Security: never run fork PR code on the self-hosted runner.
+    if: (always() && !cancelled()) && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
     runs-on: [self-hosted, macOS, ARM64]
     timeout-minutes: 5
     steps:
