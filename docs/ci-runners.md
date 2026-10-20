@@ -58,7 +58,7 @@ brew install gh gnu-tar python@3.13
 | Node.js 24 | `actions/setup-node@v7` | npm pack/test, next-fixture, publish |
 | Playwright browsers | `bunx playwright install <browser>` (no OS-deps flag) | `docs-browser` matrix: Chromium, WebKit |
 
-Playwright browsers are cached at `~/Library/Caches/ms-playwright`. That directory must be writable by the runner user.
+Playwright browsers live on the mini at `~/Library/Caches/ms-playwright`. That directory must be writable by the runner user. Do **not** save it with `actions/cache`: the folder is already shared on disk, and GitHub cache save of Chromium or WebKit stalls ~24 minutes for ~1.5 GB (same as hig / monorepo #4603). `bunx playwright install` uses the on-disk cache.
 
 ### Python packages (user-level, per job)
 
@@ -70,8 +70,8 @@ Jobs run `python -m pip install` without `sudo`:
 ### Writable locations
 
 - `$RUNNER_TEMP` — preview logs, path-filter file lists, Pages tarball, Python venv
-- `$HOME/Library/Caches/ms-playwright` — Playwright browser cache
-- Tool caches used by `setup-bun` and `setup-node`
+- `$HOME/Library/Caches/ms-playwright` — Playwright browser cache (on-disk only; not `actions/cache`)
+- Tool caches used by `setup-bun` and `setup-node` (local on the mini; jobs do not enable `cache: npm`)
 
 ### Network
 
@@ -88,10 +88,10 @@ GitHub Pages uses OIDC on the self-hosted runners. npm trusted publishing does n
 
 | Workflow | Job | Notes |
 | --- | --- | --- |
-| Documentation | `build` | Lint/typecheck/build docs; uploads Pages artifact (`gtar`) |
+| Documentation | `build` | Lint/typecheck/build docs; uploads Pages artifact (`gtar`) on `main` / dispatch, not on PRs |
 | Documentation | `deploy` | GitHub Pages, `main` only |
 | Font delivery quality | `changes` | Path filter via `gh`; aggregator inputs |
-| Font delivery quality | `assets` | Font package generate, tests, next-fixture, pack |
+| Font delivery quality | `assets` | Font package generate, tests, next-fixture, pack (no GitHub `font-build` cache) |
 | Font delivery quality | `docs-build` | Lint, typecheck, docs build, unit tests |
 | Font delivery quality | `docs-browser` | Matrix `chromium` / `webkit`, `--workers=1` |
 | Font delivery quality | `docs` | Required-check aggregator; skip is success |

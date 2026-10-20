@@ -70,28 +70,19 @@ jobs:
       - uses: actions/checkout@v7
       - name: Require Homebrew Python 3.13
         run: .github/scripts/macos-python313.sh
+      # No cache: npm. Persistent minis already keep bun/npm stores on disk;
+      # setup-node's post step is 0s here, and a GitHub npm cache would only add
+      # restore/save. package-manager-cache matches publish_npm.yml.
       - uses: actions/setup-node@v7
         with:
           node-version: '24'
+          package-manager-cache: false
       - uses: oven-sh/setup-bun@v2
       - run: bun install --frozen-lockfile
       - run: python -m pip install 'fonttools[woff,unicode]==4.66.1' 'brotli==1.2.0'
-      # Tests and pack still run after a hit so a stale cache cannot skip checks.
-      - uses: actions/cache@v4
-        id: font-build
-        with:
-          path: |
-            packages/npm/fonts
-            packages/npm/LICENSE
-            packages/npm/bloxwap-font.css
-            packages/npm/sans-scripts.css
-            packages/npm/mono-scripts.css
-            packages/npm/css
-            packages/npm/native
-            packages/npm/manifest.json
-          key: font-build-${{ runner.os }}-fonttools-4.66.1-${{ hashFiles('apps/docs/public/fonts/**', 'apps/docs/public/bloxwap-font.css', 'packages/npm/scripts/build.mjs', 'packages/npm/scripts/faces.py', 'packages/npm/package.json', 'LICENSE') }}
+      # Do not save generated fonts with actions/cache: generate is ~1 min, but
+      # GitHub cache save of this tree has taken 41–887s on these minis.
       - name: Generate package fonts
-        if: steps.font-build.outputs.cache-hit != 'true'
         run: node packages/npm/scripts/build.mjs
       - run: npm test --prefix packages/npm
       - run: cd apps/next-fixture && bun run check && bun run build && node check-export.mjs
@@ -151,15 +142,11 @@ jobs:
         with:
           name: docs-preview
           path: apps/docs/out
-      - uses: actions/cache@v4
-        id: playwright-cache
-        with:
-          path: ~/Library/Caches/ms-playwright
-          key: playwright-${{ runner.os }}-${{ matrix.browser }}-${{ hashFiles('bun.lock', 'apps/docs/package.json') }}
-          restore-keys: |
-            playwright-${{ runner.os }}-${{ matrix.browser }}-
+      # Do not save ~/Library/Caches/ms-playwright with actions/cache: the folder
+      # is shared on-disk across jobs on these minis, and cache save stalls ~24
+      # minutes for ~1.5 GB (hig quality.yml, monorepo #4603). playwright install
+      # uses the on-disk cache.
       - name: Install Playwright browser
-        if: steps.playwright-cache.outputs.cache-hit != 'true'
         run: cd apps/docs && bunx playwright install ${{ matrix.browser }}
       - name: Production browser checks
         run: |
