@@ -5,9 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "bun run scripts/check-data.ts && fumadocs-mdx && next dev --port 3904",
-    "build": "bun run scripts/check-hig-vendor.ts && bun run scripts/check-data.ts && fumadocs-mdx && next build && bun run scripts/check-export.ts",
+    "build": "bun run scripts/check-hig-vendor.ts && bun run scripts/check-data.ts && fumadocs-mdx && next typegen && node ../../scripts/typecheck.mjs && next build && bun run scripts/check-export.ts",
     "preview": "bun run scripts/preview.ts",
-    "check": "fumadocs-mdx && next typegen && tsc --noEmit",
+    "check": "fumadocs-mdx && next typegen && node ../../scripts/typecheck.mjs",
+    "typecheck:tsc": "fumadocs-mdx && next typegen && tsc --noEmit",
     "data": "cd ../../packages/font && .venv/bin/python tools/site_data.py",
     "smoke": "playwright test",
     "test:unit": "bun test lib/glyph-text.test.ts components/docs/in-development.test.tsx",
@@ -37,6 +38,7 @@
     "eslint": "9",
     "eslint-config-next": "16.3.8",
     "tailwindcss": "^4.2.0",
+    "tsrs": "0.18.0-ts7.1.0-dev.20260929",
     "typescript": "6.0.3"
   }
 }

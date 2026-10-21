@@ -26,6 +26,7 @@
     "npm:pack": "cd packages/npm && npm pack --dry-run",
     "lint": "cd apps/docs && bun run lint",
     "typecheck": "bun run docs:check",
+    "typecheck:tsc": "cd apps/docs && bun run typecheck:tsc && cd ../next-fixture && bun run typecheck:tsc",
     "test": "cd packages/npm && bun run test",
     "build": "cd packages/npm && bun run build && cd ../../apps/docs && bun run build"
   },
