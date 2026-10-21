@@ -1,6 +1,6 @@
 # Canonical Font ownership in the docs
 
-Font owns the fonts that its documentation publishes. The root `hig-drift.json` uses the HIG scoped checker schema (`paths`, `canonical`, `obsoleteImports`, `exceptions`) and scans the tracked `apps/docs` tree. It names the 240 web-font binaries in `apps/docs/public/fonts` and the two OG TTFs in `apps/docs/assets/og` individually. These are Font's own distribution/preview assets, not copies from `@bloxwap/hig-native-fonts`.
+Font owns the fonts that its documentation publishes. The root `hig-drift.json` uses the HIG scoped checker schema (`paths`, `canonical`, `obsoleteImports`, `exceptions`) and scans the tracked `apps/docs` tree. It names the 48 web-font binaries in `apps/docs/public/fonts` (including 24 core subsets) and the two OG TTFs in `apps/docs/assets/og` individually. These are Font's own distribution/preview assets, not copies from `@bloxwap/hig-native-fonts`.
 
 The canonical list contains only those exact `.woff2`/`.ttf` paths. No directory, CSS file, component, HIG asset or vendored package is exempted. HIG still owns token definitions and control CSS; the documentation keeps its existing `@bloxwap/hig-*` imports. The existing owning vendor guard also checks archive hashes, installed versions and token/control redefinitions. There are no dated exceptions in this configuration.
 

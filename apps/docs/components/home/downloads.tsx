@@ -77,8 +77,7 @@ function Snippet({ title, code, className }: { title: string; code: string; clas
 export function Downloads({ families, zip }: { families: FamilyMeta[]; zip: ZipFile | null }) {
   const primary = families.filter((f) => !f.companion);
   const companions = families.filter((f) => f.companion);
-  const sansVf = families.find((f) => f.id === 'sans')?.files.web.find((w) => w.variable && !/Italic/.test(w.name));
-  const preloadPath = sansVf?.path ?? 'fonts/BloxwapSans/variable/BloxwapSans[wght].woff2';
+  const preloadPath = 'fonts/BloxwapSans/variable/subsets/BloxwapSans[wght].latin.woff2';
   const cdn = `<link rel="preload" href="${publicUrl(preloadPath)}" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="${publicUrl('bloxwap-font.css')}">
 <style>

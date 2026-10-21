@@ -16,6 +16,11 @@ description: Release history of Bloxwap Font.
 - **Faster site data.** Font builds refresh metadata only for rebuilt families. Family analysis runs in parallel, and Hyperglot language results are cached by font content and Hyperglot version.
 - **Bounded build concurrency.** Source generation and variable, instance and static compilation share one global `JOBS` pool, defaulting to the CPU count. Larger companion families start first, and the build reports its maximum concurrency.
 
+- **Core web subsets.** The generated stylesheet and npm CSS entries split Sans, Mono and Pixel into complete Latin (including Latin Extended, IPA and Vietnamese), Greek, Cyrillic and remaining code points. Sans upright on a Latin-only page drops from 310,848 to 184,980 bytes. The docs preload only the Latin subset.
+- **Shared shaping support.** Greek and Cyrillic include the documented shared combining marks, punctuation and numbers. Coverage tests limit overlaps to that explicit set, and Latin is declared last for common characters.
+- **Reproducible subsetting.** `tools/webfonts.py --subsets` generates variable WOFF2s directly from the shipped full fonts with fontTools, retaining layout features, hinting, variable axes and name records. Full files and desktop downloads remain available under the SIL OFL.
+- **Next.js and shaping limits.** The `next/font/local` exports retain complete core fonts because the API does not support a separate `unicode-range` per source. Mixed-script shaping across subset boundaries is outside the subset guarantee.
+
 ## 0.1.2
 
 - **Italics load on demand.** The Next.js exports (`@bloxwap/font/sans`, `/mono` and `/pixel`) now preload only the normal face. The italic is in the same family but is not preloaded, so the browser downloads it only when a page renders italic text. A page without italics saves about 632 KiB per cold load with Sans and Mono. `<em>` and inherited italics still use the real italic, not a synthesized slant.

@@ -2,7 +2,8 @@
 """Web font stylesheet + cache-busting version for the Bloxwap Font website (apps/docs/).
 
 Writes:
-    apps/docs/public/bloxwap-font.css   one @font-face family per style ("Bloxwap Sans",
+    apps/docs/public/fonts/<PS>/variable/subsets/  core variable WOFF2s (--subsets)
+    apps/docs/public/bloxwap-font.css   one family name per style ("Bloxwap Sans",
                                    "Bloxwap Mono", "Bloxwap Pixel"). Companion families
                                    are merged into the same family name
                                    with unicode-range, so `font-family: "Bloxwap Sans"`
@@ -15,17 +16,22 @@ Writes:
 
 Called by tools/postprocess.py (stamp_site) after every build, and by
 tools/site_data.py --dev-fonts. Run directly to regenerate:
-    .venv/bin/python tools/webfonts.py
+    .venv/bin/python tools/webfonts.py --subsets
 """
 from __future__ import annotations
 
+import argparse
 import bisect
 import hashlib
+import shutil
 import sys
 from pathlib import Path
 from urllib.parse import quote
 
+from fontTools import subset
 from fontTools.ttLib import TTFont
+from fontTools.ttLib.tables.DefaultTable import DefaultTable
+from fontTools.unicodedata import script, script_extension
 
 ROOT = Path(__file__).resolve().parent.parent
 DOCS = ROOT.parent.parent / "apps" / "docs"
@@ -46,6 +52,94 @@ GROUPS = {
     "pixel": ("pixel", []),
 }
 
+# Keep complete Latin words (including IPA, Vietnamese and combining accents)
+# in one shaping font. Script properties cover Latin outside the usual blocks;
+# these common ranges cover punctuation, spacing, currency and code operators.
+# Script fonts also carry the explicit shared set below. Combining clusters and
+# punctuation must remain in the same shaping font as their script letters.
+SUBSET_RANGES = {
+    "latin": "0000-02FF,2000-206F,2070-209F,20A0-20CF,2113,2116,2122,2E00-2E7F,FEFF,FFFD",
+}
+
+# Shared by every text script: ASCII/Latin-1 punctuation and numbers, modifier
+# symbols, combining marks, spacing/punctuation, superscripts, currency, and
+# encoded outputs of the ASCII arrow ligatures. No letter is shared except the
+# Latin-1 Common characters (e.g. the micro sign). Keep this policy explicit so
+# coverage tests reject accidental overlap into another script's letters.
+SHARED_RANGES = "0000-0040,005B-0060,007B-00BF,00D7,00F7,02B9-02FF,0300-036F,0374,037E,0387,1AB0-1AFF,1DC0-1DFF,2000-206F,2070-209F,20A0-20CF,2113,2116,2122,2190,2192,2194,21D2,2E00-2E7F,FE20-FE2F,FEFF,FFFD"
+SHARED_CODEPOINTS = frozenset(cp for cp in subset.parse_unicodes(SHARED_RANGES)
+                             if script(cp) in {"Zyyy", "Zinh"})
+
+
+def core_subsets(cps: set[int]) -> dict[str, set[int]]:
+    """Cover the full cmap, with overlap confined to SHARED_CODEPOINTS."""
+    greek = {cp for cp in cps if script(cp) == "Grek" or script_extension(cp) == {"Grek"}}
+    cyrillic = {cp for cp in cps if script(cp) == "Cyrl" or script_extension(cp) == {"Cyrl"}}
+    latin = {cp for cp in cps if script(cp) in {"Latn", "Zinh"}}
+    latin |= cps & set(subset.parse_unicodes(SUBSET_RANGES["latin"]))
+    latin -= greek | cyrillic
+    groups = {"latin": latin, "greek": greek, "cyrillic": cyrillic,
+              "other": cps - latin - greek - cyrillic}
+    shared = cps & SHARED_CODEPOINTS
+    for name in ["latin", "greek", "cyrillic"]:
+        groups[name] |= shared
+    return {name: mine for name, mine in groups.items() if mine}
+
+
+def subset_path(source: Path, name: str) -> Path:
+    return source.parent / "subsets" / f"{source.stem}.{name}.woff2"
+
+
+def write_subsets(public: Path = PUBLIC):
+    """Subset the shipped WOFF2s without rebuilding, editing or instancing outlines.
+
+    Fixed source timestamps, glyph ordering and fontTools' canonical table order
+    make repeat invocations byte-identical. Full web/desktop fonts stay intact.
+    """
+    for fid in GROUPS:
+        for _style, source in _faces(fid, public):
+            with TTFont(source, recalcTimestamp=False) as full:
+                groups = core_subsets(set(full.getBestCmap()))
+            dest = source.parent / "subsets"
+            dest.mkdir(exist_ok=True)
+            shutil.copyfile(ROOT.parent.parent / "LICENSE", dest / "LICENSE")
+            (dest / "package.json").write_text('{"private":true,"license":"OFL-1.1"}\n')
+            for name, cps in groups.items():
+                options = subset.Options()
+                options.layout_features = ["*"]
+                options.hinting = True
+                options.glyph_names = True
+                options.notdef_glyph = True
+                options.notdef_outline = True
+                options.name_languages = ["*"]
+                options.name_legacy = True
+                options.recalc_timestamp = False
+                options.prune_unicode_ranges = False
+                options.prune_codepage_ranges = False
+                with TTFont(source, recalcTimestamp=False, recalcBBoxes=False) as font:
+                    # '*' retains only IDs below 256 plus referenced IDs in
+                    # fontTools. Explicit IDs also preserve unused feature names.
+                    options.name_IDs = ["*", *sorted({record.nameID for record in font['name'].names})]
+                    options.passthrough_tables = True
+                    options.drop_tables = []
+                    sub = subset.Subsetter(options=options)
+                    sub.populate(unicodes=sorted(cps))
+                    sub.subset(font)
+                    # OS/2.compile otherwise rewrites first/last character fields.
+                    # Carry the source table verbatim, including all metrics and
+                    # coverage flags; the exact cmap is recorded by the subset.
+                    os2 = DefaultTable("OS/2")
+                    os2.data = font.reader["OS/2"]
+                    font["OS/2"] = os2
+                    font.flavor = "woff2"
+                    target = subset_path(source, name)
+                    font.save(target)
+                print(f"subsets: {target.name}: {target.stat().st_size:,} B ({len(cps)} code points)")
+            # Remove obsolete outputs if the source's coverage ever shrinks.
+            for old in dest.glob("*.woff2"):
+                if old.name.startswith(source.stem + ".") and old not in {subset_path(source, name) for name in groups}:
+                    old.unlink()
+
 
 def _faces(fid: str, public: Path) -> list[tuple[str, Path]]:
     """[(style, woff2 path)] for a family's variable web fonts, upright first."""
@@ -58,14 +152,9 @@ def _faces(fid: str, public: Path) -> list[tuple[str, Path]]:
     return out
 
 
-def _font_for_reading(fid: str, woff2: Path) -> TTFont:
-    """Prefer the dist TTF (no Brotli decode); fall back to the WOFF2 itself."""
-    ttf = ROOT / "fonts" / FAMILIES[fid].ps / "variable" / (woff2.stem + ".ttf")
-    return TTFont(str(ttf if ttf.is_file() else woff2), lazy=True)
-
-
 def _facts(fid: str, woff2: Path) -> tuple[set[int], tuple[int, int]]:
-    f = _font_for_reading(fid, woff2)
+    # Describe the actual web artifact, independent of any local desktop build.
+    f = TTFont(woff2, lazy=True)
     cps = set((f.getBestCmap() or {}).keys())
     wght = (100, 900)
     if "fvar" in f:
@@ -156,8 +245,8 @@ def write_css(public: Path = PUBLIC, version: str | None = None) -> str:
         " * GENERATED by tools/webfonts.py (run by tools/postprocess.py). Do not edit by hand.",
         " * SIL Open Font License 1.1. © 2026 Bloxwap, Inc.",
         " *",
-        " * One family name per style. Companion scripts are merged in with unicode-range,",
-        " * so browsers download a companion font only when a page uses its script.",
+        " * Core subsets and companion scripts share family names via unicode-range,",
+        " * so browsers download only the files used by a page's text.",
         " */",
     ]
     standalone: list[str] = []
@@ -178,8 +267,16 @@ def write_css(public: Path = PUBLIC, version: str | None = None) -> str:
         out.append(f"/* {family}" + (f" (+ {scripts} via unicode-range)" if present else "") + " */")
         for style, p, cps, wght in facts[base]:
             others = set().union(*claimed.values()) if claimed else set()
-            urange = _urange(_ranges(cps, others)) if present else None
-            out.append(_face(family, _url(p, public, version), style, wght, urange))
+            groups = core_subsets(cps)
+            # Later matching faces win for shared characters. Latin therefore
+            # supplies common characters unless a script cluster needs its face.
+            for name in ["other", "cyrillic", "greek", "latin"]:
+                mine = groups[name]
+                path = subset_path(p, name)
+                if not path.is_file():
+                    raise FileNotFoundError(f"{path}: run tools/webfonts.py --subsets first")
+                urange = _urange(_ranges(mine, (cps - mine) | others))
+                out.append(_face(family, _url(path, public, version), style, wght, urange))
         for c in present:
             mine = claimed[c]
             if not mine:
@@ -218,4 +315,9 @@ def write_css(public: Path = PUBLIC, version: str | None = None) -> str:
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--subsets", action="store_true", help="generate core subsets from shipped variable WOFF2s first")
+    args = parser.parse_args()
+    if args.subsets:
+        write_subsets()
     write_css()

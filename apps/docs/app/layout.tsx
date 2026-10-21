@@ -23,7 +23,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return <html lang="en" suppressHydrationWarning className="dark">
     <head>
       {/* The site is set in its own fonts: the same generated stylesheet users can link (see /docs/installation). */}
-      <link rel="preload" href={fileUrl('fonts/BloxwapSans/variable/BloxwapSans[wght].woff2')} as="font" type="font/woff2" crossOrigin="" />
+      <link rel="preload" href={fileUrl('fonts/BloxwapSans/variable/subsets/BloxwapSans[wght].latin.woff2')} as="font" type="font/woff2" crossOrigin="" />
       <link rel="stylesheet" href={stylesheetHref} />
     </head>
     <body className="flex min-h-screen flex-col antialiased">

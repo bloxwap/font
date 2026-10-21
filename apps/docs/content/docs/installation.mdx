@@ -62,7 +62,13 @@ body { font-family: "Bloxwap Sans", system-ui, sans-serif; }
 code, pre { font-family: "Bloxwap Mono", ui-monospace, monospace; }
 ```
 
-Fonts download only when text uses them. For production we recommend self-hosting, so your site does not depend on another origin.
+Core CSS splits each style into `latin`, `greek`, `cyrillic` and `other`, covering the full font. Greek and Cyrillic also carry the [explicit shared set](https://github.com/bloxwap/font/blob/main/packages/font/README.md#web-subsets) of combining marks, common punctuation and digits. Overlaps are limited to that set, and Latin is declared last to prefer it for independently matched common characters. Latin includes every Latin-script character, including Latin Extended, IPA and Vietnamese, plus its combining marks, punctuation, digits and currency. A Latin-only page loads 184,980 bytes of Sans upright instead of 310,848 bytes. Fonts download only when text uses them. For production we recommend self-hosting, so your site does not depend on another origin.
+
+Each file retains every applicable layout feature; Latin words and accents stay together in one shaping font.
+
+Shaping across mixed-script boundaries, such as Latin next to Greek inside one word, is outside the subset guarantee.
+
+The npm entries `@bloxwap/font/css/sans-full`, `/mono-full` and `/pixel-full` provide complete core faces; the declarations below also use complete files.
 
 ### Self-host with @font-face
 
@@ -136,11 +142,13 @@ Static files are named `<Family>-<Style>.woff2`: `Thin`, `ExtraLight`, `Light`, 
 
 ### Preload the main file
 
-Preload the upright Sans file so text renders in Bloxwap Sans on first paint. The `crossorigin` attribute is required, even for same-origin fonts:
+When using the generated subset stylesheet, preload its upright Sans Latin subset so text renders in Bloxwap Sans on first paint. The `crossorigin` attribute is required, even for same-origin fonts:
 
 ```html
-<link rel="preload" href="/fonts/BloxwapSans[wght].woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/BloxwapSans/variable/subsets/BloxwapSans[wght].latin.woff2" as="font" type="font/woff2" crossorigin>
 ```
+
+Keep the subset stylesheet and its `fonts/` directory together when self-hosting; its URLs are relative. The complete files in the desktop zips still work with the full-font declarations above. Preload the exact URL your stylesheet uses.
 
 ## Expo / React Native
 
@@ -160,7 +168,10 @@ family map. Script packages use the same structure, such as
 Register the selected TTFs before rendering; see [Cross-platform typography](/docs/cross-platform)
 for exact registration names, accessibility guidance and source-checkout builds.
 
+
 ## Next.js
+
+The `next/font/local` API has no `unicode-range` per source. These exports therefore keep the complete core files and preload the full normal face. For automatic core subsets in Next.js, import `@bloxwap/font/css/sans` (or `/mono`, `/pixel`) and use the CSS family names instead.
 
 With the npm package (Next.js 15 or later), import a family and add its class names. Each export comes from `next/font/local`, so Next.js self-hosts it and preloads the normal face (the italic, in the same family, downloads only when a page renders italic text); Sans and Mono include the script companions, downloaded only for text in those scripts:
 

@@ -1,4 +1,6 @@
 import localFont from 'next/font/local';
+// next/font/local cannot set unicode-range per src. Keep the complete core font
+// here; import @bloxwap/font/css/pixel for automatic core subsets instead.
 // The italic face: the same family, not preloaded, so it downloads only when a page renders italic text.
 import './pixel-italic.js';
 

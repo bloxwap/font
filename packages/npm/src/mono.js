@@ -1,4 +1,6 @@
 import localFont from 'next/font/local';
+// next/font/local cannot set unicode-range per src. Keep the complete core font
+// here; import @bloxwap/font/css/mono for automatic core subsets instead.
 // The companion scripts (Arabic, Hebrew, Armenian, Georgian, CJK) as one fallback family with unicode-range.
 import '../mono-scripts.css';
 // The italic face: the same family, not preloaded, so it downloads only when a page renders italic text.

@@ -12,6 +12,7 @@ export interface FontFace {
  readonly bytes: number;
  readonly sha256: string;
  readonly format: 'woff2' | 'ttf';
+ readonly subset?: 'latin' | 'greek' | 'cyrillic' | 'other';
  readonly axes: Readonly<Record<string, number | { min: number; default: number; max: number }>>;
  readonly registrationName?: string;
  /** Pinned release source: <asset>.zip:<family>/woff2/<file>.woff2@<tag>. */

@@ -180,6 +180,7 @@ def stamp_site():
     FONT_VERSION constant in apps/docs/lib/font-version.ts that the app appends to
     its own font and stylesheet URLs. See tools/webfonts.py."""
     import webfonts
+    webfonts.write_subsets(DOCS / "public")
     webfonts.write_css(DOCS / "public")
 
 
