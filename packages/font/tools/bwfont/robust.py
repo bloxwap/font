@@ -8,14 +8,30 @@ sampling winding numbers on a grid and retries with tiny perturbations.
 """
 from __future__ import annotations
 
+from functools import lru_cache
+
 import numpy as np
 import pathops
 
 GRID = 20
 
 
+@lru_cache(maxsize=8)
+def _bezier_basis(steps):
+    t = np.linspace(0, 1, steps + 1)[1:, None]
+    quad = np.hstack(((1 - t) ** 2, 2 * (1 - t) * t, t ** 2))
+    cubic = np.hstack(((1 - t) ** 3, 3 * (1 - t) ** 2 * t,
+                       3 * (1 - t) * t ** 2, t ** 3))
+    return quad, cubic
+
+
+# Most callers use eight steps. Populate this before the first glyph.
+_bezier_basis(8)
+
+
 def _flatten_path(path: pathops.Path, steps=8):
     """pathops.Path -> list of polygons (numpy arrays)."""
+    quad, cubic = _bezier_basis(steps)
     polys, cur, last = [], [], None
     for verb, pts in path:
         if verb == pathops.PathVerb.MOVE:
@@ -28,15 +44,21 @@ def _flatten_path(path: pathops.Path, steps=8):
             last = pts[0]
         elif verb == pathops.PathVerb.QUAD:
             p0, (p1, p2) = last, pts
-            t = np.linspace(0, 1, steps + 1)[1:, None]
-            seg = (1 - t) ** 2 * np.array(p0) + 2 * (1 - t) * t * np.array(p1) + t ** 2 * np.array(p2)
+            if steps == 8:
+                seg = quad @ np.array((p0, p1, p2))
+            else:
+                # Non-dyadic sample positions retain the original sum order.
+                seg = (quad[:, 0, None] * np.array(p0) + quad[:, 1, None] * np.array(p1)
+                       + quad[:, 2, None] * np.array(p2))
             cur.extend(map(tuple, seg))
             last = p2
         elif verb == pathops.PathVerb.CUBIC:
             p0, (p1, p2, p3) = last, pts
-            t = np.linspace(0, 1, steps + 1)[1:, None]
-            seg = ((1 - t) ** 3 * np.array(p0) + 3 * (1 - t) ** 2 * t * np.array(p1)
-                   + 3 * (1 - t) * t ** 2 * np.array(p2) + t ** 3 * np.array(p3))
+            if steps == 8:
+                seg = cubic @ np.array((p0, p1, p2, p3))
+            else:
+                seg = (cubic[:, 0, None] * np.array(p0) + cubic[:, 1, None] * np.array(p1)
+                       + cubic[:, 2, None] * np.array(p2) + cubic[:, 3, None] * np.array(p3))
             cur.extend(map(tuple, seg))
             last = p3
         elif verb == pathops.PathVerb.CLOSE:
@@ -49,17 +71,39 @@ def _flatten_path(path: pathops.Path, steps=8):
 
 
 def _winding(polys, pts):
-    """Nonzero winding number of `pts` (N,2) w.r.t. polygons."""
-    if not polys:
+    """Exact nonzero winding, testing only scanline-crossing edges to the right.
+
+    Bucket edges once for each distinct sample y, then evaluate the original
+    cross product on the surviving point/edge pairs. Avoid intersection division
+    so points on or very close to an edge retain the original boundary rule.
+    """
+    if not polys or not len(pts):
         return np.zeros(len(pts), dtype=int)
-    a = np.concatenate([p for p in polys])
+    a = np.concatenate(polys)
     b = np.concatenate([np.roll(p, -1, axis=0) for p in polys])
-    x0, y0, x1, y1 = a[:, 0][None], a[:, 1][None], b[:, 0][None], b[:, 1][None]
-    px, py = pts[:, 0][:, None], pts[:, 1][:, None]
-    cr = (x1 - x0) * (py - y0) - (px - x0) * (y1 - y0)
-    up = (y0 <= py) & (y1 > py) & (cr > 0)
-    dn = (y1 <= py) & (y0 > py) & (cr < 0)
-    return (up.sum(axis=1) - dn.sum(axis=1)).astype(int)
+    ys, inverse = np.unique(pts[:, 1], return_inverse=True)
+    up = (a[:, 1][None] <= ys[:, None]) & (b[:, 1][None] > ys[:, None])
+    dn = (b[:, 1][None] <= ys[:, None]) & (a[:, 1][None] > ys[:, None])
+    rows, edges = np.nonzero(up | dn)
+    if not len(edges):
+        return np.zeros(len(pts), dtype=int)
+    counts = np.bincount(rows, minlength=len(ys))
+    width = counts.max()
+    buckets = np.zeros((len(ys), width), dtype=int)
+    columns = np.arange(len(edges)) - np.repeat(np.cumsum(counts) - counts, counts)
+    buckets[rows, columns] = edges
+    candidates = buckets[inverse]
+    xmax = np.maximum(a[:, 0], b[:, 0])
+    valid = (np.arange(width)[None] < counts[inverse, None]) & (xmax[candidates] >= pts[:, 0, None])
+    points, columns = np.nonzero(valid)
+    edges = candidates[points, columns]
+    x0, y0 = a[edges, 0], a[edges, 1]
+    x1, y1 = b[edges, 0], b[edges, 1]
+    cr = (x1 - x0) * (pts[points, 1] - y0) - (pts[points, 0] - x0) * (y1 - y0)
+    signs = np.where((y1 > y0) & (cr > 0), 1, np.where((y1 < y0) & (cr < 0), -1, 0))
+    result = np.zeros(len(pts), dtype=int)
+    np.add.at(result, points, signs)
+    return result
 
 
 def _samples(polys):
@@ -73,8 +117,7 @@ def _samples(polys):
     return np.stack([gx.ravel(), gy.ravel()], axis=1)
 
 
-def _ok(orig_polys, result: pathops.Path, pts):
-    want = _winding(orig_polys, pts) != 0
+def _ok(want, result: pathops.Path, pts):
     got = _winding(_flatten_path(result), pts) != 0
     bad = int((want != got).sum())
     return bad <= max(2, len(pts) // 100)
@@ -119,15 +162,29 @@ class _ShiftPen:
         self.pen.endPath()
 
 
-def robust_union(draw_fns):
+def robust_union(draw_fns, memo=None):
     """draw_fns: list of callables drawing one contour each into a segment
     pen.  Returns a simplified pathops.Path whose fill equals the nonzero
     fill of the input."""
     orig = _build(draw_fns, 0)
+    if memo is not None:
+        # Exact contour content, including order and the validation shortcut.
+        # The caller owns this cache and limits its lifetime to one instance.
+        key = (len(draw_fns), tuple(orig))
+        if key in memo:
+            return pathops.Path(memo[key])
+        result = _union(draw_fns, orig)
+        memo[key] = pathops.Path(result)
+        return result
+    return _union(draw_fns, orig)
+
+
+def _union(draw_fns, orig):
     orig_polys = _flatten_path(orig)
     if not orig_polys:
         return orig
     pts = _samples(orig_polys)
+    want = _winding(orig_polys, pts) != 0 if len(draw_fns) >= 2 else None
     last = None
     for jitter in (0, 0.02, 0.08, 0.25, 0.6, 1.2, 2.0, 3.0):
         p = _build(draw_fns, jitter)
@@ -136,7 +193,7 @@ def robust_union(draw_fns):
         except pathops.PathOpsError:
             continue
         last = p
-        if len(draw_fns) < 2 or _ok(orig_polys, p, pts):
+        if len(draw_fns) < 2 or _ok(want, p, pts):
             return p
     # drop contours that are degenerate on their own (collapsed counters)
     keep = []

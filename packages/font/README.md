@@ -24,6 +24,21 @@ starts SC, JP and KR first, then other companions, then Sans, Mono and Pixel,
 and reports `max concurrency: N (JOBS=J)` when it finishes. Lower `JOBS` to fit
 available memory, especially for CJK and Pixel builds.
 
+Each static worker interpolates one instance in memory and compiles its OTF and
+TTF together through fontmake's Python API, using the same overlap filters and
+compiler options as the CLI. Workers reuse loaded masters, and each instance
+shares verified unions only for identical input contours and reuses matching
+compiled layout features across formats. The build does not write instance
+UFOs. `tools/make_instances.py DESIGNSPACE OUTDIR` still writes them when needed,
+in parallel with the same `JOBS` limit. To compile existing sources without
+regenerating masters or variable fonts, run
+`JOBS=6 .venv/bin/python tools/build_pool.py --static-only sans` from this directory.
+Per-instance interpolation and compile timings are written to `build/<family>/timings/`.
+
+Overlap validation precomputes the Bézier sampling basis, computes reference
+winding once per union, and buckets edges by sample row before testing winding.
+The verification grid, boundary rules and jitter attempts stay the same.
+
 Post-processing regenerates site data only for the requested families and keeps
 the other families' summaries. `tools/site_data.py` uses a process pool (CPU count
 by default, overridden with `SITE_DATA_JOBS`) and caches successful Hyperglot
@@ -47,6 +62,7 @@ tools/bwfont/           the design
 tools/generate.py       skeletons → UFO masters + designspaces (sources/)
 tools/build_all.sh      shared build pool → postprocess
 tools/build_pool.py     bounded generation + variable/instance/static compilation
+tools/compile_static.py paired in-memory OTF/TTF compilation
 tools/postprocess.py    hinting, WOFF/WOFF2, fonts/ distribution, website copies and zips
 fonts/                  the distribution: <Family>/{variable,otf,ttf,woff2,woff} (generated, ignored)
 ```
