@@ -48,6 +48,41 @@ version. Deleting that ignored directory forces fresh language analysis.
 Run the pipeline regression checks with
 `.venv/bin/python -m unittest discover -s tools -p 'test_*.py'` from this directory.
 
+## Web subsets
+
+Regenerate core subsets directly from the committed variable WOFF2s, without rebuilding fonts:
+
+```sh
+packages/font/.venv/bin/python packages/font/tools/webfonts.py --subsets
+packages/font/.venv/bin/python packages/font/tools/test_subsets.py
+```
+
+Run these from the repository root. The postprocess pipeline also generates subsets before
+writing the web stylesheet. Output is `apps/docs/public/fonts/<PS>/variable/subsets/`;
+full variable files and desktop zips remain available. All layout features, hinting,
+name records and variable axes are retained for the selected glyphs. Source timestamps
+are preserved for deterministic WOFF2 output. Subsets carry the SIL OFL license.
+
+Latin includes every Latin-script character, including IPA and Vietnamese. Greek and
+Cyrillic also include shared marks and common characters, so combining clusters,
+word punctuation and numbers can shape within the script font. Latin is emitted last
+and wins when the browser selects a shared character independently.
+
+The explicit overlap policy is `SHARED_RANGES` in `tools/webfonts.py`, intersected
+with the source cmap and Unicode **Common** or **Inherited** script properties:
+
+```text
+U+0000-0040, U+005B-0060, U+007B-00BF, U+00D7, U+00F7,
+U+02B9-02FF, U+0300-036F, U+0374, U+037E, U+0387,
+U+1AB0-1AFF, U+1DC0-1DFF, U+2000-206F, U+2070-209F,
+U+20A0-20CF, U+2113, U+2116, U+2122, U+2190, U+2192,
+U+2194, U+21D2, U+2E00-2E7F, U+FE20-FE2F, U+FEFF, U+FFFD
+```
+
+The union covers the source cmap; pairwise overlaps outside this set fail the
+coverage test. Hinting tables, source bounding boxes, OS/2 bytes and hhea metrics
+are retained. The hhea metric count changes to describe the subset's glyph count.
+
 ## Layout
 
 ```text

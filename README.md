@@ -52,6 +52,8 @@ body { font-family: "Bloxwap Sans", system-ui, sans-serif; }
 code { font-family: "Bloxwap Mono", ui-monospace, monospace; }
 ```
 
+Core CSS keeps all Latin coverage (including Latin Extended, IPA and Vietnamese) in one subset, alongside Greek, Cyrillic and remaining symbols. Latin-only Sans upright uses 184,980 bytes instead of 310,848 bytes. The `next/font/local` exports retain full core files because that API lacks per-source `unicode-range`.
+
 One family name covers every script: the stylesheet loads companions with `unicode-range` only when a page uses them. Downloads: [latest release](https://github.com/bloxwap/font/releases/latest). Self-hosting: [Installation](https://bloxwap.github.io/font/docs/installation/).
 
 For Expo and React Native, the 0.1.3 candidate uses opt-in packages:

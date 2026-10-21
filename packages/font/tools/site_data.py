@@ -957,6 +957,7 @@ def main(argv=None) -> int:
     if args.dev_fonts:
         try:
             import webfonts
+            webfonts.write_subsets(PUBLIC)
             webfonts.write_css(PUBLIC)
         except Exception as e:  # pragma: no cover
             warn(f"could not refresh the combined stylesheet: {e!r}")

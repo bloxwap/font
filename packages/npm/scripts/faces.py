@@ -37,10 +37,12 @@ def digest(path):
 
 
 def metadata(path, font, asset_path=None, **extra):
+    script_tags = {script(cp) for cp in font.getBestCmap()}
+    scripts = sorted(script_tags - {'Zyyy', 'Zinh', 'Zzzz'}) or sorted(script_tags - {'Zzzz'})
     return dict(dict(path=asset_path or str(path.relative_to(ROOT)), family=font['name'].getDebugName(1),
                 weight=font['OS/2'].usWeightClass,
                 style='italic' if font['OS/2'].fsSelection & 1 else 'normal',
-                scripts=sorted({script(cp) for cp in font.getBestCmap()} - {'Zyyy', 'Zinh', 'Zzzz'}),
+                scripts=scripts,
                 version=font['name'].getDebugName(5), packageVersion=VERSION,
                 bytes=path.stat().st_size, sha256=digest(path)), **extra)
 
@@ -65,7 +67,8 @@ def web_face(task):
         axes = {a.axisTag: dict(min=a.minValue, default=a.defaultValue, max=a.maxValue)
                 for a in variable['fvar'].axes}
         return metadata(path, variable, format='woff2', axes=axes,
-                        weight=[axes['wght']['min'], axes['wght']['max']])
+                        weight=[axes['wght']['min'], axes['wght']['max']],
+                        **({'subset': path.stem.rsplit('.', 1)[1]} if '.' in path.stem else {}))
 
 
 def native_face(task):
@@ -126,6 +129,8 @@ def build(workers=None, paths=None, native_root=NATIVE_ROOT, manifest_path=ROOT 
         web_faces = list(executor.map(web_face, [(p, cached.get(str(p.relative_to(ROOT)))) for p in paths]))
         tasks = []
         for web in web_faces:
+            if 'subset' in web:
+                continue  # Native generation uses only the complete web sources.
             family = Path(web['path']).parent.name
             _, package = native_package(family)
             for weight, label in WEIGHTS.items():
@@ -135,8 +140,12 @@ def build(workers=None, paths=None, native_root=NATIVE_ROOT, manifest_path=ROOT 
         native_faces = list(executor.map(native_face, tasks))
     # map preserves input order even when workers finish out of order. Keep the serial manifest order.
     faces = []
-    for index, web in enumerate(web_faces):
-        faces.extend([web, *native_faces[index * len(WEIGHTS):(index + 1) * len(WEIGHTS)]])
+    index = 0
+    for web in web_faces:
+        faces.append(web)
+        if 'subset' not in web:
+            faces.extend(native_faces[index * len(WEIGHTS):(index + 1) * len(WEIGHTS)])
+            index += 1
     manifest = dict(schemaVersion=1, package='@bloxwap/font', version=VERSION,
                     license='OFL-1.1', generator=GENERATOR, faces=faces)
     for group, families in NATIVE_GROUPS.items():

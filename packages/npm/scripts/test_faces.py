@@ -23,7 +23,8 @@ class BuiltFaces(unittest.TestCase):
                 self.assertEqual(face['family'], font['name'].getDebugName(1))
                 self.assertEqual(face['version'], font['name'].getDebugName(5))
                 self.assertEqual(face['style'], 'italic' if font['OS/2'].fsSelection & 1 else 'normal')
-                self.assertEqual(face['scripts'], sorted({script(cp) for cp in font.getBestCmap()} - {'Zyyy', 'Zinh', 'Zzzz'}))
+                script_tags = {script(cp) for cp in font.getBestCmap()}
+                self.assertEqual(face['scripts'], sorted(script_tags - {'Zyyy', 'Zinh', 'Zzzz'}) or sorted(script_tags - {'Zzzz'}))
                 if face['format'] == 'ttf':
                     self.assertNotIn('fvar', font)
                     self.assertEqual(face['weight'], font['OS/2'].usWeightClass)
@@ -55,7 +56,8 @@ class BuiltFaces(unittest.TestCase):
                     self.assertEqual(face['weight'], [font['fvar'].axes[0].minValue,font['fvar'].axes[0].maxValue])
                     # Packaging only renames paths; it must not rewrite variable font bytes.
                     family = Path(face['path']).parent.name
-                    original = list((ROOT.parents[1] / 'apps/docs/public/fonts' / family / 'variable').glob('*'))
+                    source_dir = ROOT.parents[1] / 'apps/docs/public/fonts' / family / 'variable'
+                    original = list((source_dir / 'subsets').glob(f'*.{face["subset"]}.woff2')) if 'subset' in face else list(source_dir.glob('*.woff2'))
                     matches = [p for p in original if ('-Italic' in p.name) == (face['style'] == 'italic')]
                     self.assertEqual((ROOT / face['path']).read_bytes(), matches[0].read_bytes())
 

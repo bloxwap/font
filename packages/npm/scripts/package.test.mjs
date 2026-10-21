@@ -106,3 +106,31 @@ test('web npm distribution stays under 20 MB and contains no native assets',asyn
  assert.ok(pack.files.some(f=>f.path==='LICENSE'));
  assert.equal(pkg.license,'OFL-1.1');
 });
+
+test('core CSS uses script subsets while next/font retains complete sources',async()=>{
+ for (const role of ['sans','mono','pixel']) {
+  const css=await readFile(new URL(`css/${role}-core.css`,root),'utf8');
+  assert.equal((css.match(/@font-face/g)??[]).length,8);
+  assert.equal((css.match(/unicode-range:/g)??[]).length,8);
+  for(const subset of ['latin','greek','cyrillic','other']) {
+   assert.equal((css.match(new RegExp(`\\.${subset}\\.woff2`,'g'))??[]).length,2);
+  }
+  const js=await readFile(new URL(`src/${role}.js`,root),'utf8');
+  assert.ok(js.includes('-Variable.woff2'));
+  assert.ok(!js.includes('-Variable.latin.woff2'));
+ }
+ const latin=manifest.faces.find(f=>f.path==='fonts/BloxwapSans/BloxwapSans-Variable.latin.woff2');
+ const full=manifest.faces.find(f=>f.path==='fonts/BloxwapSans/BloxwapSans-Variable.woff2');
+ assert.ok(latin.bytes>0 && latin.bytes<full.bytes);
+ const css=await readFile(new URL('bloxwap-font.css',root));
+ const {gzipSync}=await import('node:zlib');
+ assert.ok(gzipSync(css).length<10_000);
+ assert.equal(pkg.license,'OFL-1.1');
+ assert.equal(await readFile(new URL('LICENSE',root),'utf8'),await readFile(new URL('../../LICENSE',root),'utf8'));
+});
+test('generated native packages carry the OFL license',async()=>{
+ for(const p of nativePackages) {
+  assert.equal(p.pkg.license,'OFL-1.1');
+  assert.equal(await readFile(new URL('LICENSE',p.root),'utf8'),await readFile(new URL('LICENSE',root),'utf8'));
+ }
+});

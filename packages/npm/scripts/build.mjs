@@ -16,19 +16,27 @@ const pub = join(repo, 'apps/docs/public');
 
 // Bundlers resolve url() and next/font paths literally, so the package drops the axis brackets from file names:
 // BloxwapSans[wght].woff2 -> BloxwapSans-Variable.woff2, BloxwapPixel-Italic[ROND,wght].woff2 -> BloxwapPixel-Italic-Variable.woff2.
-const packaged = (file) => file.replace(/\[[A-Za-z,]+\]\.woff2$/, '-Variable.woff2');
+const packaged = (file) => file.replace(/\[[A-Za-z,]+\](?=\.)/, '-Variable');
 await rm(join(pkg, 'fonts'), { recursive: true, force: true });
 for (const family of await readdir(join(pub, 'fonts'))) {
   await mkdir(join(pkg, 'fonts', family), { recursive: true });
-  for (const file of await readdir(join(pub, 'fonts', family, 'variable'))) {
-    await cp(join(pub, 'fonts', family, 'variable', file), join(pkg, 'fonts', family, packaged(file)));
+  const variable = join(pub, 'fonts', family, 'variable');
+  for (const entry of await readdir(variable, { withFileTypes: true })) {
+    if (entry.isFile() && entry.name.endsWith('.woff2')) {
+      await cp(join(variable, entry.name), join(pkg, 'fonts', family, packaged(entry.name)));
+    } else if (entry.name === 'subsets' && entry.isDirectory()) {
+      for (const file of await readdir(join(variable, 'subsets'))) {
+        if (file.endsWith('.woff2')) await cp(join(variable, 'subsets', file), join(pkg, 'fonts', family, packaged(file)));
+      }
+    }
   }
+  await cp(join(repo, 'LICENSE'), join(pkg, 'fonts', family, 'LICENSE'));
 }
 
 const header = (title) => `/*\n * ${title}\n * @bloxwap/font — https://bloxwap.github.io/font/ — SIL Open Font License 1.1. © 2026 Bloxwap, Inc.\n */\n`;
 // Package-relative URLs: no cache-busting query (the npm version does that) and no variable/ folder.
 const site = (await readFile(join(pub, 'bloxwap-font.css'), 'utf8'))
-  .replace(/url\("fonts\/([^/]+)\/variable\/([^"?]+)(?:\?[^"]*)?"\)/g, (_, family, file) => `url("./fonts/${family}/${packaged(decodeURIComponent(file))}")`);
+  .replace(/url\("fonts\/([^/]+)\/variable\/(?:subsets\/)?([^"?]+)(?:\?[^"]*)?"\)/g, (_, family, file) => `url("./fonts/${family}/${packaged(decodeURIComponent(file))}")`);
 const faces = site.match(/@font-face \{[^}]*\}/g) ?? [];
 if (faces.length < 3) throw new Error(`expected @font-face rules in bloxwap-font.css, found ${faces.length}`);
 await writeFile(join(pkg, 'bloxwap-font.css'), site.replace(/^\/\*[\s\S]*?\*\/\n/, header('Every Bloxwap Font family. Companion scripts load only when a page uses them (unicode-range).')));
@@ -62,6 +70,14 @@ for (const face of faces) {
 }
 for (const [key, rules] of groups) await writeFile(join(pkg, 'css', `${key}.css`), header(key) + rules.join('\n') + '\n');
 // Remove the old web-package layout; opt-in packages retain their hash-checked TTF cache.
+
+// Complete core entry points preserve the original self-hosting option and keep
+// every manifest web face addressable through a CSS export.
+for (const role of ['sans', 'mono', 'pixel']) {
+  const complete = groups.get(`${role}-core`).filter((face) => face.includes('.latin.woff2'))
+    .map((face) => face.replace('.latin.woff2', '.woff2').replace(/\n  unicode-range: [^;]+;/, ''));
+  await writeFile(join(pkg, 'css', `${role}-full.css`), header(`${role}: complete core fonts`) + complete.join('\n') + '\n');
+}
 await rm(join(pkg, 'native'), {recursive:true, force:true});
 const { execFileSync } = await import('node:child_process');
 execFileSync(process.env.FONT_PYTHON ?? 'python3', [join(pkg, 'scripts/faces.py')], {stdio:'inherit'});

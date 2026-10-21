@@ -25,7 +25,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 ```
 
 `BloxwapSans`, `BloxwapMono` and `BloxwapPixel` come from `next/font/local`, so Next.js self-hosts them and preloads
-the normal face. The italic is in the same family but isn't preloaded: a page downloads it only when it renders italic text.
+the complete normal face. `next/font/local` accepts only path, weight and style per source;
+it cannot assign a different `unicode-range` to each source. Use the CSS entries below for core subsetting. The italic is in the same family but isn't preloaded: a page downloads it only when it renders italic text.
 `.variable` defines `--font-bloxwap-sans`, `--font-bloxwap-mono` and `--font-bloxwap-pixel`:
 
 ```css
@@ -47,8 +48,19 @@ code { font-family: "Bloxwap Mono", ui-monospace, monospace; }
 .score { font-family: "Bloxwap Pixel", monospace; font-variation-settings: "ROND" 60; }
 ```
 
+Core CSS uses `latin`, `greek`, `cyrillic` and `other` variable WOFF2s.
+Greek and Cyrillic include the documented shared combining marks, numbers and punctuation;
+Latin is declared last and supplies independently matched common characters.
+Latin includes all Latin Extended, IPA, Vietnamese, Latin combining marks, punctuation and currency.
+Latin-only Sans upright loads 184,980 bytes instead of 310,848 bytes.
 One family name per style covers every script. Each companion is also available under its own name (for example
 `"Bloxwap Sans Arabic"`). The WOFF2 files are at `@bloxwap/font/fonts/<Family>/<Family>-Variable.woff2` (and `-Italic-Variable.woff2`).
+
+Subset files use `<Family>-Variable.<subset>.woff2` and `-Italic-Variable.<subset>.woff2`.
+The complete variable files remain available at the original paths for self-hosting and Next.js.
+
+Shaping across mixed-script boundaries, such as Latin next to Greek inside one word, is outside the subset guarantee.
+The `css/{sans,mono,pixel}-full` entries load complete core fonts for applications that need them.
 
 Weights 100–900 on one variable axis, with italics for Sans, Mono, Pixel, Armenian and Georgian. Desktop formats
 (OTF, TTF) are in the [GitHub release](https://github.com/bloxwap/font/releases/latest).

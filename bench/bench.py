@@ -3,6 +3,7 @@
 """Local font benchmarks. Driver uses stdlib; font operations use the repo venv."""
 import argparse
 import datetime as dt
+import gzip
 import html.parser
 import importlib
 import io
@@ -18,7 +19,7 @@ import statistics
 import subprocess
 import sys
 import time
-from urllib.parse import unquote, urlsplit
+from urllib.parse import quote, unquote, urlsplit
 
 BASE = Path(__file__).resolve().parents[1]
 RESULTS = Path(__file__).resolve().parent / 'results'
@@ -194,12 +195,19 @@ def assets():
             if p.suffix=='.woff2': faces.append(dict(path=str(p.relative_to(root)),bytes=p.stat().st_size,kind='variable' if 'variable' in p.parts else 'static'))
         DATA['font_assets'][str(root)]={'bytes_by_family_format':formats,'woff2_faces':faces,'available':root.exists()}
     css=set((REPO/'packages/npm').glob('*.css')) | set((REPO/'packages/npm/css').glob('*.css')) | {REPO/'apps/docs/public/bloxwap-font.css'}
-    DATA['css']=[dict(path=str(p.relative_to(REPO)),bytes=p.stat().st_size,font_faces=len(re.findall(r'@font-face\s*\{',p.read_text()))) for p in sorted(css) if p.exists()]
+    DATA['css']=[dict(path=str(p.relative_to(REPO)),bytes=p.stat().st_size,gzip_bytes=len(gzip.compress(p.read_bytes(),mtime=0)),font_faces=len(re.findall(r'@font-face\s*\{',p.read_text()))) for p in sorted(css) if p.exists()]
     public=REPO/'apps/docs/public/fonts/BloxwapSans/variable'
     if not public.exists(): public=FONT/'fonts/BloxwapSans/variable'
     upright=next(iter(sorted(public.glob('BloxwapSans[[]*.woff2'))),None)
     italic=next(iter(sorted(public.glob('BloxwapSans-Italic[[]*.woff2'))),None)
-    DATA['latin_page']={'normal_bytes':upright.stat().st_size if upright else None,'normal_italic_bytes':upright.stat().st_size+italic.stat().st_size if upright and italic else None,'files':[str(p) for p in (upright,italic) if p], 'assumption':'Latin text selects core Sans faces; unicode-range companion faces are not fetched. Full variable files, no network compression overhead.'}
+    catalog=REPO/'apps/docs/public/bloxwap-font.css'
+    catalog_css=catalog.read_text() if catalog.exists() else ''
+    def latin_source(source):
+        if source is None: return None
+        candidate=source.parent/'subsets'/f'{source.stem}.latin.woff2'
+        return candidate if candidate.exists() and f'subsets/{quote(candidate.name)}' in catalog_css else source
+    latin_upright,latin_italic=map(latin_source,(upright,italic))
+    DATA['latin_page']={'normal_bytes':latin_upright.stat().st_size if latin_upright else None,'normal_italic_bytes':latin_upright.stat().st_size+latin_italic.stat().st_size if latin_upright and latin_italic else None,'files':[str(p) for p in (latin_upright,latin_italic) if p], 'assumption':'Latin text selects CSS-linked core Sans Latin subsets when available, otherwise full variable files; no companion fonts or HTTP overhead.'}
     if upright:
         from fontTools.ttLib import TTFont
         from fontTools import subset
@@ -221,7 +229,7 @@ def assets():
         for key,value in details['bytes_by_family_format'].items(): metric(label+'/'+key,value)
         for face in details['woff2_faces']: metric(label+'/'+face['path'],face['bytes'])
     for css in DATA['css']:
-        metric(css['path'],css['bytes']); metric(css['path']+'/faces',css['font_faces'],'faces')
+        metric(css['path'],css['bytes']); metric(css['path']+'/gzip',css['gzip_bytes']); metric(css['path']+'/faces',css['font_faces'],'faces')
     for key in ('normal_bytes','normal_italic_bytes'): metric('latin_page/'+key,DATA['latin_page'][key])
     if 'sans_variable' in DATA:
         font=DATA['sans_variable']

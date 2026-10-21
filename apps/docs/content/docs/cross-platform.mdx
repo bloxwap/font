@@ -28,7 +28,7 @@ import manifest from '@bloxwap/font/manifest';
 // byte count, SHA-256, axes, and static face registrationName/source hash.
 ```
 
-The built manifest in `@bloxwap/font` includes every WOFF2 and static TTF. Web paths are relative to `@bloxwap/font`; native entries include a `package` field and a package-qualified asset import path such as `@bloxwap/font-native/assets/BloxwapSans/BloxwapSans-Regular.ttf`. Native TTFs ship only in opt-in packages; the web package stays below its 20 MB unpacked size budget. Package version and internal font version are distinct: the existing binaries report Version 1.000. The packaging tests verify files, hashes, Unicode coverage, family names and actual binary metadata. Packaging uses a process pool with one worker per CPU and memoized file hashes. Repeated builds reuse native targets only when the manifest source hashes, package version and existing TTF hash match. Native TTFs decode the committed named static WOFF2 faces, preserving glyph outlines, metrics and hinting. Their registration metadata normalizes the published weight tiers (for example, an approximate source class 608 becomes 600); the manifest retains sourceWeight. The existing Pixel static faces use ROND 50. Sources, glyph design and existing variable binaries stay unchanged. Font generation provenance lives in [Building](/docs/building); all assets retain the [SIL OFL 1.1](/docs/license).
+The built manifest in `@bloxwap/font` includes every WOFF2 and static TTF. Web paths are relative to `@bloxwap/font`; native entries include a `package` field and a package-qualified asset import path such as `@bloxwap/font-native/assets/BloxwapSans/BloxwapSans-Regular.ttf`. Native TTFs ship only in opt-in packages; the web package stays below its 20 MB unpacked size budget. Package version and internal font version are distinct: the existing binaries report Version 1.000. The packaging tests verify files, hashes, Unicode coverage, family names and actual binary metadata. Packaging uses a process pool with one worker per CPU and memoized file hashes. Repeated builds reuse native targets only when the manifest source hashes, package version and existing TTF hash match. Native TTFs decode the hash-pinned named static WOFF2 release sources, preserving glyph outlines, metrics and hinting. Their registration metadata normalizes the published weight tiers (for example, an approximate source class 608 becomes 600); the manifest retains sourceWeight. The existing Pixel static faces use ROND 50. Sources, glyph design and existing variable binaries stay unchanged. Font generation provenance lives in [Building](/docs/building); all assets retain the [SIL OFL 1.1](/docs/license).
 
 ## Web: load only the roles and scripts you use
 
@@ -42,7 +42,7 @@ code, pre { font-family: 'Bloxwap Mono', ui-monospace, monospace; }
 .price { font-variant-numeric: tabular-nums; }
 ```
 
-Entries `sans`, `mono`, `pixel` load one family with all its available companions. Entries `sans-core`, `mono-core`, `pixel-core` select the core (Latin, Greek, Cyrillic coverage); Sans/Mono additionally offer `arabic`, `hebrew`, `armenian`, `georgian`, `jp`, `kr`, `sc`. There is no Pixel companion or synthesized italic for companions that only publish normal faces. Existing `@bloxwap/font/css` remains the complete catalog. Retained unicode-range rules defer downloads until text needs the face; these are script selections, not newly subsetted glyph files.
+Entries `sans`, `mono`, `pixel` load one family with all its available companions. Entries `sans-core`, `mono-core`, `pixel-core` select the core; Sans/Mono additionally offer `arabic`, `hebrew`, `armenian`, `georgian`, `jp`, `kr`, `sc`. There is no Pixel companion or synthesized italic for companions that only publish normal faces. Existing `@bloxwap/font/css` remains the complete catalog. Core faces use Latin (including all Latin Extended, IPA and Vietnamese), Greek, Cyrillic and remaining-code-point subsets, with explicit shared combining marks, punctuation and numbers for shaping. Companions retain their existing files. All use unicode-range to defer downloads until text needs the face. See [Installation](/docs/installation) for cross-subset shaping limitations and the complete-font option.
 
 Prefer explicit locale entries for Japanese, Korean and Simplified Chinese. Loading multiple CJK companions with overlapping Han ranges does not implement a locale switch: scope the published named families (`Bloxwap Sans JP`, etc.) to matching `lang` containers. Use `lang` and `dir="auto"` for mixed translations, and a host-approved system fallback for unsupported characters. Pixel is a scoped display accent; use Sans for UI/prose and Mono for code/numeric roles.
 
@@ -50,7 +50,7 @@ All rules use `font-display: swap`. A system fallback is available while loading
 
 ## Next.js App Router
 
-The current package loaders remain supported and include companions. They preload the core normal face; italic styles are lazy:
+The current package loaders remain supported and include companions. They preload the complete core normal face; italic styles are lazy. `next/font/local` has no per-source unicode-range, so use the CSS entries above for automatic core subsetting:
 
 ```tsx title="app/layout.tsx"
 import { BloxwapSans } from '@bloxwap/font/sans';
