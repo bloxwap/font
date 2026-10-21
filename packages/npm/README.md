@@ -69,9 +69,9 @@ Weights 100–900 on one variable axis, with italics for Sans, Mono, Pixel, Arme
 
 [SIL Open Font License 1.1](https://github.com/bloxwap/font/blob/main/LICENSE). © 2026 Bloxwap, Inc.
 
-## HIG / selective web and native assets (0.1.3 candidate)
+## HIG / selective web and native assets (0.1.3)
 
-The new distribution is a candidate, not yet published. Build a pinned checkout using
+Published in 0.1.3. To build from a pinned checkout, use
 Python with `fonttools[woff,unicode]==4.66.1` and `brotli==1.2.0`; set `FONT_PYTHON`
 to that interpreter before `npm pack`. No glyph sources are changed by packaging.
 
@@ -105,7 +105,7 @@ npm install @bloxwap/font-native-jp
 script's Sans and Mono families. Use `@bloxwap/font-native-jp/BloxwapSansJP` or
 `@bloxwap/font-native-jp/assets/BloxwapSansJP/BloxwapSansJP-Regular.ttf` for Japanese.
 All packages have matching versions and include LICENSE with `OFL-1.1` licensing.
-This pre-1.0 move replaces the unpublished candidate native exports under the web
+This pre-1.0 move replaces the never-published native exports under the web
 package, with unchanged registration names and TTF bytes and no compatibility shim.
 The web package retains the complete manifest and enforces a 20 MB unpacked budget.
 
