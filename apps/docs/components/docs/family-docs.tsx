@@ -275,16 +275,18 @@ export function DownloadTable() {
   </table>;
 }
 
-/** The web font files for one family, with sizes. */
+/** Hosted variable files and the release zip containing static web fonts. */
 export function WebFiles({ id }: { id: string }) {
   const data = getFamily(id);
   if (!data) return <Pending id={id} what="The web font files" />;
-  return <table>
+  return <>
+    {data.files.zip && <p><a href={downloadUrl(data.files.zip.path)}>Download static web fonts in the family zip</a> (WOFF2 and WOFF).</p>}
+    <table>
     <thead><tr><th>File</th><th>Kind</th><th>Size</th></tr></thead>
     <tbody>{data.files.web.map((w) => <tr key={w.path}>
-      <td><a href={fileUrl(w.path)}><code>{w.name}</code></a></td><td>{w.variable ? 'Variable' : 'Static'}</td><td>{fmtBytes(w.bytes)}</td>
+      <td><a href={fileUrl(w.path)}><code>{w.name}</code></a></td><td>Variable</td><td>{fmtBytes(w.bytes)}</td>
     </tr>)}</tbody>
-  </table>;
+  </table></>;
 }
 
 /** The glyph browser from the home page, embedded in a docs page. */

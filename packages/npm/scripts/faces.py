@@ -1,9 +1,10 @@
-"""Decode committed static WOFF2s into opt-in native TTFs and a face manifest.
+"""Decode hash-pinned static WOFF2s into opt-in native TTFs and a face manifest.
 No source outlines, cmap, shaping features, or variable font files are edited.
 """
 from concurrent.futures import ProcessPoolExecutor
 from functools import lru_cache
 import hashlib
+from io import BytesIO
 import json
 import os
 from pathlib import Path
@@ -11,6 +12,7 @@ import shutil
 import fontTools
 from fontTools.ttLib import TTFont
 from fontTools.unicodedata import script
+from static_sources import read_source, resolve_sources
 
 ROOT = Path(__file__).resolve().parents[1]
 NATIVE_ROOT = ROOT.parent / 'native'
@@ -67,27 +69,27 @@ def web_face(task):
 
 
 def native_face(task):
-    web, weight, label, cached, native_root = task
+    web, weight, label, cached, native_root, sources = task
     path = ROOT / web['path']
     family = path.parent.name
     group, package = native_package(family)
     italic = web['style'] == 'italic'
     source_suffix = ('Italic' if label == 'Regular' else label + 'Italic') if italic else label
-    static_source = ROOT.parents[1] / 'apps/docs/public/fonts' / family / 'woff2' / f'{family}-{source_suffix}.woff2'
+    static_source = sources[family, f'{family}-{source_suffix}.woff2']
     name = f'{family}-{label}' + ('Italic' if italic else '')
     target = native_root / group / family / f'{name}.ttf'
     asset_path = f'{package}/assets/{family}/{name}.ttf'
     provenance = dict(package=package, registrationName=name,
-                      source=str(static_source.relative_to(ROOT.parents[1])), sourceSha256=digest(static_source),
+                      source=static_source[3], sourceSha256=static_source[2],
                       variableSource=web['path'], variableSourceSha256=web['sha256'],
                       generation='decode-static-woff2-and-register')
     if (cached and cached['packageVersion'] == VERSION and cached['path'] == asset_path
             and all(cached.get(key) == value for key, value in provenance.items())
             and target.is_file() and cached['sha256'] == digest(target)):
         return cached
-    with TTFont(static_source, recalcTimestamp=False, recalcBBoxes=False) as face:
+    with TTFont(BytesIO(read_source(static_source)), recalcTimestamp=False, recalcBBoxes=False) as face:
         if 'fvar' in face or face.sfntVersion != '\x00\x01\x00\x00':
-            raise RuntimeError(f'Expected committed static TrueType source: {static_source}')
+            raise RuntimeError(f'Expected pinned static TrueType source: {static_source}')
         source_weight = face['OS/2'].usWeightClass
         # Existing named static instances have approximate OS/2 classes (e.g. 608).
         # Normalize only registration metadata to the published named tier (600).
@@ -119,6 +121,7 @@ def build(workers=None, paths=None, native_root=NATIVE_ROOT, manifest_path=ROOT 
         if previous['version'] == VERSION and previous['generator'] == GENERATOR:
             cached = {f['path']: f for f in previous['faces']}
     paths = sorted(paths if paths is not None else (ROOT / 'fonts').glob('*/*.woff2'))
+    sources = resolve_sources({p.parent.name for p in paths})
     with ProcessPoolExecutor(max_workers=workers or os.cpu_count()) as executor:
         web_faces = list(executor.map(web_face, [(p, cached.get(str(p.relative_to(ROOT)))) for p in paths]))
         tasks = []
@@ -128,7 +131,7 @@ def build(workers=None, paths=None, native_root=NATIVE_ROOT, manifest_path=ROOT 
             for weight, label in WEIGHTS.items():
                 name = f'{family}-{label}' + ('Italic' if web['style'] == 'italic' else '')
                 asset_path = f'{package}/assets/{family}/{name}.ttf'
-                tasks.append((web, weight, label, cached.get(asset_path), native_root))
+                tasks.append((web, weight, label, cached.get(asset_path), native_root, sources))
         native_faces = list(executor.map(native_face, tasks))
     # map preserves input order even when workers finish out of order. Keep the serial manifest order.
     faces = []

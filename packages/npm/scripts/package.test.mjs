@@ -7,6 +7,7 @@ import { promisify } from 'node:util';
 const root = new URL('../', import.meta.url);
 const nativeRoot = new URL('../native/', root);
 const manifest = JSON.parse(await readFile(new URL('manifest.json',root)));
+const staticSources = JSON.parse(await readFile(new URL('static-sources.json',root)));
 const pkg = JSON.parse(await readFile(new URL('package.json',root)));
 const nativePackages = await Promise.all((await readdir(nativeRoot)).map(async dir => ({
  root: new URL(`${dir}/`,nativeRoot),
@@ -42,6 +43,13 @@ test('manifest describes every built font and exact bytes', async () => {
   assert.equal(createHash('sha256').update(bytes).digest('hex'),face.sha256);
   assert.equal(face.packageVersion,pkg.version);
   assert.ok(face.scripts.length);
+  if (face.format === 'ttf') {
+   const family = face.path.split('/').at(-2);
+   const source = staticSources.families[family];
+   const file = source.files.find(file => `${source.asset}:${file.path}@${source.tag}` === face.source);
+   assert.ok(file, face.source);
+   assert.equal(face.sourceSha256, file.sha256);
+  }
  }
 });
 test('CSS exports resolve real files and all manifest web faces',async()=>{

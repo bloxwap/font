@@ -14,7 +14,7 @@ export interface FontFace {
  readonly format: 'woff2' | 'ttf';
  readonly axes: Readonly<Record<string, number | { min: number; default: number; max: number }>>;
  readonly registrationName?: string;
- /** Committed static WOFF2 path, relative to the source repository. */
+ /** Pinned release source: <asset>.zip:<family>/woff2/<file>.woff2@<tag>. */
  readonly source?: string;
  readonly sourceWeight?: number;
  readonly variableSource?: string;

@@ -76,7 +76,7 @@ to that interpreter before `npm pack`. No glyph sources are changed by packaging
   asset map, e.g. `faces['BloxwapSans-SemiBold']`. Maps bundle every face in that family; prefer direct entries for strict budgets.
   Register only selected TTFs;
   use their exact keys as fontFamily with no fontWeight/fontStyle override.
-  Native TTFs decode committed static WOFF2s without changing glyphs or hinting;
+  Native TTFs decode hash-pinned static WOFF2s without changing glyphs or hinting;
   OS/2 registration weights normalize to named tiers, with sourceWeight retained.
   Static Pixel uses ROND 50. All nine weights and available italics are included.
 
@@ -96,6 +96,21 @@ All packages have matching versions and include LICENSE with `OFL-1.1` licensing
 This pre-1.0 move replaces the unpublished candidate native exports under the web
 package, with unchanged registration names and TTF bytes and no compatibility shim.
 The web package retains the complete manifest and enforces a 20 MB unpacked budget.
+
+Static sources are pinned in `static-sources.json` to a release tag, family zip SHA-256,
+and every inner WOFF2 SHA-256. The build verifies `packages/font/fonts/<Family>/woff2/`
+first, then downloads only missing families from public release zips. An existing input
+with a mismatched hash fails the build. The default zip cache is
+`~/.cache/bloxwap-font/static-sources/<tag>/`; set `BLOXWAP_STATIC_SOURCES_CACHE`
+to override its root. CI uses job-local storage without GitHub cache saves. The manifest's
+`source` records `<asset>.zip:<family>/woff2/<file>.woff2@<tag>` and `sourceSha256`
+records the original WOFF2 bytes. Release zips and all packages retain the OFL license.
+
+After rebuilding fonts, run `packages/font/.venv/bin/python packages/npm/scripts/static_sources.py lock --tag v<upcoming-version>`
+from the repository root and commit the lock alongside the rebuilt variable fonts and site data.
+`lock` reads local zips in `apps/docs/public/downloads/`; `fetch` verifies dist inputs and
+fetches missing families (optionally `--family BloxwapSans`). The release script refreshes
+the lock before uploading; the pinned release assets must be available before npm CI builds.
 
 The shared build generates all packages in parallel using one process per CPU.
 Source and output hashes validate cached native TTFs, so unchanged builds and packs

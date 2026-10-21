@@ -36,6 +36,7 @@ for (const name of dataFiles) {
   const data = JSON.parse(await readFile(join(root, 'data', name), 'utf8'));
   const paths: string[] = name === 'index.json' ? [] : (data.files?.web ?? []).map((file: { path: string }) => file.path);
   for (const path of paths.filter(Boolean)) {
+    if (!path.includes("/variable/")) failures.push(`data/${name}: only variable web fonts may be hosted: ${path}`);
     if (!await exists(join(root, path))) failures.push(`data/${name}: missing ${path}`);
   }
 }
@@ -45,6 +46,7 @@ let socialCards = 0;
 for (const file of files) {
   const html = await readFile(file, 'utf8');
   const name = relative(root, file).split(sep).join('/');
+  if (/(?:href|src)="[^"<>]*\/fonts\/[^/"<>]+\/woff2\//.test(html)) failures.push(`${name}: links to removed static WOFF2 files`);
   if (name === 'index.html' || (name.startsWith('docs/') && name.endsWith('/index.html'))) {
     const meta = new Map([...html.matchAll(/<meta\b[^>]*>/g)].map(([tag]): [string | undefined, string | undefined] => {
       const attrs: Record<string, string> = Object.fromEntries([...tag.matchAll(/([\w:-]+)="([^"]*)"/g)].map(([, key, value]) => [key, value!.replaceAll('&amp;', '&')]));

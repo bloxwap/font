@@ -132,7 +132,7 @@ def run(fams):
 
 def package():
     """Zips and web copies for the website (apps/docs/, a Fumadocs app served at /font/):
-    apps/docs/public/downloads/<PS>.zip + Bloxwap-Fonts.zip, apps/docs/public/fonts/<PS>/{variable,woff2}/
+    apps/docs/public/downloads/<PS>.zip + Bloxwap-Fonts.zip, apps/docs/public/fonts/<PS>/variable/
     (WOFF2 only) and apps/docs/public/OFL.txt."""
     public = DOCS / "public"
     dl = public / "downloads"
@@ -156,16 +156,13 @@ def package():
                 if ps in ALL:
                     allzip.write(p, f"Bloxwap-Fonts/{ps}/{rel}")
         z.close()
-        # web copies (WOFF2 only; desktop formats ship in the zips)
+        # Hosted variable WOFF2 only; static web and desktop fonts ship in the zips.
         w = public / "fonts" / ps
         if w.exists():
             shutil.rmtree(w)
         (w / "variable").mkdir(parents=True)
-        (w / "woff2").mkdir(parents=True)
         for p in (d / "variable").glob("*.woff2"):
             shutil.copy2(p, w / "variable" / p.name)
-        for p in (d / "woff2").glob("*.woff2"):
-            shutil.copy2(p, w / "woff2" / p.name)
     allzip.close()
     shutil.copy2(LICENSE, public / "OFL.txt")
     # the two static TTFs the website's social cards are rendered with (Satori needs TTF/OTF)
