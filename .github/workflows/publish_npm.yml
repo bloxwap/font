@@ -62,27 +62,34 @@ jobs:
       - name: Verify npm publish authentication
         run: node scripts/check-publish-auth.mjs
 
+      - name: Skip if this version is already on npm
+        id: exists
+        run: |
+          node --input-type=module <<'JS'
+          import { appendFile, readFile } from 'node:fs/promises';
+          const { name, version } = JSON.parse(await readFile('package.json', 'utf8'));
+          // npm view may reuse metadata cached before this version was visible.
+          const response = await fetch(`https://registry.npmjs.org/${encodeURIComponent(name)}/${version}`, {
+            headers: { 'Cache-Control': 'no-cache' },
+            signal: AbortSignal.timeout(30_000),
+          });
+          if (response.ok) {
+            console.log(`::notice::${name}@${version} is already published`);
+            await appendFile(process.env.GITHUB_OUTPUT, 'published=true\n');
+          } else if (response.status !== 404) {
+            throw new Error(`Registry returned HTTP ${response.status}`);
+          }
+          JS
+
       - name: Build and test @bloxwap/font
+        if: steps.exists.outputs.published != 'true'
         run: |
           node scripts/build.mjs
           npm test
 
-      - name: Skip if this version is already on npm
-        id: exists
-        run: |
-          if npm view "@bloxwap/font@${{ steps.version.outputs.value }}" version > /dev/null 2>&1; then
-            echo "::notice::@bloxwap/font@${{ steps.version.outputs.value }} is already published"
-            echo "published=true" >> "$GITHUB_OUTPUT"
-          fi
-
       - name: Check the package contents
         if: steps.exists.outputs.published != 'true'
         run: npm pack --dry-run --ignore-scripts
-
-      # --force permits checking an existing version; --dry-run prevents publishing.
-      - name: Verify npm publish for an existing version
-        if: steps.exists.outputs.published == 'true'
-        run: npm publish --dry-run --force --ignore-scripts --loglevel verbose
 
       # The shared build above generated all assets; publishConfig.access is public.
       # Token publish does not attach provenance (trusted publishing is unavailable here).
