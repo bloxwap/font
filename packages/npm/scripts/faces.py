@@ -1,4 +1,4 @@
-"""Decode hash-pinned static WOFF2s into opt-in native TTFs and a face manifest.
+"""Decode hash-pinned static WOFF2s into native TTFs in @bloxwap/font.
 No source outlines, cmap, shaping features, or variable font files are edited.
 """
 from concurrent.futures import ProcessPoolExecutor
@@ -8,14 +8,13 @@ from io import BytesIO
 import json
 import os
 from pathlib import Path
-import shutil
 import fontTools
 from fontTools.ttLib import TTFont
 from fontTools.unicodedata import script
 from static_sources import read_source, resolve_sources
 
 ROOT = Path(__file__).resolve().parents[1]
-NATIVE_ROOT = ROOT.parent / 'native'
+NATIVE_ROOT = ROOT / 'native'
 VERSION = json.loads((ROOT / 'package.json').read_text())['version']
 GENERATOR = f'fonttools {fontTools.__version__}'
 WEIGHTS = {100: 'Thin', 200: 'ExtraLight', 300: 'Light', 400: 'Regular',
@@ -47,16 +46,10 @@ def metadata(path, font, asset_path=None, **extra):
                 bytes=path.stat().st_size, sha256=digest(path)), **extra)
 
 
-def native_package(family):
-    group = next(group for group, families in NATIVE_GROUPS.items() if family in families)
-    return group, '@bloxwap/font-native' + ('' if group == 'core' else '-' + group)
-
-
 def face_path(face, native_root=NATIVE_ROOT):
     if face['format'] == 'woff2':
         return ROOT / face['path']
-    group, package = native_package(Path(face['path']).parent.name)
-    return native_root / group / face['path'].removeprefix(package + '/assets/')
+    return native_root / face['path'].removeprefix('native/')
 
 
 def web_face(task):
@@ -75,14 +68,13 @@ def native_face(task):
     web, weight, label, cached, native_root, sources = task
     path = ROOT / web['path']
     family = path.parent.name
-    group, package = native_package(family)
     italic = web['style'] == 'italic'
     source_suffix = ('Italic' if label == 'Regular' else label + 'Italic') if italic else label
     static_source = sources[family, f'{family}-{source_suffix}.woff2']
     name = f'{family}-{label}' + ('Italic' if italic else '')
-    target = native_root / group / family / f'{name}.ttf'
-    asset_path = f'{package}/assets/{family}/{name}.ttf'
-    provenance = dict(package=package, registrationName=name,
+    target = native_root / family / f'{name}.ttf'
+    asset_path = f'native/{family}/{name}.ttf'
+    provenance = dict(package='@bloxwap/font', registrationName=name,
                       source=static_source[3], sourceSha256=static_source[2],
                       variableSource=web['path'], variableSourceSha256=web['sha256'],
                       generation='decode-static-woff2-and-register')
@@ -132,10 +124,9 @@ def build(workers=None, paths=None, native_root=NATIVE_ROOT, manifest_path=ROOT 
             if 'subset' in web:
                 continue  # Native generation uses only the complete web sources.
             family = Path(web['path']).parent.name
-            _, package = native_package(family)
             for weight, label in WEIGHTS.items():
                 name = f'{family}-{label}' + ('Italic' if web['style'] == 'italic' else '')
-                asset_path = f'{package}/assets/{family}/{name}.ttf'
+                asset_path = f'native/{family}/{name}.ttf'
                 tasks.append((web, weight, label, cached.get(asset_path), native_root, sources))
         native_faces = list(executor.map(native_face, tasks))
     # map preserves input order even when workers finish out of order. Keep the serial manifest order.
@@ -148,15 +139,14 @@ def build(workers=None, paths=None, native_root=NATIVE_ROOT, manifest_path=ROOT 
             index += 1
     manifest = dict(schemaVersion=1, package='@bloxwap/font', version=VERSION,
                     license='OFL-1.1', generator=GENERATOR, faces=faces)
-    for group, families in NATIVE_GROUPS.items():
-        package_dir = native_root / group
-        package_dir.mkdir(parents=True, exist_ok=True)
-        shutil.copyfile(ROOT.parents[1] / 'LICENSE', package_dir / 'LICENSE')
+    native_root.mkdir(parents=True, exist_ok=True)
+    (native_root / 'package.json').write_text('{"type":"commonjs"}\n')
+    for families in NATIVE_GROUPS.values():
         for family in families:
             entries = [f for f in native_faces if Path(f['path']).parent.name == family]
             if not entries:
                 continue
-            family_dir = package_dir / family
+            family_dir = native_root / family
             (family_dir / 'index.js').write_text('// Generated Metro asset map. Register before rendering.\nmodule.exports = {\n' +
                 ''.join(f'  "{f["registrationName"]}": require("./{Path(f["path"]).name}"),\n' for f in entries) + '};\n')
             (family_dir / 'index.d.ts').write_text('declare const faces: {\n' +

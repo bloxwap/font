@@ -178,13 +178,10 @@ def assets():
     DATA['npm']={k:pack.get(k) for k in ('unpackedSize','entryCount','size','files')}
     for key, value in [('npm_unpacked_bytes',pack['unpackedSize']),('npm_file_count',pack['entryCount'])]:
         DATA['metrics'].append(dict(stage=key,value=value,unit='bytes' if key.endswith('bytes') else 'files'))
-    DATA['npm_native']={}
-    for package_json in sorted((REPO/'packages/native').glob('*/package.json')):
-        package=json.loads(package_json.read_text())
-        native_pack=json.loads(capture(['npm','pack','--dry-run','--json','--ignore-scripts'],package_json.parent))[0]
-        DATA['npm_native'][package['name']]={k:native_pack.get(k) for k in ('unpackedSize','entryCount','size','files')}
-        for key,value,unit in [('unpacked_bytes',native_pack['unpackedSize'],'bytes'),('file_count',native_pack['entryCount'],'files')]:
-            DATA['metrics'].append(dict(stage=f"npm_native/{package['name']}/{key}",value=value,unit=unit))
+    native_files=[f for f in pack['files'] if f['path'].startswith('native/') and f['path'].endswith('.ttf')]
+    DATA['npm_native']={'unpacked_bytes':sum(f['size'] for f in native_files),'file_count':len(native_files)}
+    DATA['metrics'].append(dict(stage='npm_native_unpacked_bytes',value=DATA['npm_native']['unpacked_bytes'],unit='bytes'))
+    DATA['metrics'].append(dict(stage='npm_native_file_count',value=len(native_files),unit='files'))
     DATA['font_assets']={}
     for root in (FONT/'fonts',REPO/'apps/docs/public/fonts'):
         formats={}; faces=[]

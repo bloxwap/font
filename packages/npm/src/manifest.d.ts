@@ -1,8 +1,8 @@
 /** Content-addressed inventory of the built package. Scripts use ISO 15924 tags. */
 export interface FontFace {
- /** Native asset paths are package-qualified; web paths are relative to @bloxwap/font. */
+ /** All asset paths are relative to @bloxwap/font. */
  readonly path: string;
- readonly package?: `@bloxwap/font-native${string}`;
+ readonly package?: '@bloxwap/font';
  readonly family: string;
  readonly weight: number | readonly [number, number];
  readonly style: 'normal' | 'italic';

@@ -152,19 +152,18 @@ Keep the subset stylesheet and its `fonts/` directory together when self-hosting
 
 ## Expo / React Native
 
-Since 0.1.3, native TTFs ship in opt-in packages, separately from the web fonts:
+Since 0.1.4, web and native fonts for every script ship in one package:
 
 ```sh
-npm install @bloxwap/font-native
-# Add only the companion scripts your app needs, for example:
-npm install @bloxwap/font-native-kr
+npm install @bloxwap/font
 ```
 
-Use `require('@bloxwap/font-native/assets/BloxwapSans/BloxwapSans-Regular.ttf')`
-for one face, or `import faces from '@bloxwap/font-native/BloxwapSans'` for a complete
-family map. Script packages use the same structure, such as
-`@bloxwap/font-native-kr/BloxwapSansKR`. Other script suffixes are `-arabic`, `-hebrew`,
-`-armenian`, `-georgian`, `-jp` and `-sc`. All packages include the OFL-1.1 LICENSE.
+Use `require('@bloxwap/font/native/assets/BloxwapSans/BloxwapSans-Regular.ttf')`
+for one face, or `import faces from '@bloxwap/font/native/BloxwapSans'` for a complete
+family map. Script companions use the same package, such as
+`@bloxwap/font/native/BloxwapSansKR`. Direct asset imports bundle only selected fonts;
+npm installs the complete catalog. Replace the old `@bloxwap/font-native*` imports
+with `@bloxwap/font/native/…`. The package includes the OFL-1.1 LICENSE.
 Register the selected TTFs before rendering; see [Cross-platform typography](/docs/cross-platform)
 for exact registration names, accessibility guidance and source-checkout builds.
 

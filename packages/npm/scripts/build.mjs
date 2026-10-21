@@ -69,8 +69,6 @@ for (const face of faces) {
   }
 }
 for (const [key, rules] of groups) await writeFile(join(pkg, 'css', `${key}.css`), header(key) + rules.join('\n') + '\n');
-// Remove the old web-package layout; opt-in packages retain their hash-checked TTF cache.
-
 // Complete core entry points preserve the original self-hosting option and keep
 // every manifest web face addressable through a CSS export.
 for (const role of ['sans', 'mono', 'pixel']) {
@@ -78,6 +76,6 @@ for (const role of ['sans', 'mono', 'pixel']) {
     .map((face) => face.replace('.latin.woff2', '.woff2').replace(/\n  unicode-range: [^;]+;/, ''));
   await writeFile(join(pkg, 'css', `${role}-full.css`), header(`${role}: complete core fonts`) + complete.join('\n') + '\n');
 }
-await rm(join(pkg, 'native'), {recursive:true, force:true});
+// Keep native output for the source/output hash-checked cache in faces.py.
 const { execFileSync } = await import('node:child_process');
 execFileSync(process.env.FONT_PYTHON ?? 'python3', [join(pkg, 'scripts/faces.py')], {stdio:'inherit'});

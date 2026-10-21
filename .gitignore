@@ -40,11 +40,6 @@ ci-evidence/
 # Pinned HIG ownership checker checkout (tooling only)
 .hig/
 
-# Opt-in native package build output
-packages/native/*/Bloxwap*/
-packages/native/*/LICENSE
-packages/native/*/*.tgz
-
 # Local benchmark measurements
 bench/results/
 

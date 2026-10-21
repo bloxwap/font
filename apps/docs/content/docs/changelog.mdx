@@ -3,6 +3,11 @@ title: Changelog
 description: Release history of Bloxwap Font.
 ---
 
+## 0.1.4
+
+- **One npm package.** Web fonts, Next.js loaders, all native TTFs and every script companion now ship in `@bloxwap/font`. Native entries use `@bloxwap/font/native/<Family>` and `@bloxwap/font/native/assets/<Family>/<File>.ttf`. Direct asset imports bundle only selected fonts; npm installs the complete catalog. Font designs, web subsetting and native registration names are unchanged.
+- **Native package migration.** Separate `@bloxwap/font-native*` packages stop publishing. After the consolidated release is available, they are deprecated with migration instructions while remaining installable for existing apps.
+
 ## 0.1.3
 
 - **Static web fonts in release zips.** Removed 216 static WOFF2 files (66.15 MiB) from the repository and Pages output. Downloads list hosted variable WOFF2s and link to family zips for static fonts. Native packages verify dist inputs or pinned public release zips using a committed SHA-256 lock, with unchanged TTF bytes and source hashes.

@@ -1,7 +1,7 @@
 {
   "name": "@bloxwap/font",
-  "version": "0.1.3",
-  "description": "Bloxwap Sans, Mono and Pixel: rounded variable web fonts with Arabic, Hebrew, Armenian, Georgian, Japanese, Korean and Chinese companions. next/font exports and a plain CSS stylesheet.",
+  "version": "0.1.4",
+  "description": "Bloxwap Sans, Mono and Pixel: variable web fonts and native TTFs for every script in one package. Selective CSS, Next.js loaders and typed Metro asset maps.",
   "type": "module",
   "license": "OFL-1.1",
   "author": "Bloxwap",
@@ -64,7 +64,12 @@
     "./manifest": {
       "types": "./src/manifest.d.ts",
       "default": "./manifest.json"
-    }
+    },
+    "./native/*": {
+      "types": "./native/*/index.d.ts",
+      "default": "./native/*/index.js"
+    },
+    "./native/assets/*": "./native/*"
   },
   "files": [
     "src",
@@ -75,7 +80,8 @@
     "LICENSE",
     "README.md",
     "css",
-    "manifest.json"
+    "manifest.json",
+    "native"
   ],
   "scripts": {
     "build": "node scripts/build.mjs",

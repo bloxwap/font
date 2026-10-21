@@ -56,17 +56,17 @@ Core CSS keeps all Latin coverage (including Latin Extended, IPA and Vietnamese)
 
 One family name covers every script: the stylesheet loads companions with `unicode-range` only when a page uses them. Downloads: [latest release](https://github.com/bloxwap/font/releases/latest). Self-hosting: [Installation](https://bloxwap.github.io/font/docs/installation/).
 
-For Expo and React Native, use the opt-in packages (0.1.3 and later):
+Expo and React Native use the same `@bloxwap/font` package (0.1.4 and later):
 
-```sh
-npm install @bloxwap/font-native
-# Add script companions only when needed, for example @bloxwap/font-native-jp.
+```js
+const regular = require('@bloxwap/font/native/assets/BloxwapSans/BloxwapSans-Regular.ttf');
+const japanese = require('@bloxwap/font/native/assets/BloxwapSansJP/BloxwapSansJP-Regular.ttf');
 ```
 
-Import selected TTFs from `@bloxwap/font-native/assets/BloxwapSans/BloxwapSans-Regular.ttf`
-or a complete family map from `@bloxwap/font-native/BloxwapSans`. See
-[Cross-platform typography](https://bloxwap.github.io/font/docs/cross-platform/) for registration.
-The web package includes the full manifest; native binaries ship in the opt-in packages.
+Import selected TTFs to bundle only the faces you use, or a complete family map from
+`@bloxwap/font/native/BloxwapSans`. npm installs the full catalog; selective imports
+control application bundle size. See [Cross-platform typography](https://bloxwap.github.io/font/docs/cross-platform/)
+for registration and migration from the former `@bloxwap/font-native*` packages.
 
 ## Release status
 
@@ -78,7 +78,7 @@ Guides, glyph charts, and the type tester: **https://bloxwap.github.io/font/**
 
 ## Development
 
-This repository is a workspace: the type design and build tools live in [`packages/font`](packages/font), the `@bloxwap/font` npm package in [`packages/npm`](packages/npm), opt-in native packages in [`packages/native`](packages/native), and the documentation site in [`apps/docs`](apps/docs).
+This repository is a workspace: the type design and build tools live in [`packages/font`](packages/font), the single `@bloxwap/font` npm package with web and native assets in [`packages/npm`](packages/npm), and the documentation site in [`apps/docs`](apps/docs).
 
 ```sh
 bun install

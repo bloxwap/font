@@ -4,6 +4,7 @@ const html = await readFile(new URL('./out/index.html',import.meta.url),'utf8');
 const preloads = [...html.matchAll(/<link[^>]+rel="preload"[^>]*>/g)].map(m=>m[0]).filter(s=>s.includes('as="font"'));
 assert.equal(preloads.length,2,'Only normal Sans/Mono should be preloaded');
 const files=await readdir(new URL('./out/_next/static/media/',import.meta.url));
+assert.ok(!files.some(name=>name.endsWith('.ttf')),'Web imports must not emit native font assets');
 assert.ok(files.some(name=>name.includes('BloxwapSans') && !name.includes('Italic')));
 assert.ok(files.some(name=>name.includes('BloxwapMono') && !name.includes('Italic')));
 console.log('Next recipe export: two primary normal preloads; both font families emitted');

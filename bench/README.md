@@ -38,7 +38,7 @@ packages/font/.venv/bin/python bench/bench.py report
 The `docs` command retains the native TTF cache for `npm_build` and `npm_pack`. To measure cold native generation separately, remove only the generated family directories, then time a build and its warm repeat:
 
 ```bash
-rm -rf packages/native/*/Bloxwap*
+rm -rf packages/npm/native/Bloxwap*
 export FONT_PYTHON="$PWD/packages/font/.venv/bin/python"
 time node packages/npm/scripts/build.mjs
 time node packages/npm/scripts/build.mjs
@@ -48,7 +48,7 @@ Build regenerates `packages/font/sources`, `build`, `fonts`, and `apps/docs/publ
 
 Wall time uses `perf_counter`. CPU is delta self plus children user+system time; `children_cpu_seconds` separately gives total CPU consumed by reaped descendants (including the parallel static compilers). RSS fields are Linux KiB: `ru_maxrss` is a lifetime high-water mark, not a stage delta or summed concurrent memory. For an in-process stage, self RSS is relevant and child RSS may describe earlier commands. Per-file timings remain in raw JSON; summaries sum files within each run, then compute run median/min/max (RSS uses max). Profile static TTF launches one cProfile per xargs compiler and merges their stats. Profiles require generated inputs for variable/static stages and overwrite the corresponding compilation outputs.
 
-`assets` measures `npm_unpacked_bytes` and `npm_file_count` for the web package `@bloxwap/font`, and `npm_native/<package>/unpacked_bytes` plus file counts for each opt-in native package. All pack measurements use `--ignore-scripts`; assemble packages first with `FONT_PYTHON="$PWD/packages/font/.venv/bin/python" node packages/npm/scripts/build.mjs`.
+`assets` measures `npm_unpacked_bytes` and `npm_file_count` for the single `@bloxwap/font` package, plus `npm_native_unpacked_bytes` and `npm_native_file_count` for its included native TTFs. All pack measurements use `--ignore-scripts`; assemble packages first with `FONT_PYTHON="$PWD/packages/font/.venv/bin/python" node packages/npm/scripts/build.mjs`.
 
 Assets use shipped public fonts when no distribution fonts exist, report both trees separately, and never rebuild npm. A previously unassembled npm package can therefore have fewer files than a package built by `docs`. Table sizes are decoded, uncompressed SFNT lengths. The Google Fonts Latin subset preserves hinting, layout features `*`, and variations, and is saved in the results directory. Latin page bytes describe the shipped core Sans upright and italic Latin subset files referenced by the catalog CSS, falling back to full variable files when subsets are absent. The separate Google Fonts experiment does not represent the shipped Latin subset. Sizes are filesystem bytes, without HTTP overhead. CSS entries also report deterministic gzip sizes (level 9, mtime=0) and font-face counts.
 

@@ -3,7 +3,7 @@ title: Cross-platform typography
 description: Pin font assets, select web scripts, use Next.js and register static React Native faces.
 ---
 
-This recipe supplies the font assets for [HIG typography #7](https://github.com/bloxwap/hig/issues/7). HIG owns the approved semantic type roles and consumer certification. Font supplies the binary faces and registration names. The entries below ship in **0.1.3**; 0.1.2 on npm does not include them.
+This recipe supplies the font assets for [HIG typography #7](https://github.com/bloxwap/hig/issues/7). HIG owns the approved semantic type roles and consumer certification. Font supplies the binary faces and registration names. Selective CSS and the manifest ship in **0.1.3**. The consolidated native entries below ship in **0.1.4**.
 
 ## Pin and inspect
 
@@ -15,10 +15,8 @@ packages/font/.venv/bin/pip install 'fonttools[woff,unicode]==4.66.1' 'brotli==1
 export FONT_PYTHON="$PWD/packages/font/.venv/bin/python"
 cd packages/npm
 npm pack
-# For native, also pack the required opt-in packages from the same checkout.
-cd ../native/core
-npm pack
-# In your application, install the resulting local/CI artifact tarballs.
+# The same tarball contains web and native fonts for all scripts.
+# In your application, install the resulting local/CI artifact tarball.
 ```
 
 ```ts
@@ -28,7 +26,7 @@ import manifest from '@bloxwap/font/manifest';
 // byte count, SHA-256, axes, and static face registrationName/source hash.
 ```
 
-The built manifest in `@bloxwap/font` includes every WOFF2 and static TTF. Web paths are relative to `@bloxwap/font`; native entries include a `package` field and a package-qualified asset import path such as `@bloxwap/font-native/assets/BloxwapSans/BloxwapSans-Regular.ttf`. Native TTFs ship only in opt-in packages; the web package stays below its 20 MB unpacked size budget. Package version and internal font version are distinct: the existing binaries report Version 1.000. The packaging tests verify files, hashes, Unicode coverage, family names and actual binary metadata. Packaging uses a process pool with one worker per CPU and memoized file hashes. Repeated builds reuse native targets only when the manifest source hashes, package version and existing TTF hash match. Native TTFs decode the hash-pinned named static WOFF2 release sources, preserving glyph outlines, metrics and hinting. Their registration metadata normalizes the published weight tiers (for example, an approximate source class 608 becomes 600); the manifest retains sourceWeight. The existing Pixel static faces use ROND 50. Sources, glyph design and existing variable binaries stay unchanged. Font generation provenance lives in [Building](/docs/building); all assets retain the [SIL OFL 1.1](/docs/license).
+The built manifest in `@bloxwap/font` includes every WOFF2 and static TTF. All paths are relative to `@bloxwap/font`; native entries also identify `@bloxwap/font` in their `package` field. A manifest path such as `native/BloxwapSans/BloxwapSans-Regular.ttf` is imported through `@bloxwap/font/native/assets/BloxwapSans/BloxwapSans-Regular.ttf`. Since 0.1.4, the single package includes every native TTF and web font. npm installs the full catalog, while direct asset and selective CSS imports limit the application bundle. Package version and internal font version are distinct: the existing binaries report Version 1.000. The packaging tests verify files, hashes, Unicode coverage, family names and actual binary metadata. Packaging uses a process pool with one worker per CPU and memoized file hashes. Repeated builds reuse native targets only when the manifest source hashes, package version and existing TTF hash match. Native TTFs decode the hash-pinned named static WOFF2 release sources, preserving glyph outlines, metrics and hinting. Their registration metadata normalizes the published weight tiers (for example, an approximate source class 608 becomes 600); the manifest retains sourceWeight. The existing Pixel static faces use ROND 50. Sources, glyph design and existing variable binaries stay unchanged. Font generation provenance lives in [Building](/docs/building); all assets retain the [SIL OFL 1.1](/docs/license).
 
 ## Web: load only the roles and scripts you use
 
@@ -73,26 +71,22 @@ For a strict script budget, import the selective CSS entries in the root layout 
 
 ## Expo / React Native
 
-Install the core package for Sans, Mono and Pixel, plus only the companion scripts your app uses:
+Install the single package for every web and native family:
 
 ```sh
-npm install @bloxwap/font-native
-# Optional example: Arabic Sans and Mono companions
-npm install @bloxwap/font-native-arabic
+npm install @bloxwap/font
 ```
 
-| Package | Families |
-| --- | --- |
-| `@bloxwap/font-native` | BloxwapSans, BloxwapMono, BloxwapPixel |
-| `@bloxwap/font-native-arabic` | BloxwapSansArabic, BloxwapMonoArabic |
-| `@bloxwap/font-native-hebrew` | BloxwapSansHebrew, BloxwapMonoHebrew |
-| `@bloxwap/font-native-armenian` | BloxwapSansArmenian, BloxwapMonoArmenian |
-| `@bloxwap/font-native-georgian` | BloxwapSansGeorgian, BloxwapMonoGeorgian |
-| `@bloxwap/font-native-jp` | BloxwapSansJP, BloxwapMonoJP |
-| `@bloxwap/font-native-kr` | BloxwapSansKR, BloxwapMonoKR |
-| `@bloxwap/font-native-sc` | BloxwapSansSC, BloxwapMonoSC |
+All core and companion families are included: Sans, Mono and Pixel, plus Sans/Mono
+Arabic, Hebrew, Armenian, Georgian, Japanese, Korean and Simplified Chinese.
+Use `@bloxwap/font/native/<Family>` for a typed Metro family map, or
+`@bloxwap/font/native/assets/<Family>/<File>.ttf` for one face.
 
-All packages use the same version and include the OFL-1.1 LICENSE. This pre-1.0 move replaces the unpublished candidate native imports under the web package; no compatibility shim is provided. Registration names and TTF bytes are unchanged.
+Migrating from 0.1.3: replace both `@bloxwap/font-native/…` and
+`@bloxwap/font-native-<script>/…` with `@bloxwap/font/native/…`. Remove the old
+packages from your dependencies. Registration names remain unchanged. The former
+packages are deprecated after the consolidated release is available; existing versions
+remain installable.
 
 WOFF2 is a web asset. Native uses the generated static TTFs. Each face has a unique embedded family and PostScript name, identical to its registration key. Choose weight/style by changing the key, retaining native font scaling:
 
@@ -103,10 +97,10 @@ import { Text } from 'react-native';
 // Register just the selected faces, before rendering content.
 export async function registerFonts() {
   await Font.loadAsync({
-  'BloxwapSans-Regular': require('@bloxwap/font-native/assets/BloxwapSans/BloxwapSans-Regular.ttf'),
-  'BloxwapSans-SemiBold': require('@bloxwap/font-native/assets/BloxwapSans/BloxwapSans-SemiBold.ttf'),
-  'BloxwapSans-RegularItalic': require('@bloxwap/font-native/assets/BloxwapSans/BloxwapSans-RegularItalic.ttf'),
-  'BloxwapMono-Regular': require('@bloxwap/font-native/assets/BloxwapMono/BloxwapMono-Regular.ttf'),
+  'BloxwapSans-Regular': require('@bloxwap/font/native/assets/BloxwapSans/BloxwapSans-Regular.ttf'),
+  'BloxwapSans-SemiBold': require('@bloxwap/font/native/assets/BloxwapSans/BloxwapSans-SemiBold.ttf'),
+  'BloxwapSans-RegularItalic': require('@bloxwap/font/native/assets/BloxwapSans/BloxwapSans-RegularItalic.ttf'),
+  'BloxwapMono-Regular': require('@bloxwap/font/native/assets/BloxwapMono/BloxwapMono-Regular.ttf'),
   });
 }
 
@@ -117,9 +111,9 @@ export function Label() {
 }
 ```
 
-Use the exact manifest registrationName as the key (for italic, register `BloxwapSans-RegularItalic` under that same name). Do not set `fontWeight` or `fontStyle` alongside the unique family, as platform font matching may substitute or synthesize a face. The per-file `@bloxwap/font-native/assets/*` entry above lets Metro bundle only chosen faces. Convenient typed `@bloxwap/font-native/BloxwapSans` and other per-family maps contain Metro `require()` asset IDs for every weight in that family; importing a complete map adds all of those files to the native bundle even if only some are registered. Nine weights, 100–900, use Thin, ExtraLight, Light, Regular, Medium, SemiBold, Bold, ExtraBold and Black; available italics append Italic. Bare RN must register/package these dependency TTFs through its asset pipeline; on iOS list the chosen files in UIAppFonts, then use the embedded PostScript names. Do not copy source binaries into each repository.
+Use the exact manifest registrationName as the key (for italic, register `BloxwapSans-RegularItalic` under that same name). Do not set `fontWeight` or `fontStyle` alongside the unique family, as platform font matching may substitute or synthesize a face. The per-file `@bloxwap/font/native/assets/*` entry above lets Metro bundle only chosen faces. Convenient typed `@bloxwap/font/native/BloxwapSans` and other per-family maps contain Metro `require()` asset IDs for every weight in that family; importing a complete map adds all of those files to the native bundle even if only some are registered. Nine weights, 100–900, use Thin, ExtraLight, Light, Regular, Medium, SemiBold, Bold, ExtraBold and Black; available italics append Italic. Bare RN must register/package these dependency TTFs through its asset pipeline; on iOS list the chosen files in UIAppFonts, then use the embedded PostScript names. Do not copy source binaries into each repository.
 
-For a complete family map, use `import faces from '@bloxwap/font-native/BloxwapSans'`. Companion imports use their script package, for example `import arabic from '@bloxwap/font-native-arabic/BloxwapSansArabic'` or `require('@bloxwap/font-native-arabic/assets/BloxwapSansArabic/BloxwapSansArabic-Regular.ttf')`.
+For a complete family map, use `import faces from '@bloxwap/font/native/BloxwapSans'`. Companion imports use the same package, for example `import arabic from '@bloxwap/font/native/BloxwapSansArabic'` or `require('@bloxwap/font/native/assets/BloxwapSansArabic/BloxwapSansArabic-Regular.ttf')`.
 
 Companion maps use `BloxwapSansArabic`, `BloxwapSansHebrew`, `BloxwapSansArmenian`, `BloxwapSansGeorgian`, `BloxwapSansJP`, `BloxwapSansKR`, `BloxwapSansSC` and matching Mono names. Native has no CSS fallback list: select the locale family, split mixed-script runs when necessary, and preserve system fallback for unsupported glyphs. Arabic/Hebrew/CJK have normal faces only. Pixel maps pin roundness to 50.
 
