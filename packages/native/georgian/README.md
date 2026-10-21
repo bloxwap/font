@@ -1,6 +1,6 @@
 # @bloxwap/font-native-georgian
 
-Opt-in native static TTFs for BloxwapSansGeorgian, BloxwapMonoGeorgian. This is the 0.1.3 candidate; these native assets have not previously been published. Web fonts are available separately in `@bloxwap/font`.
+Opt-in native static TTFs for BloxwapSansGeorgian, BloxwapMonoGeorgian. First published in 0.1.3. Web fonts are available separately in `@bloxwap/font`.
 
 ```sh
 npm install @bloxwap/font-native-georgian

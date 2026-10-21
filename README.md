@@ -56,7 +56,7 @@ Core CSS keeps all Latin coverage (including Latin Extended, IPA and Vietnamese)
 
 One family name covers every script: the stylesheet loads companions with `unicode-range` only when a page uses them. Downloads: [latest release](https://github.com/bloxwap/font/releases/latest). Self-hosting: [Installation](https://bloxwap.github.io/font/docs/installation/).
 
-For Expo and React Native, the 0.1.3 candidate uses opt-in packages:
+For Expo and React Native, use the opt-in packages (0.1.3 and later):
 
 ```sh
 npm install @bloxwap/font-native
