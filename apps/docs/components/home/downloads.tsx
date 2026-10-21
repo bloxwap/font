@@ -26,6 +26,7 @@ function DownloadCard({ meta }: { meta: FamilyMeta }) {
         ? <li key={fmt}><span>{LABEL[fmt]}</span><span>{group.count} file{group.count === 1 ? '' : 's'} · {fmtBytes(group.bytes)}</span></li>
         : <li key={fmt} className="na"><span>{LABEL[fmt]}</span><span>—</span></li>;
     })}</ul>
+    {meta.files.zip && <p>Static web fonts are included in the family zip.</p>}
     {meta.files.web.length > 0 && <WebFonts id={meta.id} count={meta.files.web.length} />}
     {zip
       ? <a className="hig-button btn" data-intent="secondary" href={downloadUrl(zip.path)} download><Download aria-hidden="true" /> Download {shortName(meta.name)} <span className="btn-meta">{fmtBytes(zip.bytes)}</span></a>

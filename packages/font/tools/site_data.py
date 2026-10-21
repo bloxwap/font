@@ -663,10 +663,20 @@ def files_of(stem: str) -> dict:
     """Formats in the dist (fonts/<PS>/<fmt>) plus web files and zips already in apps/docs/public.
 
     Paths are relative to the website root (apps/docs/public), without a leading slash."""
+    # A metadata-only refresh can use hosted VFs without local dist or release zips.
+    # Keep their published download inventories until a rebuild replaces them.
+    previous = {}
+    for fid, ps, _, _ in FAMILIES:
+        prior = DATA / f"{fid}.json"
+        if ps == stem and prior.is_file():
+            previous = json.loads(prior.read_text()).get("files", {})
+            break
     formats = {}
     for fmt in FORMATS:
         d = ROOT / "fonts" / stem / fmt
         if not d.is_dir():
+            if fmt in previous.get("formats", {}):
+                formats[fmt] = previous["formats"][fmt]
             continue
         files = sorted(p for p in d.iterdir() if p.is_file() and not p.name.startswith("."))
         formats[fmt] = {
@@ -675,7 +685,7 @@ def files_of(stem: str) -> dict:
             "files": [{"name": p.name, "bytes": p.stat().st_size} for p in files],
         }
     web = []
-    for sub in ("variable", "woff2"):
+    for sub in ("variable",):
         d = PUBLIC / "fonts" / stem / sub
         if not d.is_dir():
             continue
@@ -683,7 +693,7 @@ def files_of(stem: str) -> dict:
             web.append({"path": p.relative_to(PUBLIC).as_posix(), "name": p.name, "bytes": p.stat().st_size,
                         "variable": sub == "variable"})
     z = PUBLIC / "downloads" / f"{stem}.zip"
-    zip_info = {"path": z.relative_to(PUBLIC).as_posix(), "bytes": z.stat().st_size} if z.is_file() else None
+    zip_info = {"path": z.relative_to(PUBLIC).as_posix(), "bytes": z.stat().st_size} if z.is_file() else previous.get("zip")
     return {"formats": formats, "web": web, "zip": zip_info}
 
 
@@ -940,7 +950,7 @@ def main(argv=None) -> int:
     (DATA / "languages.json").write_text(json.dumps(languages, ensure_ascii=False, separators=(",", ":")),
                                          encoding="utf-8")
     allzip = PUBLIC / "downloads" / "Bloxwap-Fonts.zip"
-    index["zip"] = {"path": "downloads/Bloxwap-Fonts.zip", "bytes": allzip.stat().st_size} if allzip.is_file() else None
+    index["zip"] = {"path": "downloads/Bloxwap-Fonts.zip", "bytes": allzip.stat().st_size} if allzip.is_file() else old.get("zip")
     (DATA / "index.json").write_text(json.dumps(index, ensure_ascii=False, indent=1), encoding="utf-8")
     if not index["families"]:
         warn("no families found; the website will show placeholders")

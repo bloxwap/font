@@ -27,7 +27,7 @@ test('home payload stays below 250 KB and feature details load without resetting
   expect(familyRequests).toHaveLength(1);
 });
 
-test('expanding web fonts loads the complete file list once from public JSON', async ({ page, request }) => {
+test('expanding web fonts loads the variable file list and release zip once from public JSON', async ({ page, request }) => {
   const response = await request.get(new URL('data/sans.json', live!).href);
   const data = await response.json();
   let requests = 0;
@@ -38,7 +38,10 @@ test('expanding web fonts loads the complete file list once from public JSON', a
   await expect(details.locator('a')).toHaveCount(0);
   await details.locator('summary').click();
   await expect(details.locator('li a')).toHaveCount(data.files.web.length);
+  await expect(details.getByRole('link', { name: 'Static web fonts in the family zip' })).toHaveAttribute('href', 'https://github.com/bloxwap/font/releases/latest/download/BloxwapSans.zip');
   for (const file of data.files.web) {
+    expect(file.variable).toBe(true);
+    expect(file.path).toContain('/variable/');
     const link = details.getByRole('link', { name: file.name, exact: true });
     await expect(link).toHaveAttribute('href', new RegExp(file.path.split('/').map(encodeURIComponent).join('/').replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
   }

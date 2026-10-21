@@ -68,6 +68,10 @@ jobs:
     timeout-minutes: 45
     steps:
       - uses: actions/checkout@v7
+      # Public release downloads need no auth; a per-run temp cache avoids GitHub cache saves.
+      - name: Static source cache location
+        working-directory: .
+        run: echo "BLOXWAP_STATIC_SOURCES_CACHE=$RUNNER_TEMP/font-static-sources-$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT" >> "$GITHUB_ENV"
       - name: Require Homebrew Python 3.13
         run: .github/scripts/macos-python313.sh
       # No cache: npm. Persistent minis already keep bun/npm stores on disk;
@@ -82,8 +86,11 @@ jobs:
       - run: python -m pip install 'fonttools[woff,unicode]==4.66.1' 'brotli==1.2.0'
       # Do not save generated fonts with actions/cache: generate is ~1 min, but
       # GitHub cache save of this tree has taken 41–887s on these minis.
+      # Fetch public, hash-pinned family zips only when dist sources are absent.
+      # Use job-local storage without a GitHub cache save.
       - name: Generate package fonts
         run: node packages/npm/scripts/build.mjs
+      # Tests read the same verified zip sources.
       - run: npm test --prefix packages/npm
       - run: cd apps/next-fixture && bun run check && bun run build && node check-export.mjs
       - name: Check the packed distribution

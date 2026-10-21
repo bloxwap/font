@@ -47,3 +47,6 @@ packages/native/*/*.tgz
 
 # Local benchmark measurements
 bench/results/
+
+# Static web fonts ship only in release zips, never in Pages.
+apps/docs/public/fonts/*/woff2/

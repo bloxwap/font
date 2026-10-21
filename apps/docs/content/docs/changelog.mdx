@@ -5,6 +5,8 @@ description: Release history of Bloxwap Font.
 
 ## 0.1.3
 
+- **Static web fonts in release zips.** Removed 216 static WOFF2 files (66.15 MiB) from the repository and Pages output. Downloads list hosted variable WOFF2s and link to family zips for static fonts. Native packages verify dist inputs or pinned public release zips using a committed SHA-256 lock, with unchanged TTF bytes and source hashes.
+
 - **Opt-in native packages.** Static TTFs and typed Metro family maps move to `@bloxwap/font-native` for Sans, Mono and Pixel, with separate Arabic, Hebrew, Armenian, Georgian, Japanese, Korean and Simplified Chinese packages. Native registration names and TTF bytes are unchanged. Each package includes the OFL-1.1 LICENSE.
 - **Smaller web installs.** `@bloxwap/font` ships web assets and the complete manifest, whose native entries now include their package and asset import path. A package test enforces a 20 MB unpacked budget and excludes native files. The unpublished candidate native exports are replaced by the opt-in packages.
 - **Faster package builds.** Static face generation runs in a process pool, memoizes file hashes and reuses existing TTFs when both source hashes and the output hash match. Unchanged local packs reuse the same cache.

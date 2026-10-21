@@ -12,6 +12,8 @@ TAG=${1:-v$(node -p "require('./packages/npm/package.json').version")}
 shopt -s nullglob
 ZIPS=(apps/docs/public/downloads/*.zip)
 [ ${#ZIPS[@]} -gt 0 ] || { echo "no zips in apps/docs/public/downloads — run bun run fonts:build first"; exit 1; }
+# Refresh before upload so the lock can be reviewed and committed with rebuilt fonts.
+"${FONT_PYTHON:-packages/font/.venv/bin/python}" packages/npm/scripts/static_sources.py lock --tag "$TAG"
 if gh release view "$TAG" >/dev/null 2>&1; then
   gh release upload "$TAG" "${ZIPS[@]}" --clobber
 else

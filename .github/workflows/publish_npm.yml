@@ -1,7 +1,7 @@
 name: Publish to npm
 
 # Publishes @bloxwap/font and the opt-in native packages at their shared version when a GitHub release is
-# published, or on demand. One build assembles every package from the committed web fonts in apps/docs/public.
+# published, or on demand. One build uses committed variable web fonts and hash-pinned public release zips.
 #
 # npm trusted publishing does not support self-hosted runners
 # (https://docs.npmjs.com/trusted-publishers/). This job authenticates with the
@@ -32,6 +32,10 @@ jobs:
       NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
       - uses: actions/checkout@v7
+      # Public release downloads need no auth; a per-run temp cache avoids GitHub cache saves.
+      - name: Static source cache location
+        working-directory: .
+        run: echo "BLOXWAP_STATIC_SOURCES_CACHE=$RUNNER_TEMP/font-static-sources-$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT" >> "$GITHUB_ENV"
       # Keep npm new enough for the same CLI surface we already validate.
       - uses: actions/setup-node@v7
         with:

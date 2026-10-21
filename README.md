@@ -85,6 +85,8 @@ bun run fonts:build     # build every family into packages/font/fonts and the we
 bun run dev             # docs and type tester at http://localhost:3904
 ```
 
+Static web fonts ship in the per-family release zips; Pages and Git track only variable WOFF2s. Native package builds verify local dist sources or download hash-pinned public release zips using `packages/npm/static-sources.json`. Commit that lock with font rebuilds, as described in [Building from source](apps/docs/content/docs/building.mdx).
+
 Requires Bun. Font build requires Python 3.12 or newer and depends on [fontmake](https://github.com/googlefonts/fontmake), [fonttools](https://github.com/fonttools/fonttools), and [uv](https://docs.astral.sh/uv/).
 
 With the docs running, check glyph copy identity, accessible control names, keyboard access, replacement fonts and text-spacing reflow:
