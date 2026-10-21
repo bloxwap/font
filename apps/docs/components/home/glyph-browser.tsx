@@ -11,7 +11,7 @@ import { fontStack, instanceName } from '@/lib/families';
 import { fmtNum, hex } from '@/lib/format';
 import { glyphKey, glyphLabel, glyphText, glyphVariants } from '@/lib/glyph-text';
 import { loadGlyphs, sendToTester, useAsync } from '@/lib/client-data';
-import type { FamilyMeta, Glyph } from '@/lib/types';
+import type { GlyphFamily, Glyph } from '@/lib/types';
 
 /** Cells rendered per page; CJK fonts have tens of thousands of glyphs, so the grid grows on demand. */
 const PAGE = 480;
@@ -45,7 +45,7 @@ function matches(g: Glyph, q: string): boolean {
 }
 
 /** Search, filter and inspect every glyph in a family, with metric guides drawn from the font's own metrics. */
-export function GlyphBrowser({ families, initial = 'sans', eyebrow = '05 — Glyphs' }: { families: FamilyMeta[]; initial?: string; eyebrow?: string | null }) {
+export function GlyphBrowser({ families, initial = 'sans', eyebrow = '05 — Glyphs' }: { families: GlyphFamily[]; initial?: string; eyebrow?: string | null }) {
   const byId = useMemo(() => new Map(families.map((f) => [f.id, f])), [families]);
   const [familyId, setFamilyId] = useState(byId.has(initial) ? initial : families[0]?.id ?? 'sans');
   const meta = byId.get(familyId);
@@ -134,7 +134,7 @@ export function GlyphBrowser({ families, initial = 'sans', eyebrow = '05 — Gly
     <header className="sec-head sec-head-row">
       <div>
         {eyebrow && <p className="eyebrow">{eyebrow}</p>}
-        <h2 id={eyebrow ? 'glyphs-title' : undefined}>{meta ? <NumberFlow value={meta.counts.glyphs} locales="en-US" /> : 'All'} glyphs</h2>
+        <h2 id={eyebrow ? 'glyphs-title' : undefined}>{meta ? <NumberFlow value={meta.glyphCount} locales="en-US" /> : 'All'} glyphs</h2>
       </div>
       <FamilyPicker label="Glyph browser typeface" families={families} value={familyId} onChange={(id) => { setFamilyId(id); setSelKey(null); }} />
     </header>
@@ -190,7 +190,7 @@ export function GlyphBrowser({ families, initial = 'sans', eyebrow = '05 — Gly
 }
 
 function Inspector({ meta, glyph, wght, stack, pixel, onCopy, onTry, weightControl }: {
-  meta: FamilyMeta | undefined; glyph: Glyph | undefined; wght: number; stack: string; pixel: boolean;
+  meta: GlyphFamily | undefined; glyph: Glyph | undefined; wght: number; stack: string; pixel: boolean;
   onCopy: () => void; onTry: () => void; weightControl: ReactNode;
 }) {
   const glyphRef = useRef<HTMLSpanElement>(null);

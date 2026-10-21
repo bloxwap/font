@@ -5,7 +5,8 @@
  */
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import type { CatalogEntry, FamilyData, FamilyMeta, FontIndex } from './types';
+import { coverageHighlights } from './coverage';
+import type { CatalogEntry, FamilyData, FamilyMeta, FamilyOption, FeatureSummary, FontIndex, GlyphFamily, LanguageFamily, TesterFamily, WeightInstance } from './types';
 
 const DATA = join(process.cwd(), 'public', 'data');
 const cache = new Map<string, unknown>();
@@ -49,7 +50,7 @@ export function getReadyFamilies(): FamilyData[] {
     .sort((a, b) => rank(a.id) - rank(b.id));
 }
 
-/** The trimmed shape the home page's client components receive. */
+/** Server-side metadata shared by cards, downloads and the widget projections below. */
 export function toMeta(data: FamilyData): FamilyMeta {
   return {
     id: data.id, name: data.cssFamily, ps: data.fileStem, style: data.style,
@@ -62,6 +63,44 @@ export function toMeta(data: FamilyData): FamilyMeta {
 }
 
 export function getMetas(): FamilyMeta[] { return getReadyFamilies().map(toMeta); }
+
+function familyOption(meta: FamilyMeta): FamilyOption {
+  return { id: meta.id, name: meta.name, style: meta.style, companion: meta.companion };
+}
+
+function weightInstances(meta: FamilyMeta): WeightInstance[] {
+  return meta.instances.map((i): WeightInstance => ({ name: i.name, coords: i.coords.wght == null ? {} : { wght: i.coords.wght } }));
+}
+
+export function toTesterFamilies(metas: FamilyMeta[]): TesterFamily[] {
+  // Companion families often share feature controls. Shared references let Flight send each list once.
+  const featureLists = new Map<string, FeatureSummary[]>();
+  return metas.map((meta) => {
+    const features = meta.features.map(({ tag, name, label }) => ({ tag, label: label || (name !== tag ? name : '') }));
+    const key = JSON.stringify(features);
+    if (!featureLists.has(key)) featureLists.set(key, features);
+    return {
+      ...familyOption(meta), hasItalic: meta.hasItalic,
+      axes: meta.axes.map(({ tag, min, default: value, max }) => ({ tag, min, default: value, max })),
+      instances: weightInstances(meta), features: featureLists.get(key)!,
+      languages: [...new Set(meta.locl.map((l) => l.lang))],
+      scripts: meta.companion ? meta.coverage.scripts.map((s) => s.script) : [],
+    };
+  });
+}
+
+export function toGlyphFamily(meta: FamilyMeta): GlyphFamily {
+  const { upm, ascender, descender, xHeight, capHeight } = meta.metrics;
+  return {
+    ...familyOption(meta), glyphCount: meta.counts.glyphs,
+    axes: meta.axes.map(({ tag, min, max }) => ({ tag, min, max })),
+    instances: weightInstances(meta), metrics: { upm, ascender, descender, xHeight, capHeight },
+  };
+}
+
+export function toLanguageFamily(meta: FamilyMeta): LanguageFamily {
+  return { ...familyOption(meta), highlights: coverageHighlights(meta) };
+}
 
 /** Read a file from public/ (OFL.txt, bloxwap-font.css) at build time. */
 export function readPublic(name: string): string | null {

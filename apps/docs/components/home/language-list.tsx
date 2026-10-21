@@ -11,8 +11,7 @@ import { toast } from '@/components/ui/toast';
 import { fontStack } from '@/lib/families';
 import { fmtNum } from '@/lib/format';
 import { loadFamily, loadLanguages, sendToTester, useAsync } from '@/lib/client-data';
-import type { FamilyMeta, Language } from '@/lib/types';
-import { coverageHighlights } from '@/lib/coverage';
+import type { LanguageFamily, Language } from '@/lib/types';
 
 /** Cards on the home page: two rows on desktop. The full lists live on /docs/language-support. */
 const SHOW = 10;
@@ -25,7 +24,7 @@ const bySpeakers = (a: Row, b: Row) => (b.speakers || 0) - (a.speakers || 0) || 
  * shown in the family that covers it) or one family: search, filter by script, click to try in the
  * tester, and a link to every language in the docs.
  */
-export function LanguageList({ families }: { families: FamilyMeta[] }) {
+export function LanguageList({ families }: { families: LanguageFamily[] }) {
   const [familyId, setFamilyId] = useState('all');
   const all = familyId === 'all';
   const meta = families.find((f) => f.id === familyId);
@@ -43,8 +42,8 @@ export function LanguageList({ families }: { families: FamilyMeta[] }) {
 
   const byId = useMemo(() => new Map(families.map((f) => [f.id, f])), [families]);
   const familyOf = (l: Language) => byId.get(all ? l.family ?? 'sans' : familyId);
-  const shortName = (f?: FamilyMeta) => f?.name.replace(/^Bloxwap /, '') ?? '';
-  const highlights = meta ? coverageHighlights(meta) : [];
+  const shortName = (f?: LanguageFamily) => f?.name.replace(/^Bloxwap /, '') ?? '';
+  const highlights = meta?.highlights ?? [];
   // Every match, flattened across scripts.
   const rows = useMemo<Row[]>(() => (langs?.scripts ?? []).filter((s) => !script || s.script === script).flatMap((s) =>
     s.languages.filter((l) => !debounced || l.name.toLowerCase().includes(debounced) || (l.autonym || '').toLowerCase().includes(debounced) || l.iso.includes(debounced))
