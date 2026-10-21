@@ -22,7 +22,7 @@ concurrency:
 jobs:
   publish:
     runs-on: [self-hosted, macOS, ARM64]
-    timeout-minutes: 15
+    timeout-minutes: 30
     permissions:
       contents: read
     defaults:
@@ -89,6 +89,33 @@ jobs:
       - name: Publish @bloxwap/font@${{ steps.version.outputs.value }}
         if: steps.exists.outputs.published != 'true'
         run: npm publish --ignore-scripts --loglevel verbose
+
+      # npm accepts uploads before its publish-time scan makes them installable.
+      # https://github.blog/changelog/2026-07-28-npm-publish-time-malware-scanning-and-dual-use-metadata/
+      - name: Wait for npm availability
+        run: |
+          node --input-type=module <<'JS'
+          import { readFile } from 'node:fs/promises';
+          import { setTimeout } from 'node:timers/promises';
+          const { name, version } = JSON.parse(await readFile('package.json', 'utf8'));
+          const url = `https://registry.npmjs.org/${encodeURIComponent(name)}/${version}`;
+          for (let attempt = 0; attempt < 60; attempt++) {
+            const response = await fetch(url, {
+              headers: { 'Cache-Control': 'no-cache' },
+              signal: AbortSignal.timeout(30_000),
+            });
+            if (response.ok) {
+              const published = await response.json();
+              if (published.version !== version) throw new Error('Unexpected package version');
+              console.log(`${name}@${version} is available on npm.`);
+              process.exit(0);
+            }
+            if (response.status !== 404) throw new Error(`Registry returned HTTP ${response.status}`);
+            console.log(`Waiting for ${name}@${version} to become available (${attempt + 1}/60).`);
+            await setTimeout(15_000);
+          }
+          throw new Error(`${name}@${version} is not available yet. Check its npm publish-time scan status.`);
+          JS
 
       # Migrate existing installs after the replacement version is available.
       # Deprecation keeps old releases installable and points users to one package.
