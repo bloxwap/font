@@ -64,12 +64,7 @@
     "./manifest": {
       "types": "./src/manifest.d.ts",
       "default": "./manifest.json"
-    },
-    "./native/*": {
-      "types": "./native/*/index.d.ts",
-      "default": "./native/*/index.js"
-    },
-    "./native/assets/*": "./native/*"
+    }
   },
   "files": [
     "src",
@@ -80,7 +75,6 @@
     "LICENSE",
     "README.md",
     "css",
-    "native",
     "manifest.json"
   ],
   "scripts": {

@@ -38,6 +38,7 @@
       "name": "@bloxwap/font-next-fixture",
       "dependencies": {
         "@bloxwap/font": "workspace:*",
+        "@bloxwap/font-native": "workspace:*",
         "next": "16.3.8",
         "react": "^19.2.0",
         "react-dom": "^19.2.0",
@@ -51,6 +52,38 @@
     "packages/font": {
       "name": "@bloxwap/font-source",
       "version": "1.0.0",
+    },
+    "packages/native/arabic": {
+      "name": "@bloxwap/font-native-arabic",
+      "version": "0.1.3",
+    },
+    "packages/native/armenian": {
+      "name": "@bloxwap/font-native-armenian",
+      "version": "0.1.3",
+    },
+    "packages/native/core": {
+      "name": "@bloxwap/font-native",
+      "version": "0.1.3",
+    },
+    "packages/native/georgian": {
+      "name": "@bloxwap/font-native-georgian",
+      "version": "0.1.3",
+    },
+    "packages/native/hebrew": {
+      "name": "@bloxwap/font-native-hebrew",
+      "version": "0.1.3",
+    },
+    "packages/native/jp": {
+      "name": "@bloxwap/font-native-jp",
+      "version": "0.1.3",
+    },
+    "packages/native/kr": {
+      "name": "@bloxwap/font-native-kr",
+      "version": "0.1.3",
+    },
+    "packages/native/sc": {
+      "name": "@bloxwap/font-native-sc",
+      "version": "0.1.3",
     },
     "packages/npm": {
       "name": "@bloxwap/font",
@@ -105,6 +138,22 @@
     "@bloxwap/font": ["@bloxwap/font@workspace:packages/npm"],
 
     "@bloxwap/font-docs": ["@bloxwap/font-docs@workspace:apps/docs"],
+
+    "@bloxwap/font-native": ["@bloxwap/font-native@workspace:packages/native/core"],
+
+    "@bloxwap/font-native-arabic": ["@bloxwap/font-native-arabic@workspace:packages/native/arabic"],
+
+    "@bloxwap/font-native-armenian": ["@bloxwap/font-native-armenian@workspace:packages/native/armenian"],
+
+    "@bloxwap/font-native-georgian": ["@bloxwap/font-native-georgian@workspace:packages/native/georgian"],
+
+    "@bloxwap/font-native-hebrew": ["@bloxwap/font-native-hebrew@workspace:packages/native/hebrew"],
+
+    "@bloxwap/font-native-jp": ["@bloxwap/font-native-jp@workspace:packages/native/jp"],
+
+    "@bloxwap/font-native-kr": ["@bloxwap/font-native-kr@workspace:packages/native/kr"],
+
+    "@bloxwap/font-native-sc": ["@bloxwap/font-native-sc@workspace:packages/native/sc"],
 
     "@bloxwap/font-next-fixture": ["@bloxwap/font-next-fixture@workspace:apps/next-fixture"],
 

@@ -1,9 +1,12 @@
 """Check real binary metadata, static instances, cmap and unchanged web sources."""
 import json
+import os
+from tempfile import TemporaryDirectory
 import unittest
 from pathlib import Path
 from fontTools.ttLib import TTFont
 from fontTools.unicodedata import script
+from faces import build, face_path
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -13,7 +16,7 @@ class BuiltFaces(unittest.TestCase):
         manifest = json.loads((ROOT / 'manifest.json').read_text())
         for face in manifest['faces']:
             with self.subTest(path=face['path']):
-                font = TTFont(ROOT / face['path'], recalcBBoxes=False)
+                font = TTFont(face_path(face), recalcBBoxes=False)
                 self.assertEqual(face['family'], font['name'].getDebugName(1))
                 self.assertEqual(face['version'], font['name'].getDebugName(5))
                 self.assertEqual(face['style'], 'italic' if font['OS/2'].fsSelection & 1 else 'normal')
@@ -49,6 +52,44 @@ class BuiltFaces(unittest.TestCase):
                     original = list((ROOT.parents[1] / 'apps/docs/public/fonts' / family / 'variable').glob('*'))
                     matches = [p for p in original if ('-Italic' in p.name) == (face['style'] == 'italic')]
                     self.assertEqual((ROOT / face['path']).read_bytes(), matches[0].read_bytes())
+
+
+class ParallelFaces(unittest.TestCase):
+    def test_parallel_bytes_and_hash_checked_cache(self):
+        # Exercise both a core italic and a large script face using isolated native outputs.
+        paths = [ROOT / 'fonts/BloxwapSans/BloxwapSans-Italic-Variable.woff2',
+                 ROOT / 'fonts/BloxwapSansKR/BloxwapSansKR-Variable.woff2']
+        with TemporaryDirectory() as temporary:
+            base = Path(temporary)
+            serial = build(workers=1, paths=paths, native_root=base / 'serial',
+                           manifest_path=base / 'serial.json')
+            parallel_manifest = base / 'parallel.json'
+            parallel_root = base / 'parallel'
+            parallel = build(workers=2, paths=paths, native_root=parallel_root,
+                             manifest_path=parallel_manifest)
+            self.assertEqual(serial, parallel)
+            targets = [face_path(f, parallel_root) for f in parallel['faces'] if f['format'] == 'ttf']
+            for target in targets:
+                os.utime(target, ns=(1_000_000_000, 1_000_000_000))
+            warm = build(workers=2, paths=paths, native_root=parallel_root,
+                         manifest_path=parallel_manifest)
+            self.assertEqual(parallel, warm)
+            self.assertTrue(all(p.stat().st_mtime_ns == 1_000_000_000 for p in targets))
+            # A corrupt target, missing target or changed source hash must each invalidate its entry.
+            targets[0].write_bytes(targets[0].read_bytes() + b'corrupt')
+            targets[1].unlink()
+            native_faces = [f for f in parallel['faces'] if f['format'] == 'ttf']
+            native_faces[2]['sourceSha256'] = 'stale'
+            parallel_manifest.write_text(json.dumps(parallel))
+            repaired = build(workers=2, paths=paths, native_root=parallel_root,
+                             manifest_path=parallel_manifest)
+            self.assertEqual(serial, repaired)
+            self.assertTrue(all(p.stat().st_mtime_ns != 1_000_000_000 for p in targets[:3]))
+            self.assertTrue(all(p.stat().st_mtime_ns == 1_000_000_000 for p in targets[3:]))
+            for face in repaired['faces']:
+                if face['format'] == 'ttf':
+                    self.assertEqual(face_path(face, parallel_root).read_bytes(),
+                                     face_path(face, base / 'serial').read_bytes())
 
 
 if __name__ == '__main__':

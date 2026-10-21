@@ -142,6 +142,24 @@ Preload the upright Sans file so text renders in Bloxwap Sans on first paint. Th
 <link rel="preload" href="/fonts/BloxwapSans[wght].woff2" as="font" type="font/woff2" crossorigin>
 ```
 
+## Expo / React Native
+
+The 0.1.3 candidate ships native TTFs in opt-in packages, separately from the web fonts:
+
+```sh
+npm install @bloxwap/font-native
+# Add only the companion scripts your app needs, for example:
+npm install @bloxwap/font-native-kr
+```
+
+Use `require('@bloxwap/font-native/assets/BloxwapSans/BloxwapSans-Regular.ttf')`
+for one face, or `import faces from '@bloxwap/font-native/BloxwapSans'` for a complete
+family map. Script packages use the same structure, such as
+`@bloxwap/font-native-kr/BloxwapSansKR`. Other script suffixes are `-arabic`, `-hebrew`,
+`-armenian`, `-georgian`, `-jp` and `-sc`. All packages include the OFL-1.1 LICENSE.
+Register the selected TTFs before rendering; see [Cross-platform typography](/docs/cross-platform)
+for exact registration names, accessibility guidance and source-checkout builds.
+
 ## Next.js
 
 With the npm package (Next.js 15 or later), import a family and add its class names. Each export comes from `next/font/local`, so Next.js self-hosts it and preloads the normal face (the italic, in the same family, downloads only when a page renders italic text); Sans and Mono include the script companions, downloaded only for text in those scripts:
