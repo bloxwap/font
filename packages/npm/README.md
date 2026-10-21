@@ -65,20 +65,43 @@ to that interpreter before `npm pack`. No glyph sources are changed by packaging
 
 - `@bloxwap/font/manifest`: every built face's path, weight, style, ISO 15924 scripts,
   internal font version, package version, bytes and SHA-256. Static faces include
-  their unique registration name and variable source hash.
+  their package, package-qualified asset import path, unique registration name and variable source hash.
 - `@bloxwap/font/css/{sans,mono,pixel}`: one role with its companions.
 - `@bloxwap/font/css/{sans,mono}-core` and `pixel-core`: core only.
 - `@bloxwap/font/css/{sans,mono}-{arabic,hebrew,armenian,georgian,jp,kr,sc}`:
   script only, retaining unicode-range and swap behavior.
-- `@bloxwap/font/native/assets/BloxwapSans/BloxwapSans-SemiBold.ttf`: direct
+- `@bloxwap/font-native/assets/BloxwapSans/BloxwapSans-SemiBold.ttf`: direct
   Metro `require()` entry for a chosen face, without bundling other weights.
-- `@bloxwap/font/native/BloxwapSans` (or another published family): typed Metro
+- `@bloxwap/font-native/BloxwapSans` (or another published family): typed Metro
   asset map, e.g. `faces['BloxwapSans-SemiBold']`. Maps bundle every face in that family; prefer direct entries for strict budgets.
   Register only selected TTFs;
   use their exact keys as fontFamily with no fontWeight/fontStyle override.
   Native TTFs decode committed static WOFF2s without changing glyphs or hinting;
   OS/2 registration weights normalize to named tiers, with sourceWeight retained.
   Static Pixel uses ROND 50. All nine weights and available italics are included.
+
+Native assets ship separately from the web package. Install only the packages you need:
+
+```sh
+npm install @bloxwap/font-native
+# Optional script companions, for example:
+npm install @bloxwap/font-native-jp
+```
+
+`@bloxwap/font-native` contains Sans, Mono and Pixel. Packages suffixed `-arabic`,
+`-hebrew`, `-armenian`, `-georgian`, `-jp`, `-kr` and `-sc` each contain that
+script's Sans and Mono families. Use `@bloxwap/font-native-jp/BloxwapSansJP` or
+`@bloxwap/font-native-jp/assets/BloxwapSansJP/BloxwapSansJP-Regular.ttf` for Japanese.
+All packages have matching versions and include LICENSE with `OFL-1.1` licensing.
+This pre-1.0 move replaces the unpublished candidate native exports under the web
+package, with unchanged registration names and TTF bytes and no compatibility shim.
+The web package retains the complete manifest and enforces a 20 MB unpacked budget.
+
+The shared build generates all packages in parallel using one process per CPU.
+Source and output hashes validate cached native TTFs, so unchanged builds and packs
+skip decoding and rewriting them. Run `FONT_PYTHON=../font/.venv/bin/python npm test`
+after building from `packages/npm`. For timings and pack sizes, see the repository's
+[benchmark harness](../../bench/README.md).
 
 Read [Cross-platform typography](https://bloxwap.github.io/font/docs/cross-platform/)
 for Next.js and Expo recipes, locale selection, scaling, licensing and limitations.

@@ -61,6 +61,7 @@ for (const face of faces) {
   }
 }
 for (const [key, rules] of groups) await writeFile(join(pkg, 'css', `${key}.css`), header(key) + rules.join('\n') + '\n');
+// Remove the old web-package layout; opt-in packages retain their hash-checked TTF cache.
 await rm(join(pkg, 'native'), {recursive:true, force:true});
 const { execFileSync } = await import('node:child_process');
 execFileSync(process.env.FONT_PYTHON ?? 'python3', [join(pkg, 'scripts/faces.py')], {stdio:'inherit'});

@@ -1,0 +1,36 @@
+{
+  "name": "@bloxwap/font-native-hebrew",
+  "version": "0.1.3",
+  "description": "Static native TTF faces and typed Metro asset maps for BloxwapSansHebrew, BloxwapMonoHebrew.",
+  "type": "commonjs",
+  "license": "OFL-1.1",
+  "author": "Bloxwap",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bloxwap/font.git",
+    "directory": "packages/native/hebrew"
+  },
+  "files": [
+    "BloxwapSansHebrew",
+    "BloxwapMonoHebrew",
+    "LICENSE",
+    "README.md"
+  ],
+  "exports": {
+    "./BloxwapSansHebrew": {
+      "types": "./BloxwapSansHebrew/index.d.ts",
+      "default": "./BloxwapSansHebrew/index.js"
+    },
+    "./BloxwapMonoHebrew": {
+      "types": "./BloxwapMonoHebrew/index.d.ts",
+      "default": "./BloxwapMonoHebrew/index.js"
+    },
+    "./assets/*": "./*"
+  },
+  "scripts": {
+    "prepack": "node ../../npm/scripts/build.mjs"
+  }
+}

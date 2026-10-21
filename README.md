@@ -54,6 +54,18 @@ code { font-family: "Bloxwap Mono", ui-monospace, monospace; }
 
 One family name covers every script: the stylesheet loads companions with `unicode-range` only when a page uses them. Downloads: [latest release](https://github.com/bloxwap/font/releases/latest). Self-hosting: [Installation](https://bloxwap.github.io/font/docs/installation/).
 
+For Expo and React Native, the 0.1.3 candidate uses opt-in packages:
+
+```sh
+npm install @bloxwap/font-native
+# Add script companions only when needed, for example @bloxwap/font-native-jp.
+```
+
+Import selected TTFs from `@bloxwap/font-native/assets/BloxwapSans/BloxwapSans-Regular.ttf`
+or a complete family map from `@bloxwap/font-native/BloxwapSans`. See
+[Cross-platform typography](https://bloxwap.github.io/font/docs/cross-platform/) for registration.
+The web package includes the full manifest; native binaries ship in the opt-in packages.
+
 ## Release status
 
 `0.1.2` is an early developer preview; expect breaking changes before `1.0`.
@@ -64,7 +76,7 @@ Guides, glyph charts, and the type tester: **https://bloxwap.github.io/font/**
 
 ## Development
 
-This repository is a workspace: the type design and build tools live in [`packages/font`](packages/font), the `@bloxwap/font` npm package in [`packages/npm`](packages/npm), and the documentation site in [`apps/docs`](apps/docs).
+This repository is a workspace: the type design and build tools live in [`packages/font`](packages/font), the `@bloxwap/font` npm package in [`packages/npm`](packages/npm), opt-in native packages in [`packages/native`](packages/native), and the documentation site in [`apps/docs`](apps/docs).
 
 ```sh
 bun install
@@ -82,6 +94,8 @@ DOCS_URL=http://localhost:3904/ bun run docs:accessibility
 ```
 
 The browser suite runs in Chromium and WebKit. Its 320 px viewport and 200% root text size checks complement manual browser zoom and screen-reader testing. For font raster previews and Unicode QA, see [Readability and text integrity](packages/font/DESIGN.md#readability-and-text-integrity).
+
+The [benchmark harness](bench/README.md) measures font builds, docs builds and each npm package.
 
 ## License
 

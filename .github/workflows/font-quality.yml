@@ -40,7 +40,7 @@ jobs:
           while IFS= read -r file || [ -n "$file" ]; do
             [ -z "$file" ] && continue
             case "$file" in
-              apps/next-fixture/*|packages/npm/*|LICENSE|apps/docs/public/*)
+              apps/next-fixture/*|packages/npm/*|packages/native/*|LICENSE|apps/docs/public/*)
                 assets=true
                 ;;
             esac
