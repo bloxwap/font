@@ -5,11 +5,12 @@ from __future__ import annotations
 import argparse
 import heapq
 import itertools
+import multiprocessing
 import os
 import shutil
 import subprocess
 import sys
-from concurrent.futures import FIRST_COMPLETED, ThreadPoolExecutor, wait
+from concurrent.futures import FIRST_COMPLETED, ProcessPoolExecutor, ThreadPoolExecutor, wait
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Callable, Iterable
@@ -17,7 +18,6 @@ from typing import Callable, Iterable
 ROOT = Path(__file__).resolve().parent.parent
 PY = ".venv/bin/python"
 FONTMAKE = ".venv/bin/fontmake"
-FILTER = "bwfont.ufo2ft_filters::RobustRemoveOverlapsFilter"
 
 
 @dataclass
@@ -82,25 +82,31 @@ def command(argv: list[str], log: Path | None = None, append=False) -> None:
         result.check_returncode()
 
 
-def family_task(fid: str, ps: str) -> Task:
+def static_tasks(fid: str, ps: str, workers: ProcessPoolExecutor) -> list[Task]:
+    from compile_static import compile_instance
+    from make_instances import instance_descriptors
+
+    ds = ROOT / "sources" / fid / f"{ps}.designspace"
+    out = ROOT / "build" / fid
+    out.mkdir(parents=True, exist_ok=True)
+
+    def static(group, index, filename):
+        workers.submit(compile_instance, str(ds), group, index, filename, str(out)).result()
+        return []
+
+    tasks = [Task(f"{fid}: {Path(filename).stem}", family_priority(fid),
+                  lambda group=group, index=index, filename=filename:
+                      static(group, index, filename))
+             for group, index, filename in instance_descriptors(ds)]
+    if not tasks:
+        raise RuntimeError(f"no static instances for {fid}")
+    return tasks
+
+
+def family_task(fid: str, ps: str, workers: ProcessPoolExecutor) -> Task:
     priority = family_priority(fid)
     ds = f"sources/{fid}/{ps}.designspace"
     out = Path("build") / fid
-
-    def static(ufo):
-        # Keep the original OTF -> TTF invocation order and filter arguments.
-        for fmt, filt in (("otf", FILTER), ("ttf", f"{FILTER}(pre=True)")):
-            command([FONTMAKE, "-u", str(ufo), "-o", fmt, "--output-dir", str(out / fmt),
-                     "--keep-overlaps", "--filter", filt], ROOT / out / "static.log", append=True)
-        return []
-
-    def instances():
-        command([PY, "tools/make_instances.py", ds, str(out / "instance_ufos")])
-        ufos = sorted((ROOT / out / "instance_ufos").glob("*.ufo"))
-        if not ufos:
-            raise RuntimeError(f"no static instance UFOs for {fid}")
-        return [Task(f"{fid}: {ufo.stem}", priority,
-                     lambda ufo=ufo: static(ufo.relative_to(ROOT))) for ufo in ufos]
 
     def variable():
         if (ROOT / out).exists():
@@ -109,7 +115,7 @@ def family_task(fid: str, ps: str) -> Task:
         command([FONTMAKE, "-m", ds, "-o", "variable", "--output-dir", str(out / "variable")],
                 ROOT / out / "fontmake.log")
         print(f"    {fid}: variable done", flush=True)
-        return [Task(f"{fid}: instances", priority, instances)]
+        return static_tasks(fid, ps, workers)
 
     def generate():
         command([PY, "tools/generate.py", fid])
@@ -123,6 +129,8 @@ def main(argv=None) -> int:
 
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("families", nargs="*", choices=list(FAMILIES))
+    ap.add_argument("--static-only", action="store_true",
+                    help="compile existing designspaces to both static formats")
     args = ap.parse_args(argv)
     try:
         jobs = int(os.environ.get("JOBS", str(os.cpu_count() or 1)))
@@ -131,7 +139,17 @@ def main(argv=None) -> int:
     except ValueError:
         ap.error("JOBS must be a positive integer")
     families = list(dict.fromkeys(args.families or FAMILIES))
-    run_pool((family_task(fid, FAMILIES[fid].ps) for fid in families), jobs)
+    # The scheduler grants one slot per active action. Its static actions wait
+    # on one persistent process worker each, so interpolation never creates a
+    # nested JOBS pool alongside other families' generation/variable work.
+    with ProcessPoolExecutor(max_workers=jobs,
+                             mp_context=multiprocessing.get_context("spawn")) as workers:
+        if args.static_only:
+            tasks = [task for fid in families
+                     for task in static_tasks(fid, FAMILIES[fid].ps, workers)]
+        else:
+            tasks = [family_task(fid, FAMILIES[fid].ps, workers) for fid in families]
+        run_pool(tasks, jobs)
     for fid in families:
         out = ROOT / "build" / fid
         print(f"    {fid}: {len(list((out / 'otf').glob('*.otf')))} otf, "

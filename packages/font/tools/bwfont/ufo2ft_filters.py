@@ -15,11 +15,15 @@ log = logging.getLogger(__name__)
 
 
 class RobustRemoveOverlapsFilter(BaseFilter):
+    def __init__(self, *args, memo=None, **kwargs):
+        self.memo = memo
+        super().__init__(*args, **kwargs)
+
     def filter(self, glyph):
         if len(glyph) < 2:
             return False
         contours = list(glyph)
-        path = robust_union([c.draw for c in contours])
+        path = robust_union([c.draw for c in contours], memo=self.memo)
         glyph.clearContours()
         path.draw(glyph.getPen())
         return True
