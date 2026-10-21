@@ -193,4 +193,5 @@ if __name__ == "__main__":
     stamp_site()
     sd = ROOT / "tools" / "site_data.py"
     if sd.exists():
-        subprocess.run([sys.executable, str(sd)], check=False)
+        subprocess.run([sys.executable, str(sd),
+                        *[arg for fam in fams for arg in ("--only", fam)]], check=False)

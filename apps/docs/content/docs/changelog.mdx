@@ -10,6 +10,8 @@ description: Release history of Bloxwap Font.
 - **Faster package builds.** Static face generation runs in a process pool, memoizes file hashes and reuses existing TTFs when both source hashes and the output hash match. Unchanged local packs reuse the same cache.
 - **Reproducible measurements.** The repository now includes `bench/bench.py` for build timings and web and native package sizes, with results saved under `bench/results/` by default.
 - **Smaller home page payload.** Interactive widgets receive only the family fields they use, with shared feature controls serialized once. Feature tooltip details and expanded web-font lists load from the existing public JSON on demand; glyph lists and language rows continue to load at runtime. Family cards, downloads, coverage highlights and tester controls keep their existing appearance.
+- **Faster site data.** Font builds refresh metadata only for rebuilt families. Family analysis runs in parallel, and Hyperglot language results are cached by font content and Hyperglot version.
+- **Bounded build concurrency.** Source generation and variable, instance and static compilation share one global `JOBS` pool, defaulting to the CPU count. Larger companion families start first, and the build reports its maximum concurrency.
 
 ## 0.1.2
 
