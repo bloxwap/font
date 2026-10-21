@@ -16,6 +16,23 @@ From the repository root (or `bun run <script>` in this directory):
 | `bun run fonts:qa` | OpenType Sanitizer on every file, language coverage, script shaping and mark/italic checks |
 | `bun run fonts:release` | Upload the download zips to the GitHub Release for the current version |
 
+`JOBS` limits one shared pool for source generation, variable builds, instance
+generation and static compiles across all requested families. It defaults to
+`nproc` on Linux or `sysctl -n hw.ncpu` on macOS. For example,
+`JOBS=4 bun run fonts:build pixel` uses at most four compile processes. The pool
+starts SC, JP and KR first, then other companions, then Sans, Mono and Pixel,
+and reports `max concurrency: N (JOBS=J)` when it finishes. Lower `JOBS` to fit
+available memory, especially for CJK and Pixel builds.
+
+Post-processing regenerates site data only for the requested families and keeps
+the other families' summaries. `tools/site_data.py` uses a process pool (CPU count
+by default, overridden with `SITE_DATA_JOBS`) and caches successful Hyperglot
+language results in `.hyperglot-cache/`, keyed by font SHA-256 and Hyperglot
+version. Deleting that ignored directory forces fresh language analysis.
+
+Run the pipeline regression checks with
+`.venv/bin/python -m unittest discover -s tools -p 'test_*.py'` from this directory.
+
 ## Layout
 
 ```text
@@ -28,7 +45,8 @@ tools/bwfont/           the design
   pixel/                Bloxwap Pixel bitmaps and generator
   families.py           the family catalog: packs, axes, metrics
 tools/generate.py       skeletons → UFO masters + designspaces (sources/)
-tools/build_all.sh      generate → fontmake (variable + parallel statics) → postprocess
+tools/build_all.sh      shared build pool → postprocess
+tools/build_pool.py     bounded generation + variable/instance/static compilation
 tools/postprocess.py    hinting, WOFF/WOFF2, fonts/ distribution, website copies and zips
 fonts/                  the distribution: <Family>/{variable,otf,ttf,woff2,woff} (generated, ignored)
 ```

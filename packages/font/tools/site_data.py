@@ -26,9 +26,15 @@ from __future__ import annotations
 
 import argparse
 import datetime as _dt
+import hashlib
 import json
+import os
+import shutil
 import sys
+import tempfile
 import unicodedata
+from concurrent.futures import ProcessPoolExecutor
+from importlib.metadata import PackageNotFoundError, version
 from pathlib import Path
 
 from fontTools import unicodedata as ftu
@@ -37,6 +43,7 @@ from fontTools.ttLib import TTFont
 ROOT = Path(__file__).resolve().parent.parent
 PUBLIC = ROOT.parent.parent / "apps" / "docs" / "public"   # the website's static root (served at /font/)
 DATA = PUBLIC / "data"
+CACHE = ROOT / ".hyperglot-cache"
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from bwfont.families import FAMILIES as _FAMILY_DEFS  # noqa: E402
@@ -473,15 +480,94 @@ def unicode_description(text: str) -> str:
 
 # --------------------------------------------------------------------------- languages
 
-def languages_of(path: Path) -> dict:
+def prepare_language_cache() -> None:
     try:
+        # Older Hyperglot runs used this name for a disposable pickle file.
+        if CACHE.is_file():
+            CACHE.unlink()
+        CACHE.mkdir(parents=True, exist_ok=True)
+    except OSError as e:
+        warn(f"language cache unavailable ({e})")
+
+
+def languages_of(path: Path) -> dict:
+    """Cache successful Hyperglot results by exact font bytes and package version."""
+    cache = None
+    try:
+        hyperglot_version = version("hyperglot")
+        with path.open("rb") as font_file:
+            digest = hashlib.file_digest(font_file, "sha256").hexdigest()
+        key = hashlib.sha256(f"1:{hyperglot_version}:{digest}".encode()).hexdigest()
+        cache = CACHE / f"{key}.json"
+        try:
+            result = json.loads(cache.read_text(encoding="utf-8"))
+            if (isinstance(result, dict) and isinstance(result.get("count"), int)
+                    and isinstance(result.get("scripts"), list) and "error" not in result):
+                return result
+        except (OSError, ValueError):
+            pass
+    except (OSError, PackageNotFoundError) as e:
+        warn(f"language cache unavailable ({e})")
+    result = _languages_of(path)
+    if cache is not None and "error" not in result:
+        tmp = None
+        try:
+            CACHE.mkdir(parents=True, exist_ok=True)
+            with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", dir=CACHE, delete=False) as output:
+                tmp = Path(output.name)
+                json.dump(result, output, ensure_ascii=False, separators=(",", ":"))
+            tmp.replace(cache)
+        except OSError as e:
+            warn(f"could not write language cache ({e})")
+        finally:
+            if tmp is not None:
+                tmp.unlink(missing_ok=True)
+    return result
+
+
+def _languages_of(path: Path) -> dict:
+    try:
+        from hyperglot import language
         from hyperglot.checker import FontChecker
         from hyperglot.languages import Languages  # noqa: F401  (import check)
     except Exception as e:  # pragma: no cover
         warn(f"hyperglot unavailable ({e}); skipping languages")
         return {"count": 0, "scripts": [], "error": "hyperglot unavailable"}
+    # Hyperglot's cwd-relative pickle conflicts with our cache directory and
+    # races between processes. Each worker gets a private copy of the language
+    # database, then publishes it atomically for later font-content cache misses.
+    with tempfile.TemporaryDirectory(prefix="bloxwap-hyperglot-") as tmp:
+        database = CACHE / f"languages-{version('hyperglot')}.pickle"
+        native = Path(tmp) / "languages.pickle"
+        try:
+            shutil.copyfile(database, native)
+        except OSError:
+            pass
+        previous = language.LANGUAGE_CACHE_FILE
+        language.LANGUAGE_CACHE_FILE = str(native)
+        try:
+            result = _check_languages(path, FontChecker)
+            if native.is_file() and "error" not in result:
+                pending = None
+                try:
+                    CACHE.mkdir(parents=True, exist_ok=True)
+                    with tempfile.NamedTemporaryFile(dir=CACHE, delete=False) as output:
+                        pending = Path(output.name)
+                    shutil.copyfile(native, pending)
+                    pending.replace(database)
+                except OSError as e:
+                    warn(f"could not cache Hyperglot database ({e})")
+                finally:
+                    if pending is not None:
+                        pending.unlink(missing_ok=True)
+            return result
+        finally:
+            language.LANGUAGE_CACHE_FILE = previous
+
+
+def _check_languages(path: Path, checker) -> dict:
     try:
-        support = FontChecker(str(path)).get_supported_languages()
+        support = checker(str(path)).get_supported_languages()
     except Exception as e:
         warn(f"hyperglot failed on {rel(path)}: {e}")
         return {"count": 0, "scripts": [], "error": str(e)}
@@ -796,30 +882,39 @@ def main(argv=None) -> int:
 
     DATA.mkdir(parents=True, exist_ok=True)
     built: dict[str, dict] = {}
-    for fid, stem, display, blurb in FAMILIES:
-        if args.only and fid not in args.only:
-            continue
-        try:
-            data = build_family(fid, stem, display, blurb, args)
-        except Exception as e:  # never let one broken font kill the whole site build
-            warn(f"{display}: failed: {e!r} — skipping")
-            data = None
-        out = DATA / f"{fid}.json"
-        out_glyphs = DATA / f"{fid}.glyphs.json"
-        if data is None:
-            for p in (out, out_glyphs):
-                if p.exists():
-                    p.unlink()
-            continue
-        glyphs = data.pop("glyphs")
-        out.write_text(json.dumps(data, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
-        out_glyphs.write_text(json.dumps({"id": fid, "glyphs": glyphs}, ensure_ascii=False, separators=(",", ":")),
-                              encoding="utf-8")
-        c = data["counts"]
-        top = ", ".join(f"{s['count']} {s['script']}" for s in data["coverage"]["scripts"][:4])
-        print(f"site_data: {display}: {c['glyphs']} glyphs ({top}), {c['features']} features, "
-              f"{c['languages']} languages in {c['scripts']} scripts -> {rel(out)}")
-        built[fid] = summary(data)
+    try:
+        workers = int(os.environ.get("SITE_DATA_JOBS", str(os.cpu_count() or 1)))
+        if workers < 1:
+            raise ValueError
+    except ValueError:
+        ap.error("SITE_DATA_JOBS must be a positive integer")
+    if not args.no_languages:
+        prepare_language_cache()
+    families = [f for f in FAMILIES if not args.only or f[0] in args.only]
+    with ProcessPoolExecutor(max_workers=min(workers, len(families))) as executor:
+        futures = [executor.submit(build_family, *family, args) for family in families]
+        for (fid, stem, display, blurb), future in zip(families, futures):
+            try:
+                data = future.result()
+            except Exception as e:  # never let one broken font kill the whole site build
+                warn(f"{display}: failed: {e!r} — skipping")
+                data = None
+            out = DATA / f"{fid}.json"
+            out_glyphs = DATA / f"{fid}.glyphs.json"
+            if data is None:
+                for p in (out, out_glyphs):
+                    if p.exists():
+                        p.unlink()
+                continue
+            glyphs = data.pop("glyphs")
+            out.write_text(json.dumps(data, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+            out_glyphs.write_text(json.dumps({"id": fid, "glyphs": glyphs}, ensure_ascii=False, separators=(",", ":")),
+                                  encoding="utf-8")
+            c = data["counts"]
+            top = ", ".join(f"{s['count']} {s['script']}" for s in data["coverage"]["scripts"][:4])
+            print(f"site_data: {display}: {c['glyphs']} glyphs ({top}), {c['features']} features, "
+                  f"{c['languages']} languages in {c['scripts']} scripts -> {rel(out)}")
+            built[fid] = summary(data)
 
     # Families not regenerated this run (--only) keep their previous summaries.
     old: dict = {}
