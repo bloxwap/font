@@ -4,7 +4,7 @@
  */
 import { ServerCodeBlock } from 'fumadocs-ui/components/codeblock.rsc';
 import type { CSSProperties } from 'react';
-import { getCatalog, getCatalogEntry, getFamily, getIndex, getMetas, getReadyFamilies, readPublic } from '@/lib/font-data';
+import { getCatalog, getCatalogEntry, getFamily, getIndex, getMetas, getReadyFamilies, readPublic, toGlyphFamily } from '@/lib/font-data';
 import { fontStack, shortName } from '@/lib/families';
 import { DEFAULT_ON, featureDescription, featureRank, featureSample } from '@/lib/features';
 import { fmtBytes, fmtNum, hex, plural } from '@/lib/format';
@@ -290,7 +290,7 @@ export function WebFiles({ id }: { id: string }) {
 /** The glyph browser from the home page, embedded in a docs page. */
 export function GlyphBrowserEmbed({ initial = 'sans' }: { initial?: string }) {
   const metas = getMetas();
-  return <div className="bw-embed not-prose"><GlyphBrowser families={metas} initial={initial} eyebrow={null} /></div>;
+  return <div className="bw-embed not-prose"><GlyphBrowser families={metas.map(toGlyphFamily)} initial={initial} eyebrow={null} /></div>;
 }
 
 /** Number of families defined (built or not), for prose. */

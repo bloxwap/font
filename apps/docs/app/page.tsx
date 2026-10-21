@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { HomeLayout } from 'fumadocs-ui/layouts/home';
 import { baseOptions } from '@/lib/layout.shared';
-import { getIndex, getMetas, getTotals } from '@/lib/font-data';
+import { getIndex, getMetas, getTotals, toGlyphFamily, toLanguageFamily, toTesterFamilies } from '@/lib/font-data';
 import { fmtBytes, fmtNum } from '@/lib/format';
 import { downloadUrl } from '@/lib/site';
 import { Hero } from '@/components/home/hero';
@@ -76,15 +76,15 @@ export default function Home() {
           <p className="eyebrow">04 — Type tester</p>
           <h2 id="tester-title">Try every axis and feature.</h2>
         </header>
-        <TypeTester families={metas} />
+        <TypeTester families={toTesterFamilies(metas)} />
       </section>
 
       <section className="section" id="glyphs" aria-labelledby="glyphs-title">
-        <GlyphBrowser families={metas} />
+        <GlyphBrowser families={metas.map(toGlyphFamily)} />
       </section>
 
       <section className="section" id="languages" aria-labelledby="lang-title">
-        <LanguageList families={metas} />
+        <LanguageList families={metas.map(toLanguageFamily)} />
       </section>
 
       <section className="section" id="download" aria-labelledby="dl-title">

@@ -3,6 +3,7 @@
 import { useId, useRef, type CSSProperties, type KeyboardEvent, type ReactNode } from 'react';
 import NumberFlow, { type Format } from '@number-flow/react';
 import { QUICK_ROLL } from '@/lib/number-flow';
+import type { FamilyOption } from '@/lib/types';
 
 /**
  * A labeled range slider with the filled track (the --p custom property) and a live readout: the value rolls with
@@ -58,8 +59,6 @@ export function Segmented<T extends string>({ label, options, value, onChange, s
     })}
   </div>;
 }
-
-export interface FamilyOption { id: string; name: string; style: string; companion: boolean }
 
 /**
  * Sans / Mono / Pixel as a segmented control, plus a select for companion families when any are built.

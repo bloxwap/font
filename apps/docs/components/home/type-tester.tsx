@@ -7,8 +7,8 @@ import { CopyTextButton } from '@/components/ui/copy-text-button';
 import { toast } from '@/components/ui/toast';
 import { fontStack, instanceName, weightLadder } from '@/lib/families';
 import { DEFAULT_ON, featureRank } from '@/lib/features';
-import { loadGlyphs, TESTER_EVENT, type TesterRequest } from '@/lib/client-data';
-import type { FamilyMeta, Feature } from '@/lib/types';
+import { loadFamily, loadGlyphs, useAsync, TESTER_EVENT, type TesterRequest } from '@/lib/client-data';
+import type { FeatureSummary, TesterFamily } from '@/lib/types';
 import { plainPaste } from './pixel-specimen';
 
 const SAMPLES: Record<string, string> = {
@@ -31,21 +31,24 @@ const WATERFALL = [12, 14, 16, 20, 24, 32, 40, 48, 64, 80, 96, 128];
 type View = 'text' | 'waterfall' | 'weights';
 type Align = 'left' | 'center' | 'right';
 
-function scriptSample(meta: FamilyMeta | undefined): string | null {
+function scriptSample(meta: TesterFamily | undefined): string | null {
   if (!meta?.companion) return null;
-  const script = meta.coverage.scripts.find((s) => SCRIPT_SAMPLES[s.script]);
-  return script ? SCRIPT_SAMPLES[script.script]! : null;
+  const script = meta.scripts.find((s) => SCRIPT_SAMPLES[s]);
+  return script ? SCRIPT_SAMPLES[script]! : null;
 }
 
-function initialFeatures(list: Feature[]): Record<string, boolean> {
+function initialFeatures(list: FeatureSummary[]): Record<string, boolean> {
   return Object.fromEntries(list.map((f) => [f.tag, DEFAULT_ON.has(f.tag)]));
 }
 
 /** Every axis and OpenType feature of every built family, with live CSS output. */
-export function TypeTester({ families }: { families: FamilyMeta[] }) {
+export function TypeTester({ families }: { families: TesterFamily[] }) {
   const byId = useMemo(() => new Map(families.map((f) => [f.id, f])), [families]);
   const [familyId, setFamilyId] = useState(families[0]?.id ?? 'sans');
   const meta = byId.get(familyId);
+  // Only hover/focus needs the affected characters and ligature inputs in feature tooltips.
+  const [detailFamilyId, setDetailFamilyId] = useState('');
+  const details = useAsync(() => detailFamilyId ? loadFamily(detailFamilyId) : Promise.resolve(null), detailFamilyId);
   const [size, setSize] = useState(72);
   const [wght, setWght] = useState(400);
   const [rond, setRond] = useState(0);
@@ -62,7 +65,7 @@ export function TypeTester({ families }: { families: FamilyMeta[] }) {
   const textRef = useRef<HTMLDivElement>(null);
 
   const featureList = useMemo(() => {
-    const list = meta?.features.length ? meta.features : FALLBACK_FEATURES.map((tag) => ({ tag, name: tag, label: null, chars: '', sequences: [], tables: [], toggle: true }));
+    const list = meta?.features.length ? meta.features : FALLBACK_FEATURES.map((tag) => ({ tag, label: '' }));
     return list.slice().sort((a, b) => featureRank(a.tag) - featureRank(b.tag) || a.tag.localeCompare(b.tag));
   }, [meta]);
   const [features, setFeatures] = useState<Record<string, boolean>>(() => initialFeatures(featureList));
@@ -171,12 +174,12 @@ export function TypeTester({ families }: { families: FamilyMeta[] }) {
   const langOptions = useMemo(() => {
     const seen = new Set<string>();
     const out: { value: string; label: string }[] = [];
-    for (const l of [...(meta?.locl ?? []), ...(extraLang ? [{ lang: extraLang }] : [])]) {
-      if (seen.has(l.lang)) continue;
-      seen.add(l.lang);
-      let label = l.lang;
-      try { label = displayNames?.of(l.lang) ?? l.lang; } catch { /* not a BCP 47 code */ }
-      out.push({ value: l.lang, label: `${label} (${l.lang})` });
+    for (const lang of [...(meta?.languages ?? []), ...(extraLang ? [extraLang] : [])]) {
+      if (seen.has(lang)) continue;
+      seen.add(lang);
+      let label = lang;
+      try { label = displayNames?.of(lang) ?? lang; } catch { /* not a BCP 47 code */ }
+      out.push({ value: lang, label: `${label} (${lang})` });
     }
     return out;
   }, [meta, extraLang, displayNames]);
@@ -237,12 +240,14 @@ export function TypeTester({ families }: { families: FamilyMeta[] }) {
       </div>
       <div className="t-group">
         <div className="ctl-row"><span>OpenType features</span><button type="button" className="link-btn" onClick={reset}>Reset</button></div>
-        <div className="features" role="group" aria-label="OpenType features">
+        <div className="features" role="group" aria-label="OpenType features"
+          onPointerOver={() => setDetailFamilyId(familyId)} onFocus={() => setDetailFamilyId(familyId)}>
           {featureList.map((f) => {
-            const label = f.label || (f.name !== f.tag ? f.name : '');
-            const affects = [f.chars, ...f.sequences].filter(Boolean).join(' ');
+            const label = f.label;
+            const detail = details?.id === familyId ? details.features.find((feature) => feature.tag === f.tag) : undefined;
+            const affects = detail ? [detail.chars, ...detail.sequences].filter(Boolean).join(' ') : '';
             return <button key={f.tag} type="button" className="feat" aria-pressed={!!features[f.tag]}
-              title={`${f.tag} — ${label || f.name}${affects ? `\nAffects: ${affects}` : ''}`} onClick={() => toggleFeature(f.tag)}>
+              title={`${f.tag} — ${label || f.tag}${affects ? `\nAffects: ${affects}` : ''}`} onClick={() => toggleFeature(f.tag)}>
               <code>{f.tag}</code><span>{label}</span>
             </button>;
           })}

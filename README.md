@@ -96,6 +96,7 @@ DOCS_URL=http://localhost:3904/ bun run docs:accessibility
 The browser suite runs in Chromium and WebKit. Its 320 px viewport and 200% root text size checks complement manual browser zoom and screen-reader testing. For font raster previews and Unicode QA, see [Readability and text integrity](packages/font/DESIGN.md#readability-and-text-integrity).
 
 The [benchmark harness](bench/README.md) measures font builds, docs builds and each npm package.
+For a static export, run `bun run docs:build`, `bun run docs:preview`, then `DOCS_URL=http://localhost:3904/ bun run docs:smoke` in another terminal. This also checks the home page's 250 KB HTML budget and lazy feature/file details. See [Building from source](apps/docs/content/docs/building.mdx) for base-path setup and the client data boundaries.
 
 ## License
 

@@ -9,6 +9,7 @@ description: Release history of Bloxwap Font.
 - **Smaller web installs.** `@bloxwap/font` ships web assets and the complete manifest, whose native entries now include their package and asset import path. A package test enforces a 20 MB unpacked budget and excludes native files. The unpublished candidate native exports are replaced by the opt-in packages.
 - **Faster package builds.** Static face generation runs in a process pool, memoizes file hashes and reuses existing TTFs when both source hashes and the output hash match. Unchanged local packs reuse the same cache.
 - **Reproducible measurements.** The repository now includes `bench/bench.py` for build timings and web and native package sizes, with results saved under `bench/results/` by default.
+- **Smaller home page payload.** Interactive widgets receive only the family fields they use, with shared feature controls serialized once. Feature tooltip details and expanded web-font lists load from the existing public JSON on demand; glyph lists and language rows continue to load at runtime. Family cards, downloads, coverage highlights and tester controls keep their existing appearance.
 
 ## 0.1.2
 

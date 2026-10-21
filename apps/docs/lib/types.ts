@@ -75,9 +75,31 @@ export interface FontIndex {
   generated: string; catalog: CatalogEntry[]; families: FamilySummary[]; zip: ZipFile | null; totals?: Totals;
 }
 
-/** What the home page's client components get at build time (no glyphs or languages). */
+/** Server-side metadata for family cards and downloads. Project before passing to clients. */
 export interface FamilyMeta {
   id: string; name: string; ps: string; style: 'sans' | 'mono' | 'pixel'; companion: boolean; blurb: string;
   version: string; hasItalic: boolean; metrics: Metrics; axes: Axis[]; instances: Instance[];
   features: Feature[]; locl: Locl[]; counts: Counts; coverage: Coverage; files: Files;
+}
+
+/** Only the fields used by each interactive widget cross the server/client boundary. */
+export type FamilyOption = Pick<FamilyMeta, 'id' | 'name' | 'style' | 'companion'>;
+export interface FeatureSummary { tag: string; label: string }
+export type WeightInstance = Pick<Instance, 'name' | 'coords'>;
+export interface TesterFamily extends FamilyOption {
+  hasItalic: boolean;
+  axes: Pick<Axis, 'tag' | 'min' | 'default' | 'max'>[];
+  instances: WeightInstance[];
+  features: FeatureSummary[];
+  languages: string[];
+  scripts: string[];
+}
+export interface GlyphFamily extends FamilyOption {
+  axes: Pick<Axis, 'tag' | 'min' | 'max'>[];
+  instances: WeightInstance[];
+  metrics: Pick<Metrics, 'upm' | 'ascender' | 'descender' | 'xHeight' | 'capHeight'>;
+  glyphCount: number;
+}
+export interface LanguageFamily extends FamilyOption {
+  highlights: { value: string; label: string }[];
 }
