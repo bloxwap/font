@@ -66,10 +66,12 @@ jobs:
     if: (needs.changes.outputs.assets == 'true') && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
     runs-on: [self-hosted, macOS, ARM64]
     timeout-minutes: 45
-    env:
-      BLOXWAP_STATIC_SOURCES_CACHE: ${{ runner.temp }}/font-static-sources-${{ github.run_id }}-${{ github.run_attempt }}
     steps:
       - uses: actions/checkout@v7
+      # Public release downloads need no auth; a per-run temp cache avoids GitHub cache saves.
+      - name: Static source cache location
+        working-directory: .
+        run: echo "BLOXWAP_STATIC_SOURCES_CACHE=$RUNNER_TEMP/font-static-sources-$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT" >> "$GITHUB_ENV"
       - name: Require Homebrew Python 3.13
         run: .github/scripts/macos-python313.sh
       # No cache: npm. Persistent minis already keep bun/npm stores on disk;

@@ -29,11 +29,13 @@ jobs:
       run:
         working-directory: packages/npm
     env:
-      # Public release downloads need no auth; avoid GitHub cache saves.
-      BLOXWAP_STATIC_SOURCES_CACHE: ${{ runner.temp }}/font-static-sources-${{ github.run_id }}-${{ github.run_attempt }}
       NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
       - uses: actions/checkout@v7
+      # Public release downloads need no auth; a per-run temp cache avoids GitHub cache saves.
+      - name: Static source cache location
+        working-directory: .
+        run: echo "BLOXWAP_STATIC_SOURCES_CACHE=$RUNNER_TEMP/font-static-sources-$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT" >> "$GITHUB_ENV"
       # Keep npm new enough for the same CLI surface we already validate.
       - uses: actions/setup-node@v7
         with:
