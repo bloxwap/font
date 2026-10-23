@@ -47,7 +47,7 @@ jobs:
       - name: Require Homebrew Python 3.13
         working-directory: .
         run: .github/scripts/macos-python313.sh
-      - run: python -m pip install 'fonttools[woff,unicode]==4.66.1' 'brotli==1.2.0'
+      - run: python -m pip install 'fonttools[woff,unicode]==4.66.1' 'brotli==1.2.1'
 
       - name: Check npm CLI
         run: |
