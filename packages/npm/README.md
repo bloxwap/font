@@ -72,7 +72,7 @@ Weights 100–900 on one variable axis, with italics for Sans, Mono, Pixel, Arme
 ## Selective web and native assets (0.1.4)
 
 The 0.1.4 release consolidates web and native assets in `@bloxwap/font`. To build from a pinned checkout, use
-Python with `fonttools[woff,unicode]==4.66.1` and `brotli==1.2.0`; set `FONT_PYTHON`
+Python with `fonttools[woff,unicode]==4.66.1` and `brotli==1.2.1`; set `FONT_PYTHON`
 to that interpreter before `npm pack`. No glyph sources are changed by packaging.
 
 - `@bloxwap/font/manifest`: every built face's path, weight, style, ISO 15924 scripts,

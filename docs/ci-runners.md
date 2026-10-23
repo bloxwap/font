@@ -65,7 +65,7 @@ Playwright browsers live on the mini at `~/Library/Caches/ms-playwright`. That d
 Jobs run `python -m pip install` without `sudo`:
 
 - `fonttools[woff,unicode]==4.66.1`
-- `brotli==1.2.0`
+- `brotli==1.2.1`
 
 ### Writable locations
 
