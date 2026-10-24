@@ -1,5 +1,7 @@
 /* Host aliases onto the HIG semantic variables from @bloxwap/hig-tokens/css. Fumadocs owns routing/search. */
 :root {
+  /* Keep the docs' existing comfortable 48px buttons on the published HIG role. */
+  --hig-button: var(--hig-control);
   --bloxwap-green: var(--hig-action); --bloxwap-blue: var(--hig-info);
   --bloxwap-black: var(--hig-background);
   --background: var(--hig-background); --foreground: var(--hig-text);

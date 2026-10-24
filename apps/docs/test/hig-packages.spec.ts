@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-// HIG #34: the docs consume the vendored @bloxwap/hig-* candidate packages instead of copied CSS/primitives.
+// HIG #34: the docs consume the published @bloxwap/hig-* packages instead of copied CSS/primitives.
 const live = process.env.DOCS_URL;
 test.skip(!live, 'Set DOCS_URL to verify the production export');
 

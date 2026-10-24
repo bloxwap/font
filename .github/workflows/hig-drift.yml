@@ -5,7 +5,6 @@ on:
     paths:
       - 'apps/docs/**'
       - 'hig-drift.json'
-      - 'vendor/bloxwap-hig/**'
       - 'package.json'
       - 'bun.lock'
       - 'bunfig.toml'
@@ -15,7 +14,6 @@ on:
     paths:
       - 'apps/docs/**'
       - 'hig-drift.json'
-      - 'vendor/bloxwap-hig/**'
       - 'package.json'
       - 'bun.lock'
       - 'bunfig.toml'
@@ -43,7 +41,7 @@ jobs:
         with:
           bun-version: '1.4.4'
       - run: bun install --frozen-lockfile
-      # Tooling-only pin: the unchanged runtime candidate 7c67a07c predates the scoped CLI.
+      # Tooling-only pin: the registry packages do not include the scoped CLI.
       # Keep this ref and docs/hig-ownership.md in sync; never copy the checker into Font.
       - uses: actions/checkout@v7
         with:
@@ -55,5 +53,5 @@ jobs:
           persist-credentials: false
       - name: Check canonical Font ownership and HIG drift
         run: node .hig/scripts/drift.mjs --root . --config hig-drift.json
-      - name: Check owning vendored HIG packages and imports
-        run: bun run --cwd apps/docs scripts/check-hig-vendor.ts
+      - name: Check owning registry HIG packages and imports
+        run: bun run --cwd apps/docs scripts/check-hig-packages.ts

@@ -1,8 +1,9 @@
 @import 'tailwindcss';
 @import 'fumadocs-ui/css/neutral.css';
 @import 'fumadocs-ui/css/preset.css';
-/* Bloxwap HIG from the vendored candidate packages (vendor/bloxwap-hig): semantic tokens and shared control styles. */
+/* Bloxwap HIG from the published npm packages: semantic tokens and shared control styles. */
 @import '@bloxwap/hig-tokens/css';
+@import '@bloxwap/hig-react/css/base';
 @import '@bloxwap/hig-react/css';
 @import '../styles/hig-adapter.css';
 

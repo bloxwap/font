@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "bun run scripts/check-data.ts && fumadocs-mdx && next dev --port 3904",
-    "build": "bun run scripts/check-hig-vendor.ts && bun run scripts/check-data.ts && fumadocs-mdx && next typegen && node ../../scripts/typecheck.mjs && next build && bun run scripts/check-export.ts",
+    "build": "bun run scripts/check-hig-packages.ts && bun run scripts/check-data.ts && fumadocs-mdx && next typegen && node ../../scripts/typecheck.mjs && next build && bun run scripts/check-export.ts",
     "preview": "bun run scripts/preview.ts",
     "check": "fumadocs-mdx && next typegen && node ../../scripts/typecheck.mjs",
     "typecheck:tsc": "fumadocs-mdx && next typegen && tsc --noEmit",
@@ -16,9 +16,9 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@bloxwap/hig-contracts": "file:../../vendor/bloxwap-hig/bloxwap-hig-contracts-0.1.0-candidate.sha7c67a07c.tgz",
-    "@bloxwap/hig-react": "file:../../vendor/bloxwap-hig/bloxwap-hig-react-0.1.0-candidate.sha7c67a07c.tgz",
-    "@bloxwap/hig-tokens": "file:../../vendor/bloxwap-hig/bloxwap-hig-tokens-0.1.0-candidate.sha7c67a07c.tgz",
+    "@bloxwap/hig-contracts": "0.1.0",
+    "@bloxwap/hig-react": "0.1.0",
+    "@bloxwap/hig-tokens": "0.1.0",
     "@number-flow/react": "0.6.2",
     "fumadocs-core": "16.17.7",
     "fumadocs-mdx": "15.4.9",
