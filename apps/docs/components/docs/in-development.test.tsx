@@ -4,7 +4,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { InDevelopmentCallout } from './in-development';
 
 // No family is in development today (all ten pages are built), so this is the fixture that runs
-// the HIG Callout path InDevelopment uses, against the vendored @bloxwap/hig-react package.
+// the HIG Callout path InDevelopment uses, against the published @bloxwap/hig-react package.
 const html = renderToStaticMarkup(<InDevelopmentCallout name="Bloxwap Sans Thai" packs="Thai + Lao" />);
 
 test('renders a HIG warning callout inside a single static note', () => {
