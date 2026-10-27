@@ -67,7 +67,9 @@ jobs:
     runs-on: [self-hosted, macOS, ARM64]
     timeout-minutes: 45
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
       # Public release downloads need no auth; a per-run temp cache avoids GitHub cache saves.
       - name: Static source cache location
         working-directory: .
@@ -77,11 +79,11 @@ jobs:
       # No cache: npm. Persistent minis already keep bun/npm stores on disk;
       # setup-node's post step is 0s here, and a GitHub npm cache would only add
       # restore/save. package-manager-cache matches publish_npm.yml.
-      - uses: actions/setup-node@v7
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: '24'
           package-manager-cache: false
-      - uses: oven-sh/setup-bun@v2
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
       - run: bun install --frozen-lockfile
       - run: python -m pip install 'fonttools[woff,unicode]==4.66.1' 'brotli==1.2.1'
       # Do not save generated fonts with actions/cache: generate is ~1 min, but
@@ -96,7 +98,7 @@ jobs:
       - name: Check the packed distribution
         working-directory: packages/npm
         run: npm pack --ignore-scripts --json > packed.json
-      - uses: actions/upload-artifact@v6
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
         with:
           name: font-candidate
           path: |
@@ -113,14 +115,16 @@ jobs:
       NEXT_PUBLIC_BASE_PATH: /font
       NEXT_TELEMETRY_DISABLED: '1'
     steps:
-      - uses: actions/checkout@v7
-      - uses: oven-sh/setup-bun@v2
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
       - run: bun install --frozen-lockfile
       - run: bun run lint
       - run: bun run typecheck
       - run: bun run docs:build
       - run: cd apps/docs && bun run test:unit
-      - uses: actions/upload-artifact@v6
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
         with:
           name: docs-preview
           path: apps/docs/out
@@ -142,10 +146,12 @@ jobs:
       DOCS_URL: http://127.0.0.1:43914/font/
       PORT: 43914
     steps:
-      - uses: actions/checkout@v7
-      - uses: oven-sh/setup-bun@v2
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
       - run: bun install --frozen-lockfile
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6.0.0
         with:
           name: docs-preview
           path: apps/docs/out
@@ -177,7 +183,7 @@ jobs:
           cd apps/docs
           # One active page avoids oversubscribing the runner while shaping the full font catalog.
           bunx playwright test --project=${{ matrix.browser }} --workers=1
-      - uses: actions/upload-artifact@v6
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
         if: always()
         with:
           name: docs-test-evidence-${{ matrix.browser }}
