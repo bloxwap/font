@@ -1,16 +1,20 @@
 # CI runners
 
-Every GitHub Actions job in this repository runs on self-hosted Apple Silicon Mac minis:
+GitHub Actions jobs run on self-hosted Apple Silicon Mac minis, except the `publish` job in `.github/workflows/publish_npm.yml`:
 
 ```yaml
 runs-on: [self-hosted, macOS, ARM64]
 ```
 
-Jobs do not call `apt`, `sudo`, or `playwright install --with-deps`. System tools must already be on the machine. Workflow scripts are BSD/`bash` 3.2 portable and write scratch files under `$RUNNER_TEMP`.
+Mac mini jobs do not call `apt`, `sudo`, or `playwright install --with-deps`. System tools must already be on the machine. Workflow scripts are BSD/`bash` 3.2 portable and write scratch files under `$RUNNER_TEMP`.
 
-## Trusted publishing is unavailable
+## npm trusted publishing exception
 
-[npm trusted publishing does not support self-hosted runners](https://docs.npmjs.com/trusted-publishers/). The publish job therefore authenticates with a long-lived `NPM_TOKEN` repository secret. That **drops OIDC trusted publishing and automatic provenance**. Add `NPM_TOKEN` (publish rights for `@bloxwap/font`) before the next release.
+[npm trusted publishing and provenance require GitHub-hosted runners](https://docs.npmjs.com/trusted-publishers/). Only `publish` in `publish_npm.yml` runs on GitHub-hosted `ubuntu-24.04`; all other jobs, including the existing security scan, stay on the minis. It builds locally on that runner with Node 24, npm 11.6.1, Python 3.13 and pinned pip dependencies, with no package-manager cache.
+
+Configure the GitHub `npm-release` environment with required reviewers; the workflow references this environment, but required reviewers must be configured in repository settings. The job grants only `contents: read` and `id-token: write` and publishes with `--provenance`, including when token fallback is used.
+
+Releases continue to work before npm configuration using the existing `NPM_TOKEN` secret as a transitional fallback, scoped to authentication, publish, and deprecation steps. On npmjs.com, configure the `@bloxwap/font` Trusted Publisher for organization `bloxwap`, repository `font`, workflow filename `publish_npm.yml`, and environment `npm-release`. Verify trusted publishing works, then delete `NPM_TOKEN` and its fallback bindings. Without a token, the authentication check accepts GitHub OIDC. `npm deprecate` cannot use OIDC, so deprecation emits a warning and is skipped when the token is absent.
 
 ## Runner labels
 
@@ -40,7 +44,7 @@ Install these on the runner account **before** the machine picks up jobs. Homebr
 | `curl` | Docs preview readiness check |
 | `gh` | Path filter in Font delivery quality (`changes`) |
 | `gtar` | `actions/upload-pages-artifact` on macOS (Homebrew `gnu-tar`; the action invokes `gtar`, not BSD `tar`) |
-| `python3.13` | Font package generate, test and publish (`brew install python@3.13`) |
+| `python3.13` | Font package generate and test on minis (`brew install python@3.13`) |
 
 ```sh
 brew install gh gnu-tar python@3.13
@@ -48,7 +52,7 @@ brew install gh gnu-tar python@3.13
 # python3.13 must be on PATH (Homebrew does this for python@3.13)
 ```
 
-`actions/setup-python` is not used. On macOS it installs only to `/Users/runner/hostedtoolcache`, and creating `/Users/runner` needs `sudo`. Jobs use Homebrew Python 3.13 in a per-job venv (same version pin) and run `brew install python@3.13` when `python3.13` is missing.
+`actions/setup-python` is used only by the Ubuntu publish job. On the minis it is not used. On macOS it installs only to `/Users/runner/hostedtoolcache`, and creating `/Users/runner` needs `sudo`. Jobs use Homebrew Python 3.13 in a per-job venv (same version pin) and run `brew install python@3.13` when `python3.13` is missing.
 
 ### Installed by workflow actions (do not pre-provision unless you want faster cold starts)
 
@@ -80,9 +84,9 @@ The runner must reach GitHub (git, APIs, Actions artifacts/cache, Pages, OIDC), 
 ### Permissions
 
 - GitHub Pages deploy (`Documentation` / `deploy`): `pages: write` and `id-token: write`
-- npm publish (`Publish to npm`): `NPM_TOKEN` repository secret (not OIDC)
+- npm publish (`Publish to npm`): `contents: read`, `id-token: write`, and the `npm-release` environment
 
-GitHub Pages uses OIDC on the self-hosted runners. npm trusted publishing does not, so publish uses `NPM_TOKEN` and does not attach provenance. Keep the runner application updated.
+GitHub Pages uses OIDC on the self-hosted runners; npm uses the GitHub-hosted exception above. Keep the runner application updated.
 
 ## Jobs
 
@@ -95,6 +99,6 @@ GitHub Pages uses OIDC on the self-hosted runners. npm trusted publishing does n
 | Font delivery quality | `docs-build` | Lint, typecheck, docs build, unit tests |
 | Font delivery quality | `docs-browser` | Matrix `chromium` / `webkit`, `--workers=1` |
 | Font delivery quality | `docs` | Required-check aggregator; skip is success |
-| Publish to npm | `publish` | Mac mini; `NPM_TOKEN`; release / workflow_dispatch |
+| Publish to npm | `publish` | GitHub-hosted `ubuntu-24.04`; `npm-release`; OIDC with transitional token fallback and provenance; release / workflow_dispatch |
 
 A single Mac mini will serialize the browser matrix. That is expected. Playwright coverage is Chromium and WebKit.
