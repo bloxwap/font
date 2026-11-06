@@ -16,9 +16,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@bloxwap/hig-contracts": "0.1.0",
-    "@bloxwap/hig-react": "0.1.0",
-    "@bloxwap/hig-tokens": "0.1.0",
+    "@bloxwap/hig": "0.2.0",
     "@number-flow/react": "0.6.2",
     "fumadocs-core": "16.17.7",
     "fumadocs-mdx": "15.4.9",
