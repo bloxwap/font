@@ -4,11 +4,11 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { InDevelopmentCallout } from './in-development';
 
 // No family is in development today (all ten pages are built), so this is the fixture that runs
-// the HIG Callout path InDevelopment uses, against the published @bloxwap/hig-react package.
+// the HIG Callout path InDevelopment uses, against @bloxwap/hig/react/status.
 const html = renderToStaticMarkup(<InDevelopmentCallout name="Bloxwap Sans Thai" packs="Thai + Lao" />);
 
 test('renders a HIG warning callout inside a single static note', () => {
-  assert.match(html, /^<div class="bw-callout not-prose" role="note"><section class="hig-surface" data-severity="warning">/);
+  assert.match(html, /^<div class="bw-callout not-prose" role="note"><section class="hig-surface hig-alert" data-severity="warning">/);
   assert.equal(html.match(/role="/g)?.length, 1, 'announce={false} must not add a status/alert live region');
 });
 

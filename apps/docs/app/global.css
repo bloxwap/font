@@ -2,9 +2,9 @@
 @import 'fumadocs-ui/css/neutral.css';
 @import 'fumadocs-ui/css/preset.css';
 /* Bloxwap HIG from the published npm packages: semantic tokens and shared control styles. */
-@import '@bloxwap/hig-tokens/css';
-@import '@bloxwap/hig-react/css/base';
-@import '@bloxwap/hig-react/css';
+@import '@bloxwap/hig/tokens/css';
+@import '@bloxwap/hig/react/css/base';
+@import '@bloxwap/hig/react/css';
 @import '../styles/hig-adapter.css';
 
 /* The site is set in its own typefaces (public/bloxwap-font.css, linked in app/layout.tsx). */
@@ -67,7 +67,7 @@ code, kbd, pre, samp { font-family: var(--f-mono); }
   :root { --duration-fast: 0ms; --duration-base: 0ms; --duration-slow: 0ms; }
 }
 
-/* SDK button layout extensions. HIG (@bloxwap/hig-react/button and .hig-button[data-intent]) owns font, fills per intent,
+/* SDK button layout extensions. HIG (@bloxwap/hig/react/button and .hig-button[data-intent]) owns font, fills per intent,
    focus, hover/press and disabled styling; these only add icon layout and the compact/icon sizes the docs use. */
 .btn { display: inline-flex; align-items: center; justify-content: center; gap: var(--hig-space-sm); flex-wrap: wrap; text-decoration: none; touch-action: manipulation; }
 .btn svg { flex: none; width: var(--icon-md); height: var(--icon-md); }
