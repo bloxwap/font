@@ -61,6 +61,45 @@ class BuiltFaces(unittest.TestCase):
                     matches = [p for p in original if ('-Italic' in p.name) == (face['style'] == 'italic')]
                     self.assertEqual((ROOT / face['path']).read_bytes(), matches[0].read_bytes())
 
+    def test_static_sources_match_variable_instances(self):
+        """Pinned static WOFF2s are the same build as the committed variable fonts.
+
+        Glyph order can differ by one (a static may keep an extra unencoded glyph).
+        Coverage, advances and vertical metrics still have to agree.
+        """
+        from fontTools.varLib.instancer import OverlapMode, instantiateVariableFont
+        manifest = json.loads((ROOT / 'manifest.json').read_text())
+        sources = resolve_sources()
+        cache_key = None
+        cached = None
+        natives = [f for f in manifest['faces'] if f['format'] == 'ttf']
+        for face in natives:
+            with self.subTest(path=face['path']):
+                variable = ROOT / face['variableSource']
+                location = tuple(sorted((tag, value) for tag, value in face['axes'].items()))
+                key = (face['variableSource'], location)
+                if key != cache_key:
+                    with TTFont(variable, recalcBBoxes=False) as source:
+                        cached = instantiateVariableFont(
+                            source, dict(location), inplace=False, optimize=False,
+                            overlap=OverlapMode.KEEP_AND_DONT_SET_FLAGS)
+                    cache_key = key
+                family = Path(face['path']).parent.name
+                static_bytes = read_source(sources[family, Path(face['source'].split('@')[0]).name])
+                static = TTFont(BytesIO(static_bytes), recalcBBoxes=False)
+                inst_cmap = cached.getBestCmap()
+                static_cmap = static.getBestCmap()
+                self.assertEqual(inst_cmap.keys(), static_cmap.keys())
+                for cp in inst_cmap:
+                    self.assertAlmostEqual(
+                        cached['hmtx'][inst_cmap[cp]][0], static['hmtx'][static_cmap[cp]][0], delta=1,
+                        msg=f'U+{cp:04X}')
+                self.assertEqual(cached['head'].unitsPerEm, static['head'].unitsPerEm)
+                for attr in ('ascent', 'descent', 'lineGap'):
+                    self.assertEqual(getattr(cached['hhea'], attr), getattr(static['hhea'], attr), attr)
+                for attr in ('sTypoAscender', 'sTypoDescender', 'sTypoLineGap', 'usWinAscent', 'usWinDescent'):
+                    self.assertEqual(getattr(cached['OS/2'], attr), getattr(static['OS/2'], attr), attr)
+
 
 class ParallelFaces(unittest.TestCase):
     def test_parallel_bytes_and_hash_checked_cache(self):

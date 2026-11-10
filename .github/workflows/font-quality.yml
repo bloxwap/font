@@ -188,6 +188,9 @@ jobs:
           export PYTHONPATH=packages/font/tools
           "$FONT_PYTHON" packages/font/tools/check_clean_room.py
           "$FONT_PYTHON" packages/font/tools/check_generated.py
+          "$FONT_PYTHON" packages/font/tools/check_mono_cell.py
+          "$FONT_PYTHON" packages/font/tools/check_ofl.py
+          "$FONT_PYTHON" packages/font/tools/check_static_weight.py apps/docs/assets/og
 
   # Always reports so the required `docs` check is never pending. Fails when a
   # selected check did not actually succeed. Allow-listed doc edits stay a no-op.
