@@ -536,452 +536,452 @@
     "BloxwapSans": {
       "tag": "v0.1.5",
       "asset": "BloxwapSans.zip",
-      "sha256": "5d21c3d4a384d745f45b8b685a6cd038da459efe5db02c12b010ec96891d8506",
+      "sha256": "9aa227eab4f5d2c2f92d9d6fa34a224469fd7ae7c4beee10dd31894c35353d32",
       "files": [
         {
           "path": "BloxwapSans/woff2/BloxwapSans-Black.woff2",
-          "sha256": "0bf6e1716a7c2afb8a938dd83c0ac843ede8551a240fb76b79a9d53bfb4727bc"
+          "sha256": "f9ff452e5afe3095267819cdaec84b2c8a0f02bc09407667ee4169b203686900"
         },
         {
           "path": "BloxwapSans/woff2/BloxwapSans-BlackItalic.woff2",
-          "sha256": "24756072a7dd14fe1a3a5ea4b5e0b46ee2f6a5c7ad08d5a628ffec25a435841f"
+          "sha256": "7615cfc39a30b6967e91148948624485625ffae7691ff801baaf5c080d2bce5b"
         },
         {
           "path": "BloxwapSans/woff2/BloxwapSans-Bold.woff2",
-          "sha256": "0e8696124faf3e15e28768741a8815de15d084fbb19fe896acc90bec32665b82"
+          "sha256": "56ed0dd9ddb867d9a940ab79b173c49502236e629c5218a7635d9227affe1556"
         },
         {
           "path": "BloxwapSans/woff2/BloxwapSans-BoldItalic.woff2",
-          "sha256": "3917c1eb512c9d7e711fa398c7a16414fe49fb110a11bdeaea3c81e93e2d2bb9"
+          "sha256": "39a7f4e28a1dd18515bb41c3187602bdc3c0d4c6c91c9ec60a21b3d665a49173"
         },
         {
           "path": "BloxwapSans/woff2/BloxwapSans-ExtraBold.woff2",
-          "sha256": "7aa3d805d89168009c25e9a6df69c8a5fff675c92c10cb0818f0345398c75abd"
+          "sha256": "9190c7190bd80d530e43cc607c18ce751a27e5339819418a14c3e84ea21c6aa9"
         },
         {
           "path": "BloxwapSans/woff2/BloxwapSans-ExtraBoldItalic.woff2",
-          "sha256": "9541fc5c76bc6a95657ac56be5533ad5cd078ce58e4cd271b40fbc8d44917920"
+          "sha256": "76e702d1afc189bcf1cb77795dfe19064d33948b9469e8b6689080ad39c998b3"
         },
         {
           "path": "BloxwapSans/woff2/BloxwapSans-ExtraLight.woff2",
-          "sha256": "f9ab48b299f68cb94835b36d75a4db57774776ac0b85212a7eca93e04ef04b09"
+          "sha256": "154e7b8f167eb35c3d2e58ca0a6e46903dbdbfdeb2da14da43e5f1d7f06781da"
         },
         {
           "path": "BloxwapSans/woff2/BloxwapSans-ExtraLightItalic.woff2",
-          "sha256": "853562342d318fa42bf62d6e5da833e6debcf2c680e8d60ed83200a1c39d269b"
+          "sha256": "e5ad59f0ff2871488af64d80b433e8f59b8a1b37adad7131b7012cf58c3fb263"
         },
         {
           "path": "BloxwapSans/woff2/BloxwapSans-Italic.woff2",
-          "sha256": "41d0d3f925e8f27a6e2af25683235c39dd1d0db5cdf2c13cb76b06308b57633e"
+          "sha256": "daeaf11a0e2ccf5e7a037b5cd1ec15739b04a326f1f32fa499cbceed3ff6b8bc"
         },
         {
           "path": "BloxwapSans/woff2/BloxwapSans-Light.woff2",
-          "sha256": "68a9e31f0ff702d97a3c3d284f89a864b142606295a79896c65f959d40fe59f1"
+          "sha256": "134d3d25b869ee4ae52d8c744b8d47dad63e4b723222d1e2344ba757c08d0670"
         },
         {
           "path": "BloxwapSans/woff2/BloxwapSans-LightItalic.woff2",
-          "sha256": "66cd033e3a45c730a9b3615a60e9288ad1b13849c8da14260d465fcf14c1592f"
+          "sha256": "454f64f6955531c9d2799ed0d6707dca0dffffd7aede8f7204fea25e838f6f17"
         },
         {
           "path": "BloxwapSans/woff2/BloxwapSans-Medium.woff2",
-          "sha256": "a7a8dc5d2b2852e1f35c3321528b3c24eab4eb38a2c0cb9bb4626d8834308683"
+          "sha256": "ea7773293d3e5459171dab3f8e1923bf2aff31606259ec2dbbdf5aff872657bf"
         },
         {
           "path": "BloxwapSans/woff2/BloxwapSans-MediumItalic.woff2",
-          "sha256": "f8dacc0e56b372143325b3720202190f53652f6ddb07f02345b8d054e0566c8c"
+          "sha256": "5f8b98cff029b4af49517661f73278a9f4a2c8e2b2cb6eea9bbea7219f1c58be"
         },
         {
           "path": "BloxwapSans/woff2/BloxwapSans-Regular.woff2",
-          "sha256": "c0b2c736df7545442121427c79afe291573fa9d13daa36bc65ea2f844d51983d"
+          "sha256": "523884c8045a0231c1c4637bd5ecba034846643416b794571f8f66da07b49053"
         },
         {
           "path": "BloxwapSans/woff2/BloxwapSans-SemiBold.woff2",
-          "sha256": "59c08e50bfa7d554769b9e92dc737b1614db86764d54f2fdf642db075d84b60b"
+          "sha256": "4571fa1f21547e4a4229221022942f18a03a409d32ceaa7c0c8798641f8ceab3"
         },
         {
           "path": "BloxwapSans/woff2/BloxwapSans-SemiBoldItalic.woff2",
-          "sha256": "2220b7fa13c9c58c89a3ad329992956e6f9ac5f0b77b626b3f5951ba579bccfc"
+          "sha256": "a83caa512c538cf0826feefc5255fa87024b6e5c1356e6615c8bdf07edd8f42f"
         },
         {
           "path": "BloxwapSans/woff2/BloxwapSans-Thin.woff2",
-          "sha256": "fc7a3a2ee0e0a097b5da6fadb783cc7f81a7f6031fd935755bda58dfe245a662"
+          "sha256": "6dd78e583e55e5eff7dda67bf6345452737cb6dfe561c712cebb03c01b1d04c7"
         },
         {
           "path": "BloxwapSans/woff2/BloxwapSans-ThinItalic.woff2",
-          "sha256": "8697b07068c40f8130d15429d0668ff75522e7f4bc39a24ac35ce3bf9f55c050"
+          "sha256": "18ab92fa16dfc03b2285cdc86ae6ac2fce8e5f7b28d2612e4cf84170b4252679"
         }
       ]
     },
     "BloxwapSansArabic": {
       "tag": "v0.1.5",
       "asset": "BloxwapSansArabic.zip",
-      "sha256": "5d3fdfac0ef2daafeb4aa2ca7096b4b6798bf10e4654ca00aa3cd036913c164a",
+      "sha256": "2f35c4a7e86265208be21f1f2f237fc78b4d75b761ec9327b6c364f9357824a2",
       "files": [
         {
           "path": "BloxwapSansArabic/woff2/BloxwapSansArabic-Black.woff2",
-          "sha256": "5fe52b93e4b2d1ac6ec86143577fab275cd5eff81c92d196d47bb32ff1aab68a"
+          "sha256": "1aa425557e53ce620c378e034713917ccf42969c64871b9b3f27cf67237b61c5"
         },
         {
           "path": "BloxwapSansArabic/woff2/BloxwapSansArabic-Bold.woff2",
-          "sha256": "f52a4ea18dd08bbbb0714f7f7983918d2de42af906bc19045356fa9813cfb904"
+          "sha256": "a0a5143beedd7876674c56a6bd6c3680fc37250100e9d90eb4b7359cd83af571"
         },
         {
           "path": "BloxwapSansArabic/woff2/BloxwapSansArabic-ExtraBold.woff2",
-          "sha256": "90cf5b8e090d4a6696fead91bf4baef17e6f716f63d169e136d3427027d256d3"
+          "sha256": "fda87feb82ccd2b03d915c156fd67e454fcf85681ceb9e43ea75c2fed4090f4d"
         },
         {
           "path": "BloxwapSansArabic/woff2/BloxwapSansArabic-ExtraLight.woff2",
-          "sha256": "5d7389bdf5fadde78705d1be0875005d565a2df25c4abd20cc59a0382fe315d5"
+          "sha256": "f1830c61148073328ceec4ac500ddc9b73903a2cb4c1af7ec1a6be3cbb8628d2"
         },
         {
           "path": "BloxwapSansArabic/woff2/BloxwapSansArabic-Light.woff2",
-          "sha256": "355970578e6e009c1ba2c10d2e84708185aefa946ca418f895f00efe6ee882af"
+          "sha256": "a2129b99bbd4e8e7deb73b27c6497fcce6289c445c12f726dc299ffa891dccc2"
         },
         {
           "path": "BloxwapSansArabic/woff2/BloxwapSansArabic-Medium.woff2",
-          "sha256": "3764df21552077890c74ee45325c2ed76e8b91b0ad460fdfcb75b13845344bfc"
+          "sha256": "09c620f0145977743ba712717d54d3270e28ed1f530941f8cbfa81a219752fcf"
         },
         {
           "path": "BloxwapSansArabic/woff2/BloxwapSansArabic-Regular.woff2",
-          "sha256": "9ca377551f0b476b7672ccc4d3a9f250146f19d4c95acdfd37bc445e808fe2f7"
+          "sha256": "86ede7d440df5fea392076d4413210f3daf1760194b46707a74d4f31d4c8721d"
         },
         {
           "path": "BloxwapSansArabic/woff2/BloxwapSansArabic-SemiBold.woff2",
-          "sha256": "b319b68433e4d9184833d97d559ee3a87b62c1207e080a4788c71ad47c1db6ce"
+          "sha256": "9c723a6301a3696f0877dee6e9209a0e3c7050f8275ad4beaf8252dbfbabd922"
         },
         {
           "path": "BloxwapSansArabic/woff2/BloxwapSansArabic-Thin.woff2",
-          "sha256": "b1d22e11b361b9ba7a073f48a39a228c4e4a717d933c3affecc383f7b37b70ef"
+          "sha256": "cdc2385938e77653e7f07f37a8ac1b86aceee05e504f51dd6b4d2f9ac2d1595e"
         }
       ]
     },
     "BloxwapSansArmenian": {
       "tag": "v0.1.5",
       "asset": "BloxwapSansArmenian.zip",
-      "sha256": "07470a0b8fa8ac7467796c7fcd8b3a4f87d79db203ef5fff73cb6cff8d5d48b6",
+      "sha256": "21297e6efde7f6557e627cc434569f771abaf82a59c45b93dfbf1a520fe49832",
       "files": [
         {
           "path": "BloxwapSansArmenian/woff2/BloxwapSansArmenian-Black.woff2",
-          "sha256": "3e29ea8a2e361a775f8c842c040be3bedef0e55bc8219ffa5d942694e620138e"
+          "sha256": "99e3c17cdc8ef6a9392676450c6afa73797cb43a4d1f475cd2b028701e438c7a"
         },
         {
           "path": "BloxwapSansArmenian/woff2/BloxwapSansArmenian-BlackItalic.woff2",
-          "sha256": "5791592fb53ad079e7762cd6307df6bf46a56b0be7dcbde862ac1749649bdd6d"
+          "sha256": "44cc799bed2de5581257c4d5598ff19224bb546d92a7f212097ad4db5d1fc3a1"
         },
         {
           "path": "BloxwapSansArmenian/woff2/BloxwapSansArmenian-Bold.woff2",
-          "sha256": "c7770eeaeacb0f8f9ac23c1671a32a4d76b4eaf9ec0a374548e29603d4163162"
+          "sha256": "75b86a5a4401c3a5aefda4c99551beff112d8e61b34cdb9ac5594fd80cf7f455"
         },
         {
           "path": "BloxwapSansArmenian/woff2/BloxwapSansArmenian-BoldItalic.woff2",
-          "sha256": "30095c5ef558f531009aeb7f5d7d51cdb97ab2073f954fe121d8304272623e7a"
+          "sha256": "907a7ebdf25e3cf8d6738225a762b54b63e104c062a77cfa505281f8355892a0"
         },
         {
           "path": "BloxwapSansArmenian/woff2/BloxwapSansArmenian-ExtraBold.woff2",
-          "sha256": "719b2ad62d29656e1b89887b1229c304ea2e270a8f94d9c98c44bb37fb6d5e87"
+          "sha256": "b6768adf17b59c1539a8ffff0ca4acb564fed72107c5698ff6c1503989255e17"
         },
         {
           "path": "BloxwapSansArmenian/woff2/BloxwapSansArmenian-ExtraBoldItalic.woff2",
-          "sha256": "787969d515999e1883b40b9af177703e0a2422e105d87312ff0021784afb9965"
+          "sha256": "ae35f525bcb5e1230c7d0a1f3c413ad619ef9552a458e2c7396261e3da8e8975"
         },
         {
           "path": "BloxwapSansArmenian/woff2/BloxwapSansArmenian-ExtraLight.woff2",
-          "sha256": "8d899b4b842b81c852b6493f508db1f432ec64c30d540541d229ca72da35c5e1"
+          "sha256": "9bee18f372b78302fdbc1e9d6a6b27c56b397b2f2acb56fb214f7eefd307b767"
         },
         {
           "path": "BloxwapSansArmenian/woff2/BloxwapSansArmenian-ExtraLightItalic.woff2",
-          "sha256": "8c8054e85e32a1d075267763b20a21d2498135c0216d90d90fc358660c256dee"
+          "sha256": "0d554bc7311a065aa4632fbda208b1a762823e454f6b2472fa284829690059b7"
         },
         {
           "path": "BloxwapSansArmenian/woff2/BloxwapSansArmenian-Italic.woff2",
-          "sha256": "2374bacdbe01682a5982be48722d0087207df2398be06f2fa19b02947c1104ea"
+          "sha256": "fb1386832a9dc8a65618a4b0e4d7e0e15fe73fe5a14d2c3249f93f02cebc7665"
         },
         {
           "path": "BloxwapSansArmenian/woff2/BloxwapSansArmenian-Light.woff2",
-          "sha256": "4b4bd21488241a243e74af1438e673bcbaff795164b0efff0e97fcfbfa500fba"
+          "sha256": "b5830eeaa52d7db5163e5644bbdafd4584cafece2dcd9f7407e6e156c50e5c51"
         },
         {
           "path": "BloxwapSansArmenian/woff2/BloxwapSansArmenian-LightItalic.woff2",
-          "sha256": "61f361e6c7073b8630747bf2155414bf4b46ca73f1b8fe40cd1931c3d93982e4"
+          "sha256": "0c8f92212b417e8593fb0c7457e605290699d8c9d77a0f8a07c9abbd08773325"
         },
         {
           "path": "BloxwapSansArmenian/woff2/BloxwapSansArmenian-Medium.woff2",
-          "sha256": "fad3e42861534a2cd708f9752b602c7583eb704276595a875985bb68faa3dcd5"
+          "sha256": "0762d99fcf3529b202f97ef2c08a61b9827a61aaf1470a41852632ece6b8664c"
         },
         {
           "path": "BloxwapSansArmenian/woff2/BloxwapSansArmenian-MediumItalic.woff2",
-          "sha256": "7d473784d99d08eab7455596d2c27b539a81857c9e3ed0e61413172b9eaf4fae"
+          "sha256": "7540e79b78622658ba87dfc66624b26179822886b2a424c1718c244bd7399765"
         },
         {
           "path": "BloxwapSansArmenian/woff2/BloxwapSansArmenian-Regular.woff2",
-          "sha256": "d28dd31eea20f2ad5a04dcb7d5f3482807449a531935d07230c69da6bb9a2605"
+          "sha256": "9a19c05e232efa555f3d01dfee4e4322deb965248fece546721fced13153a666"
         },
         {
           "path": "BloxwapSansArmenian/woff2/BloxwapSansArmenian-SemiBold.woff2",
-          "sha256": "a9cd5e41f727d259195899de4f762f86f5f11089787439bde1b8962d9bf03d78"
+          "sha256": "c4c16f38181d32abdf2c5f74322666e577286735e1bf88ca99aae86b735a833b"
         },
         {
           "path": "BloxwapSansArmenian/woff2/BloxwapSansArmenian-SemiBoldItalic.woff2",
-          "sha256": "492ae60a8e5b808e46bc77055457dbc64ad1a859ff49847f2f7bfa8ffe84db0c"
+          "sha256": "83188b40e0ba5e326a914cc3877d770e15cd7f0a16aceef45f40bceff7fb0e40"
         },
         {
           "path": "BloxwapSansArmenian/woff2/BloxwapSansArmenian-Thin.woff2",
-          "sha256": "ade12ae62a2ecb4d57ed7af2fe3e1984043411f836883ec2c9756d157239e0cf"
+          "sha256": "df587b3f07cbce7d1ba92ba9db93c86c1c07e5235a9cf0a26a020f4a5470abf0"
         },
         {
           "path": "BloxwapSansArmenian/woff2/BloxwapSansArmenian-ThinItalic.woff2",
-          "sha256": "61ca5a8806e7be6e491d20401953d8da55cf6fbdfd2e5167aec9b79643e8e672"
+          "sha256": "a542c8c74eb9f36dfc65ed94c329552730b9b7dc7574562fa3c7f04a8e81021d"
         }
       ]
     },
     "BloxwapSansGeorgian": {
       "tag": "v0.1.5",
       "asset": "BloxwapSansGeorgian.zip",
-      "sha256": "b8bc1fd4e83e1fb9a33781c7087c9388646b90e5829ebde8d39326a77efdfa6d",
+      "sha256": "aa4e9c86cc9e0e5ae899d2f47d1197f51f23e1cc362feee64bf7347f26f2fa31",
       "files": [
         {
           "path": "BloxwapSansGeorgian/woff2/BloxwapSansGeorgian-Black.woff2",
-          "sha256": "fe88f2716f60dd7bfee722353b1836c8a2a187a1cd7442a61c2f451ece46dbdd"
+          "sha256": "84d22c82b48d534368339d5afa899d06b093ad8fa8cc7294740fce258f6c3d9f"
         },
         {
           "path": "BloxwapSansGeorgian/woff2/BloxwapSansGeorgian-BlackItalic.woff2",
-          "sha256": "67013199807aafa43b2a8f41c8211fdb591da65a98e4e5220c3bc0653888b4e0"
+          "sha256": "5f2e70a57af4ed39cdf7defdf63e19df220d934fe75b7119bce4a67ddb41a664"
         },
         {
           "path": "BloxwapSansGeorgian/woff2/BloxwapSansGeorgian-Bold.woff2",
-          "sha256": "0d4510b604fecdf47e0434c80fe3ce225801ce4336ca53cb6d96b85ead673e78"
+          "sha256": "d9b96a0b703a6139463390f8bb9e3cfb20c9416bc7f8fb31e96bc463133ff2f2"
         },
         {
           "path": "BloxwapSansGeorgian/woff2/BloxwapSansGeorgian-BoldItalic.woff2",
-          "sha256": "db3be1e8d6ff945921aff770c60d0a645d59087fd5886397d5d16611c4c4e5f8"
+          "sha256": "b9e43de6d63257d6aede341fd22d0aa35cead057d2c3e239a53ffc5573f07cb4"
         },
         {
           "path": "BloxwapSansGeorgian/woff2/BloxwapSansGeorgian-ExtraBold.woff2",
-          "sha256": "28b05ac19991b2d7a02881e662b499dbef9a119bcdad0cd324c889d1aa7e9301"
+          "sha256": "94982f6143e1e7cadd1f4c759448b110c945beeb98411cb56eff28de71875e87"
         },
         {
           "path": "BloxwapSansGeorgian/woff2/BloxwapSansGeorgian-ExtraBoldItalic.woff2",
-          "sha256": "9452e3da726e65844e01e954fc2df4b76636871632357239481bb13a84d67636"
+          "sha256": "bb74a20f95d85f166d7ef8f04656146ad68517f95a092350e8c1cb55b85fc03e"
         },
         {
           "path": "BloxwapSansGeorgian/woff2/BloxwapSansGeorgian-ExtraLight.woff2",
-          "sha256": "8800b4aa8180bc125c17e3f5f4c9ce1427c39599ff4209ff65550248d9191750"
+          "sha256": "718049d4da06711fd2348ded01bc3846f7a7599ee7be22e053945b8e34098309"
         },
         {
           "path": "BloxwapSansGeorgian/woff2/BloxwapSansGeorgian-ExtraLightItalic.woff2",
-          "sha256": "35c40bec07d5616fb00bd781fbb687614230013e28dbb379adea8ff5ae067fb7"
+          "sha256": "fec9c4d6b111ac5840dcce4f4d8de4a76cb9a776747330bd83a2f626b4136969"
         },
         {
           "path": "BloxwapSansGeorgian/woff2/BloxwapSansGeorgian-Italic.woff2",
-          "sha256": "c1bc0b2fa267887ce9ee0693f3d7f480990e9c303a337d5eb987f7111cf2c07f"
+          "sha256": "fd65113d08954d8b47867e2ac45b846fc1507900a7aba337d0ecfdf386a5ee07"
         },
         {
           "path": "BloxwapSansGeorgian/woff2/BloxwapSansGeorgian-Light.woff2",
-          "sha256": "deda264eff236ed8f1cc4eef5d4452c66a9446a8e3a91208e0073cc5936d2522"
+          "sha256": "25de8900bc5f0134b48c829c81a5d915642d7354462d231a7461eaa9cc154ebc"
         },
         {
           "path": "BloxwapSansGeorgian/woff2/BloxwapSansGeorgian-LightItalic.woff2",
-          "sha256": "07a62acbfae4a0277a9f166e3e3c39179e6d2ec552fbd7acd15052b83e0821b4"
+          "sha256": "1a5a1579c21de46ae96e1754c589180df8f2a8adc5e9c6e384d6e609a6b241ad"
         },
         {
           "path": "BloxwapSansGeorgian/woff2/BloxwapSansGeorgian-Medium.woff2",
-          "sha256": "c38536f4daab76a9e2d0f6335a2be405abba7df4d0e9af7c561981315d2fa4a4"
+          "sha256": "52b1c261678d2f8cec4103de9ad3c820bd4a8b98db4936eb8bfd7ed35aaf33d8"
         },
         {
           "path": "BloxwapSansGeorgian/woff2/BloxwapSansGeorgian-MediumItalic.woff2",
-          "sha256": "95fe385fe8ea77d5050ab722ea566820540200177d154ff59563cc35881e617b"
+          "sha256": "c389038ba5d8536475a211799e76f099908110cd1c9cff69205d257db93db989"
         },
         {
           "path": "BloxwapSansGeorgian/woff2/BloxwapSansGeorgian-Regular.woff2",
-          "sha256": "c8ca5b20a39e02848dc28ac447cd81ca07c7cf22a350931860043c64f1a3e7e0"
+          "sha256": "7e4666db579f648250379a3d5c2cbeabd0199208dbc117fa580030c45bfcc6f6"
         },
         {
           "path": "BloxwapSansGeorgian/woff2/BloxwapSansGeorgian-SemiBold.woff2",
-          "sha256": "6010d45196f89946c368bb619ae30a580559e7f418a1ddf424c2a45f99c92ef2"
+          "sha256": "7bd0c24ecb55c0b738f59b281238719b1e4eae66a7110569c70a2219cf033103"
         },
         {
           "path": "BloxwapSansGeorgian/woff2/BloxwapSansGeorgian-SemiBoldItalic.woff2",
-          "sha256": "0b4460772a90ab41e15ca78afcdd573445246116b85a2851b66abcf8311c6cc4"
+          "sha256": "5be937dc6d1d7fb7e6140ab7d808b7f90eeba43e3d00317398153ba5b354a217"
         },
         {
           "path": "BloxwapSansGeorgian/woff2/BloxwapSansGeorgian-Thin.woff2",
-          "sha256": "ecc91a498f158038113ed715af822d8c3d1ff0a2d8c2485ff6cf8940f835a018"
+          "sha256": "c69a594e50924f717e67f852398f960b3d4f1b94e1a3dd1ecef365703db08018"
         },
         {
           "path": "BloxwapSansGeorgian/woff2/BloxwapSansGeorgian-ThinItalic.woff2",
-          "sha256": "8607376c31259b2a072183b6a90d02adb049a29ad751e3952d8a404bef698cd6"
+          "sha256": "084570a371a0e16f21995b190b4eb96e42c2cce1fc86e51a744661cb5da677f8"
         }
       ]
     },
     "BloxwapSansHebrew": {
       "tag": "v0.1.5",
       "asset": "BloxwapSansHebrew.zip",
-      "sha256": "7a3df5e060a5c93e69259ed04be1902d5fa74a714824940ff8e99d3abe71b33f",
+      "sha256": "1c1811e35be66bdd0681033139b9c3acefc026855253fb7f99460e04389320c6",
       "files": [
         {
           "path": "BloxwapSansHebrew/woff2/BloxwapSansHebrew-Black.woff2",
-          "sha256": "62c7f3df8611fb8e09757d61ad055e966ece460ca392d5b2a65212378d8e7f72"
+          "sha256": "1b7a16e5bf36421b0de60162d17ca32b4b48b981da9614be229cf321562cf84e"
         },
         {
           "path": "BloxwapSansHebrew/woff2/BloxwapSansHebrew-Bold.woff2",
-          "sha256": "89a1e8edba3229e7955b6bbc8dfd5cbe553316212732f4a9542f8cbc1084a608"
+          "sha256": "17cbe671a50989c9a80861865268ceb750e88ad1eb105cad96d544921a64087e"
         },
         {
           "path": "BloxwapSansHebrew/woff2/BloxwapSansHebrew-ExtraBold.woff2",
-          "sha256": "f39a9505010871347173cb481f12620acc60230a88cfe8c40accab0201bcbbc7"
+          "sha256": "a4408ed39b21e7f59e42f95a2fb382ed68d15d21991d740e917f7219a58faa53"
         },
         {
           "path": "BloxwapSansHebrew/woff2/BloxwapSansHebrew-ExtraLight.woff2",
-          "sha256": "adaa4f239db4414071ad8e8bf86cfd83f2780e24fd3d87564f5a2a753c5081d7"
+          "sha256": "fc4321ff7b9e6ed122c030cc19c025fb644db0143d6192ab6d08d2d0429911d2"
         },
         {
           "path": "BloxwapSansHebrew/woff2/BloxwapSansHebrew-Light.woff2",
-          "sha256": "51edf4ce84d390f50e5aa4945871a79802da68e1682ebaafd5ba49fa4cf77285"
+          "sha256": "03a783012a0ddef3efdecaa594cb119997ad1ffc146dbce8a483d0aafb97da37"
         },
         {
           "path": "BloxwapSansHebrew/woff2/BloxwapSansHebrew-Medium.woff2",
-          "sha256": "a701df5ac0d9119e20419e532fd62fa239e9a9e0c8cdc3e2a52469fbf9604ea3"
+          "sha256": "fa6c3fa04c25125067b5889ea09022da4c7bfd7fe327407b189d1dbd8c397608"
         },
         {
           "path": "BloxwapSansHebrew/woff2/BloxwapSansHebrew-Regular.woff2",
-          "sha256": "081cda3f2685704ae3cd8899899d8d709e601edbdd8ac23b03bee790c7fe829f"
+          "sha256": "14ebe719a47fff5f718d92e82de71910962143b0480821e4b15f960f322b03a0"
         },
         {
           "path": "BloxwapSansHebrew/woff2/BloxwapSansHebrew-SemiBold.woff2",
-          "sha256": "538c9dfe20ee32e76971612d82fa604b46bd26e237eab1239f51a9f663da328c"
+          "sha256": "43a5968091f7d7a6579d45979b79b5e93819ce38f62b6d7edce771656005a2e1"
         },
         {
           "path": "BloxwapSansHebrew/woff2/BloxwapSansHebrew-Thin.woff2",
-          "sha256": "dbb883067bbbd022137d3960252d7e4941ba26c5fd652960d74396cb009c2902"
+          "sha256": "653d4141ef90ff7fe4221014b4572aad894d117b413e0f3f03b525c782c5283f"
         }
       ]
     },
     "BloxwapSansJP": {
       "tag": "v0.1.5",
       "asset": "BloxwapSansJP.zip",
-      "sha256": "1fec3027d1e124ddf8a88b914f0afa5fc8620880b8794d970eca7c37b4d0489d",
+      "sha256": "89d504d40c15e28148763c8e636c315c1541ce57a34db7f735035ff4168f5ca7",
       "files": [
         {
           "path": "BloxwapSansJP/woff2/BloxwapSansJP-Black.woff2",
-          "sha256": "9478dea7e9f1abc0a230be884f8cf069b9c69bac58d03bd4dce340a3fba5f8e1"
+          "sha256": "23a626effe27d80a294bbc08d57d326f5614573d8207c690b2e37244674e51b4"
         },
         {
           "path": "BloxwapSansJP/woff2/BloxwapSansJP-Bold.woff2",
-          "sha256": "50477fce572c511522ff03c0e0e4bb2982f80ce0c08177163b0401ebf4b8fa54"
+          "sha256": "e2de14ff4ac565499e85c94e7256193a871e16626c31d4b2f75a1e584e69a645"
         },
         {
           "path": "BloxwapSansJP/woff2/BloxwapSansJP-ExtraBold.woff2",
-          "sha256": "4d369a8234e9284bc56460eaebf471174cb44c4c6800d94eb4ff36f9c63a70a2"
+          "sha256": "9c95aca6b93848ace497298e0baf15bd5819a7eb3b43be11cb8214d8da809094"
         },
         {
           "path": "BloxwapSansJP/woff2/BloxwapSansJP-ExtraLight.woff2",
-          "sha256": "f4ad911cbd63373a15de7193d08f558a550519bf9337aa62ba7188bf0c91f2cc"
+          "sha256": "08e7f9f2b266aabf05852787d73956b6284b4b01f6c12a90357eb5fc0000e88d"
         },
         {
           "path": "BloxwapSansJP/woff2/BloxwapSansJP-Light.woff2",
-          "sha256": "40766c09e6de47eb2b54432dfa6919d4df2ee1bc6ab38565c3534f0e79821d1f"
+          "sha256": "4ebdffd0bd13cca4ba5e9fa3a6f7220192e3aeb79c4c83134cd342b4f8cd61de"
         },
         {
           "path": "BloxwapSansJP/woff2/BloxwapSansJP-Medium.woff2",
-          "sha256": "fbc6ff906a0eab7f18b8a5e98b93f057380836a62e0ab1dbf320cd794b79ed34"
+          "sha256": "10c01f8e275d07171ee369eb1ffeac36c8fe761345f46a1c5364a1ae04916255"
         },
         {
           "path": "BloxwapSansJP/woff2/BloxwapSansJP-Regular.woff2",
-          "sha256": "bcb9af4ae10461a7aafdff822966dc8a1e280252805639b48bcedcba4edae013"
+          "sha256": "ba0c94ce9b2a694ff073bc68ae9798b8aa871458e424cc43d39348164874d1bc"
         },
         {
           "path": "BloxwapSansJP/woff2/BloxwapSansJP-SemiBold.woff2",
-          "sha256": "27eae07adf517437e7a0b53aa08762dfa921e99ece6cae08654ff450f3932025"
+          "sha256": "059645a745af1ece7045b78ceb2e6f19a4093d9f5ec45accb39a40f21650de73"
         },
         {
           "path": "BloxwapSansJP/woff2/BloxwapSansJP-Thin.woff2",
-          "sha256": "e04cc57c9ff06c4cad32c09442b7fcebea24e30300dc7a9efb188369336f1b20"
+          "sha256": "343cbcd1eafa4d6bdf5a0db6bd98e7a31a4440ef416e1ac2c0c43bf8bb442cf2"
         }
       ]
     },
     "BloxwapSansKR": {
       "tag": "v0.1.5",
       "asset": "BloxwapSansKR.zip",
-      "sha256": "e152b0a4d6a338aafb4348997c71da68a8b1b59409bd862d7285ea86bb3a8141",
+      "sha256": "f0481a2c39c946d9540d0c558127d6bf6bcd5be167d9aca8833766b2024f7024",
       "files": [
         {
           "path": "BloxwapSansKR/woff2/BloxwapSansKR-Black.woff2",
-          "sha256": "b6bbd0777285a3b1ebce05cd824baf4118ecbfd81a0255ca1035cb46a590455d"
+          "sha256": "9556e6da7659df45047fcd3c1f7ab23f9410f2942cee8972d3dff622030d6467"
         },
         {
           "path": "BloxwapSansKR/woff2/BloxwapSansKR-Bold.woff2",
-          "sha256": "b1547bfe75997be448acb38ce11ba6c7aa19dff7c93b1bd6ce40813cdb3747e9"
+          "sha256": "53c1a6c97fb689e03bf4cff93edc76354de9700e3d0d44de2557a5bc8765e8c0"
         },
         {
           "path": "BloxwapSansKR/woff2/BloxwapSansKR-ExtraBold.woff2",
-          "sha256": "67d6eed189c92b6321fc3ce687616abe4627b3c843964b8566194cf2a9cff7a3"
+          "sha256": "4641da5a4c47dd49a63769c401a4be7e30e18139d7c63548434da9a6ca04d37a"
         },
         {
           "path": "BloxwapSansKR/woff2/BloxwapSansKR-ExtraLight.woff2",
-          "sha256": "c752ae328044df91171b0da98a65c908dac65bf7aee59f2ed547a16191c035e4"
+          "sha256": "77c7359581475784c58d821fb8ffc89efd20d7c8822697ab7cf474e06b2e47e4"
         },
         {
           "path": "BloxwapSansKR/woff2/BloxwapSansKR-Light.woff2",
-          "sha256": "272f5c89bb261a17514347c2bf3c97cda9012d8aa341634957730c2720c9e417"
+          "sha256": "005c3d0ed2e64e708f69582c443d9d2a10e99f4d1adeee3300cb16e2bc95945b"
         },
         {
           "path": "BloxwapSansKR/woff2/BloxwapSansKR-Medium.woff2",
-          "sha256": "0f67710f3bca1f26fa3d481c0631d67264079e12f3ef98a827dddd524d90d574"
+          "sha256": "b73b278c4249d51783193a242dec1b53a1e99c5fd76c03350203c4e957f91ddf"
         },
         {
           "path": "BloxwapSansKR/woff2/BloxwapSansKR-Regular.woff2",
-          "sha256": "757014dffdbb2667e1ed0bbea0a5e7be0d6c9b0f714fec0d149c17ab80f2b247"
+          "sha256": "ba30385d00007b57c3a1b092ed8e764219cdc90dc36b8ecfdbf8ecf86a88b5bb"
         },
         {
           "path": "BloxwapSansKR/woff2/BloxwapSansKR-SemiBold.woff2",
-          "sha256": "027cb271df2ee9f8793f1657007de127a57ff825b2abfeb8442384545b691252"
+          "sha256": "2cf6d49c66d1fb714d3b3594c10c72d1f3815d3f9716d6d915982b1255bd83ff"
         },
         {
           "path": "BloxwapSansKR/woff2/BloxwapSansKR-Thin.woff2",
-          "sha256": "d1efa4a05c1ccbd3fa71106935b87d63f49dd98008e9ab51b0050bfccca8d7c2"
+          "sha256": "ea801a7192f6c369e76d5155620dd2dbfb8d72fda8762bc94630b630c2b7106a"
         }
       ]
     },
     "BloxwapSansSC": {
       "tag": "v0.1.5",
       "asset": "BloxwapSansSC.zip",
-      "sha256": "61454ad4b134874c77960a42b4138d91d0e88872a9c2d1fd37009c7dd984f47d",
+      "sha256": "cb46170a25457f720e7be402e3bbfaea61d7e4e98d24decebf1077f65c7f6d8e",
       "files": [
         {
           "path": "BloxwapSansSC/woff2/BloxwapSansSC-Black.woff2",
-          "sha256": "e9d989cdf1f46dd308bde42e94787151bbbba2d45bc08ab76d555a4e7f6ea5d7"
+          "sha256": "f5ce578e6e6c1a08dac1d0dc5deec8d4dcaccfa788d525a07fba3c9e3d930ff5"
         },
         {
           "path": "BloxwapSansSC/woff2/BloxwapSansSC-Bold.woff2",
-          "sha256": "2d90585410b8583e533e42e9fa57b02e470982148e4566c68283af9b4cd41aec"
+          "sha256": "9e3546c16b4034a131109b1def7bd7a51264b63920884fd936c0c5149c5c7239"
         },
         {
           "path": "BloxwapSansSC/woff2/BloxwapSansSC-ExtraBold.woff2",
-          "sha256": "2619d3fd85a2e91d9b07062fb859f40dbeab2315ccee403cf8bf30240585e58d"
+          "sha256": "e6913514bce445a64330b7c521f5b2ee807742d462542e17c6a3d351d20e4b0b"
         },
         {
           "path": "BloxwapSansSC/woff2/BloxwapSansSC-ExtraLight.woff2",
-          "sha256": "37b18b2f6488235b975557a4e488e54b9bbcd6030ba6b6a37f09cd133526f3c2"
+          "sha256": "8c867dfdd71cf2f4efbd907168ff2063424e7f2afeccd70a6a0895616dceb9b4"
         },
         {
           "path": "BloxwapSansSC/woff2/BloxwapSansSC-Light.woff2",
-          "sha256": "0cd2778b44fedc80f3c3f126f79a3fe92b7bdb06417bd5f62979608c5340daef"
+          "sha256": "e98be39c35488b28141e416e072c4552b27bfe12448d6e95454f80b9bb895c65"
         },
         {
           "path": "BloxwapSansSC/woff2/BloxwapSansSC-Medium.woff2",
-          "sha256": "b5a816b1ed974d4d90af519217a4c7b3cb8465b56620f90d7996f51d07c062c2"
+          "sha256": "448008d41456e4527658548eabae739ceab05e970e27cf96b5916b376e730421"
         },
         {
           "path": "BloxwapSansSC/woff2/BloxwapSansSC-Regular.woff2",
-          "sha256": "af34e0d08440b48c36f15d5d97d753ca90c82eec115bfb5caf4e2304aac11d32"
+          "sha256": "092d834bc03f6ffc8a676021de0ab9444cb0efbcb6314006fe572e1fc276699f"
         },
         {
           "path": "BloxwapSansSC/woff2/BloxwapSansSC-SemiBold.woff2",
-          "sha256": "c8bbb23f69df373b3358e7fae25366468a0158406007402489c7d97ea9f0ebe1"
+          "sha256": "548e3d7d622dd9a68c76c4bde91cfadfbd87f9c04caabe429f86bbd0ccc7af19"
         },
         {
           "path": "BloxwapSansSC/woff2/BloxwapSansSC-Thin.woff2",
-          "sha256": "ff66f073f3a43a31d9b5a83ed7628f3e236c4d60f1fa756ee9c68e0c1602dcdf"
+          "sha256": "5d98159fdb0b1e43b4b44a4158e5e41d699da8d5728e756e97c6b7a611a5ecef"
         }
       ]
     }
