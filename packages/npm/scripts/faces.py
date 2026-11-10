@@ -86,8 +86,10 @@ def native_face(task):
         if 'fvar' in face or face.sfntVersion != '\x00\x01\x00\x00':
             raise RuntimeError(f'Expected pinned static TrueType source: {static_source}')
         source_weight = face['OS/2'].usWeightClass
-        # Existing named static instances have approximate OS/2 classes (e.g. 608).
-        # Normalize only registration metadata to the published named tier (600).
+        # v0.1.2 statics still store the stem-interpolated class (ExtraLight 177,
+        # Bold 713). Write the named tier so the native TTF matches CSS. New
+        # builds already carry that tier; assigning it again leaves those bytes
+        # unchanged. Do not drop this until every locked zip is on the tier.
         face['OS/2'].usWeightClass = weight
         # A distinct family for each face works with Expo registration and bare RN on both OSes.
         # Request only this family; do not ask the native renderer to synthesize fontWeight/style.
@@ -141,6 +143,9 @@ def build(workers=None, paths=None, native_root=NATIVE_ROOT, manifest_path=ROOT 
                     license='OFL-1.1', generator=GENERATOR, faces=faces)
     native_root.mkdir(parents=True, exist_ok=True)
     (native_root / 'package.json').write_text('{"type":"commonjs"}\n')
+    license_src = ROOT.parents[1] / 'LICENSE'
+    if license_src.is_file():
+        (native_root / 'LICENSE').write_bytes(license_src.read_bytes())
     for families in NATIVE_GROUPS.values():
         for family in families:
             entries = [f for f in native_faces if Path(f['path']).parent.name == family]

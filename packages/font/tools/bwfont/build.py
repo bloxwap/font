@@ -16,6 +16,7 @@ from fontTools.designspaceLib import (AxisDescriptor, AxisLabelDescriptor, Desig
 from . import composites as comp
 from .families import FAMILIES, Family
 from .geometry import Contour, Plan
+from .meta import copyright_notice
 from .skeleton import GLYPHS, G, Params, outline, params_for, skew_point
 from .spacing import autospace, polygons, bbox
 
@@ -220,6 +221,73 @@ def add_composites(params: Params, outs: dict, family: str):
     return cmap
 
 
+def _comp_parts(comp):
+    return comp[0], comp[1], comp[2], comp[3] if len(comp) > 3 else 1.0
+
+
+def _ink_x(o, outs):
+    """Horizontal ink of a composite, or None when it has no drawable parts."""
+    xmin = xmax = None
+    for comp in o.components:
+        name, dx, _dy, sx = _comp_parts(comp)
+        src = outs[name]
+        if src.ink:
+            x0 = dx + src.ink[0] * sx
+            x1 = dx + src.ink[2] * sx
+        else:
+            x0, x1 = dx, dx + (src.advance or 0) * sx
+        xmin = x0 if xmin is None else min(xmin, x0)
+        xmax = x1 if xmax is None else max(xmax, x1)
+    return xmin, xmax
+
+
+def _fit_mono_cell(o, outs, params):
+    """Keep a mono composite inside one cell.
+
+    Marks that the proportional recipe hangs beside the letter (caron, dot,
+    Greek capitals) are condensed on x and recentred. The advance stays the
+    cell, so isFixedPitch remains true. Multi-cell ligatures are drawn glyphs,
+    not composites, and never come through here.
+    """
+    cell = params.mono_adv
+    xmin, xmax = _ink_x(o, outs)
+    if xmin is None:
+        o.advance = cell
+        return o
+    if xmin >= -1 and xmax <= cell + 1:
+        o.advance = cell
+        return o
+    margin = 12
+    width = max(xmax - xmin, 1)
+    scale = min(1.0, (cell - 2 * margin) / width)
+    new_width = width * scale
+    new_xmin = (cell - new_width) / 2
+    fitted = []
+    for comp in o.components:
+        name, dx, dy, sx = _comp_parts(comp)
+        fitted.append((name, new_xmin + (dx - xmin) * scale, dy, sx * scale))
+    o.components = fitted
+    o.advance = cell
+    if o.ink:
+        ix0, iy0, ix1, iy1 = o.ink
+        o.ink = (new_xmin + (ix0 - xmin) * scale, iy0, new_xmin + (ix1 - xmin) * scale, iy1)
+    return o
+
+
+def _pull_inside(dx, ink, cell, margin=20):
+    """Shift a mark so its ink sits in [margin, cell - margin]."""
+    if not ink:
+        return dx
+    right = dx + ink[2]
+    limit = cell - margin
+    if right > limit:
+        dx -= right - limit
+    left = dx + ink[0]
+    if left < margin:
+        dx += margin - left
+    return dx
+
+
 def _compose(name, cp, recipe, outs, params):
     base_name = recipe[0][0]
     o = GlyphOut(name, [cp] if cp is not None else [])
@@ -244,10 +312,13 @@ def _compose(name, cp, recipe, outs, params):
         o.advance = x
         return o
     if recipe[0][1] == "prefix":
-        # e.g. ŉ: apostrophe then n
+        # e.g. ŉ: apostrophe then n. Mono condenses the pair into one cell.
         a, b = outs[recipe[0][0]], outs[recipe[1][0]]
-        o.components = [(a.name, 0, 0), (b.name, a.advance - 30, 0)]
-        o.advance = a.advance - 30 + b.advance
+        gap = 0 if params.mono else -30
+        o.components = [(a.name, 0, 0), (b.name, a.advance + gap, 0)]
+        o.advance = a.advance + gap + b.advance
+        if params.mono:
+            _fit_mono_cell(o, outs, params)
         return o
     base = outs[base_name]
     if base.kind == "mark":
@@ -260,6 +331,15 @@ def _compose(name, cp, recipe, outs, params):
     for mname, attach in recipe[1:]:
         m = outs[mname]
         if attach == "tonos_left":
+            if params.mono and "top" in anchors and "_top" in m.anchors:
+                # Stack above the capital. Shifting the base right overflows the cell.
+                bx, by = anchors["top"]
+                mx, my = m.anchors["_top"]
+                dx, dy = bx - mx, by - my
+                o.components.append((mname, dx, dy))
+                if "top" in m.anchors:
+                    anchors["top"] = (m.anchors["top"][0] + dx, m.anchors["top"][1] + dy)
+                continue
             # Greek capital with accents: shift base right, accent sits to the
             # left at cap height (lowercase-size mark, top aligned to cap)
             mx = m.ink[2] - m.ink[0] if m.ink else 80
@@ -276,8 +356,12 @@ def _compose(name, cp, recipe, outs, params):
             ink = pc.ink
             cxm = (ink[0] + ink[2]) / 2
             cym = (ink[1] + ink[3]) / 2
-            o.components.append((mname, ax - cxm, ay - cym))
-            o.advance = max(o.advance, round(ax - cxm + pc.advance - 20))
+            dx = ax - cxm
+            if params.mono:
+                dx = _pull_inside(dx, ink, params.mono_adv)
+            o.components.append((mname, dx, ay - cym))
+            if not params.mono:
+                o.advance = max(o.advance, round(dx + pc.advance - 20))
             continue
         key = "_" + attach
         if attach not in anchors or key not in m.anchors:
@@ -285,8 +369,10 @@ def _compose(name, cp, recipe, outs, params):
         bx, by = anchors[attach]
         mx, my = m.anchors[key]
         dx, dy = bx - mx, by - my
+        if params.mono and attach == "caron":
+            dx = _pull_inside(dx, m.ink, params.mono_adv)
         o.components.append((mname, dx, dy))
-        if attach == "caron":
+        if attach == "caron" and not params.mono:
             right = dx + (m.ink[2] if m.ink else 0)
             o.advance = max(o.advance, round(right + 30))
         # update stacking anchors
@@ -294,6 +380,8 @@ def _compose(name, cp, recipe, outs, params):
             if attach == an and an in m.anchors:
                 anchors[an] = (m.anchors[an][0] + dx, m.anchors[an][1] + dy)
     o.anchors = {k: v for k, v in anchors.items() if k in ("top", "bottom")}
+    if params.mono:
+        _fit_mono_cell(o, outs, params)
     return o
 
 
@@ -323,7 +411,7 @@ def write_ufo(path: Path, family, style: str, weight: int, italic: bool, params:
     info.xHeight = params.xh
     info.capHeight = params.cap
     info.italicAngle = -params.slant if italic else 0
-    info.copyright = "Copyright 2026 Bloxwap, Inc."
+    info.copyright = copyright_notice()
     info.trademark = "Bloxwap is a trademark of Bloxwap, Inc."
     info.openTypeNameDesigner = "Bloxwap, Inc."
     info.openTypeNameManufacturer = "Bloxwap, Inc."
@@ -356,8 +444,10 @@ def write_ufo(path: Path, family, style: str, weight: int, italic: bool, params:
         gl.width = o.advance
         pen = gl.getPen()
         _round_pen_draw(o.contours, pen)
-        for cn, dx, dy in o.components:
-            pen.addComponent(cn, (1, 0, 0, 1, round(dx), round(dy)))
+        for comp in o.components:
+            cn, dx, dy = comp[0], comp[1], comp[2]
+            sx = comp[3] if len(comp) > 3 else 1
+            pen.addComponent(cn, (sx, 0, 0, 1, round(dx), round(dy)))
         for an, (x, y) in sorted(o.anchors.items()):
             gl.appendAnchor({"name": an, "x": round(x), "y": round(y)})
     f.lib["public.glyphOrder"] = order

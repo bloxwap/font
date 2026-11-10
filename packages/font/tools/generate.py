@@ -124,6 +124,9 @@ def write_designspace(family, sources):
             i.styleMapStyleName = ({"Regular": "regular", "Bold": "bold"}.get(n, "regular")
                                    if not italic else {"Regular": "italic", "Bold": "bold italic"}.get(n, "italic"))
             i.filename = f"instances/{fam.ps}-{tail}.ufo"
+            # User-space tier (200, 300, …). Without this, fontmake interpolates
+            # usWeightClass in stem space (ExtraLight 177, Bold 713).
+            i.lib = {"public.fontInfo": {"openTypeOS2WeightClass": w}}
             doc.addInstance(i)
     for italic in ((False, True) if fam.italic else (False,)):
         subsets = [RangeAxisSubsetDescriptor(name="Weight")]

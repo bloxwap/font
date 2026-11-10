@@ -15,6 +15,7 @@ from fontTools.designspaceLib import (AxisDescriptor, AxisLabelDescriptor, Desig
 from .. import build as B
 from ..build import GlyphOut
 from ..features import make_features, glyph_order
+from ..meta import copyright_notice
 from . import art
 from .art import ADV, CELL
 from .compose import compose_all
@@ -147,7 +148,7 @@ def write_ufo(path: Path, style: str, weight: int, italic: bool, size: float,
     i.ascender, i.descender = 960, -240
     i.xHeight, i.capHeight = XH, CAP
     i.italicAngle = -round(ITALIC_ANGLE, 2) if italic else 0
-    i.copyright = "Copyright 2026 Bloxwap, Inc."
+    i.copyright = copyright_notice()
     i.trademark = "Bloxwap is a trademark of Bloxwap, Inc."
     i.openTypeNameDesigner = "Bloxwap, Inc."
     i.openTypeNameManufacturer = "Bloxwap, Inc."
@@ -312,6 +313,7 @@ def write_designspace(outdir: Path, sources):
             i.styleMapStyleName = ({"Regular": "regular", "Bold": "bold"}.get(n, "regular")
                                    if not italic else {"Regular": "italic", "Bold": "bold italic"}.get(n, "italic"))
             i.filename = f"instances/{psn}.ufo"
+            i.lib = {"public.fontInfo": {"openTypeOS2WeightClass": w}}
             doc.addInstance(i)
     for italic in (False, True):
         vf = VariableFontDescriptor(

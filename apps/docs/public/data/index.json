@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-21T01:50:01+00:00",
+ "generated": "2026-10-23T19:39:00+00:00",
  "catalog": [
   {
    "id": "sans",
@@ -566,7 +566,7 @@
    ],
    "zip": {
     "path": "downloads/BloxwapMono.zip",
-    "bytes": 15724373
+    "bytes": 1510547
    }
   },
   {
@@ -970,7 +970,7 @@
    ],
    "zip": {
     "path": "downloads/BloxwapMonoArabic.zip",
-    "bytes": 10521446
+    "bytes": 1015715
    }
   },
   {
@@ -1410,7 +1410,7 @@
    ],
    "zip": {
     "path": "downloads/BloxwapMonoKR.zip",
-    "bytes": 30787235
+    "bytes": 1188788
    }
   },
   {
@@ -1800,7 +1800,7 @@
    ],
    "zip": {
     "path": "downloads/BloxwapMonoSC.zip",
-    "bytes": 47863803
+    "bytes": 4498005
    }
   },
   {
@@ -2234,7 +2234,7 @@
    ],
    "zip": {
     "path": "downloads/BloxwapMonoJP.zip",
-    "bytes": 35673184
+    "bytes": 3362653
    }
   },
   {
@@ -2610,7 +2610,7 @@
    ],
    "zip": {
     "path": "downloads/BloxwapMonoHebrew.zip",
-    "bytes": 7861613
+    "bytes": 728939
    }
   },
   {
@@ -2972,7 +2972,7 @@
    ],
    "zip": {
     "path": "downloads/BloxwapMonoArmenian.zip",
-    "bytes": 16900221
+    "bytes": 1642443
    }
   },
   {
@@ -3348,7 +3348,7 @@
    ],
    "zip": {
     "path": "downloads/BloxwapMonoGeorgian.zip",
-    "bytes": 17284329
+    "bytes": 1706492
    }
   },
   {
@@ -3546,7 +3546,7 @@
    ],
    "zip": {
     "path": "downloads/BloxwapPixel.zip",
-    "bytes": 7272548
+    "bytes": 7276759
    }
   }
  ],
@@ -3573,6 +3573,6 @@
  },
  "zip": {
   "path": "downloads/Bloxwap-Fonts.zip",
-  "bytes": 39710573
+  "bytes": 8787485
  }
 }
