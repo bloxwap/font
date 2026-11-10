@@ -78,7 +78,7 @@ jobs:
         run: node packages/npm/scripts/build.mjs
       # Tests read the same verified zip sources.
       - run: npm test --prefix packages/npm
-      - run: cd apps/next-fixture && bun run check && bun run build && node check-export.mjs
+      - run: cd apps/next-fixture && bun run check && bun run typecheck:tsc && bun run build && node check-export.mjs
       - name: Check the packed distribution
         working-directory: packages/npm
         run: npm pack --ignore-scripts --json > packed.json
@@ -109,7 +109,8 @@ jobs:
       - run: bun run lint
       - run: bun scripts/check-typecheck-pins.mjs
       - run: bun run typecheck
-      - run: bun run typecheck:tsc
+      # Docs only. next-fixture's tsc import of native types runs in the assets job after the package build.
+      - run: cd apps/docs && bun run typecheck:tsc
       - run: bun run docs:build
       - run: cd apps/docs && bun run test:unit
       # Do not save ~/Library/Caches/ms-playwright with actions/cache: the folder

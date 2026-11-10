@@ -32,21 +32,21 @@ jobs:
       - name: Every npm release has a git tag
         run: |
           set -euo pipefail
-          npm view @bloxwap/font versions --json | node --input-type=module -e '
-            const raw = await new Promise((resolve, reject) => {
-              let data = "";
-              process.stdin.on("data", (chunk) => { data += chunk; });
-              process.stdin.on("end", () => resolve(data));
-              process.stdin.on("error", reject);
-            });
-            const versions = JSON.parse(raw).filter((version) => /^\d+\.\d+\.\d+$/.test(version));
-            if (!versions.includes("0.1.4")) throw new Error("npm is missing 0.1.4");
-            process.stdout.write(versions.map((version) => `v${version}`).join("\n") + "\n");
-          ' | while IFS= read -r tag; do
-            [ -z "$tag" ] && continue
-            if ! git ls-remote --tags origin "refs/tags/$tag" | grep -q .; then
-              echo "missing git tag $tag for an npm release"
-              exit 1
-            fi
-            echo "$tag exists"
-          done
+          python - << 'PY'
+          import json, re, subprocess, urllib.request
+          with urllib.request.urlopen("https://registry.npmjs.org/@bloxwap/font", timeout=60) as response:
+              versions = json.load(response)["versions"]
+          releases = [version for version in versions if re.fullmatch(r"\d+\.\d+\.\d+", version)]
+          if "0.1.4" not in releases:
+              raise SystemExit("npm is missing 0.1.4")
+          missing = []
+          for version in releases:
+              tag = f"v{version}"
+              listed = subprocess.check_output(["git", "ls-remote", "--tags", "origin", f"refs/tags/{tag}"], text=True)
+              if not listed.strip():
+                  missing.append(tag)
+              else:
+                  print(f"{tag} exists")
+          if missing:
+              raise SystemExit("missing git tags: " + ", ".join(missing))
+          PY
