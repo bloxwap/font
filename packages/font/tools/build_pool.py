@@ -125,6 +125,9 @@ def family_task(fid: str, ps: str, workers: ProcessPoolExecutor) -> Task:
 
 
 def main(argv=None) -> int:
+    from toolchain import check_toolchain, ensure_source_date_epoch
+    check_toolchain()
+    ensure_source_date_epoch()
     from bwfont.families import FAMILIES
 
     ap = argparse.ArgumentParser(description=__doc__)

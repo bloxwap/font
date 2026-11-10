@@ -1,5 +1,5 @@
 #!/bin/sh
-# Homebrew Python 3.13 for self-hosted Mac minis.
+# Homebrew Python 3.12 for self-hosted Mac minis.
 # actions/setup-python hardcodes /Users/runner/hostedtoolcache on macOS; that
 # path is not writable here (mkdir: /Users/runner: Permission denied).
 set -eu
@@ -14,32 +14,32 @@ elif [ -x /usr/local/bin/brew ]; then
 fi
 
 py=""
-if command -v python3.13 >/dev/null 2>&1; then
-  py=$(command -v python3.13)
+if command -v python3.12 >/dev/null 2>&1; then
+  py=$(command -v python3.12)
 elif command -v python3 >/dev/null 2>&1; then
   ver=$(python3 -c 'import sys; print("%d.%d" % sys.version_info[:2])')
-  if [ "$ver" = "3.13" ]; then
+  if [ "$ver" = "3.12" ]; then
     py=$(command -v python3)
   fi
 fi
 
 if [ -z "$py" ]; then
   if ! command -v brew >/dev/null 2>&1; then
-    echo "Python 3.13 is required. Install Homebrew, then: brew install python@3.13"
+    echo "Python 3.12 is required. Install Homebrew, then: brew install python@3.12"
     echo "actions/setup-python cannot install here: it writes /Users/runner/hostedtoolcache."
     exit 1
   fi
-  echo "Installing python@3.13 with Homebrew (same 3.13 pin as setup-python)."
-  brew install python@3.13
-  if command -v python3.13 >/dev/null 2>&1; then
-    py=$(command -v python3.13)
+  echo "Installing python@3.12 with Homebrew (same 3.12 pin as setup-python)."
+  brew install python@3.12
+  if command -v python3.12 >/dev/null 2>&1; then
+    py=$(command -v python3.12)
   else
-    py="$(brew --prefix python@3.13)/bin/python3.13"
+    py="$(brew --prefix python@3.12)/bin/python3.12"
   fi
 fi
 
 if [ ! -x "$py" ]; then
-  echo "Python 3.13 was not found after install at $py"
+  echo "Python 3.12 was not found after install at $py"
   exit 1
 fi
 "$py" --version

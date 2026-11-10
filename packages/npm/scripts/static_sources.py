@@ -146,6 +146,9 @@ def main():
     fetch = commands.add_parser('fetch')
     fetch.add_argument('--family', action='append', help='Fetch only this family (repeatable)')
     fetch.add_argument('--cache', type=Path)
+    verify = commands.add_parser('verify')
+    verify.add_argument('--family', action='append', help='Verify only this family (repeatable)')
+    verify.add_argument('--cache', type=Path)
     args = parser.parse_args()
     if args.command == 'lock':
         lock_sources(args.tag, args.downloads, args.output)

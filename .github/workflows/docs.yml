@@ -6,7 +6,7 @@ on:
     paths:
       - "README.md"
       - "apps/docs/**"
-      - "vendor/bloxwap-hig/**"
+      - "scripts/**"
       - "packages/font/README.md"
       - ".github/workflows/docs.yml"
       - "package.json"
@@ -16,7 +16,7 @@ on:
     paths:
       - "README.md"
       - "apps/docs/**"
-      - "vendor/bloxwap-hig/**"
+      - "scripts/**"
       - "packages/font/README.md"
       - ".github/workflows/docs.yml"
       - "package.json"

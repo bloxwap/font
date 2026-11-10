@@ -1,0 +1,52 @@
+name: Static source lock
+
+# Re-download every zip pinned in static-sources.json and check its sha256.
+# Also require each released npm version (x.y.z) to have a matching vX.Y.Z tag.
+on:
+  schedule:
+    - cron: "30 4 * * 1"
+      timezone: "America/Los_Angeles"
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - packages/npm/static-sources.json
+      - packages/npm/scripts/static_sources.py
+      - .github/workflows/static-sources.yml
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: [self-hosted, macOS, ARM64]
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Require Homebrew Python 3.12
+        run: .github/scripts/macos-python.sh
+      - name: Verify pinned release assets
+        run: python packages/npm/scripts/static_sources.py verify
+      - name: Every npm release has a git tag
+        run: |
+          set -euo pipefail
+          npm view @bloxwap/font versions --json | node --input-type=module -e '
+            const raw = await new Promise((resolve, reject) => {
+              let data = "";
+              process.stdin.on("data", (chunk) => { data += chunk; });
+              process.stdin.on("end", () => resolve(data));
+              process.stdin.on("error", reject);
+            });
+            const versions = JSON.parse(raw).filter((version) => /^\d+\.\d+\.\d+$/.test(version));
+            if (!versions.includes("0.1.4")) throw new Error("npm is missing 0.1.4");
+            process.stdout.write(versions.map((version) => `v${version}`).join("\n") + "\n");
+          ' | while IFS= read -r tag; do
+            [ -z "$tag" ] && continue
+            if ! git ls-remote --tags origin "refs/tags/$tag" | grep -q .; then
+              echo "missing git tag $tag for an npm release"
+              exit 1
+            fi
+            echo "$tag exists"
+          done

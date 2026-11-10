@@ -27,8 +27,13 @@ PS = {fid: f.ps for fid, f in FAMILIES.items()}
 
 
 def fix_common(font: TTFont, hinted=False):
+    from fontTools.misc.timeTools import timestampNow
     font["OS/2"].fsType = 0
     font["head"].fontRevision = 1.0
+    # created and modified. save() recalculates modified from SOURCE_DATE_EPOCH.
+    stamp = timestampNow()
+    font["head"].created = stamp
+    font["head"].modified = stamp
     if "gasp" not in font:
         gasp = newTable("gasp")
         gasp.version = 1
@@ -163,6 +168,7 @@ def package():
         (w / "variable").mkdir(parents=True)
         for p in (d / "variable").glob("*.woff2"):
             shutil.copy2(p, w / "variable" / p.name)
+        shutil.copy2(LICENSE, w / "variable" / "LICENSE")
     allzip.close()
     shutil.copy2(LICENSE, public / "OFL.txt")
     # the two static TTFs the website's social cards are rendered with (Satori needs TTF/OTF)
@@ -185,6 +191,9 @@ def stamp_site():
 
 
 if __name__ == "__main__":
+    from toolchain import check_toolchain, ensure_source_date_epoch
+    check_toolchain()
+    ensure_source_date_epoch()
     fams = sys.argv[1:] or [f for f in PS if (ROOT / "build" / f).exists()]
     run(fams)
     package()
