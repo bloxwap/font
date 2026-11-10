@@ -1,6 +1,6 @@
 {
   "name": "@bloxwap/font",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Bloxwap Sans, Mono and Pixel: variable web fonts and native TTFs for every script in one package. Selective CSS, Next.js loaders and typed Metro asset maps.",
   "type": "module",
   "license": "OFL-1.1",

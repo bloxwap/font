@@ -3,6 +3,15 @@ title: Changelog
 description: Release history of Bloxwap Font.
 ---
 
+## 0.1.5
+
+- **Mono stays on the cell.** Every encoded Mono glyph now has an advance of 600 units, or a whole number of cells for ligatures and fullwidth CJK. Accented letters that used to run past the cell, including `ď`, `ľ`, `ŀ`, `ŉ`, `ť` and Greek capitals with breathings, are condensed so they fit. `isFixedPitch` stays set. A check fails the build if any Mono or Pixel glyph leaves the grid.
+- **Standard weight classes.** Static instances use the named OS/2 classes: Thin 100 through Black 900. ExtraLight is 200, Light 300, SemiBold 600 and Bold 700, matching Pixel. The old stem-interpolated values (177, 274, 608, 713) are gone from rebuilt statics.
+- **Reserved Font Name.** Name ID 0 in every shipped font is the first line of the OFL license, including Reserved Font Name "Bloxwap". Each variable font folder ships the same LICENSE file.
+- **Reproducible builds.** Font builds and site data take their timestamp from `SOURCE_DATE_EPOCH`, derived from the last commit that touched the font sources. Two builds of the same commit produce identical font bytes.
+- **CI and release gates.** Font toolchain tests, skeleton checks, the clean-room lint and a regenerate-and-diff of the web CSS run in CI. The path filter covers scripts and the font package. Publishing requires the release tag to equal `v` plus `package.json`'s version. A locked release tag cannot be overwritten, and a weekly job re-checks every pinned zip hash.
+- **Native fonts.** They stay inside `@bloxwap/font`. The separate `@bloxwap/font-native*` packages are not republished.
+
 ## 0.1.4
 
 - **One npm package.** Web fonts, Next.js loaders, all native TTFs and every script companion now ship in `@bloxwap/font`. Native entries use `@bloxwap/font/native/<Family>` and `@bloxwap/font/native/assets/<Family>/<File>.ttf`. Direct asset imports bundle only selected fonts; npm installs the complete catalog. Font designs, web subsetting and native registration names are unchanged.

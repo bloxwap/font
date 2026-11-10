@@ -181,5 +181,5 @@ jobs:
               echo "::error::Cannot check $name (HTTP $status)"
               exit 1
             fi
-            npm deprecate "$name@<=0.1.3" 'Use @bloxwap/font@^0.1.4. Native fonts now live at @bloxwap/font/native/<Family> and @bloxwap/font/native/assets/<Family>/<File>.ttf.'
+            npm deprecate "$name@<=0.1.3" 'Use @bloxwap/font@^0.1.5. Native fonts now live at @bloxwap/font/native/<Family> and @bloxwap/font/native/assets/<Family>/<File>.ttf.'
           done

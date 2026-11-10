@@ -69,6 +69,10 @@ Weights 100–900 on one variable axis, with italics for Sans, Mono, Pixel, Arme
 
 [SIL Open Font License 1.1](https://github.com/bloxwap/font/blob/main/LICENSE). © 2026 Bloxwap, Inc.
 
+## 0.1.5
+
+Mono glyphs sit in the 600-unit cell, static `usWeightClass` values are the named tiers (200, 300, 600, 700, …), and every font's copyright names the Reserved Font Name "Bloxwap". Native faces still ship in this package, not in `@bloxwap/font-native*`.
+
 ## Selective web and native assets (0.1.4)
 
 The 0.1.4 release consolidates web and native assets in `@bloxwap/font`. To build from a pinned checkout, use
