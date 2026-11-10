@@ -19,17 +19,21 @@ jobs:
     outputs:
       assets: ${{ steps.paths.outputs.assets }}
       docs: ${{ steps.paths.outputs.docs }}
+      toolchain: ${{ steps.paths.outputs.toolchain }}
     steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
       - id: paths
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          assets=false
-          docs=false
+          scripts/ci-paths.sh coverage
           if [ "${{ github.event_name }}" != "pull_request" ]; then
             echo "assets=true" >> "$GITHUB_OUTPUT"
             echo "docs=true" >> "$GITHUB_OUTPUT"
+            echo "toolchain=true" >> "$GITHUB_OUTPUT"
             echo "Running the full suite (${{ github.event_name }})"
             exit 0
           fi
@@ -37,28 +41,8 @@ jobs:
           gh api --paginate "repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/files" --jq '.[].filename' > "$files"
           echo "Changed files:"
           cat "$files"
-          while IFS= read -r file || [ -n "$file" ]; do
-            [ -z "$file" ] && continue
-            case "$file" in
-              apps/next-fixture/*|packages/npm/*|LICENSE|apps/docs/public/*)
-                assets=true
-                ;;
-            esac
-            case "$file" in
-              apps/docs/*|vendor/bloxwap-hig/*|bunfig.toml)
-                docs=true
-                ;;
-            esac
-            case "$file" in
-              package.json|bun.lock|.github/workflows/font-quality.yml)
-                assets=true
-                docs=true
-                ;;
-            esac
-          done < "$files"
-          echo "assets=$assets" >> "$GITHUB_OUTPUT"
-          echo "docs=$docs" >> "$GITHUB_OUTPUT"
-          echo "assets=$assets docs=$docs"
+          GITHUB_OUTPUT="$GITHUB_OUTPUT" scripts/ci-paths.sh fold < "$files"
+          env -u GITHUB_OUTPUT scripts/ci-paths.sh fold < "$files"
 
   assets:
     needs: changes
@@ -74,8 +58,8 @@ jobs:
       - name: Static source cache location
         working-directory: .
         run: echo "BLOXWAP_STATIC_SOURCES_CACHE=$RUNNER_TEMP/font-static-sources-$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT" >> "$GITHUB_ENV"
-      - name: Require Homebrew Python 3.13
-        run: .github/scripts/macos-python313.sh
+      - name: Require Homebrew Python 3.12
+        run: .github/scripts/macos-python.sh
       # No cache: npm. Persistent minis already keep bun/npm stores on disk;
       # setup-node's post step is 0s here, and a GitHub npm cache would only add
       # restore/save. package-manager-cache matches publish_npm.yml.
@@ -94,7 +78,7 @@ jobs:
         run: node packages/npm/scripts/build.mjs
       # Tests read the same verified zip sources.
       - run: npm test --prefix packages/npm
-      - run: cd apps/next-fixture && bun run check && bun run build && node check-export.mjs
+      - run: cd apps/next-fixture && bun run check && bun run typecheck:tsc && bun run build && node check-export.mjs
       - name: Check the packed distribution
         working-directory: packages/npm
         run: npm pack --ignore-scripts --json > packed.json
@@ -123,7 +107,10 @@ jobs:
       - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
       - run: bun install --frozen-lockfile
       - run: bun run lint
+      - run: bun scripts/check-typecheck-pins.mjs
       - run: bun run typecheck
+      # Docs only. next-fixture's tsc import of native types runs in the assets job after the package build.
+      - run: cd apps/docs && bun run typecheck:tsc
       - run: bun run docs:build
       - run: cd apps/docs && bun run test:unit
       # Do not save ~/Library/Caches/ms-playwright with actions/cache: the folder
@@ -162,10 +149,50 @@ jobs:
             apps/docs/test-results
             apps/docs/playwright-report
 
+  font-toolchain:
+    needs: changes
+    # Security: never run fork PR code on the self-hosted runner.
+    if: (needs.changes.outputs.toolchain == 'true') && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
+    runs-on: [self-hosted, macOS, ARM64]
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Python 3.12 toolchain
+        run: |
+          set -euo pipefail
+          if ! command -v uv >/dev/null 2>&1; then
+            curl -LsSf https://astral.sh/uv/install.sh | sh
+            echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+            export PATH="$HOME/.local/bin:$PATH"
+          fi
+          hash=$(shasum -a 256 packages/font/requirements.txt | awk '{print $1}')
+          venv="$HOME/.cache/bloxwap-font/venv-$hash"
+          if [ ! -x "$venv/bin/python" ]; then
+            uv venv "$venv" --python 3.12
+            uv pip install --python "$venv/bin/python" -r packages/font/requirements.txt
+          fi
+          echo "$venv/bin" >> "$GITHUB_PATH"
+          echo "FONT_PYTHON=$venv/bin/python" >> "$GITHUB_ENV"
+      - name: Toolchain tests and skeleton checks
+        run: |
+          set -euo pipefail
+          cd packages/font
+          "$FONT_PYTHON" -m unittest discover -s tools -p 'test_*.py'
+          "$FONT_PYTHON" tools/check_glyphs.py --pack core,arabic,hebrew,armenian,georgian
+          "$FONT_PYTHON" tools/check_cusps.py
+      - name: Clean-room and generated web artifacts
+        run: |
+          set -euo pipefail
+          export PYTHONPATH=packages/font/tools
+          "$FONT_PYTHON" packages/font/tools/check_clean_room.py
+          "$FONT_PYTHON" packages/font/tools/check_generated.py
+
   # Always reports so the required `docs` check is never pending. Fails when a
-  # docs-related run's combined build and browser checks failed; succeeds on skip.
+  # selected check did not actually succeed. Allow-listed doc edits stay a no-op.
   docs:
-    needs: [changes, docs-build]
+    needs: [changes, docs-build, assets, font-toolchain]
     # Security: never run fork PR code on the self-hosted runner.
     if: (always() && !cancelled()) && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
     runs-on: [self-hosted, macOS, ARM64]
@@ -174,17 +201,28 @@ jobs:
       - name: Required docs checks
         run: |
           set -euo pipefail
-          echo "changes=${{ needs.changes.result }} docs-filter=${{ needs.changes.outputs.docs }}"
-          echo "docs-build=${{ needs.docs-build.result }}"
+          echo "changes=${{ needs.changes.result }} docs=${{ needs.changes.outputs.docs }} assets=${{ needs.changes.outputs.assets }} toolchain=${{ needs.changes.outputs.toolchain }}"
+          echo "docs-build=${{ needs.docs-build.result }} assets-job=${{ needs.assets.result }} toolchain-job=${{ needs.font-toolchain.result }}"
           if [ "${{ needs.changes.result }}" != "success" ]; then
             echo "Path filter job failed"
             exit 1
           fi
-          if [ "${{ needs.changes.outputs.docs }}" != "true" ]; then
-            echo "No docs-related paths changed; docs check is a no-op"
-            exit 0
-          fi
-          if [ "${{ needs.docs-build.result }}" != "success" ]; then
+          failed=0
+          if [ "${{ needs.changes.outputs.docs }}" = "true" ] && [ "${{ needs.docs-build.result }}" != "success" ]; then
             echo "Docs quality checks failed"
+            failed=1
+          fi
+          if [ "${{ needs.changes.outputs.assets }}" = "true" ] && [ "${{ needs.assets.result }}" != "success" ]; then
+            echo "Asset checks failed"
+            failed=1
+          fi
+          if [ "${{ needs.changes.outputs.toolchain }}" = "true" ] && [ "${{ needs.font-toolchain.result }}" != "success" ]; then
+            echo "Font toolchain checks failed"
+            failed=1
+          fi
+          if [ "$failed" -ne 0 ]; then
             exit 1
+          fi
+          if [ "${{ needs.changes.outputs.docs }}" != "true" ] && [ "${{ needs.changes.outputs.assets }}" != "true" ] && [ "${{ needs.changes.outputs.toolchain }}" != "true" ]; then
+            echo "Only allow-listed paths changed; required check is a no-op"
           fi

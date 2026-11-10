@@ -38,6 +38,13 @@ from importlib.metadata import PackageNotFoundError, version
 from pathlib import Path
 
 from fontTools import unicodedata as ftu
+
+def _generated_stamp() -> str:
+    """Wall-clock free. SOURCE_DATE_EPOCH (set by build_all.sh) wins over now()."""
+    raw = os.environ.get("SOURCE_DATE_EPOCH")
+    if raw:
+        return _dt.datetime.fromtimestamp(int(raw), _dt.timezone.utc).isoformat(timespec="seconds")
+    return _dt.datetime.now(_dt.timezone.utc).isoformat(timespec="seconds")
 from fontTools.ttLib import TTFont
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -749,7 +756,7 @@ def build_family(fid: str, stem: str, display: str, blurb: str, args) -> dict | 
         "source": rel(upright),
         "italicSource": rel(italic) if italic else None,
         "hasItalic": italic is not None,
-        "generated": _dt.datetime.now(_dt.timezone.utc).isoformat(timespec="seconds"),
+        "generated": _generated_stamp(),
         "web": has_web(stem),
         "metrics": metrics_of(font),
         "axes": axes_of(font),
@@ -938,7 +945,7 @@ def main(argv=None) -> int:
             if f.get("id") not in built and f.get("id") not in args.only and (DATA / f"{f.get('id')}.json").exists():
                 built[f["id"]] = f
     index = {
-        "generated": _dt.datetime.now(_dt.timezone.utc).isoformat(timespec="seconds"),
+        "generated": _generated_stamp(),
         "catalog": [
             {"id": fid, "name": f.name, "ps": f.ps, "style": f.style, "italic": f.italic,
              "packs": list(f.packs), "built": fid in built, "web": has_web(f.ps)}
