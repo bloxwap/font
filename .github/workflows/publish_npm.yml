@@ -69,19 +69,22 @@ jobs:
         run: echo "value=$(node -p "require('./package.json').version")" >> "$GITHUB_OUTPUT"
 
       # The release tag and a manual dispatch must name the package version.
+      # Tag and event come from the environment so the shell does not expand untrusted context.
       - name: Require the git tag to match package.json
+        env:
+          PACKAGE_VERSION: ${{ steps.version.outputs.value }}
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+          EVENT_NAME: ${{ github.event_name }}
         run: |
           set -euo pipefail
-          version="${{ steps.version.outputs.value }}"
-          if [ "${{ github.event_name }}" = "release" ]; then
-            tag="${{ github.event.release.tag_name }}"
-            if [ "$tag" != "v$version" ]; then
-              echo "release tag $tag != v$version"
+          if [ "$EVENT_NAME" = "release" ]; then
+            if [ "$RELEASE_TAG" != "v$PACKAGE_VERSION" ]; then
+              echo "release tag $RELEASE_TAG != v$PACKAGE_VERSION"
               exit 1
             fi
           else
-            if ! git ls-remote --tags origin "refs/tags/v$version" | grep -q .; then
-              echo "refusing to publish: tag v$version does not exist"
+            if ! git ls-remote --tags origin "refs/tags/v$PACKAGE_VERSION" | grep -q .; then
+              echo "refusing to publish: tag v$PACKAGE_VERSION does not exist"
               exit 1
             fi
           fi

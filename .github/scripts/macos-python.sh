@@ -24,18 +24,17 @@ elif command -v python3 >/dev/null 2>&1; then
 fi
 
 if [ -z "$py" ]; then
-  if ! command -v brew >/dev/null 2>&1; then
-    echo "Python 3.12 is required. Install Homebrew, then: brew install python@3.12"
-    echo "actions/setup-python cannot install here: it writes /Users/runner/hostedtoolcache."
-    exit 1
+  # Homebrew bottles are fetched from ghcr.io, which this runner cannot resolve.
+  # uv installs CPython 3.12 from the Astral/GitHub release instead.
+  if ! command -v uv >/dev/null 2>&1; then
+    curl -LsSf https://astral.sh/uv/install.sh | sh
+    export PATH="$HOME/.local/bin:$PATH"
+    if [ -n "${GITHUB_PATH:-}" ]; then
+      echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+    fi
   fi
-  echo "Installing python@3.12 with Homebrew (same 3.12 pin as setup-python)."
-  brew install python@3.12
-  if command -v python3.12 >/dev/null 2>&1; then
-    py=$(command -v python3.12)
-  else
-    py="$(brew --prefix python@3.12)/bin/python3.12"
-  fi
+  uv python install 3.12
+  py=$(uv python find 3.12)
 fi
 
 if [ ! -x "$py" ]; then
