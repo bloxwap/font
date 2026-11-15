@@ -20,7 +20,7 @@ if "--pack" in args:
     args = args[:i] + args[i + 2:]
 mods = args
 for m in pkgutil.iter_modules(gl.__path__):
-    importlib.import_module(f"bwfont.glyphs.{m.name}")
+    importlib.import_module(f"bwfont.glyphs.{m.name}")  # nosemgrep: python.lang.security.audit.non-literal-import.non-literal-import -- first-party glyph modules from pkgutil, not user input
 def _mod(gd):
     return getattr(gd.func, "__module__", "").rsplit(".", 1)[-1]
 names = [n for n, gd in GLYPHS.items() if ((not mods) or _mod(gd) in mods)

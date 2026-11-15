@@ -81,9 +81,15 @@ def fetch_zip(entry, cache=None):
     if target.exists():
         data = verify(target.read_bytes(), entry['sha256'], target)
     else:
-        url = f"{RELEASES}/{entry['tag']}/{entry['asset']}"
+        tag, asset = entry['tag'], entry['asset']
+        if not re.fullmatch(r'v[\w.-]+', tag) or not re.fullmatch(r'[A-Za-z0-9._-]+\.zip', asset):
+            raise RuntimeError(f'Invalid locked release source: {tag}/{asset}')
+        url = f"{RELEASES}/{tag}/{asset}"
+        if not url.startswith(f"{RELEASES}/"):
+            raise RuntimeError(f'Refusing to fetch {url}')
         print(f'Fetching {url}', flush=True)
         try:
+            # nosemgrep: python.lang.security.audit.dynamic-urllib-use-detected.dynamic-urllib-use-detected -- URL is https://github.com/bloxwap/font/releases/download plus a validated lockfile tag and zip name; body is SHA-256 verified
             with urlopen(url, timeout=120) as response:
                 data = verify(response.read(), entry['sha256'], url)
         except OSError as error:

@@ -42,7 +42,7 @@ FAMILY_NAMES = {"sans": "Bloxwap Sans", "mono": "Bloxwap Mono", "pixel": "Bloxwa
 def load_glyph_modules():
     import bwfont.glyphs as gl
     for m in pkgutil.iter_modules(gl.__path__):
-        importlib.import_module(f"bwfont.glyphs.{m.name}")
+        importlib.import_module(f"bwfont.glyphs.{m.name}")  # nosemgrep: python.lang.security.audit.non-literal-import.non-literal-import -- first-party glyph modules from pkgutil, not user input
 
 
 @dataclass
