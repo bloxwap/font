@@ -17,7 +17,7 @@ def load_all():
     pkg = Path(__file__).parent
     for m in sorted(pkgutil.iter_modules([str(pkg)]), key=lambda m: m.name):
         if m.name.startswith("components"):
-            importlib.import_module(f"{__name__}.{m.name}")
+            importlib.import_module(f"{__name__}.{m.name}")  # nosemgrep: python.lang.security.audit.non-literal-import.non-literal-import -- first-party component modules from pkgutil, not user input
     for p in sorted(pkg.glob("ids*.txt")):
         if p.name.startswith("ids_jp"):
             continue

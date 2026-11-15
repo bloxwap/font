@@ -315,7 +315,7 @@ def main():
     STAMP=dt.datetime.now(dt.timezone.utc).strftime('%Y%m%dT%H%M%S.%fZ'); RESULTS.mkdir(parents=True,exist_ok=True)
     DATA=dict(license='OFL-1.1',command=ARGS.command,timestamp=STAMP,repo=str(REPO),environment={k:ENV.get(k) for k in ('JOBS','FONT_PYTHON','PYTHONPATH','NEXT_PUBLIC_BASE_PATH','NODE_ENV')},arguments={k:str(v) if isinstance(v,Path) else v for k,v in vars(ARGS).items()},machine=machine(),measurements=[],metrics=[])
     try:
-        globals()[ARGS.command]()
+        {'build':build,'docs':docs,'assets':assets,'profile':profile,'report':report}[ARGS.command]()
     except Exception as e:
         DATA['error']=repr(e); raise
     finally:
