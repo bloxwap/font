@@ -1,4 +1,4 @@
-import { Callout } from '@bloxwap/hig-react/status';
+import { Callout } from '@bloxwap/hig/react/status';
 
 /**
  * The HIG warning callout for a family whose fonts are not built yet. Presentational only (no

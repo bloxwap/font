@@ -11,7 +11,7 @@ Use a reviewed immutable font commit and its built package tarball until a relea
 
 ```sh
 python3 -m venv packages/font/.venv
-packages/font/.venv/bin/pip install 'fonttools[woff,unicode]==4.66.1' 'brotli==1.2.0'
+packages/font/.venv/bin/pip install 'fonttools[woff,unicode]==4.66.1' 'brotli==1.2.1'
 export FONT_PYTHON="$PWD/packages/font/.venv/bin/python"
 cd packages/npm
 npm pack

@@ -19,17 +19,21 @@ jobs:
     outputs:
       assets: ${{ steps.paths.outputs.assets }}
       docs: ${{ steps.paths.outputs.docs }}
+      toolchain: ${{ steps.paths.outputs.toolchain }}
     steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
       - id: paths
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          assets=false
-          docs=false
+          scripts/ci-paths.sh coverage
           if [ "${{ github.event_name }}" != "pull_request" ]; then
             echo "assets=true" >> "$GITHUB_OUTPUT"
             echo "docs=true" >> "$GITHUB_OUTPUT"
+            echo "toolchain=true" >> "$GITHUB_OUTPUT"
             echo "Running the full suite (${{ github.event_name }})"
             exit 0
           fi
@@ -37,28 +41,8 @@ jobs:
           gh api --paginate "repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/files" --jq '.[].filename' > "$files"
           echo "Changed files:"
           cat "$files"
-          while IFS= read -r file || [ -n "$file" ]; do
-            [ -z "$file" ] && continue
-            case "$file" in
-              apps/next-fixture/*|packages/npm/*|packages/font/*|scripts/*|LICENSE|apps/docs/public/*)
-                assets=true
-                ;;
-            esac
-            case "$file" in
-              apps/docs/*|packages/font/*|scripts/*|vendor/bloxwap-hig/*|bunfig.toml)
-                docs=true
-                ;;
-            esac
-            case "$file" in
-              package.json|bun.lock|.github/workflows/font-quality.yml)
-                assets=true
-                docs=true
-                ;;
-            esac
-          done < "$files"
-          echo "assets=$assets" >> "$GITHUB_OUTPUT"
-          echo "docs=$docs" >> "$GITHUB_OUTPUT"
-          echo "assets=$assets docs=$docs"
+          GITHUB_OUTPUT="$GITHUB_OUTPUT" scripts/ci-paths.sh fold < "$files"
+          env -u GITHUB_OUTPUT scripts/ci-paths.sh fold < "$files"
 
   assets:
     needs: changes
@@ -67,41 +51,38 @@ jobs:
     runs-on: [self-hosted, macOS, ARM64]
     timeout-minutes: 45
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
       # Public release downloads need no auth; a per-run temp cache avoids GitHub cache saves.
       - name: Static source cache location
         working-directory: .
         run: echo "BLOXWAP_STATIC_SOURCES_CACHE=$RUNNER_TEMP/font-static-sources-$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT" >> "$GITHUB_ENV"
-      - name: Require Homebrew Python 3.13
-        run: .github/scripts/macos-python313.sh
+      - name: Require Homebrew Python 3.12
+        run: .github/scripts/macos-python.sh
       # No cache: npm. Persistent minis already keep bun/npm stores on disk;
       # setup-node's post step is 0s here, and a GitHub npm cache would only add
       # restore/save. package-manager-cache matches publish_npm.yml.
-      - uses: actions/setup-node@v7
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: '24'
           package-manager-cache: false
-      - uses: oven-sh/setup-bun@v2
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
       - run: bun install --frozen-lockfile
-      - run: python -m pip install 'fonttools[woff,unicode]==4.66.1' 'brotli==1.2.0'
+      - run: python -m pip install 'fonttools[woff,unicode]==4.66.1' 'brotli==1.2.1'
       # Do not save generated fonts with actions/cache: generate is ~1 min, but
       # GitHub cache save of this tree has taken 41–887s on these minis.
       # Fetch public, hash-pinned family zips only when dist sources are absent.
       # Use job-local storage without a GitHub cache save.
-      - name: Check font generation invariants
-        run: |
-          bun run fonts:setup
-          PYTHONPATH=packages/font/tools packages/font/.venv/bin/python -m unittest test_postprocess test_site_data test_unicode test_build_pool test_robust
-          packages/font/.venv/bin/python packages/font/tools/test_subsets.py
       - name: Generate package fonts
         run: node packages/npm/scripts/build.mjs
       # Tests read the same verified zip sources.
       - run: npm test --prefix packages/npm
-      - run: cd apps/next-fixture && bun run check && bun run build && node check-export.mjs
+      - run: cd apps/next-fixture && bun run check && bun run typecheck:tsc && bun run build && node check-export.mjs
       - name: Check the packed distribution
         working-directory: packages/npm
         run: npm pack --ignore-scripts --json > packed.json
-      - uses: actions/upload-artifact@v6
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
         with:
           name: font-candidate
           path: |
@@ -117,49 +98,27 @@ jobs:
     env:
       NEXT_PUBLIC_BASE_PATH: /font
       NEXT_TELEMETRY_DISABLED: '1'
-    steps:
-      - uses: actions/checkout@v7
-      - uses: oven-sh/setup-bun@v2
-      - run: bun install --frozen-lockfile
-      - run: bun run lint
-      - run: bun run typecheck
-      - run: bun run docs:build
-      - run: cd apps/docs && bun run test:unit
-      - uses: actions/upload-artifact@v6
-        with:
-          name: docs-preview
-          path: apps/docs/out
-          retention-days: 1
-
-  docs-browser:
-    needs: [changes, docs-build]
-    # Security: never run fork PR code on the self-hosted runner.
-    if: (needs.changes.outputs.docs == 'true') && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
-    runs-on: [self-hosted, macOS, ARM64]
-    timeout-minutes: 30
-    strategy:
-      fail-fast: false
-      matrix:
-        browser: [chromium, webkit]
-    env:
-      NEXT_PUBLIC_BASE_PATH: /font
-      NEXT_TELEMETRY_DISABLED: '1'
       DOCS_URL: http://127.0.0.1:43914/font/
       PORT: 43914
     steps:
-      - uses: actions/checkout@v7
-      - uses: oven-sh/setup-bun@v2
-      - run: bun install --frozen-lockfile
-      - uses: actions/download-artifact@v6
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          name: docs-preview
-          path: apps/docs/out
+          persist-credentials: false
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
+      - run: bun install --frozen-lockfile
+      - run: bun run lint
+      - run: bun scripts/check-typecheck-pins.mjs
+      - run: bun run typecheck
+      # Docs only. next-fixture's tsc import of native types runs in the assets job after the package build.
+      - run: cd apps/docs && bun run typecheck:tsc
+      - run: bun run docs:build
+      - run: cd apps/docs && bun run test:unit
       # Do not save ~/Library/Caches/ms-playwright with actions/cache: the folder
       # is shared on-disk across jobs on these minis, and cache save stalls ~24
       # minutes for ~1.5 GB (hig quality.yml, monorepo #4603). playwright install
       # uses the on-disk cache.
-      - name: Install Playwright browser
-        run: cd apps/docs && bunx playwright install ${{ matrix.browser }}
+      - name: Install Playwright browsers
+        run: cd apps/docs && bunx playwright install chromium webkit
       - name: Production browser checks
         run: |
           set -euo pipefail
@@ -181,19 +140,69 @@ jobs:
           fi
           cd apps/docs
           # One active page avoids oversubscribing the runner while shaping the full font catalog.
-          bunx playwright test --project=${{ matrix.browser }} --workers=1
-      - uses: actions/upload-artifact@v6
+          bunx playwright test --project=chromium --project=webkit --workers=1
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
         if: always()
         with:
-          name: docs-test-evidence-${{ matrix.browser }}
+          name: docs-test-evidence
           path: |
             apps/docs/test-results
             apps/docs/playwright-report
 
+  font-toolchain:
+    needs: changes
+    # Security: never run fork PR code on the self-hosted runner.
+    if: (needs.changes.outputs.toolchain == 'true') && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
+    runs-on: [self-hosted, macOS, ARM64]
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Python 3.12 toolchain
+        run: |
+          set -euo pipefail
+          if ! command -v uv >/dev/null 2>&1; then
+            # Pin the official uv release and verify SHA-256 instead of curl | sh.
+            UV_URL=https://github.com/astral-sh/uv/releases/download/0.13.6/uv-aarch64-apple-darwin.tar.gz
+            UV_SHA256=60fbd5c8a1ed681845eea28d9d622fcde03c51e91a43465b64a1e17db1ed3472
+            tmp="$RUNNER_TEMP/uv-aarch64-apple-darwin.tar.gz"
+            curl -fsSL "$UV_URL" -o "$tmp"
+            echo "$UV_SHA256  $tmp" | shasum -a 256 -c -
+            mkdir -p "$HOME/.local/bin"
+            tar -xzf "$tmp" -C "$HOME/.local/bin" --strip-components 1 uv-aarch64-apple-darwin/uv
+            echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+            export PATH="$HOME/.local/bin:$PATH"
+          fi
+          hash=$(shasum -a 256 packages/font/requirements.txt | awk '{print $1}')
+          venv="$HOME/.cache/bloxwap-font/venv-$hash"
+          if [ ! -x "$venv/bin/python" ]; then
+            uv venv "$venv" --python 3.12
+            uv pip install --python "$venv/bin/python" -r packages/font/requirements.txt
+          fi
+          echo "$venv/bin" >> "$GITHUB_PATH"
+          echo "FONT_PYTHON=$venv/bin/python" >> "$GITHUB_ENV"
+      - name: Toolchain tests and skeleton checks
+        run: |
+          set -euo pipefail
+          cd packages/font
+          "$FONT_PYTHON" -m unittest discover -s tools -p 'test_*.py'
+          "$FONT_PYTHON" tools/check_glyphs.py --pack core,arabic,hebrew,armenian,georgian
+          "$FONT_PYTHON" tools/check_cusps.py
+      - name: Clean-room and generated web artifacts
+        run: |
+          set -euo pipefail
+          export PYTHONPATH=packages/font/tools
+          "$FONT_PYTHON" packages/font/tools/check_clean_room.py
+          "$FONT_PYTHON" packages/font/tools/check_generated.py
+          "$FONT_PYTHON" packages/font/tools/check_mono_cell.py
+          "$FONT_PYTHON" packages/font/tools/check_ofl.py
+          "$FONT_PYTHON" packages/font/tools/check_static_weight.py apps/docs/assets/og
+
   # Always reports so the required `docs` check is never pending. Fails when a
-  # docs-related run's build or any browser shard failed; succeeds on skip.
+  # selected check did not actually succeed. Allow-listed doc edits stay a no-op.
   docs:
-    needs: [changes, docs-build, docs-browser]
+    needs: [changes, docs-build, assets, font-toolchain]
     # Security: never run fork PR code on the self-hosted runner.
     if: (always() && !cancelled()) && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
     runs-on: [self-hosted, macOS, ARM64]
@@ -202,17 +211,28 @@ jobs:
       - name: Required docs checks
         run: |
           set -euo pipefail
-          echo "changes=${{ needs.changes.result }} docs-filter=${{ needs.changes.outputs.docs }}"
-          echo "docs-build=${{ needs.docs-build.result }} docs-browser=${{ needs.docs-browser.result }}"
+          echo "changes=${{ needs.changes.result }} docs=${{ needs.changes.outputs.docs }} assets=${{ needs.changes.outputs.assets }} toolchain=${{ needs.changes.outputs.toolchain }}"
+          echo "docs-build=${{ needs.docs-build.result }} assets-job=${{ needs.assets.result }} toolchain-job=${{ needs.font-toolchain.result }}"
           if [ "${{ needs.changes.result }}" != "success" ]; then
             echo "Path filter job failed"
             exit 1
           fi
-          if [ "${{ needs.changes.outputs.docs }}" != "true" ]; then
-            echo "No docs-related paths changed; docs check is a no-op"
-            exit 0
-          fi
-          if [ "${{ needs.docs-build.result }}" != "success" ] || [ "${{ needs.docs-browser.result }}" != "success" ]; then
+          failed=0
+          if [ "${{ needs.changes.outputs.docs }}" = "true" ] && [ "${{ needs.docs-build.result }}" != "success" ]; then
             echo "Docs quality checks failed"
+            failed=1
+          fi
+          if [ "${{ needs.changes.outputs.assets }}" = "true" ] && [ "${{ needs.assets.result }}" != "success" ]; then
+            echo "Asset checks failed"
+            failed=1
+          fi
+          if [ "${{ needs.changes.outputs.toolchain }}" = "true" ] && [ "${{ needs.font-toolchain.result }}" != "success" ]; then
+            echo "Font toolchain checks failed"
+            failed=1
+          fi
+          if [ "$failed" -ne 0 ]; then
             exit 1
+          fi
+          if [ "${{ needs.changes.outputs.docs }}" != "true" ] && [ "${{ needs.changes.outputs.assets }}" != "true" ] && [ "${{ needs.changes.outputs.toolchain }}" != "true" ]; then
+            echo "Only allow-listed paths changed; required check is a no-op"
           fi

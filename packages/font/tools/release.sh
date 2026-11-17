@@ -10,16 +10,16 @@ set -euo pipefail
 cd "$(dirname "$0")/../../.."
 TAG=${1:-v$(node -p "require('./packages/npm/package.json').version")}
 shopt -s nullglob
-ZIPS=(apps/docs/public/downloads/*.zip)
+DOWNLOADS=${FONT_RELEASE_DOWNLOADS:-apps/docs/public/downloads}
+ZIPS=("$DOWNLOADS"/*.zip)
 [ ${#ZIPS[@]} -gt 0 ] || { echo "no zips in apps/docs/public/downloads — run bun run fonts:build first"; exit 1; }
 [ -z "$(git status --porcelain)" ] || { echo 'Commit generated fonts and the source lock before releasing'; exit 1; }
 [ "$TAG" = "v$(node -p "require('./packages/npm/package.json').version")" ] || { echo 'Release tag must match package version'; exit 1; }
 if gh release view "$TAG" >/dev/null 2>&1; then
   echo 'Published releases are immutable; create a new version'; exit 1
 fi
-# Verify that regenerating the lock reproduces the committed inventory.
-"${FONT_PYTHON:-packages/font/.venv/bin/python}" packages/npm/scripts/static_sources.py lock --tag "$TAG"
-git diff --exit-code -- packages/npm/static-sources.json || { git restore -- packages/npm/static-sources.json; echo 'ZIPs differ from the committed lock'; exit 1; }
+# Existing immutable binary pins can be reused by a package-only release.
+"${FONT_PYTHON:-packages/font/.venv/bin/python}" packages/npm/scripts/verify_release.py "$DOWNLOADS"
 if git rev-parse "$TAG" >/dev/null 2>&1 && [ "$(git rev-list -n 1 "$TAG")" != "$(git rev-parse HEAD)" ]; then
   echo 'Tag does not point to the current commit'; exit 1
 fi

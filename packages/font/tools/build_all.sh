@@ -7,6 +7,12 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 PY=.venv/bin/python
 export PYTHONPATH="$PWD/tools${PYTHONPATH:+:$PYTHONPATH}"
+# Same commit, same bytes. fontTools timestampNow() reads SOURCE_DATE_EPOCH.
+if [ -z "${SOURCE_DATE_EPOCH:-}" ]; then
+  SOURCE_DATE_EPOCH=$("$PY" -c 'from toolchain import ensure_source_date_epoch; print(ensure_source_date_epoch())')
+  export SOURCE_DATE_EPOCH
+fi
+echo "SOURCE_DATE_EPOCH=${SOURCE_DATE_EPOCH:-unset}"
 if [ -z "${JOBS+x}" ]; then
   if [ "$(uname -s)" = Darwin ]; then JOBS=$(sysctl -n hw.ncpu)
   elif command -v nproc >/dev/null 2>&1; then JOBS=$(nproc)

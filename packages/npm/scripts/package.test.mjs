@@ -90,6 +90,7 @@ test('single npm distribution contains the complete catalog with selective asset
  assert.equal(packedFonts.filter(f=>f.path.endsWith('.ttf')).length,216);
  assert.ok(pack.files.some(f=>f.path==='native/package.json'));
  assert.ok(pack.files.some(f=>f.path==='LICENSE'));
+ assert.equal(await readFile(new URL('native/LICENSE', root), 'utf8'), await readFile(new URL('LICENSE', root), 'utf8'));
  assert.equal(pkg.license,'OFL-1.1');
  assert.equal(pkg.name,'@bloxwap/font');
 });

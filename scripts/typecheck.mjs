@@ -26,6 +26,10 @@ if (wantTsrs) {
     entry = bin('tsrs', 'tsrs');
     tool = 'tsrs';
   } catch {
+    if (process.env.CI && TSRS_PLATFORMS.has(`${process.platform}-${process.arch}`)) {
+      console.error('typecheck: tsrs is not installed; CI will not fall back to tsc on this platform');
+      process.exit(1);
+    }
     console.warn('typecheck: tsrs is not installed; falling back to tsc');
   }
 } else if (process.env.TYPECHECK !== 'tsc') {

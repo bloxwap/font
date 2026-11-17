@@ -3,8 +3,8 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type KeyboardEvent, type ReactNode } from 'react';
 import NumberFlow from '@number-flow/react';
 import { Search } from 'lucide-react';
-import { Button } from '@bloxwap/hig-react/button';
-import { Spinner } from '@bloxwap/hig-react/status';
+import { Button } from '@bloxwap/hig/react/button';
+import { Spinner } from '@bloxwap/hig/react/status';
 import { FamilyPicker, Range } from '@/components/ui/controls';
 import { copyText, toast } from '@/components/ui/toast';
 import { fontStack, instanceName } from '@/lib/families';

@@ -3,6 +3,6 @@
  "private": true,
  "type": "module",
  "scripts": {"build":"next typegen && node ../../scripts/typecheck.mjs && next build", "check":"next typegen && node ../../scripts/typecheck.mjs", "typecheck:tsc":"next typegen && tsc --noEmit"},
- "dependencies": {"@bloxwap/font":"workspace:*", "next":"16.3.8", "react":"^19.2.0", "react-dom":"^19.2.0"},
- "devDependencies": {"typescript":"6.0.3", "tsrs":"0.18.0-ts7.1.0-dev.20260929", "@types/react":"^19.2.0", "@types/node":"^26.6.3"}
+ "dependencies": {"@bloxwap/font":"workspace:*", "next":"16.4.2", "react":"^19.3.1", "react-dom":"^19.3.1"},
+ "devDependencies": {"typescript":"6.0.3", "tsrs":"0.18.0-ts7.1.0-dev.20260929", "@types/react":"^19.3.0", "@types/node":"^26.6.5"}
 }

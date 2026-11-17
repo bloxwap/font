@@ -9,7 +9,7 @@ from bwfont.skeleton import GLYPHS, G, params_for, _unfold
 from bwfont.geometry import start_tangent, end_tangent, norm, sub, dot, length
 import bwfont.glyphs as gl
 for m in pkgutil.iter_modules(gl.__path__):
-    importlib.import_module(f"bwfont.glyphs.{m.name}")
+    importlib.import_module(f"bwfont.glyphs.{m.name}")  # nosemgrep: python.lang.security.audit.non-literal-import.non-literal-import -- first-party glyph modules from pkgutil, not user input
 mods = sys.argv[1:]
 
 def seg_dirs(sg):

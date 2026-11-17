@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { Check, Copy } from 'lucide-react';
-import { IconButton } from '@bloxwap/hig-react/button';
+import { IconButton } from '@bloxwap/hig/react/button';
 import { copyText } from './toast';
 
 /** The HIG ghost icon button that copies `text`, with a check mark and a screen-reader status (as in the sfx and chart docs). */

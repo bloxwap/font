@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-17T17:09:03+00:00",
+ "generated": "2026-11-17T18:16:30+00:00",
  "catalog": [
   {
    "id": "sans",
@@ -3571,9 +3571,9 @@
   "staticFonts": 216,
   "variableFonts": 24
  },
+ "assetVersion": "fd0f2e2db7",
  "zip": {
   "path": "downloads/Bloxwap-Fonts.zip",
   "bytes": 39710573
- },
- "assetVersion": "5c723ac880"
+ }
 }

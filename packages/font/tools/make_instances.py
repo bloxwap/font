@@ -36,9 +36,27 @@ def _interpolator(ds_path, group):
     return Instantiator.from_designspace(sub, round_geometry=True), sub.instances
 
 
+def apply_named_weight(font):
+    """Force OS/2 usWeightClass to the named tier (100–900).
+
+    Designspace ``public.fontInfo`` already asks for this. Applying it again
+    after interpolation keeps a stale designspace from shipping 177/713.
+    """
+    from bwfont.build import WEIGHTS
+    names = {name: weight for weight, name, _stem in WEIGHTS}
+    style = font.info.styleName or ""
+    base = style[: -len(" Italic")] if style.endswith(" Italic") else style
+    if base == "Italic":
+        base = "Regular"
+    weight = names.get(base)
+    if weight is not None:
+        font.info.openTypeOS2WeightClass = int(weight)
+    return font
+
+
 def generate_instance(ds_path, group, index):
     inst, descriptors = _interpolator(str(Path(ds_path).resolve()), group)
-    return inst.generate_instance(descriptors[index])
+    return apply_named_weight(inst.generate_instance(descriptors[index]))
 
 
 def _save_instance(args):

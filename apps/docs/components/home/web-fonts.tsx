@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Spinner } from '@bloxwap/hig-react/status';
+import { Spinner } from '@bloxwap/hig/react/status';
 import { loadFamily, useAsync } from '@/lib/client-data';
 import { fmtBytes } from '@/lib/format';
 import { downloadUrl, fileUrl } from '@/lib/site';

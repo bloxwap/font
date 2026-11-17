@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import type { ReactNode } from 'react';
-import { tokens } from '@bloxwap/hig-tokens';
+import { tokens } from '@bloxwap/hig/tokens';
 import { Provider } from '@/components/provider';
 import { basePath, fileUrl, siteUrl, stylesheetHref } from '@/lib/site';
 import { homeSocial, socialImagePath, socialMetadata } from '@/lib/social';

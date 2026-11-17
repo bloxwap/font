@@ -1,12 +1,14 @@
-// Verify the token npm publish will use, even when the current version is
-// already published. Never print or persist the token.
-// npm trusted publishing is not available on self-hosted runners:
-// https://docs.npmjs.com/trusted-publishers/
+// Validate a transitional token when present; otherwise allow GitHub OIDC.
+// Never print or persist credentials.
 import { readFile } from 'node:fs/promises';
 
 const { name } = JSON.parse(await readFile(new URL('../package.json', import.meta.url), 'utf8'));
 const token = process.env.NODE_AUTH_TOKEN || process.env.NPM_TOKEN;
 if (typeof token !== 'string' || !token) {
+  if (process.env.ACTIONS_ID_TOKEN_REQUEST_URL && process.env.ACTIONS_ID_TOKEN_REQUEST_TOKEN) {
+    console.log('::notice::No npm token provided; publishing will rely on npm trusted publishing.');
+    process.exit(0);
+  }
   throw new Error(
     'NPM_TOKEN is missing. Add a repository secret named NPM_TOKEN with permission to publish this package.',
   );

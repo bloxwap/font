@@ -17,7 +17,7 @@ from bwfont.spacing import autospace
 from bwfont import preview
 import bwfont.glyphs as gl
 for m in pkgutil.iter_modules(gl.__path__):
-    importlib.import_module(f"bwfont.glyphs.{m.name}")
+    importlib.import_module(f"bwfont.glyphs.{m.name}")  # nosemgrep: python.lang.security.audit.non-literal-import.non-literal-import -- first-party glyph modules from pkgutil, not user input
 
 CMAP = {}
 for n, gd in GLYPHS.items():

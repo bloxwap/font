@@ -7,6 +7,11 @@
     "apps/*",
     "packages/*"
   ],
+  "overrides": {
+    "@typescript-eslint/typescript-estree": {
+      "minimatch": "11.0.8"
+    }
+  },
   "scripts": {
     "dev": "bun run docs:dev",
     "fonts:setup": "cd packages/font && bun run setup",
@@ -28,9 +33,5 @@
     "typecheck:tsc": "cd apps/docs && bun run typecheck:tsc && cd ../next-fixture && bun run typecheck:tsc",
     "test": "cd packages/npm && bun run test",
     "build": "cd packages/npm && bun run build && cd ../../apps/docs && bun run build"
-  },
-  "overrides": {
-    "@bloxwap/hig-contracts": "file:./vendor/bloxwap-hig/bloxwap-hig-contracts-0.1.0-candidate.sha7c67a07c.tgz",
-    "@bloxwap/hig-tokens": "file:./vendor/bloxwap-hig/bloxwap-hig-tokens-0.1.0-candidate.sha7c67a07c.tgz"
   }
 }

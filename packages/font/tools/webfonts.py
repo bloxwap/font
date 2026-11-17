@@ -205,7 +205,7 @@ def _url(path: Path, public: Path, version: str) -> str:
 
 
 def font_version(public: Path = PUBLIC) -> str:
-    h = hashlib.sha1()
+    h = hashlib.sha1()  # nosemgrep: python.lang.security.insecure-hash-algorithms.insecure-hash-algorithm-sha1 -- 10-char cache-busting fingerprint for CSS URLs, not a cryptographic signature
     for p in sorted((public / "fonts").rglob("*.woff2")):
         h.update(p.relative_to(public).as_posix().encode())
         h.update(p.read_bytes())
