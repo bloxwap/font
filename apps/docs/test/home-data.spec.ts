@@ -1,3 +1,4 @@
+import { RELEASE_TAG } from '../lib/release-version';
 import { test, expect } from '@playwright/test';
 
 const live = process.env.DOCS_URL;
@@ -38,7 +39,7 @@ test('expanding web fonts loads the variable file list and release zip once from
   await expect(details.locator('a')).toHaveCount(0);
   await details.locator('summary').click();
   await expect(details.locator('li a')).toHaveCount(data.files.web.length);
-  await expect(details.getByRole('link', { name: 'Static web fonts in the family zip' })).toHaveAttribute('href', 'https://github.com/bloxwap/font/releases/latest/download/BloxwapSans.zip');
+  await expect(details.getByRole('link', { name: 'Static web fonts in the family zip' })).toHaveAttribute('href', `https://github.com/bloxwap/font/releases/download/${RELEASE_TAG}/BloxwapSans.zip`);
   for (const file of data.files.web) {
     expect(file.variable).toBe(true);
     expect(file.path).toContain('/variable/');

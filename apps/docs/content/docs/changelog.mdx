@@ -3,6 +3,14 @@ title: Changelog
 description: Release history of Bloxwap Font.
 ---
 
+## 0.2.0
+
+- Enforce validated, versioned font metadata and preserve valid output on failed builds.
+- Correct character totals, family language coverage, and glyph preview eligibility.
+- Fix tester request races, keyboard navigation, language selection, and copied settings.
+- Pin download inventories and verify release assets against committed sources.
+- Include all previously merged font, dependency, CI, and security improvements.
+
 ## 0.1.5
 
 - **Mono stays on the cell.** Every encoded Mono glyph now has an advance of 600 units, or a whole number of cells for ligatures and fullwidth CJK. Accented letters that used to run past the cell, including `ď`, `ľ`, `ŀ`, `ŉ`, `ť` and Greek capitals with breathings, are condensed so they fit. `isFixedPitch` stays set. A check fails the build if any Mono or Pixel glyph leaves the grid.

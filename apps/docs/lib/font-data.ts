@@ -3,6 +3,7 @@
  * (reads the file system during `next build`), so every number on the site is the number
  * in the fonts that ship with it.
  */
+import { validateData } from './data-validation';
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { coverageHighlights } from './coverage';
@@ -14,7 +15,7 @@ const cache = new Map<string, unknown>();
 function readJson<T>(name: string): T | null {
   if (cache.has(name)) return cache.get(name) as T | null;
   const path = join(DATA, name);
-  const value = existsSync(path) ? (JSON.parse(readFileSync(path, 'utf8')) as T) : null;
+  const value = existsSync(path) ? (validateData(name, JSON.parse(readFileSync(path, 'utf8'))) as T) : null;
   cache.set(name, value);
   return value;
 }

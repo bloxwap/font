@@ -17,7 +17,7 @@
 - **Three type families.** Sans for interfaces and text, Mono for code with ligatures, and Pixel for displays and game-like moments, all with matching proportions and weights.
 - **11 scripts, 656 languages.** Multilingual companions for Arabic, Armenian, Georgian, Hebrew, Japanese, Korean, and Simplified Chinese. Armenian and Georgian include italics; Arabic and Hebrew include mark positioning for joined and pointed text.
 - **Variable and static fonts.** 24 variable fonts (wght 100-900, italics where applicable, and ROND 0-100 for Pixel) plus 216 static weights. Available as OTF, TTF, WOFF2, and WOFF.
-- **Clean-room design.** All 19,311 characters drawn from scratch, in the spirit of Inter and Geist. No outlines copied, traced, or derived from any other font.
+- **Clean-room design.** All 19,387 characters drawn from scratch, in the spirit of Inter and Geist. No outlines copied, traced, or derived from any other font.
 
 | Family | For | Axes |
 |---|---|---|
@@ -56,7 +56,7 @@ Core CSS keeps all Latin coverage (including Latin Extended, IPA and Vietnamese)
 
 One family name covers every script: the stylesheet loads companions with `unicode-range` only when a page uses them. Downloads: [latest release](https://github.com/bloxwap/font/releases/latest). Self-hosting: [Installation](https://bloxwap.github.io/font/docs/installation/).
 
-Expo and React Native use the same `@bloxwap/font` package (0.1.5):
+Expo and React Native use the same `@bloxwap/font` package (0.2.0):
 
 ```js
 const regular = require('@bloxwap/font/native/assets/BloxwapSans/BloxwapSans-Regular.ttf');
@@ -70,7 +70,7 @@ for registration and migration from the former `@bloxwap/font-native*` packages.
 
 ## Release status
 
-`0.1.5` is the current release. Expect breaking changes before `1.0`.
+`0.2.0` is the current release. Expect breaking changes before `1.0`.
 
 ## Documentation
 

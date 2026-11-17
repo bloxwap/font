@@ -1,5 +1,6 @@
 'use client';
 
+import { validateData } from './data-validation';
 import { useEffect, useState } from 'react';
 import { assetUrl } from './site';
 import type { FamilyData, Glyph, Languages } from './types';
@@ -10,7 +11,7 @@ function load<T>(path: string): Promise<T | null> {
   if (!cache.has(path)) {
     cache.set(path, fetch(assetUrl(path), { cache: 'no-cache' })
       .then((response) => (response.ok ? response.json() : null))
-      .catch(() => null));
+      .then((value) => value === null ? null : validateData(path, value)).catch(() => null).then((value) => { if (value === null) cache.delete(path); return value; }));
   }
   return cache.get(path) as Promise<T | null>;
 }

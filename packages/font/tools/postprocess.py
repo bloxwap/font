@@ -108,8 +108,14 @@ def process_vf(args):
     return out_ttf.name
 
 
-def run(fams):
+def _run(fams):
     jobs_static, jobs_otf, jobs_vf = [], [], []
+    for fam in fams:
+        expected = 18 if FAMILIES[fam].italic else 9
+        for sub, ext, count in [('variable', 'ttf', expected // 9), ('otf', 'otf', expected), ('ttf', 'ttf', expected)]:
+            found = list((ROOT / 'build' / fam / sub).glob('*.' + ext))
+            if len(found) != count:
+                raise RuntimeError(f'{fam}/{sub}: expected {count} inputs, found {len(found)}; output retained')
     for fam in fams:
         ps = PS[fam]
         b = ROOT / "build" / fam
@@ -133,6 +139,39 @@ def run(fams):
         for name in ex.map(process_static_ttf, jobs_static):
             pass
     print(f"    {len(jobs_vf)} variable, {len(jobs_otf)} otf, {len(jobs_static)} ttf/woff/woff2")
+
+
+def run(fams):
+    """Generate every replacement before committing any distribution changes."""
+    import tempfile
+    global ROOT
+    original = ROOT
+    with tempfile.TemporaryDirectory(dir=original, prefix='.postprocess-') as temporary:
+        stage = Path(temporary)
+        (stage / 'build').symlink_to(original / 'build', target_is_directory=True)
+        try:
+            ROOT = stage
+            _run(fams)
+        finally:
+            ROOT = original
+        committed = []
+        backups = []
+        try:
+            for fam in fams:
+                target = original / 'fonts' / PS[fam]
+                target.parent.mkdir(parents=True, exist_ok=True)
+                backup = stage / ('backup-' + fam)
+                if target.exists():
+                    target.rename(backup)
+                    backups.append((backup, target))
+                (stage / 'fonts' / PS[fam]).rename(target)
+                committed.append(target)
+        except BaseException:
+            for target in committed:
+                shutil.rmtree(target)
+            for backup, target in backups:
+                backup.rename(target)
+            raise
 
 
 def package():
@@ -201,4 +240,4 @@ if __name__ == "__main__":
     sd = ROOT / "tools" / "site_data.py"
     if sd.exists():
         subprocess.run([sys.executable, str(sd),
-                        *[arg for fam in fams for arg in ("--only", fam)]], check=False)
+                        *[arg for fam in fams for arg in ("--only", fam)]], check=True)

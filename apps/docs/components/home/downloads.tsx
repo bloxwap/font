@@ -87,12 +87,12 @@ export function Downloads({ families, zip }: { families: FamilyMeta[]; zip: ZipF
   return <>
     <div className="dl-all card">
       <div>
-        <h3>All families</h3>
-        <p>{primary.map((f) => shortName(f.name)).join(', ')}{companions.length ? ` and ${companions.length} companion famil${companions.length === 1 ? 'y' : 'ies'}` : ''} — static and variable, desktop and web formats, plus <code>OFL.txt</code>.</p>
+        <h3>Core families</h3>
+        <p>{primary.map((f) => shortName(f.name)).join(', ')} — static and variable, desktop and web formats, plus <code>OFL.txt</code>.</p>
       </div>
       {zip
-        ? <a className="hig-button btn" data-intent="primary" href={downloadUrl(zip.path)} download><Download aria-hidden="true" /> Download all <span className="btn-meta">{fmtBytes(zip.bytes)}</span></a>
-        : <span className="hig-button btn" data-intent="primary" aria-disabled="true">Download all <span className="btn-meta">soon</span></span>}
+        ? <a className="hig-button btn" data-intent="primary" href={downloadUrl(zip.path)} download><Download aria-hidden="true" /> Download core families <span className="btn-meta">{fmtBytes(zip.bytes)}</span></a>
+        : <span className="hig-button btn" data-intent="primary" aria-disabled="true">Download core families <span className="btn-meta">soon</span></span>}
     </div>
     <div className="dl-grid">{primary.map((meta) => <DownloadCard key={meta.id} meta={meta} />)}</div>
     {companions.length > 0 && <div className="dl-grid dl-grid--companions">{companions.map((meta) => <DownloadCard key={meta.id} meta={meta} />)}</div>}
