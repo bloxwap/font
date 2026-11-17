@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-21T01:50:01+00:00",
+ "generated": "2026-11-17T17:09:03+00:00",
  "catalog": [
   {
    "id": "sans",
@@ -1425,8 +1425,8 @@
     "glyphs": 6259,
     "encoded": 5625,
     "features": 20,
-    "languages": 590,
-    "scripts": 3,
+    "languages": 591,
+    "scripts": 4,
     "instances": 9
    },
    "axes": [
@@ -1620,8 +1620,8 @@
     "glyphs": 6253,
     "encoded": 5601,
     "features": 19,
-    "languages": 590,
-    "scripts": 3,
+    "languages": 591,
+    "scripts": 4,
     "instances": 9
    },
    "axes": [
@@ -1815,8 +1815,8 @@
     "glyphs": 5157,
     "encoded": 4523,
     "features": 20,
-    "languages": 590,
-    "scripts": 3,
+    "languages": 591,
+    "scripts": 4,
     "instances": 9
    },
    "axes": [
@@ -2032,8 +2032,8 @@
     "glyphs": 5151,
     "encoded": 4499,
     "features": 19,
-    "languages": 590,
-    "scripts": 3,
+    "languages": 591,
+    "scripts": 4,
     "instances": 9
    },
    "axes": [
@@ -3552,7 +3552,7 @@
  ],
  "totals": {
   "families": 17,
-  "characters": 19311,
+  "characters": 19387,
   "languages": 656,
   "languagesNote": "Hyperglot, unique languages; Chinese counted from character coverage; Japanese counted from character coverage",
   "scripts": [
@@ -3574,5 +3574,6 @@
  "zip": {
   "path": "downloads/Bloxwap-Fonts.zip",
   "bytes": 39710573
- }
+ },
+ "assetVersion": "5c723ac880"
 }

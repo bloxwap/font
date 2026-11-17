@@ -79,7 +79,11 @@
           "path": "BloxwapMono/woff2/BloxwapMono-ThinItalic.woff2",
           "sha256": "ec210ed3c075901420dec6df182d4eb1ac4114a59387de0f2521eeb091c154df"
         }
-      ]
+      ],
+      "variableFiles": {
+        "BloxwapMono-Italic[wght].woff2": "7e6f19e57d07511a0e3f4bd31662f90366f0f80852373625ce3fe587a3d7ae54",
+        "BloxwapMono[wght].woff2": "fa66e41575807c3d260d8f5b493be349cac127836b0174976c7d4876237d2632"
+      }
     },
     "BloxwapMonoArabic": {
       "tag": "v0.1.2",
@@ -122,7 +126,10 @@
           "path": "BloxwapMonoArabic/woff2/BloxwapMonoArabic-Thin.woff2",
           "sha256": "377eecb774ebfec388123f8186d36f3bdd8506f14cb17162d4e57a2b75f0b65a"
         }
-      ]
+      ],
+      "variableFiles": {
+        "BloxwapMonoArabic[wght].woff2": "571c098d52654fe851573b06d15f26f74c9f9df78c1110e47722224dd693cce9"
+      }
     },
     "BloxwapMonoArmenian": {
       "tag": "v0.1.2",
@@ -201,7 +208,11 @@
           "path": "BloxwapMonoArmenian/woff2/BloxwapMonoArmenian-ThinItalic.woff2",
           "sha256": "1003c2299fb0e32d1de2f8e57ebcd352a14aa30ea05b62780dc4e44545991524"
         }
-      ]
+      ],
+      "variableFiles": {
+        "BloxwapMonoArmenian-Italic[wght].woff2": "d65a1f29665c5337426c6adad2aa531a2145a0e9616c30f8d452f188e2bfd133",
+        "BloxwapMonoArmenian[wght].woff2": "24b368afe8097ee5f22d2e9b510d73047273d1d5998ca2a7ba5df6dfac3bf8f3"
+      }
     },
     "BloxwapMonoGeorgian": {
       "tag": "v0.1.2",
@@ -280,7 +291,11 @@
           "path": "BloxwapMonoGeorgian/woff2/BloxwapMonoGeorgian-ThinItalic.woff2",
           "sha256": "5e4c065ae96716aecb8cd537b4a50453f0bdf263ace033c6e927fb0990a48f76"
         }
-      ]
+      ],
+      "variableFiles": {
+        "BloxwapMonoGeorgian-Italic[wght].woff2": "579bf0368160836a7edcd88ee4859e7bf1fd065b1242a47968d1e5c8b1f2621d",
+        "BloxwapMonoGeorgian[wght].woff2": "886b8e52bc589b65716f2b0e44b38096529dc57d7248c430f73350e60e0b3ec8"
+      }
     },
     "BloxwapMonoHebrew": {
       "tag": "v0.1.2",
@@ -323,7 +338,10 @@
           "path": "BloxwapMonoHebrew/woff2/BloxwapMonoHebrew-Thin.woff2",
           "sha256": "1ba05649253097ac83ed6acbd5c7cb907012d2bd3d7fa71e166be603f779c5c9"
         }
-      ]
+      ],
+      "variableFiles": {
+        "BloxwapMonoHebrew[wght].woff2": "73be4e649b017bb207febcbd673eae3e1cc343d16768bc70f055b1a2a722d074"
+      }
     },
     "BloxwapMonoJP": {
       "tag": "v0.1.2",
@@ -366,7 +384,10 @@
           "path": "BloxwapMonoJP/woff2/BloxwapMonoJP-Thin.woff2",
           "sha256": "cd9d46b847d70570f6defd8f8b3e54b2ad4222c11d67f689d29d019ae164c401"
         }
-      ]
+      ],
+      "variableFiles": {
+        "BloxwapMonoJP[wght].woff2": "91cd6db5fb40b9884ddaa21cefb1e7615e7b1809322deafb0fcc6a7df0c81708"
+      }
     },
     "BloxwapMonoKR": {
       "tag": "v0.1.2",
@@ -409,7 +430,10 @@
           "path": "BloxwapMonoKR/woff2/BloxwapMonoKR-Thin.woff2",
           "sha256": "cf886b0c1c24dd55801328cb31cf0afe7c49e4e8c3b50ad1aaeb843d4ffd4fba"
         }
-      ]
+      ],
+      "variableFiles": {
+        "BloxwapMonoKR[wght].woff2": "e36f38e99c48c65fb40731534a0aeb82acdaae877fcf7878bcff5e1c1fa09800"
+      }
     },
     "BloxwapMonoSC": {
       "tag": "v0.1.2",
@@ -452,7 +476,10 @@
           "path": "BloxwapMonoSC/woff2/BloxwapMonoSC-Thin.woff2",
           "sha256": "02e6a9af587c5cee5f5938e7dc6d7734e66c5913ca2bc5ed2f3fae9b59b027f0"
         }
-      ]
+      ],
+      "variableFiles": {
+        "BloxwapMonoSC[wght].woff2": "3add92b864b94150400652e6c4bd15abf163ae55b6f1ae1ca1e84cb9b8291f74"
+      }
     },
     "BloxwapPixel": {
       "tag": "v0.1.2",
@@ -531,7 +558,11 @@
           "path": "BloxwapPixel/woff2/BloxwapPixel-ThinItalic.woff2",
           "sha256": "2b18f963f93f1781c9370dc62294e15586e15082393edf7f7e9792dcdb3e885e"
         }
-      ]
+      ],
+      "variableFiles": {
+        "BloxwapPixel-Italic[ROND,wght].woff2": "ce121c02ff62bd36b4341a789c0ca91787ebadfcdddcc8925f592a5a1aab9e75",
+        "BloxwapPixel[ROND,wght].woff2": "4574b5a78d04a8c494ec2b0d9f55088f949bbc83c4b54055ff3480a180d19e5b"
+      }
     },
     "BloxwapSans": {
       "tag": "v0.1.2",
@@ -610,7 +641,11 @@
           "path": "BloxwapSans/woff2/BloxwapSans-ThinItalic.woff2",
           "sha256": "8697b07068c40f8130d15429d0668ff75522e7f4bc39a24ac35ce3bf9f55c050"
         }
-      ]
+      ],
+      "variableFiles": {
+        "BloxwapSans-Italic[wght].woff2": "407ae048948bc5e39d322bb93d25915dfae5fb5bfbfe4388ab951a9761a1267a",
+        "BloxwapSans[wght].woff2": "96f6be58023b1d22152c797336282a4330a47ab4a3c0ab87451be887903746b7"
+      }
     },
     "BloxwapSansArabic": {
       "tag": "v0.1.2",
@@ -653,7 +688,10 @@
           "path": "BloxwapSansArabic/woff2/BloxwapSansArabic-Thin.woff2",
           "sha256": "b1d22e11b361b9ba7a073f48a39a228c4e4a717d933c3affecc383f7b37b70ef"
         }
-      ]
+      ],
+      "variableFiles": {
+        "BloxwapSansArabic[wght].woff2": "244db8481e159000b6e58d939140eb53fd46854cb1ec7bb48a2037ed4a7667b1"
+      }
     },
     "BloxwapSansArmenian": {
       "tag": "v0.1.2",
@@ -732,7 +770,11 @@
           "path": "BloxwapSansArmenian/woff2/BloxwapSansArmenian-ThinItalic.woff2",
           "sha256": "61ca5a8806e7be6e491d20401953d8da55cf6fbdfd2e5167aec9b79643e8e672"
         }
-      ]
+      ],
+      "variableFiles": {
+        "BloxwapSansArmenian-Italic[wght].woff2": "66477814cef4ecf0783c59362c3fd2ad324a0fc0eb09ee7922ae6516bfce91aa",
+        "BloxwapSansArmenian[wght].woff2": "954ea6d59f0aff1c2baa0586549b07de986cbf0b2f50886b4ebb44d4e6dad38b"
+      }
     },
     "BloxwapSansGeorgian": {
       "tag": "v0.1.2",
@@ -811,7 +853,11 @@
           "path": "BloxwapSansGeorgian/woff2/BloxwapSansGeorgian-ThinItalic.woff2",
           "sha256": "8607376c31259b2a072183b6a90d02adb049a29ad751e3952d8a404bef698cd6"
         }
-      ]
+      ],
+      "variableFiles": {
+        "BloxwapSansGeorgian-Italic[wght].woff2": "e3d98c091dcae38dbd3f9f9bd91a5d06a9612447ac87b11b22587d61366dada2",
+        "BloxwapSansGeorgian[wght].woff2": "df5eb69cb0a280b26e3160338ea13a1a11a3170682f6e70694117f5c71c06ff7"
+      }
     },
     "BloxwapSansHebrew": {
       "tag": "v0.1.2",
@@ -854,7 +900,10 @@
           "path": "BloxwapSansHebrew/woff2/BloxwapSansHebrew-Thin.woff2",
           "sha256": "dbb883067bbbd022137d3960252d7e4941ba26c5fd652960d74396cb009c2902"
         }
-      ]
+      ],
+      "variableFiles": {
+        "BloxwapSansHebrew[wght].woff2": "674738e06825b1e32372740373bae68883eee16e375587eb095f57610eb65bfa"
+      }
     },
     "BloxwapSansJP": {
       "tag": "v0.1.2",
@@ -897,7 +946,10 @@
           "path": "BloxwapSansJP/woff2/BloxwapSansJP-Thin.woff2",
           "sha256": "e04cc57c9ff06c4cad32c09442b7fcebea24e30300dc7a9efb188369336f1b20"
         }
-      ]
+      ],
+      "variableFiles": {
+        "BloxwapSansJP[wght].woff2": "d02c503c1dba77c9a8493fbb68eb9abd636c2eec90469f9f4870074295d38632"
+      }
     },
     "BloxwapSansKR": {
       "tag": "v0.1.2",
@@ -940,7 +992,10 @@
           "path": "BloxwapSansKR/woff2/BloxwapSansKR-Thin.woff2",
           "sha256": "d1efa4a05c1ccbd3fa71106935b87d63f49dd98008e9ab51b0050bfccca8d7c2"
         }
-      ]
+      ],
+      "variableFiles": {
+        "BloxwapSansKR[wght].woff2": "ac41500ba7546e204d07499266cadb848e24c0e9935c2616124aedcfba5a9737"
+      }
     },
     "BloxwapSansSC": {
       "tag": "v0.1.2",
@@ -983,7 +1038,10 @@
           "path": "BloxwapSansSC/woff2/BloxwapSansSC-Thin.woff2",
           "sha256": "ff66f073f3a43a31d9b5a83ed7628f3e236c4d60f1fa756ee9c68e0c1602dcdf"
         }
-      ]
+      ],
+      "variableFiles": {
+        "BloxwapSansSC[wght].woff2": "c0244998e334bbd997dc9acfaf3f10bce169facfec1cf2bbcfc4db38c7122893"
+      }
     }
   }
 }

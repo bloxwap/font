@@ -33,6 +33,7 @@ type Align = 'left' | 'center' | 'right';
 
 function scriptSample(meta: TesterFamily | undefined): string | null {
   if (!meta?.companion) return null;
+  if (meta.id.endsWith('-jp')) return 'あいうえお アイウエオ 日本語';
   const script = meta.scripts.find((s) => SCRIPT_SAMPLES[s]);
   return script ? SCRIPT_SAMPLES[script]! : null;
 }
@@ -63,6 +64,7 @@ export function TypeTester({ families }: { families: TesterFamily[] }) {
   const [text, setText] = useState(SAMPLES.pangram!);
   const [pressedWeight, setPressedWeight] = useState<number | null>(null);
   const textRef = useRef<HTMLDivElement>(null);
+  const sampleGeneration = useRef(0);
 
   const featureList = useMemo(() => {
     const list = meta?.features.length ? meta.features : FALLBACK_FEATURES.map((tag) => ({ tag, label: '' }));
@@ -76,6 +78,7 @@ export function TypeTester({ families }: { families: TesterFamily[] }) {
 
   // Write text into the editable box only when it changes programmatically (typing stays uncontrolled).
   const replaceText = useCallback((next: string) => {
+    sampleGeneration.current++;
     setText(next);
     if (textRef.current) textRef.current.innerText = next;
   }, []);
@@ -91,10 +94,12 @@ export function TypeTester({ families }: { families: TesterFamily[] }) {
   }, [meta, wa, ra]);
 
   const applySample = useCallback(async (kind: string, id: string) => {
+    const generation = ++sampleGeneration.current;
     setSample(kind);
     const target = byId.get(id);
     if (kind === 'charset') {
       const glyphs = await loadGlyphs(id);
+      if (generation !== sampleGeneration.current) return;
       if (!glyphs) { replaceText('ABCDEFGHIJKLMNOPQRSTUVWXYZ\nabcdefghijklmnopqrstuvwxyz\n0123456789 !?&@#$%'); return; }
       const groups = new Map<string, string[]>();
       for (const g of glyphs) {
@@ -120,6 +125,7 @@ export function TypeTester({ families }: { families: TesterFamily[] }) {
 
   // Requests from the glyph browser and language list (same page), or ?family=&text=&lang= links.
   const handleRequest = useCallback((request: TesterRequest, scroll: boolean) => {
+    sampleGeneration.current++;
     if (request.family && byId.has(request.family)) setFamilyId(request.family);
     if (request.lang !== undefined) { setLang(request.lang); setExtraLang(request.lang || null); }
     if (request.text) { setSample('custom'); replaceText(request.text); }
@@ -174,21 +180,21 @@ export function TypeTester({ families }: { families: TesterFamily[] }) {
   const langOptions = useMemo(() => {
     const seen = new Set<string>();
     const out: { value: string; label: string }[] = [];
-    for (const lang of [...(meta?.languages ?? []), ...(extraLang ? [extraLang] : [])]) {
-      if (seen.has(lang)) continue;
-      seen.add(lang);
-      let label = lang;
-      try { label = displayNames?.of(lang) ?? lang; } catch { /* not a BCP 47 code */ }
-      out.push({ value: lang, label: `${label} (${lang})` });
+    for (const code of [...(meta?.languages ?? []), ...(lang ? [lang] : []), ...(extraLang ? [extraLang] : [])]) {
+      if (seen.has(code)) continue;
+      seen.add(code);
+      let label = code;
+      try { label = displayNames?.of(code) ?? code; } catch { /* not a BCP 47 code */ }
+      out.push({ value: code, label: `${label} (${code})` });
     }
     return out;
-  }, [meta, extraLang, displayNames]);
+  }, [meta, lang, extraLang, displayNames]);
 
   const cssLines: [string, string][] = [
     ['font-family', `"${name}"`], ['font-size', `${size}px`], ['font-weight', String(wght)],
     ...(italic ? [['font-style', 'italic'] as [string, string]] : []),
     ...(ra ? [['font-variation-settings', `"ROND" ${rond}`] as [string, string]] : []),
-    ['line-height', lh.toFixed(2)],
+    ['line-height', lh.toFixed(2)], ['text-align', align],
     ...(ls !== 0 ? [['letter-spacing', `${ls}em`] as [string, string]] : []),
     ...(featureCss ? [['font-feature-settings', featureCss] as [string, string]] : []),
   ];
@@ -263,7 +269,7 @@ export function TypeTester({ families }: { families: TesterFamily[] }) {
       <div className="t-view" id="t-view-text" role="tabpanel" hidden={view !== 'text'}>
         <div ref={textRef} className="t-text" style={textStyle} lang={lang || undefined} dir={dir} contentEditable suppressContentEditableWarning
           spellCheck={false} role="textbox" aria-multiline="true" aria-label="Type tester text, editable"
-          onInput={(e) => setText((e.target as HTMLDivElement).innerText.replace(/\n+$/, ''))} onPaste={plainPaste}>{SAMPLES.pangram}</div>
+          onInput={(e) => { sampleGeneration.current++; setText((e.target as HTMLDivElement).innerText.replace(/\n+$/, '')); }} onPaste={plainPaste}>{SAMPLES.pangram}</div>
       </div>
       <div className="t-view" id="t-view-waterfall" role="tabpanel" hidden={view !== 'waterfall'}>
         <div className="waterfall">{view === 'waterfall' && WATERFALL.map((s) => <div className="wf-row" key={s}>
@@ -282,6 +288,7 @@ export function TypeTester({ families }: { families: TesterFamily[] }) {
       <div className="css-out">
         <pre className="css-code" aria-label="CSS for this setting">{cssLines.map(([k, v], i) => <span key={k}>{i ? '\n' : ''}<span className="k">{k}</span>: {v};</span>)}</pre>
         <CopyTextButton text={cssText} label="Copy CSS" />
+        {lang && <p>Apply these styles to an element with <code>lang={JSON.stringify(lang)}</code>.</p>}
       </div>
     </div>
   </div>;

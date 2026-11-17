@@ -1,5 +1,6 @@
 'use client';
 
+import { plainPaste } from '../home/pixel-specimen';
 import { useState } from 'react';
 import { Range, Switch } from '@/components/ui/controls';
 import { fontStack, instanceName } from '@/lib/families';
@@ -17,7 +18,7 @@ export function FamilySpecimenClient({ name, style, axes, hasItalic, instances, 
   const language = name.endsWith('Arabic') ? 'ar' : name.endsWith('Hebrew') ? 'he'
     : name.endsWith('Armenian') ? 'hy' : name.endsWith('Georgian') ? 'ka' : undefined;
   return <figure className="bw-specimen not-prose" aria-label={`${name} specimen`}>
-    <div className="bw-specimen-text" style={css} lang={language} dir="auto" contentEditable suppressContentEditableWarning spellCheck={false} role="textbox" aria-label={`${name} specimen text, editable`}>{text}</div>
+    <div className="bw-specimen-text" style={css} lang={language} dir="auto" onPaste={plainPaste} contentEditable suppressContentEditableWarning spellCheck={false} role="textbox" aria-label={`${name} specimen text, editable`}>{text}</div>
     {small && <div className="bw-specimen-text bw-specimen-text--small" style={css} lang={language} dir="auto">{small}</div>}
     <figcaption className="bw-specimen-controls">
       {axes.map((a) => <Range key={a.tag} label={<>{a.name} <code>{a.tag}</code></>} min={a.min} max={a.max} value={values[a.tag] ?? a.default}

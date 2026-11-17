@@ -67,6 +67,7 @@ export function GlyphBrowser({ families, initial = 'sans', eyebrow = '05 — Gly
   if (previousFilterKey !== filterKey) {
     setPreviousFilterKey(filterKey);
     setLimit(PAGE);
+    setSelKey(null);
   }
 
   const categories = useMemo(() => {

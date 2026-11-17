@@ -169,9 +169,9 @@ def rel(p: Path) -> str:
 def find_variable(fid: str, stem: str) -> tuple[Path | None, Path | None]:
     """Return (upright, italic) variable TTF paths for a family, or (None, None)."""
     candidates = [
+        (PUBLIC / "fonts" / stem / "variable", "woff2"),
         (ROOT / "fonts" / stem / "variable", "ttf"),
         (ROOT / "build" / fid / "variable", "ttf"),
-        (PUBLIC / "fonts" / stem / "variable", "woff2"),
     ]
     for d, ext in candidates:
         if not d.is_dir():
@@ -333,7 +333,22 @@ def gsub_map(font: TTFont, cmap: dict[int, str]) -> tuple[dict[str, tuple[str, s
                             affected.setdefault(tag, set()).add(txt)
                         if dst not in rev and dst not in reach:
                             reach[dst] = (txt, tag)
-    return reach, affected
+    import io
+    import uharfbuzz as hb
+    buffer = io.BytesIO()
+    flavor = font.flavor
+    font.flavor = None
+    font.save(buffer)
+    font.flavor = flavor
+    shaper = hb.Font(hb.Face(buffer.getvalue()))
+    names = font.getGlyphOrder()
+    verified = {}
+    for glyph, (text, feature) in reach.items():
+        buf = hb.Buffer(); buf.add_str(text); buf.guess_segment_properties(); buf.language = 'en'
+        hb.shape(shaper, buf, {feature: 1})
+        if glyph in [names[i.codepoint] for i in buf.glyph_infos]:
+            verified[glyph] = (text, feature)
+    return verified, affected
 
 
 def features_of(font: TTFont, affected: dict[str, set[str]]) -> tuple[list[dict], list[dict]]:
@@ -491,7 +506,14 @@ def prepare_language_cache() -> None:
 
 
 def languages_of(path: Path) -> dict:
-    """Cache successful Hyperglot results by exact font bytes and package version."""
+    """Cache successful Hyperglot results by exact decompressed font bytes."""
+    if path.suffix == '.woff2':
+        with tempfile.TemporaryDirectory() as temporary:
+            sfnt = Path(temporary) / 'font.ttf'
+            with TTFont(path) as font:
+                font.flavor = None
+                font.save(sfnt)
+            return languages_of(sfnt)
     cache = None
     try:
         hyperglot_version = version("hyperglot")
@@ -566,6 +588,13 @@ def _languages_of(path: Path) -> dict:
 
 
 def _check_languages(path: Path, checker) -> dict:
+    if path.suffix == '.woff2':
+        with tempfile.TemporaryDirectory() as temporary:
+            sfnt = Path(temporary) / 'font.ttf'
+            with TTFont(path) as font:
+                font.flavor = None
+                font.save(sfnt)
+            return _check_languages(sfnt, checker)
     try:
         support = checker(str(path)).get_supported_languages()
     except Exception as e:
@@ -720,6 +749,14 @@ def dev_populate(stem: str, upright: Path, italic: Path | None) -> None:
 
 def build_family(fid: str, stem: str, display: str, blurb: str, args) -> dict | None:
     upright, italic = find_variable(fid, stem)
+    if args.dev_fonts:
+        for directory in (ROOT / 'fonts' / stem / 'variable', ROOT / 'build' / fid / 'variable'):
+            candidates = sorted(directory.glob(f'{stem}[[]*].ttf'))
+            if candidates:
+                upright = candidates[0]
+                italics = sorted(directory.glob(f'{stem}-Italic[[]*].ttf'))
+                italic = italics[0] if italics else None
+                break
     if upright is None:
         print(f"site_data: {display}: not built yet (no fonts/{stem}/variable, build/{fid}/variable "
               f"or apps/docs/public/fonts/{stem}/variable) — skipping")
@@ -732,6 +769,16 @@ def build_family(fid: str, stem: str, display: str, blurb: str, args) -> dict | 
     features, locl = features_of(font, affected)
     glyphs = glyphs_of(font, cmap, reach)
     langs = {"count": 0, "scripts": [], "skipped": True} if args.no_languages else languages_of(upright)
+    for iso, supported in [('cmn', not fid.endswith('-jp') and sum(script_of(cp) == 'Han' for cp in cmap) >= HAN_LANGUAGE_MIN),
+                           ('jpn', sum(script_of(cp) == 'Han' for cp in cmap) >= KANJI_LANGUAGE_MIN and sum(script_of(cp) in ('Hiragana', 'Katakana') for cp in cmap) >= 150)]:
+        if supported:
+            row = dict(CHARACTER_LANGUAGES[iso]); script = row.pop('script')
+            group = next((s for s in langs['scripts'] if s['script'] == script), None)
+            if group is None:
+                group = {'script': script, 'count': 0, 'languages': []}; langs['scripts'].append(group)
+            if not any(r['iso'] == iso for r in group['languages']):
+                group['languages'].append(row); group['count'] += 1
+    langs['count'] = len({r['iso'] for s in langs['scripts'] for r in s['languages']})
     files = files_of(stem)
     cats: dict[str, int] = {}
     for g in glyphs:
@@ -830,6 +877,7 @@ def totals_of(ids: list[str]) -> tuple[dict, dict]:
             if u is None:
                 continue
             chars.add(u)
+            chars.update(g.get('alt', []))
             if g.get("s") not in ("Common", "Inherited", None):
                 scripts.add(g["s"])
             if g.get("s") == "Han":
@@ -858,8 +906,9 @@ def totals_of(ids: list[str]) -> tuple[dict, dict]:
         isos.add(iso)
         row = dict(CHARACTER_LANGUAGES[iso])
         script = row.pop("script")
-        rows[f"{script}:{iso}"] = {**row, "family": fid, "families": [fid]}
-        order.setdefault(script, []).append(f"{script}:{iso}")
+        if f"{script}:{iso}" not in rows:
+            rows[f"{script}:{iso}"] = {**row, "family": fid, "families": [fid]}
+            order.setdefault(script, []).append(f"{script}:{iso}")
     # a handful of Han characters (e.g. in enclosed forms) don't make a Han script family
     if not chinese and han < 100:
         scripts.discard("Han")
@@ -891,6 +940,8 @@ def main(argv=None) -> int:
     args = ap.parse_args(argv)
 
     DATA.mkdir(parents=True, exist_ok=True)
+    import re
+    asset_version = re.search(r"FONT_VERSION = '([^']+)'", (PUBLIC.parent / "lib/font-version.ts").read_text())[1]
     built: dict[str, dict] = {}
     try:
         workers = int(os.environ.get("SITE_DATA_JOBS", str(os.cpu_count() or 1)))
@@ -903,12 +954,12 @@ def main(argv=None) -> int:
     families = [f for f in FAMILIES if not args.only or f[0] in args.only]
     with ProcessPoolExecutor(max_workers=min(workers, len(families))) as executor:
         futures = [executor.submit(build_family, *family, args) for family in families]
-        for (fid, stem, display, blurb), future in zip(families, futures):
+        results = [future.result() for future in futures]
+        for (fid, stem, display, blurb), result in zip(families, results):
             try:
-                data = future.result()
-            except Exception as e:  # never let one broken font kill the whole site build
-                warn(f"{display}: failed: {e!r} — skipping")
-                data = None
+                data = result
+            except Exception as e:  # preserve prior output when generation fails
+                raise RuntimeError(f'{display}: metadata generation failed; previous data retained') from e
             out = DATA / f"{fid}.json"
             out_glyphs = DATA / f"{fid}.glyphs.json"
             if data is None:
@@ -916,9 +967,10 @@ def main(argv=None) -> int:
                     if p.exists():
                         p.unlink()
                 continue
+            data["assetVersion"] = asset_version
             glyphs = data.pop("glyphs")
             out.write_text(json.dumps(data, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
-            out_glyphs.write_text(json.dumps({"id": fid, "glyphs": glyphs}, ensure_ascii=False, separators=(",", ":")),
+            out_glyphs.write_text(json.dumps({"id": fid, "glyphs": glyphs, "assetVersion": asset_version}, ensure_ascii=False, separators=(",", ":")),
                                   encoding="utf-8")
             c = data["counts"]
             top = ", ".join(f"{s['count']} {s['script']}" for s in data["coverage"]["scripts"][:4])
@@ -947,6 +999,8 @@ def main(argv=None) -> int:
         "families": [built[fid] for fid in _FAMILY_DEFS if fid in built],
     }
     index["totals"], languages = totals_of([fid for fid in _FAMILY_DEFS if fid in built])
+    languages["assetVersion"] = asset_version
+    index["assetVersion"] = asset_version
     (DATA / "languages.json").write_text(json.dumps(languages, ensure_ascii=False, separators=(",", ":")),
                                          encoding="utf-8")
     allzip = PUBLIC / "downloads" / "Bloxwap-Fonts.zip"

@@ -52,7 +52,7 @@ export function Segmented<T extends string>({ label, options, value, onChange, s
   return <div ref={ref} className={`seg${small ? ' seg--sm' : ''} ${className ?? ''}`} role={role === 'tab' ? 'tablist' : 'radiogroup'} aria-label={label} onKeyDown={onKeyDown}>
     {options.map((o) => {
       const on = o.value === value;
-      return <button key={o.value} type="button" data-value={o.value} role={role} tabIndex={on ? 0 : -1}
+      return <button key={o.value} type="button" data-value={o.value} role={role} tabIndex={on || (!options.some((option) => option.value === value) && o === options[0]) ? 0 : -1}
         aria-checked={role === 'radio' ? on : undefined} aria-selected={role === 'tab' ? on : undefined}
         aria-controls={controls?.(o.value)} aria-label={o.ariaLabel} title={o.title}
         onClick={() => onChange(o.value)}>{o.label}</button>;

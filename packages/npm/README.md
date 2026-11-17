@@ -123,8 +123,8 @@ records the original WOFF2 bytes. Release zips and the package retain the OFL li
 After rebuilding fonts, run `packages/font/.venv/bin/python packages/npm/scripts/static_sources.py lock --tag v<upcoming-version>`
 from the repository root and commit the lock alongside the rebuilt variable fonts and site data.
 `lock` reads local zips in `apps/docs/public/downloads/`; `fetch` verifies dist inputs and
-fetches missing families (optionally `--family BloxwapSans`). The release script refreshes
-the lock before uploading; the pinned release assets must be available before npm CI builds.
+fetches missing families (optionally `--family BloxwapSans`). The release script verifies
+the committed lock before uploading; the pinned release assets must be available before npm CI builds.
 
 The build generates the complete package in parallel using one process per CPU.
 Source and output hashes validate cached native TTFs, so unchanged builds and packs

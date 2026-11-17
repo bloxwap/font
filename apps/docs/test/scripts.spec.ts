@@ -1,3 +1,4 @@
+import { RELEASE_TAG } from '../lib/release-version';
 import { test, expect } from '@playwright/test';
 
 const live = process.env.DOCS_URL;
@@ -38,7 +39,7 @@ for (const script of scripts) {
       const data = await request.get(new URL(`data/${style.toLowerCase()}-${script.id}.json`, live!).href);
       expect(data.ok()).toBe(true);
       expect((await data.json()).hasItalic).toBe(script.italic);
-      const zip = await request.get(`https://github.com/bloxwap/font/releases/latest/download/Bloxwap${style}${script.name}.zip`);
+      const zip = await request.get(`https://github.com/bloxwap/font/releases/download/${RELEASE_TAG}/Bloxwap${style}${script.name}.zip`);
       expect(zip.ok()).toBe(true);
       expect((await zip.body()).subarray(0, 2).toString()).toBe('PK');
     }

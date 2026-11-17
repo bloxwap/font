@@ -1,3 +1,4 @@
+import { RELEASE_TAG } from './release-version';
 import { FONT_VERSION } from './font-version';
 
 export const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
@@ -20,16 +21,16 @@ export function fileUrl(path: string, { version = true } = {}): string {
 /** Absolute URL of a public file on the deployed site (for copy-paste snippets). */
 export function publicUrl(path: string): string {
   const encoded = path.split('/').map(encodeURIComponent).join('/');
-  return `${siteUrl}${basePath || '/font'}/${encoded}`;
+  return `${siteUrl}${basePath}/${encoded}`;
 }
 
 /**
  * A download zip by its data-JSON path (e.g. "downloads/BloxwapSans.zip"). The zips are GitHub Release assets, not
  * committed files: `bun run fonts:build` writes them to apps/docs/public/downloads (ignored), and they are uploaded to
- * the release with `bun run fonts:release`. `latest/download` always resolves to the newest release.
+ * the release with `bun run fonts:release`. The release tag is pinned to the same inventory as the source lock.
  */
 export function downloadUrl(path: string): string {
-  return `${repository}/releases/latest/download/${encodeURIComponent(path.split('/').pop()!)}`;
+  return `${repository}/releases/download/${RELEASE_TAG}/${encodeURIComponent(path.split('/').pop()!)}`;
 }
 
 export const stylesheetHref = `${basePath}/bloxwap-font.css?v=${FONT_VERSION}`;

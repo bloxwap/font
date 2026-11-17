@@ -17,3 +17,33 @@ From the repository root, build the fonts or refresh the website copies:
   bun run docs:data        # data only`);
   process.exit(1);
 }
+
+// Download URLs must identify the same immutable release as the source lock.
+const lock = JSON.parse(await (await import('node:fs/promises')).readFile(new URL('../../../packages/npm/static-sources.json', import.meta.url), 'utf8'));
+const { RELEASE_TAG } = await import('../lib/release-version');
+if (Object.values(lock.families).some((entry) => (entry as { tag: string }).tag !== RELEASE_TAG)) {
+  throw new Error('Download release and static source pins differ; update lib/release-version.ts');
+}
+
+// A stale version constant must never bless a mixture of old metadata and new fonts.
+const { createHash } = await import('node:crypto');
+const { readdir, readFile } = await import('node:fs/promises');
+const { FONT_VERSION } = await import('../lib/font-version');
+async function fontPaths(directory: string): Promise<string[]> {
+  const entries = await readdir(pub + directory, { withFileTypes: true });
+  const paths: string[] = [];
+  for (const entry of entries) {
+    const path = `${directory}/${entry.name}`;
+    if (entry.isDirectory()) paths.push(...await fontPaths(path));
+    else if (path.endsWith('.woff2')) paths.push(path);
+  }
+  return paths;
+}
+const hash = createHash('sha1');
+for (const path of (await fontPaths('fonts')).sort()) {
+  hash.update(path);
+  hash.update(await readFile(pub + path));
+}
+if (hash.digest('hex').slice(0, 10) !== FONT_VERSION) {
+  throw new Error('Hosted fonts changed without regenerating the stylesheet and metadata');
+}

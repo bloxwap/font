@@ -65,7 +65,8 @@ def lock_sources(tag, downloads=DOWNLOADS, output=LOCK):
             if not paths or len(paths) != len(set(paths)) or set(paths) != expected:
                 raise RuntimeError(f'Incomplete, unexpected or duplicate static WOFF2 entries in {asset}')
             files = [dict(path=p, sha256=sha256(zipped.read(p))) for p in paths]
-        families[family] = dict(tag=tag, asset=asset, sha256=sha256(data), files=files)
+        families[family] = dict(tag=tag, asset=asset, sha256=sha256(data), files=files,
+                                variableFiles={p.name: sha256(p.read_bytes()) for p in sorted(variables)})
     if not families:
         raise RuntimeError('No font families found')
     result = dict(schemaVersion=1, license='OFL-1.1', families=families)
@@ -111,6 +112,15 @@ def resolve_sources(families=None, lock=None, dist=DIST, cache=None):
     sources = {}
     for family in sorted(families if families is not None else locked['families']):
         entry = locked['families'][family]
+        if lock is None:
+            variables = entry.get('variableFiles')
+            if not variables:
+                raise RuntimeError(f'{family}: missing variable source pins; regenerate the lock')
+            directory = REPO / 'apps/docs/public/fonts' / family / 'variable'
+            if {p.name for p in directory.glob('*.woff2')} != set(variables):
+                raise RuntimeError(f'{family}: variable source inventory changed')
+            for name, expected in variables.items():
+                verify((directory / name).read_bytes(), expected, name)
         archive = None
         for file in entry['files']:
             local = dist / file['path']

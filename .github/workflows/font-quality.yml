@@ -40,12 +40,12 @@ jobs:
           while IFS= read -r file || [ -n "$file" ]; do
             [ -z "$file" ] && continue
             case "$file" in
-              apps/next-fixture/*|packages/npm/*|LICENSE|apps/docs/public/*)
+              apps/next-fixture/*|packages/npm/*|packages/font/*|scripts/*|LICENSE|apps/docs/public/*)
                 assets=true
                 ;;
             esac
             case "$file" in
-              apps/docs/*|vendor/bloxwap-hig/*|bunfig.toml)
+              apps/docs/*|packages/font/*|scripts/*|vendor/bloxwap-hig/*|bunfig.toml)
                 docs=true
                 ;;
             esac
@@ -88,6 +88,11 @@ jobs:
       # GitHub cache save of this tree has taken 41–887s on these minis.
       # Fetch public, hash-pinned family zips only when dist sources are absent.
       # Use job-local storage without a GitHub cache save.
+      - name: Check font generation invariants
+        run: |
+          bun run fonts:setup
+          PYTHONPATH=packages/font/tools packages/font/.venv/bin/python -m unittest test_postprocess test_site_data test_unicode test_build_pool test_robust
+          packages/font/.venv/bin/python packages/font/tools/test_subsets.py
       - name: Generate package fonts
         run: node packages/npm/scripts/build.mjs
       # Tests read the same verified zip sources.
