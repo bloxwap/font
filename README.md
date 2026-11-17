@@ -56,7 +56,7 @@ Core CSS keeps all Latin coverage (including Latin Extended, IPA and Vietnamese)
 
 One family name covers every script: the stylesheet loads companions with `unicode-range` only when a page uses them. Downloads: [latest release](https://github.com/bloxwap/font/releases/latest). Self-hosting: [Installation](https://bloxwap.github.io/font/docs/installation/).
 
-Expo and React Native use the same `@bloxwap/font` package (0.1.5):
+Expo and React Native use the same `@bloxwap/font` package (0.2.0):
 
 ```js
 const regular = require('@bloxwap/font/native/assets/BloxwapSans/BloxwapSans-Regular.ttf');
@@ -70,7 +70,7 @@ for registration and migration from the former `@bloxwap/font-native*` packages.
 
 ## Release status
 
-`0.1.5` is the current release. Expect breaking changes before `1.0`.
+`0.2.0` is the current release. Expect breaking changes before `1.0`.
 
 ## Documentation
 
