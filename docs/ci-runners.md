@@ -12,9 +12,9 @@ Mac mini jobs do not call `apt`, `sudo`, or `playwright install --with-deps`. Sy
 
 [npm trusted publishing and provenance require GitHub-hosted runners](https://docs.npmjs.com/trusted-publishers/). Only `publish` in `publish_npm.yml` runs on GitHub-hosted `ubuntu-24.04`; all other jobs, including the existing security scan, stay on the minis. It builds locally on that runner with Node 24, npm 11.6.1, Python 3.13 and pinned pip dependencies, with no package-manager cache.
 
-Configure the GitHub `npm-release` environment with required reviewers; the workflow references this environment, but required reviewers must be configured in repository settings. The job grants only `contents: read` and `id-token: write` and publishes with `--provenance`, including when token fallback is used.
+Configure the GitHub `npm-release` environment with required reviewers; the workflow references this environment, but required reviewers must be configured in repository settings. The job grants only `contents: read` and `id-token: write` and publishes with `--provenance` through OIDC trusted publishing.
 
-Releases continue to work before npm configuration using the existing `NPM_TOKEN` secret as a transitional fallback, scoped to authentication, publish, and deprecation steps. On npmjs.com, configure the `@bloxwap/font` Trusted Publisher for organization `bloxwap`, repository `font`, workflow filename `publish_npm.yml`, and environment `npm-release`. Verify trusted publishing works, then delete `NPM_TOKEN` and its fallback bindings. Without a token, the authentication check accepts GitHub OIDC. `npm deprecate` cannot use OIDC, so deprecation emits a warning and is skipped when the token is absent.
+Keep the `@bloxwap/font` Trusted Publisher bound to organization `bloxwap`, repository `font`, workflow filename `publish_npm.yml`, and environment `npm-release`. `@bloxwap/font@0.2.0` already published this way with SLSA provenance, and the transitional `NPM_TOKEN` fallback has been removed from the auth-check and publish steps. The authentication check accepts GitHub OIDC without a token. `npm deprecate` cannot use OIDC, so the superseded native-package deprecation step still reads `NPM_TOKEN` when present and emits a warning and skips when the token is absent.
 
 ## Runner labels
 

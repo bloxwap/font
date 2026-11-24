@@ -91,8 +91,6 @@ jobs:
 
       # Check authentication even if the version below is already published.
       - name: Verify npm publish authentication
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: node scripts/check-publish-auth.mjs
 
       - name: Skip if this version is already on npm
@@ -125,11 +123,8 @@ jobs:
         run: npm pack --dry-run --ignore-scripts
 
       # The shared build above generated all assets; publishConfig.access is public.
-      # Transitional token fallback: delete once the npm Trusted Publisher works.
       - name: Publish @bloxwap/font@${{ steps.version.outputs.value }}
         if: steps.exists.outputs.published != 'true'
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npm publish --provenance --ignore-scripts --loglevel verbose
 
       # npm accepts uploads before its publish-time scan makes them installable.
